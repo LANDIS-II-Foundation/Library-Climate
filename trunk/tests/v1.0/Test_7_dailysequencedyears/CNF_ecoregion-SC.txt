@@ -1,0 +1,7 @@
+LandisData	"Ecoregions"		
+
+>> 	Map Code		
+>>Active	Name	Description
+>>--------------------------------------------------------			
+yes	3	MN100		"the universe"
+

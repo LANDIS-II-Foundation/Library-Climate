@@ -1,0 +1,12 @@
+LandisData "Climate Config"				
+		
+>>-----daily_ipccclimate_degC_mm/day-units
+
+ClimateTimeSeries			Daily_AverageAllYears
+ClimateFile				GFDLA1fi_6.20.13_SC.csv
+ClimateFileFormat			Daily_Temp-C_Precip-mmDay
+
+SpinUpClimateTimeSeries			Daily_AverageAllYears
+SpinUpClimateFile			GFDLA1fi_6.20.13_SC.csv
+SpinUpClimateFileFormat			Daily_Temp-C_Precip-mmDay
+
