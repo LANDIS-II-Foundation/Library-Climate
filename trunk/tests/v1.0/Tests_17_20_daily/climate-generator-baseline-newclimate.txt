@@ -1,0 +1,12 @@
+LandisData "Climate Config"				
+		
+>>-----daily_Mauer
+
+ClimateTimeSeries			Daily_RandomYear
+ClimateFile				WillowCreek_10072014.csv
+ClimateFileFormat			Daily_Temp-C_Precip-mmDay
+
+SpinUpClimateTimeSeries			Daily_AverageAllYears
+SpinUpClimateFile			WillowCreek_10072014-oneyear.csv
+SpinUpClimateFileFormat			Daily_Temp-C_Precip-mmDay
+

@@ -1,0 +1,6 @@
+#  project information
+
+project-name	Landis.Library.Climate
+project-type	library
+version		1.0
+release         official
