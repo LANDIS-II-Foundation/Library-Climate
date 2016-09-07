@@ -248,7 +248,7 @@ namespace Landis.Library.Climate
             
             double availableWaterCapacity = fieldCapacity - wiltingPoint;
 
-            Climate.ModelCore.UI.WriteLine("   Core.StartTime = {0}, Core.EndTime = {1}.", ModelCore.StartTime, ModelCore.EndTime);
+            Climate.TextLog.WriteLine("Core.StartTime = {0}, Core.EndTime = {1}.", ModelCore.StartTime, ModelCore.EndTime);
             //Climate.ModelCore.UI.WriteLine("   Climate.LandscapeAnnualPDSI.Length = {0}.", Climate.LandscapeAnnualPDSI.Length);
 
             //First Calculate Climate Normals from Spin-up data

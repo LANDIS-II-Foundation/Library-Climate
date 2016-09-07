@@ -64,7 +64,7 @@ namespace  Landis.Library.Climate
                         actualTimeStep = 0;
                         monthlyData = AnnualClimate_AvgMonth(ecoregion, latitude);
                         CalculateMonthlyData(ecoregion, monthlyData, actualTimeStep, latitude);
-                        //Climate.ModelCore.UI.WriteLine("  Completed calculations for {0} using AVERAGE MONTHLY data. Ecoregion = {1}, SimulatedYear = AVERAGED.", this.climatePhase, ecoregion.Name, actualTimeStep);
+                        Climate.TextLog.WriteLine("  Completed calculations for {0} using AVERAGE MONTHLY data. Ecoregion = {1}, SimulatedYear = AVERAGED.", this.climatePhase, ecoregion.Name, actualTimeStep);
                         break;
                     }
 
@@ -73,7 +73,7 @@ namespace  Landis.Library.Climate
                         TimeStep = timeStep;
                         actualTimeStep = 0;
                         monthlyData = AnnualClimate_AvgMonth(ecoregion, latitude);
-                        //Climate.ModelCore.UI.WriteLine("  Completed calculations for {0} from AVERAGE MONTHLY data. Ecoregion = {1}, SimulatedYear = AVERAGED.", this.climatePhase, ecoregion.Name, actualTimeStep);
+                        Climate.TextLog.WriteLine("  Completed calculations for {0} from AVERAGE MONTHLY data. Ecoregion = {1}, SimulatedYear = AVERAGED.", this.climatePhase, ecoregion.Name, actualTimeStep);
                         //timestepData = AnnualClimate_AvgMonth(ecoregion, monthlyDataKey, latitude);
                         //CalculateMonthlyData_AddVariance(ecoregion, monthlyData, actualTimeStep, latitude);
                         break;
@@ -103,8 +103,7 @@ namespace  Landis.Library.Climate
                             actualTimeStep = randomKeyList[timeStepIndex];
 
                         //Climate.ModelCore.UI.WriteLine("  AnnualClimate_Monthly: Monthly_RandomYear: timeStep = {0}, actualYear = {1}, phase = {2}.", timeStep, actualTimeStep, this.climatePhase);
-                        //Climate.ModelCore.UI.WriteLine("  Completed calculations for FutureData using AnnualClimate_Monthly: SimulatedYear = {0}, actualYearSelected = {1}.", timeStep, actualTimeStep);
-                        //Climate.ModelCore.UI.WriteLine("  Completed calculations for {0} using RandomYear_Monthly. Ecoregion = {1}, SimulatedYear = {2}, actualYearUsed={3}.", this.climatePhase, ecoregion.Name, timeStep, actualTimeStep);
+                        Climate.TextLog.WriteLine("  Completed calculations for {0} using RandomYear_Monthly. Ecoregion = {1}, SimulatedYear = {2}, actualYearUsed={3}.", this.climatePhase, ecoregion.Name, timeStep, actualTimeStep);
 
                         monthlyData = allData[actualTimeStep][ecoregion.Index];
                         CalculateMonthlyData(ecoregion, monthlyData, actualTimeStep, latitude);
@@ -135,7 +134,7 @@ namespace  Landis.Library.Climate
                         monthlyData = yearRecords[ecoregion.Index];
                         CalculateMonthlyData(ecoregion, monthlyData, actualTimeStep, latitude);
 
-                        //Climate.ModelCore.UI.WriteLine("  Completed calculations for {0} using Monthly_SequencedYears. Ecoregion = {1}, SimulatedYear = {2}, actualYearUsed={3}.", this.climatePhase, ecoregion.Name, timeStep, actualTimeStep);
+                        Climate.TextLog.WriteLine("  Completed calculations for {0} using Monthly_SequencedYears. Ecoregion = {1}, SimulatedYear = {2}, actualYearUsed={3}.", this.climatePhase, ecoregion.Name, timeStep, actualTimeStep);
                         break;
                     }
                 case "Daily_RandomYears":
@@ -162,7 +161,7 @@ namespace  Landis.Library.Climate
                         else
                             actualTimeStep = randomKeyList[timeStepIndex];
 
-                        //Climate.ModelCore.UI.WriteLine("  Completed calculations for {0} using Daily_RandomYear. Ecoregion = {1}, SimulatedYear = {2}, actualYearUsed={3}.", this.climatePhase, ecoregion.Name, timeStep, actualTimeStep);
+                        Climate.TextLog.WriteLine("  Completed calculations for {0} using Daily_RandomYear. Ecoregion = {1}, SimulatedYear = {2}, actualYearUsed={3}.", this.climatePhase, ecoregion.Name, timeStep, actualTimeStep);
 
 
                         monthlyData = AnnualClimate_From_AnnualClimate_Daily(ecoregion, latitude, spinupOrfuture, timeStep, timeStepIndex);
