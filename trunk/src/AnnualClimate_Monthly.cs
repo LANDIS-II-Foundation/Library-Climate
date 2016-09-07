@@ -37,7 +37,7 @@ namespace  Landis.Library.Climate
             // Case:  Daily data used for future climate.  Note: No need to ever use daily data with spinup climate
             //if (Climate.AllData_granularity == TemporalGranularity.Daily && spinupOrfuture == Climate.Phase.Future_Climate)
             //{
-            //    //Climate.ModelCore.UI.WriteLine("  Processing Daily data into Monthly data.  Ecoregion = {0}, Year = {1}, timestep = {2}.", ecoregion.Name, monthlyDataKey, timeStep);
+            //    //Climate.TextLog.WriteLine("  Processing Daily data into Monthly data.  Ecoregion = {0}, Year = {1}, timestep = {2}.", ecoregion.Name, monthlyDataKey, timeStep);
             //    this.AnnualClimate_From_AnnualClimate_Daily(ecoregion, monthlyDataKey, latitude, spinupOrfuture, timeStep);
             //    return;
             //}
@@ -102,7 +102,7 @@ namespace  Landis.Library.Climate
                         else
                             actualTimeStep = randomKeyList[timeStepIndex];
 
-                        //Climate.ModelCore.UI.WriteLine("  AnnualClimate_Monthly: Monthly_RandomYear: timeStep = {0}, actualYear = {1}, phase = {2}.", timeStep, actualTimeStep, this.climatePhase);
+                        //Climate.TextLog.WriteLine("  AnnualClimate_Monthly: Monthly_RandomYear: timeStep = {0}, actualYear = {1}, phase = {2}.", timeStep, actualTimeStep, this.climatePhase);
                         Climate.TextLog.WriteLine("  Completed calculations for {0} using RandomYear_Monthly. Ecoregion = {1}, SimulatedYear = {2}, actualYearUsed={3}.", this.climatePhase, ecoregion.Name, timeStep, actualTimeStep);
 
                         monthlyData = allData[actualTimeStep][ecoregion.Index];
@@ -175,7 +175,7 @@ namespace  Landis.Library.Climate
                         actualTimeStep = 0;
                         monthlyData = AnnualClimate_From_AnnualClimate_Daily(ecoregion, latitude, spinupOrfuture, timeStep, timeStepIndex);
                         CalculateMonthlyData(ecoregion, monthlyData, actualTimeStep, latitude);
-                        //Climate.ModelCore.UI.WriteLine("  Completed calculations for {0} using Daily_AverageAllYears. Ecoregion = {1}, SimulatedYear = {2}.", this.climatePhase, ecoregion.Name, timeStep);
+                        //Climate.TextLog.WriteLine("  Completed calculations for {0} using Daily_AverageAllYears. Ecoregion = {1}, SimulatedYear = {2}.", this.climatePhase, ecoregion.Name, timeStep);
                         break;
                     }
                 case "Daily_SequencedYears":
@@ -194,7 +194,7 @@ namespace  Landis.Library.Climate
 
                         monthlyData = AnnualClimate_From_AnnualClimate_Daily(ecoregion, latitude, spinupOrfuture, timeStep, timeStepIndex);
                         CalculateMonthlyData(ecoregion, monthlyData, actualTimeStep, latitude);
-                        //Climate.ModelCore.UI.WriteLine("  Completed calculations for {0} using Daily_SequencedYears. Ecoregion = {1}, SimulatedYear = {2}, actualYearUsed={3}.", this.climatePhase, ecoregion.Name, timeStep, actualTimeStep);
+                        //Climate.TextLog.WriteLine("  Completed calculations for {0} using Daily_SequencedYears. Ecoregion = {1}, SimulatedYear = {2}, actualYearUsed={3}.", this.climatePhase, ecoregion.Name, timeStep, actualTimeStep);
                         break;
                     }
                
@@ -301,7 +301,7 @@ namespace  Landis.Library.Climate
 
             for (int mo = 0; mo < 12; mo++)
             {
-                //Climate.ModelCore.UI.WriteLine("  Calculating Monthly Climate (No Variance):  Yr={0}, month={1}, Eco={2}, Phase={3}.", actualYear, mo, ecoregion.Name, this.climatePhase);
+                //Climate.TextLog.WriteLine("  Calculating Monthly Climate (No Variance):  Yr={0}, month={1}, Eco={2}, Phase={3}.", actualYear, mo, ecoregion.Name, this.climatePhase);
                 ecoClimate[mo] = timestepData[ecoregion.Index][mo]; 
 
                 double MonthlyAvgTemp = (ecoClimate[mo].AvgMinTemp + ecoClimate[mo].AvgMaxTemp) / 2.0;
@@ -481,9 +481,9 @@ namespace  Landis.Library.Climate
             {
                 if (this.MonthlyTemp[month] > degDayBase)
                     Deg_Days += (MonthlyTemp[month] - degDayBase) * DaysInMonth(month, this.Year);
-                //Climate.ModelCore.UI.WriteLine("MonthlyTemp = {0:0.00}, Deg_DayBase = {1:0.0}, Deg_Days = {2}.", MonthlyTemp[month], degDayBase, Deg_Days);
+                //Climate.TextLog.WriteLine("MonthlyTemp = {0:0.00}, Deg_DayBase = {1:0.0}, Deg_Days = {2}.", MonthlyTemp[month], degDayBase, Deg_Days);
             }
-            //Climate.ModelCore.UI.WriteLine("AnnualGDD = {0}.", Deg_Days);
+            //Climate.TextLog.WriteLine("AnnualGDD = {0}.", Deg_Days);
             this.growingDegreeDays = (int)Deg_Days;
             return (int) Deg_Days;
         }
@@ -550,7 +550,7 @@ namespace  Landis.Library.Climate
         //private int CalculateBeginGrowingSeason()  Original method for calculating when the growing season starts.  
             //ML discovered this allowed the growing season to start WAY too early for MN.  Revised method above.
         //{
-        //    //Climate.ModelCore.UI.WriteLine("  Calculating monthly growing season....");
+        //    //Climate.TextLog.WriteLine("  Calculating monthly growing season....");
 
 
         //    double lastMonthMinTemp = this.MonthlyMinTemp[11];
@@ -613,14 +613,14 @@ namespace  Landis.Library.Climate
                         return (dayCnt + day);
                     Tnight -= degreeIncrement;  //work forwards to find first frost day.
                     TnightRandom = Tnight + (this.MonthlyVarTemp[month] * (Climate.ModelCore.GenerateUniform() * 2 - 1));
-                    //Climate.ModelCore.UI.WriteLine("Tnight = {0}.", TnightRandom);
+                    //Climate.TextLog.WriteLine("Tnight = {0}.", TnightRandom);
                 }
 
                 lastMonthMinTemp = MonthlyMinTemp;
                 dayCnt += totalDays;  //new monthly mid-point
                 
             }
-            //Climate.ModelCore.UI.WriteLine("  Calculating monthly ending growing season day...endGrowingSeason={0}", endGrowingSeason);
+            //Climate.TextLog.WriteLine("  Calculating monthly ending growing season day...endGrowingSeason={0}", endGrowingSeason);
             return endGrowingSeason;
             //return 365; ML revised it so it didn't always return 365
         }
@@ -688,7 +688,7 @@ namespace  Landis.Library.Climate
                 double avgTemp = this.MonthlyTemp[i]; // (annualClimate[i].AvgMinTemp + annualClimate[i].AvgMaxTemp) / 2.0;
                 highest = System.Math.Max(highest, avgTemp);
                 lowest = System.Math.Min(lowest, avgTemp);
-                Climate.ModelCore.UI.WriteLine("PET Calcs. AvgTemp={0},HighestTemp={1}, LowestTemp={2:0.0},", avgTemp, highest, lowest);
+                Climate.TextLog.WriteLine("PET Calcs. AvgTemp={0},HighestTemp={1}, LowestTemp={2:0.0},", avgTemp, highest, lowest);
             }
 
             lowest = System.Math.Max(lowest, -10.0);
@@ -696,7 +696,7 @@ namespace  Landis.Library.Climate
             //...Determine average temperature range
             double avgTempRange = System.Math.Abs(highest - lowest);
 
-            Climate.ModelCore.UI.WriteLine("AfterLoop in PET CalcuLater. lowestTemp={0:0.000},AvgTempRange={1},",  lowest, avgTempRange);
+            Climate.TextLog.WriteLine("AfterLoop in PET CalcuLater. lowestTemp={0:0.000},AvgTempRange={1},",  lowest, avgTempRange);
             double[] monthlyPET = new double[12];
 
             
@@ -720,8 +720,8 @@ namespace  Landis.Library.Climate
 
                 //...fwloss(4) is a modifier for PET loss.   vek may90
                 monthlyPET[month] = monthPET * waterLossFactor4;
-                //Climate.ModelCore.UI.WriteLine("Year={0}, Month={1}, PET={2:0.00}.", this.Year, month, monthlyPET[month]);
-                //Climate.ModelCore.UI.WriteLine("FinalLoop in PET CalcuLater. tr={0}, t={1}, tm={2}, td={3}, e={4}, monthPET={5}, maxtemp={6}, mintemp={7},finalPET={7}", tr, t, tm, td, e, monthPET, MonthlyMaxTemp[month], this.MonthlyMinTemp[month], monthlyPET[month]);
+                //Climate.TextLog.WriteLine("Year={0}, Month={1}, PET={2:0.00}.", this.Year, month, monthlyPET[month]);
+                //Climate.TextLog.WriteLine("FinalLoop in PET CalcuLater. tr={0}, t={1}, tm={2}, td={3}, e={4}, monthPET={5}, maxtemp={6}, mintemp={7},finalPET={7}", tr, t, tm, td, e, monthPET, MonthlyMaxTemp[month], this.MonthlyMinTemp[month], monthlyPET[month]);
 
             }
 
@@ -744,9 +744,9 @@ namespace  Landis.Library.Climate
                 double heatIndexpermonth = System.Math.Pow((avgTemp / 5.0), 1.514);
                 heatIndexpermonth = Math.Max(0.0, heatIndexpermonth);
                 heatIndex += (heatIndexpermonth);
-                //Climate.ModelCore.UI.WriteLine("PET Calcs1. AvgTemp={0},heatIndexpermonth={1}", avgTemp, heatIndexpermonth);
+                //Climate.TextLog.WriteLine("PET Calcs1. AvgTemp={0},heatIndexpermonth={1}", avgTemp, heatIndexpermonth);
             }
-            //Climate.ModelCore.UI.WriteLine("PET Calcs2. heatindex={0}", heatIndex);
+            //Climate.TextLog.WriteLine("PET Calcs2. heatindex={0}", heatIndex);
             double alpha = (0.000000675 * System.Math.Pow(heatIndex, 3.0) - (0.0000771 * System.Math.Pow(heatIndex, 2.0)) + (0.01792 * heatIndex) + 0.49239);
             
             //Then need to calculate PET for each month using the heat index from above.
@@ -764,8 +764,8 @@ namespace  Landis.Library.Climate
                 //alpha term in Thornwaite equation that depends solely on the heat index
                                                                            
                 monthlyPET[month] = (16.0 * (MeanDayLength / 12.0) * (totalDays / 30.0) * (System.Math.Pow(((10.0 * AvgTemp )/ heatIndex), alpha))/10.0);// equation by Thornthwaite divided by 10 to get cm/month
-                //Climate.ModelCore.UI.WriteLine("Year={0}, Month={1}, PET={2:0.00}.", this.Year, month, monthlyPET[month]);
-                //Climate.ModelCore.UI.WriteLine("FinalLoop in PET CalcuLator. DayLength={0}, TotalDaysMonth={1}, AvgTemp={2}, alpha={3}, heatIndex={4}, PET={5:0.0000}, Month={6}", MeanDayLength, totalDays, AvgTemp, alpha, heatIndex, monthlyPET[month], month);
+                //Climate.TextLog.WriteLine("Year={0}, Month={1}, PET={2:0.00}.", this.Year, month, monthlyPET[month]);
+                //Climate.TextLog.WriteLine("FinalLoop in PET CalcuLator. DayLength={0}, TotalDaysMonth={1}, AvgTemp={2}, alpha={3}, heatIndex={4}, PET={5:0.0000}, Month={6}", MeanDayLength, totalDays, AvgTemp, alpha, heatIndex, monthlyPET[month], month);
 
             }
 
@@ -846,7 +846,7 @@ namespace  Landis.Library.Climate
 
                 oldWaterAvail = waterAvail;
 
-                //Climate.ModelCore.UI.WriteLine("Actual ET Calcs. Rain={0},PET={1}, potWaterLoss={2:0.0},,fieldcapacity={3:0.000}, oldwaterAvail={4:0.000}, actualET={5:0.000}", monthlyRain, potentialET, potWaterLoss, fieldCapacity, oldWaterAvail, actualET);
+                //Climate.TextLog.WriteLine("Actual ET Calcs. Rain={0},PET={1}, potWaterLoss={2:0.0},,fieldcapacity={3:0.000}, oldwaterAvail={4:0.000}, actualET={5:0.000}", monthlyRain, potentialET, potWaterLoss, fieldCapacity, oldWaterAvail, actualET);
             }
 
             return actualET;
@@ -888,7 +888,7 @@ namespace  Landis.Library.Climate
         ////---------------------------------------------------------------------------
         //public void WriteToLandisLogFile()
         //{
-        //    Climate.ModelCore.UI.WriteLine("  ClimatePhase = {0}, Year = {1}, MAP = {2:0.00}.", this.climatePhase, this.Year, this.AnnualPrecip);
+        //    Climate.TextLog.WriteLine("  ClimatePhase = {0}, Year = {1}, MAP = {2:0.00}.", this.climatePhase, this.Year, this.AnnualPrecip);
 
         //    //(IEcoregion ecoregion, int actualYear, double latitude, ClimatePhase spinupOrfuture = Climate.Phase.Future_Climate, int timeStep = Int32.MinValue)
         //}

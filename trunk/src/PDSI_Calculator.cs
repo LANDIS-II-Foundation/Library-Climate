@@ -335,7 +335,7 @@ namespace Landis.Library.Climate
             // Print AVERAGE T normal.
             //for (int mo = 0; mo < 12; mo++)
             //{
-            //    Climate.ModelCore.UI.WriteLine("Month = {0}, Input Monthly T normal = {1}", mo, mon_T_normal[mo]);
+            //    Climate.TextLog.WriteLine("Month = {0}, Input Monthly T normal = {1}", mo, mon_T_normal[mo]);
             //}
 
             double[] corrected_Temp_normals = new double[12];
@@ -382,8 +382,8 @@ namespace Landis.Library.Climate
 
             if (Verbose > 0)
             {
-                Climate.ModelCore.UI.WriteLine("      PDSI Calculator: Available Water Capacity = {0:0.00}", AWC);
-                Climate.ModelCore.UI.WriteLine("      PDSI Calculator: CLIMATE NORM HEAT INDEX (Thornthwaite I) = {0:0.00}, THORNTHWAITE A ={1:0.00}", I, A);
+                Climate.TextLog.WriteLine("      PDSI Calculator: Available Water Capacity = {0:0.00}", AWC);
+                Climate.TextLog.WriteLine("      PDSI Calculator: CLIMATE NORM HEAT INDEX (Thornthwaite I) = {0:0.00}, THORNTHWAITE A ={1:0.00}", I, A);
             }
 
             //totalyears = HistoricClimate.endyear - HistoricClimate.startyear + 1;
@@ -411,7 +411,7 @@ namespace Landis.Library.Climate
             //// Print AVERAGE T normal.
             ////for (int mo = 0; mo < 12; mo++)
             ////{
-            ////    Climate.ModelCore.UI.WriteLine("Month = {0}, Input Monthly T normal = {1}", mo, mon_T_normal[mo]);
+            ////    Climate.TextLog.WriteLine("Month = {0}, Input Monthly T normal = {1}", mo, mon_T_normal[mo]);
             ////}
 
             //double[] corrected_Temp_normals = new double[12];
@@ -458,8 +458,8 @@ namespace Landis.Library.Climate
             
             //if (Verbose > 0)
             //{
-            //    Climate.ModelCore.UI.WriteLine("      PDSI Calculator: Available Water Capacity = {0:0.00}", AWC);
-            //    Climate.ModelCore.UI.WriteLine("      PDSI Calculator: CLIMATE NORM HEAT INDEX (Thornthwaite I) = {0:0.00}, THORNTHWAITE A ={1:0.00}", I, A);
+            //    Climate.TextLog.WriteLine("      PDSI Calculator: Available Water Capacity = {0:0.00}", AWC);
+            //    Climate.TextLog.WriteLine("      PDSI Calculator: CLIMATE NORM HEAT INDEX (Thornthwaite I) = {0:0.00}, THORNTHWAITE A ={1:0.00}", I, A);
             //}
 
             ////totalyears = HistoricClimate.endyear - HistoricClimate.startyear + 1;
@@ -485,7 +485,7 @@ namespace Landis.Library.Climate
             //{
             //    annualPDSI += PDSI_Monthly[m]; 
             //    if (Verbose > 0)
-            //        Climate.ModelCore.UI.WriteLine("      PDSI Calculator: Month = {0}, T_normal = {1:0.00}, T_Annual={2:0.00}, P_normal={3:0.0}, P_actual = {4:0.0}, PDSI = {5:0.000}", m, corrected_Temp_normals[m], AnnualTemp[m], corrected_Precip_normals[m], AnnualPrecip[m], PDSI_Monthly[m]);
+            //        Climate.TextLog.WriteLine("      PDSI Calculator: Month = {0}, T_normal = {1:0.00}, T_Annual={2:0.00}, P_normal={3:0.0}, P_actual = {4:0.0}, PDSI = {5:0.000}", m, corrected_Temp_normals[m], AnnualTemp[m], corrected_Precip_normals[m], AnnualPrecip[m], PDSI_Monthly[m]);
             //}
 
             //annualPDSI /= 12.0;
@@ -496,7 +496,7 @@ namespace Landis.Library.Climate
                 annualPDSI += node.Value;
 
                 if (Verbose > 0)
-                    Climate.ModelCore.UI.WriteLine("        PDSI Calculator: Month={0}, node.Value={1:0.000}", m, node.Value);
+                    Climate.TextLog.WriteLine("        PDSI Calculator: Month={0}, node.Value={1:0.000}", m, node.Value);
 
                 //s += Math.Round(node.Value, 2) + ", ";
                 node = node.Next; // node.Previous;  RMS: Previous looks odd, changing to next.
@@ -520,7 +520,7 @@ namespace Landis.Library.Climate
             annualPDSI = annualPDSI / 12.0;
 
             if (Verbose > 0)
-                Climate.ModelCore.UI.WriteLine("            ANNUAL PDSI = {0:0.00}, Year = {1}", annualPDSI, AnnualYear);
+                Climate.TextLog.WriteLine("            ANNUAL PDSI = {0:0.00}, Year = {1}", annualPDSI, AnnualYear);
 
             return annualPDSI;
         }
@@ -601,9 +601,9 @@ namespace Landis.Library.Climate
                 //DEPSum[i] = ETSum[i] + RSum[i] - PESum[i] + ROSum[i];
                 if (Verbose > 1)
                 {
-                    Climate.ModelCore.UI.WriteLine("      PDSI Calibration Data: Month = {0}", month + 1);
-                    Climate.ModelCore.UI.WriteLine("            PSum={0:0.00} PROSum={1:0.00} PRSum={2:0.00} PESum={3:0.00} PLSum={4:0.00}", PSum[month], PROSum[month], PRSum[month], PESum[month], PLSum[month]);
-                    Climate.ModelCore.UI.WriteLine("            ETSum={0:0.00} RSum={1:0.00} LSum={2:0.00} ROSum={3:0.00}", ETSum[month], RSum[month], LSum[month], ROSum[month]);
+                    Climate.TextLog.WriteLine("      PDSI Calibration Data: Month = {0}", month + 1);
+                    Climate.TextLog.WriteLine("            PSum={0:0.00} PROSum={1:0.00} PRSum={2:0.00} PESum={3:0.00} PLSum={4:0.00}", PSum[month], PROSum[month], PRSum[month], PESum[month], PLSum[month]);
+                    Climate.TextLog.WriteLine("            ETSum={0:0.00} RSum={1:0.00} LSum={2:0.00} ROSum={3:0.00}", ETSum[month], RSum[month], LSum[month], ROSum[month]);
                 }
 
                 
@@ -647,7 +647,7 @@ namespace Landis.Library.Climate
             }
 
             //if (Verbose > 1)
-            //    Climate.ModelCore.UI.WriteLine("      PDSI Calculator: Thornthwaite I={0}", I);
+            //    Climate.TextLog.WriteLine("      PDSI Calculator: Thornthwaite I={0}", I);
 
             
             return I;
@@ -701,7 +701,7 @@ namespace Landis.Library.Climate
                 if (lat >= 0)
                 {
                     if (Verbose > 0)
-                        Climate.ModelCore.UI.WriteLine("      PDSI Calculator: Latitude is positive, assuming location is in Northern Hemisphere. TLA: {0}", TLA);
+                        Climate.TextLog.WriteLine("      PDSI Calculator: Latitude is positive, assuming location is in Northern Hemisphere. TLA: {0}", TLA);
                     south = false;//0;
                 }
                 else
@@ -805,13 +805,13 @@ namespace Landis.Library.Climate
                     Departures[month] = departure;
 
                     if (Verbose > 0)
-                        Climate.ModelCore.UI.WriteLine("      PDSI Calculator: Month={0} = P-Phat: p={1:0.000}, Phat={2:0.000}", month + 1, P, Phat);
+                        Climate.TextLog.WriteLine("      PDSI Calculator: Month={0} = P-Phat: p={1:0.000}, Phat={2:0.000}", month + 1, P, Phat);
                     
                     if (Verbose > 1)
                     {
-                        Climate.ModelCore.UI.WriteLine("        Month={0} Alpha={1:0.00} PESum={2:0.00} Beta={3:0.00} PRSum={4:0.00}", month + 1, Alpha[month], PESum[month], Beta[month], PRSum[month]);
-                        Climate.ModelCore.UI.WriteLine("        Month={0} Gamma={1:0.00} PROSum={2:0.00} Delta={3:0.00} PLSum={4:0.00}", month + 1, Gamma[month], PROSum[month], Delta[month], PLSum[month]);
-                        Climate.ModelCore.UI.WriteLine("        Month={0} SPhat={1:0.00} DSAct={2:0.00}", month + 1, SPhat[month], DSAct[month]);
+                        Climate.TextLog.WriteLine("        Month={0} Alpha={1:0.00} PESum={2:0.00} Beta={3:0.00} PRSum={4:0.00}", month + 1, Alpha[month], PESum[month], Beta[month], PRSum[month]);
+                        Climate.TextLog.WriteLine("        Month={0} Gamma={1:0.00} PROSum={2:0.00} Delta={3:0.00} PLSum={4:0.00}", month + 1, Gamma[month], PROSum[month], Delta[month], PLSum[month]);
+                        Climate.TextLog.WriteLine("        Month={0} SPhat={1:0.00} DSAct={2:0.00}", month + 1, SPhat[month], DSAct[month]);
                     }
 
 
@@ -851,9 +851,9 @@ namespace Landis.Library.Climate
             // If the user specifies, the various sums are output to the screen
             //if (Verbose > 1)
             //{
-            //    Climate.ModelCore.UI.WriteLine("      PDSI Calculator: CHECK SUMS OF ESTIMATED VARIABLES");
-            //    Climate.ModelCore.UI.WriteLine("      PDSI Calculator: PER={0} SCET={1} SCR={2} SCRO={3}", PER, SCET, SCR, SCRO);
-            //    Climate.ModelCore.UI.WriteLine("      PDSI Calculator: SCL={0} SCP={1} SCD={2}", "SCL", "SCP", "SCD");
+            //    Climate.TextLog.WriteLine("      PDSI Calculator: CHECK SUMS OF ESTIMATED VARIABLES");
+            //    Climate.TextLog.WriteLine("      PDSI Calculator: PER={0} SCET={1} SCR={2} SCRO={3}", PER, SCET, SCR, SCRO);
+            //    Climate.TextLog.WriteLine("      PDSI Calculator: SCL={0} SCP={1} SCD={2}", "SCL", "SCP", "SCD");
             //}
             //for (i = 0; i < num_of_periods; i++)
             //{
@@ -924,12 +924,12 @@ namespace Landis.Library.Climate
 
                     if (Verbose > 1)
                     {
-                        Climate.ModelCore.UI.WriteLine("      PDSI Calculator: d={0:0.000}, K={1:0.000}", d, K);
-                        Climate.ModelCore.UI.WriteLine("      PDSI Calculator: DKSum={0:0.000}, k={1:0.000}", DKSum, k[month]);
+                        Climate.TextLog.WriteLine("      PDSI Calculator: d={0:0.000}, K={1:0.000}", d, K);
+                        Climate.TextLog.WriteLine("      PDSI Calculator: DKSum={0:0.000}, k={1:0.000}", DKSum, k[month]);
                     }
                     if (Verbose > 0)
                     {
-                        Climate.ModelCore.UI.WriteLine("      PDSI Calculator: Month={0}, Z (PDSI, =d*K) = {1:0.000}", month+1, Z);
+                        Climate.TextLog.WriteLine("      PDSI Calculator: Month={0}, Z (PDSI, =d*K) = {1:0.000}", month+1, Z);
                     }
                 
                 //Z = MISSING;
@@ -1014,7 +1014,7 @@ namespace Landis.Library.Climate
                         newX2 = 0;
                         newPDSI = newX3;
                         if (Verbose > 1)
-                            Climate.ModelCore.UI.WriteLine("      PDSI Calculator: PDSI set to newX3 = {0:0.00}", newX3);
+                            Climate.TextLog.WriteLine("      PDSI Calculator: PDSI set to newX3 = {0:0.00}", newX3);
                         while (altX1.Count > 0)//(!altX1.is_empty())
                             altX1.RemoveFirst();//altX1.head_remove();
                         while (altX2.Count > 0)//(!altX2.is_empty())
@@ -1115,7 +1115,7 @@ namespace Landis.Library.Climate
             newX2 = X2;
 
             if (Verbose > 1)
-                Climate.ModelCore.UI.WriteLine("      PDSI Calculator: wetc={0}, X1={1}, Z={2}, wetm={3}, wetb={4}", wetc, X1, Z, wetm, wetb);
+                Climate.TextLog.WriteLine("      PDSI Calculator: wetc={0}, X1={1}, Z={2}, wetm={3}, wetb={4}", wetc, X1, Z, wetm, wetb);
 
             //if (bug == 0) // bug is always 0
             //{
@@ -1124,7 +1124,7 @@ namespace Landis.Library.Climate
                 newX2 = 0;
             
             if (Verbose > 1)
-                Climate.ModelCore.UI.WriteLine("      PDSI Calculator: dryc={0}, X2={1}, Z={2}, drym={3}, dryb={4}", dryc, X2, Z, drym, dryb);
+                Climate.TextLog.WriteLine("      PDSI Calculator: dryc={0}, X2={1}, Z={2}, drym={3}, dryb={4}", dryc, X2, Z, drym, dryb);
             
 
             if ((newX1 >= 0.5) && (newX3 == 0))
@@ -1134,7 +1134,7 @@ namespace Landis.Library.Climate
                 newX3 = newX1;
                 newX1 = 0;
                 if (Verbose > 1)
-                    Climate.ModelCore.UI.WriteLine("      PDSI Calculator: PDSI set to newX1 = {0:0.00}", newX1);
+                    Climate.TextLog.WriteLine("      PDSI Calculator: PDSI set to newX1 = {0:0.00}", newX1);
             }
             else
             {
@@ -1149,7 +1149,7 @@ namespace Landis.Library.Climate
                     newX3 = newX2;
                     newX2 = 0;
                     if (Verbose > 1)
-                        Climate.ModelCore.UI.WriteLine("      PDSI Calculator: PDSI set to newX2 = {0:0.00}", newX2);
+                        Climate.TextLog.WriteLine("      PDSI Calculator: PDSI set to newX2 = {0:0.00}", newX2);
                 }
                 else if (newX3 == 0)
                 {
@@ -1158,14 +1158,14 @@ namespace Landis.Library.Climate
                         Backtrack(newX2, newX1);
                         newPDSI = newX2;
                         if (Verbose > 1)
-                            Climate.ModelCore.UI.WriteLine("      PDSI Calculator: PDSI set to newX2 = {0:0.00} (newX1/X3=0)", newX2);
+                            Climate.TextLog.WriteLine("      PDSI Calculator: PDSI set to newX2 = {0:0.00} (newX1/X3=0)", newX2);
                     }
                     else if (newX2 == 0)
                     {
                         Backtrack(newX1, newX2);
                         newPDSI = newX1;
                         if (Verbose > 1)
-                            Climate.ModelCore.UI.WriteLine("      PDSI Calculator: PDSI set to newX1 = {0:0.00} (newX2/X3=0)", newX1);
+                            Climate.TextLog.WriteLine("      PDSI Calculator: PDSI set to newX1 = {0:0.00} (newX2/X3=0)", newX1);
                     }
                     else
                     {
@@ -1173,7 +1173,7 @@ namespace Landis.Library.Climate
                         altX2.AddFirst(newX2);//altX2.insert(newX2);
                         newPDSI = newX3;
                         if (Verbose > 1)
-                            Climate.ModelCore.UI.WriteLine("      PDSI Calculator: PDSI set to newX3 = 0.0");
+                            Climate.TextLog.WriteLine("      PDSI Calculator: PDSI set to newX3 = 0.0");
                     }
                 }
 
@@ -1184,7 +1184,7 @@ namespace Landis.Library.Climate
                     altX2.AddFirst(newX2);//altX2.insert(newX2);
                     newPDSI = newX3;
                     if (Verbose > 1)
-                        Climate.ModelCore.UI.WriteLine("      PDSI Calculator: PDSI set to newX3 = {0:0.00}", newX3);
+                        Climate.TextLog.WriteLine("      PDSI Calculator: PDSI set to newX3 = {0:0.00}", newX3);
                 }
             }
         }//end of chooseX
@@ -1342,8 +1342,8 @@ namespace Landis.Library.Climate
 //        //for (int i = startYear; i <= endYear; i++)
 //        //{
 //        //    acs[i - startYear] = new AnnualClimate(ecoregion, i, 0); // Latitude should be given
-//        //    //Climate.ModelCore.UI.WriteLine(ac.MonthlyTemp[0].ToString() + "\n");
-//        //    //Climate.ModelCore.UI.WriteLine(ac.MonthlyPrecip[0].ToString() + "\n");
+//        //    //Climate.TextLog.WriteLine(ac.MonthlyTemp[0].ToString() + "\n");
+//        //    //Climate.TextLog.WriteLine(ac.MonthlyPrecip[0].ToString() + "\n");
 //        //}
 
 

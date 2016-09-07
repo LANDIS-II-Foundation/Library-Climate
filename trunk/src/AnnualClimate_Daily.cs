@@ -53,7 +53,7 @@ namespace Landis.Library.Climate
 
             int actualTimeStep;
 
-            //Climate.ModelCore.UI.WriteLine("  Calculating daily data ...  Ecoregion = {0}, Year = {1}, timestep = {2}.", ecoregion.Name, actualYear, timeStep);
+            //Climate.TextLog.WriteLine("  Calculating daily data ...  Ecoregion = {0}, Year = {1}, timestep = {2}.", ecoregion.Name, actualYear, timeStep);
             switch (climateOption)
             {
                 case "Daily_RandomYears":
@@ -84,7 +84,7 @@ namespace Landis.Library.Climate
                         else
                             actualTimeStep = randomKeyList[timeStepIndex];
 
-                        Climate.ModelCore.UI.WriteLine("  AnnualClimate_Daily: Daily_RandomYear: timeStep = {0}, actualYear = {1}, phase = {2}.", timeStep, actualTimeStep, this.climatePhase);
+                        Climate.TextLog.WriteLine("  AnnualClimate_Daily: Daily_RandomYear: timeStep = {0}, actualYear = {1}, phase = {2}.", timeStep, actualTimeStep, this.climatePhase);
 
                         dailyData = allData[actualTimeStep][ecoregion.Index];
                         CalculateDailyData(ecoregion, dailyData, actualTimeStep, latitude);
@@ -314,7 +314,7 @@ namespace Landis.Library.Climate
                     //endGrowingDay = i;
                     return day;
                 }
-                //Climate.ModelCore.UI.WriteLine("  Calculating end begin growing season day...{0}", endGrowingDay);
+                //Climate.TextLog.WriteLine("  Calculating end begin growing season day...{0}", endGrowingDay);
             }
             
             return 0;
@@ -340,7 +340,7 @@ namespace Landis.Library.Climate
                 //Deg_Days += (DailyTemp[i] - degDayBase);
                 {
                     Deg_Days += (DailyTemp[day] - degDayBase);
-                    //Climate.ModelCore.UI.WriteLine("DailyTemp={0:0.0}, Deg_DayBase={1:0.00}, Deg_Days={2:0.00},", DailyTemp[day], degDayBase, Deg_Days);
+                    //Climate.TextLog.WriteLine("DailyTemp={0:0.0}, Deg_DayBase={1:0.00}, Deg_Days={2:0.00},", DailyTemp[day], degDayBase, Deg_Days);
                 }
                                     
             }

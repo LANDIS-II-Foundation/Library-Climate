@@ -146,7 +146,7 @@ namespace Landis.Library.Climate
 
             var reader = File.OpenText(climateFile);
 
-            Climate.ModelCore.UI.WriteLine("   Converting raw data from text file: {0}, Format={1}, Temporal={2}.", climateFile, climateFileFormat.ToLower(), sourceTemporalGranularity);
+            Climate.TextLog.WriteLine("   Converting raw data from text file: {0}, Format={1}, Temporal={2}.", climateFile, climateFileFormat.ToLower(), sourceTemporalGranularity);
 
             // maps from ecoregion column index in the input file to the ecoregion.index for the region
             int[] ecoRegionIndexMap = null;
@@ -343,7 +343,7 @@ namespace Landis.Library.Climate
 
             var reader = File.OpenText(climateFile);
 
-            Climate.ModelCore.UI.WriteLine("   Converting raw data from text file: {0}, Format={1}, Temporal={2}.", climateFile, climateFileFormat.ToLower(), sourceTemporalGranularity);
+            Climate.TextLog.WriteLine("   Converting raw data from text file: {0}, Format={1}, Temporal={2}.", climateFile, climateFileFormat.ToLower(), sourceTemporalGranularity);
 
             // maps from ecoregion column index in the input file to the ecoregion.index for the region
             int[] ecoRegionIndexMap = null;
