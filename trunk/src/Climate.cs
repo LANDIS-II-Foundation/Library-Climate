@@ -33,6 +33,7 @@ namespace Landis.Library.Climate
         public static MetadataTable<InputLog> SpinupInputLog;
         public static MetadataTable<InputLog> FutureInputLog;
         public static MetadataTable<AnnualLog> AnnualLog;
+        public static StreamWriter TextLog;
 
         public enum Phase {SpinUp_Climate = 0, Future_Climate = 1 }
 
@@ -153,6 +154,8 @@ namespace Landis.Library.Climate
             ModelCore.UI.WriteLine("   Loading future weather data from file {0} ...", configParameters.ClimateFile);
             Climate.ConvertFileFormat_FillOutAllData(configParameters.ClimateTimeSeries, configParameters.ClimateFile, configParameters.ClimateFileFormat, Climate.Phase.Future_Climate);
 
+            TextLog = Landis.Data.CreateTextFile("Landis-climate-log.txt");
+            TextLog.AutoFlush = true;
 
             // **
             // spinup
@@ -286,12 +289,8 @@ namespace Landis.Library.Climate
                 Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index] = annualClimateMonthly;
 
                 // Next calculate PSDI for the future data
-<<<<<<< .mine
-                Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI = PDSI_Calculator.CalculateEcoregion_PDSI(annualClimateMonthly, temperature_normals, precip_normals, availableWaterCapacity, latitude, UnitSystem.metrics, ecoregion);
+                //Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI = PDSI_Calculator.CalculateEcoregion_PDSI(annualClimateMonthly, temperature_normals, precip_normals, availableWaterCapacity, latitude, UnitSystem.metrics, ecoregion);
                 //Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI = PDSI_Calculator.CalculateEcoregion_PDSI(annualClimateMonthly, temperature_normals, precip_normals, latitude, UnitSystem.metrics, ecoregion);
-=======
-               // Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI = PDSI_Calculator.CalculateEcoregion_PDSI(annualClimateMonthly, temperature_normals, availableWaterCapacity, latitude, UnitSystem.metrics, ecoregion);
->>>>>>> .r3035
                 // Climate.LandscapeAnnualPDSI[timeStepIndex] += (Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI / Climate.ModelCore.Ecoregions.Count);
 
                 //Climate.ModelCore.UI.WriteLine("Calculated PDSI for Ecoregion {0}, timestep {1}, PDSI Year {2}; PDSI={3:0.00}.", ecoregion.Name, timeStepIndex, timeStep.Key, Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI);
