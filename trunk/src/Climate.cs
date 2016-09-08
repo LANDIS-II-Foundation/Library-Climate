@@ -135,6 +135,9 @@ namespace Landis.Library.Climate
             InputParametersParser inParamsParser = new InputParametersParser();
             configParameters = Landis.Data.Load<IInputParameters>(climateConfigFilename, inParamsParser);
 
+            TextLog = Landis.Data.CreateTextFile("Landis-climate-log.txt");
+            TextLog.AutoFlush = true;
+
             modelCore = mCore;
             MetadataHandler.InitializeMetadata(1, modelCore);
 
@@ -148,14 +151,12 @@ namespace Landis.Library.Climate
             Spinup_DailyData = new Dictionary<int, AnnualClimate_Daily[]>();
             LandscapeAnnualPDSI = new double[Climate.ModelCore.EndTime - Climate.ModelCore.StartTime + 1];
             
-            ModelCore.UI.WriteLine("   Loading spin-up weather data from file {0} ...", configParameters.SpinUpClimateFile);
+            TextLog.WriteLine("   Loading spin-up weather data from file {0} ...", configParameters.SpinUpClimateFile);
             Climate.ConvertFileFormat_FillOutAllData(configParameters.SpinUpClimateTimeSeries, configParameters.SpinUpClimateFile, configParameters.SpinUpClimateFileFormat, Climate.Phase.SpinUp_Climate);
 
-            ModelCore.UI.WriteLine("   Loading future weather data from file {0} ...", configParameters.ClimateFile);
+            TextLog.WriteLine("   Loading future weather data from file {0} ...", configParameters.ClimateFile);
             Climate.ConvertFileFormat_FillOutAllData(configParameters.ClimateTimeSeries, configParameters.ClimateFile, configParameters.ClimateFileFormat, Climate.Phase.Future_Climate);
 
-            TextLog = Landis.Data.CreateTextFile("Landis-climate-log.txt");
-            TextLog.AutoFlush = true;
 
             // **
             // spinup
