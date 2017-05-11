@@ -1,0 +1,558 @@
+2014-05-15 15:58:11,940 - LANDIS-II 6.0 (official release)
+2014-05-15 15:58:11,958 - 
+2014-05-15 15:58:12,162 - Loading scenario from file "scenario-single-cell.txt" ...
+2014-05-15 15:58:12,264 - Loading species data from file "CNF_species-9.6.13.txt" ...
+2014-05-15 15:58:12,300 - Loading ecoregions from file "CNF_ecoregion-SC.txt" ...
+2014-05-15 15:58:12,330 - Initializing landscape from ecoregions map "single_cell_3.img" ...
+2014-05-15 15:58:12,374 - Cell length = 100 m, cell area = 1 ha
+2014-05-15 15:58:12,378 - Map dimensions: 1 row by 1 column = 1 cell
+2014-05-15 15:58:12,391 - Sites: 1 active (100.0 %), 0 inactive (0.0 %)
+2014-05-15 15:58:12,406 - Loading Century Succession extension ...
+2014-05-15 15:58:12,434 -    Registering Data:  Succession.LeafBiomassCohorts.
+2014-05-15 15:58:12,438 -    Registering Data:  Succession.AgeCohorts.
+2014-05-15 15:58:12,526 -    Begin parsing FUNCTIONAL GROUP table.
+2014-05-15 15:58:12,534 -    Begin reading INITIAL ECOREGION parameters.
+2014-05-15 15:58:12,540 -    Begin reading FIXED ECOREGION parameters.
+2014-05-15 15:58:12,547 -    Begin reading FIRE REDUCTION parameters.
+2014-05-15 15:58:12,551 -    Begin reading HARVEST REDUCTION parameters.
+2014-05-15 15:58:12,565 - Initializing Century Succession ...
+2014-05-15 15:58:12,711 -    Loading weather data ...
+2014-05-15 15:58:12,714 -    Loading spin-up weather data from file PRISM_data_AFRI_4.18.13_SC.csv ...
+2014-05-15 15:58:12,735 -    Converting raw data from text file: PRISM_data_AFRI_4.18.13_SC.csv, Format=monthly_temp-c_precip-mmmonth, Temporal=Monthly.
+2014-05-15 15:58:12,773 -    Loading future weather data from file PRISM_data_AFRI_4.18.13_SC.csv ...
+2014-05-15 15:58:12,775 -    Converting raw data from text file: PRISM_data_AFRI_4.18.13_SC.csv, Format=monthly_temp-c_precip-mmmonth, Temporal=Monthly.
+2014-05-15 15:58:25,715 -    Core.StartTime = 0, Core.EndTime = 100.
+2014-05-15 15:58:25,717 -    Climate.LandscapeAnnualPDSI.Length = 101.
+2014-05-15 15:58:25,749 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,760 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,762 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,763 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,764 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,766 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,767 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,768 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,769 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,771 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,772 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,774 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,775 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,776 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,778 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,779 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,780 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,781 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,783 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,784 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,785 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,787 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,788 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,789 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,790 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,791 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,793 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,794 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,795 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,796 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,797 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,798 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,799 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,801 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,802 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,803 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,804 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,806 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,807 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,808 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,809 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,810 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,812 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,813 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,814 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,815 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,817 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,818 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,819 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,820 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,822 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,823 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,824 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,825 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,826 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,828 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,829 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,830 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,831 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,833 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,834 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,835 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,837 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,838 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,839 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,840 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,842 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,843 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,844 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,845 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,847 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,848 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,849 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,851 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,852 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,853 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,855 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,856 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,857 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,858 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,859 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,861 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,862 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,864 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,865 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,866 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,867 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,869 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,870 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,871 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,873 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,874 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,875 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,877 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,879 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,880 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,881 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,882 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,884 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,885 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,886 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,888 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,889 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,890 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,892 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,893 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,895 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,896 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,898 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,899 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,900 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,902 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,903 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,904 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,906 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,907 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,908 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,909 -   Completed calculations for SpinUp_Climate using AVERAGE MONTHLY data. Ecoregion = MN100, SimulatedYear = 0.
+2014-05-15 15:58:25,912 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1895, actualYearUsed=1935.
+2014-05-15 15:58:25,957 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1896, actualYearUsed=1899.
+2014-05-15 15:58:25,970 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1897, actualYearUsed=2010.
+2014-05-15 15:58:25,978 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1898, actualYearUsed=1991.
+2014-05-15 15:58:25,987 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1899, actualYearUsed=1950.
+2014-05-15 15:58:25,995 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1900, actualYearUsed=1983.
+2014-05-15 15:58:26,005 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1901, actualYearUsed=1907.
+2014-05-15 15:58:26,015 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1902, actualYearUsed=2003.
+2014-05-15 15:58:26,024 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1903, actualYearUsed=1960.
+2014-05-15 15:58:26,034 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1904, actualYearUsed=1928.
+2014-05-15 15:58:26,043 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1905, actualYearUsed=1898.
+2014-05-15 15:58:26,052 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1906, actualYearUsed=1958.
+2014-05-15 15:58:26,062 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1907, actualYearUsed=1933.
+2014-05-15 15:58:26,071 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1908, actualYearUsed=1936.
+2014-05-15 15:58:26,080 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1909, actualYearUsed=1927.
+2014-05-15 15:58:26,091 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1910, actualYearUsed=1949.
+2014-05-15 15:58:26,101 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1911, actualYearUsed=1958.
+2014-05-15 15:58:26,110 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1912, actualYearUsed=1914.
+2014-05-15 15:58:26,120 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1913, actualYearUsed=1997.
+2014-05-15 15:58:26,130 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1914, actualYearUsed=2012.
+2014-05-15 15:58:26,140 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1915, actualYearUsed=1963.
+2014-05-15 15:58:26,149 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1916, actualYearUsed=1895.
+2014-05-15 15:58:26,160 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1917, actualYearUsed=1913.
+2014-05-15 15:58:26,172 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1918, actualYearUsed=1992.
+2014-05-15 15:58:26,183 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1919, actualYearUsed=1977.
+2014-05-15 15:58:26,193 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1920, actualYearUsed=1936.
+2014-05-15 15:58:26,203 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1921, actualYearUsed=1991.
+2014-05-15 15:58:26,213 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1922, actualYearUsed=1934.
+2014-05-15 15:58:26,224 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1923, actualYearUsed=1946.
+2014-05-15 15:58:26,233 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1924, actualYearUsed=1961.
+2014-05-15 15:58:26,244 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1925, actualYearUsed=1982.
+2014-05-15 15:58:26,253 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1926, actualYearUsed=1935.
+2014-05-15 15:58:26,262 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1927, actualYearUsed=1935.
+2014-05-15 15:58:26,272 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1928, actualYearUsed=1942.
+2014-05-15 15:58:26,281 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1929, actualYearUsed=1960.
+2014-05-15 15:58:26,291 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1930, actualYearUsed=1980.
+2014-05-15 15:58:26,300 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1931, actualYearUsed=1906.
+2014-05-15 15:58:26,308 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1932, actualYearUsed=2008.
+2014-05-15 15:58:26,316 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1933, actualYearUsed=1961.
+2014-05-15 15:58:26,325 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1934, actualYearUsed=1962.
+2014-05-15 15:58:26,335 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1935, actualYearUsed=1895.
+2014-05-15 15:58:26,345 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1936, actualYearUsed=1937.
+2014-05-15 15:58:26,355 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1937, actualYearUsed=1937.
+2014-05-15 15:58:26,365 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1938, actualYearUsed=1917.
+2014-05-15 15:58:26,376 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1939, actualYearUsed=1934.
+2014-05-15 15:58:26,385 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1940, actualYearUsed=1942.
+2014-05-15 15:58:26,395 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1941, actualYearUsed=1999.
+2014-05-15 15:58:26,405 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1942, actualYearUsed=1978.
+2014-05-15 15:58:26,415 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1943, actualYearUsed=1906.
+2014-05-15 15:58:26,426 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1944, actualYearUsed=2001.
+2014-05-15 15:58:26,436 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1945, actualYearUsed=1954.
+2014-05-15 15:58:26,447 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1946, actualYearUsed=1934.
+2014-05-15 15:58:26,458 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1947, actualYearUsed=1961.
+2014-05-15 15:58:26,468 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1948, actualYearUsed=1910.
+2014-05-15 15:58:26,477 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1949, actualYearUsed=1992.
+2014-05-15 15:58:26,487 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1950, actualYearUsed=1944.
+2014-05-15 15:58:26,498 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1951, actualYearUsed=2000.
+2014-05-15 15:58:26,508 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1952, actualYearUsed=1956.
+2014-05-15 15:58:26,518 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1953, actualYearUsed=1955.
+2014-05-15 15:58:26,528 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1954, actualYearUsed=1976.
+2014-05-15 15:58:26,538 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1955, actualYearUsed=1965.
+2014-05-15 15:58:26,547 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1956, actualYearUsed=2002.
+2014-05-15 15:58:26,557 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1957, actualYearUsed=1908.
+2014-05-15 15:58:26,567 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1958, actualYearUsed=1932.
+2014-05-15 15:58:26,577 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1959, actualYearUsed=1977.
+2014-05-15 15:58:26,587 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1960, actualYearUsed=2010.
+2014-05-15 15:58:26,596 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1961, actualYearUsed=1965.
+2014-05-15 15:58:26,606 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1962, actualYearUsed=1930.
+2014-05-15 15:58:26,616 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1963, actualYearUsed=1980.
+2014-05-15 15:58:26,626 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1964, actualYearUsed=1917.
+2014-05-15 15:58:26,635 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1965, actualYearUsed=1938.
+2014-05-15 15:58:26,645 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1966, actualYearUsed=2011.
+2014-05-15 15:58:26,655 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1967, actualYearUsed=1977.
+2014-05-15 15:58:26,665 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1968, actualYearUsed=2007.
+2014-05-15 15:58:26,675 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1969, actualYearUsed=1942.
+2014-05-15 15:58:26,685 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1970, actualYearUsed=1941.
+2014-05-15 15:58:26,695 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1971, actualYearUsed=2010.
+2014-05-15 15:58:26,706 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1972, actualYearUsed=1898.
+2014-05-15 15:58:26,716 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1973, actualYearUsed=1960.
+2014-05-15 15:58:26,726 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1974, actualYearUsed=1957.
+2014-05-15 15:58:26,736 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1975, actualYearUsed=1934.
+2014-05-15 15:58:26,746 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1976, actualYearUsed=1935.
+2014-05-15 15:58:26,756 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1977, actualYearUsed=1915.
+2014-05-15 15:58:26,766 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1978, actualYearUsed=1925.
+2014-05-15 15:58:26,777 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1979, actualYearUsed=1998.
+2014-05-15 15:58:26,787 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1980, actualYearUsed=1945.
+2014-05-15 15:58:26,797 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1981, actualYearUsed=1903.
+2014-05-15 15:58:26,807 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1982, actualYearUsed=2011.
+2014-05-15 15:58:26,816 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1983, actualYearUsed=1912.
+2014-05-15 15:58:26,827 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1984, actualYearUsed=1964.
+2014-05-15 15:58:26,848 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1985, actualYearUsed=1988.
+2014-05-15 15:58:26,859 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1986, actualYearUsed=1921.
+2014-05-15 15:58:26,869 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1987, actualYearUsed=1954.
+2014-05-15 15:58:26,879 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1988, actualYearUsed=1924.
+2014-05-15 15:58:26,889 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1989, actualYearUsed=2002.
+2014-05-15 15:58:26,899 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1990, actualYearUsed=1915.
+2014-05-15 15:58:26,911 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1991, actualYearUsed=1969.
+2014-05-15 15:58:26,921 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1992, actualYearUsed=1941.
+2014-05-15 15:58:26,931 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1993, actualYearUsed=1999.
+2014-05-15 15:58:26,941 -   Completed calculations for Future_Climate using RandomYear_Monthly. Ecoregion = MN100, SimulatedYear = 1994, actualYearUsed=2007.
+2014-05-15 15:58:26,960 -    Opening a Century log file "Century-prob-establish-log.csv" ...
+2014-05-15 15:58:27,003 -    Registering Data:  TimeOfLastSuccession.
+2014-05-15 15:58:27,004 -    Registering Data:  Shade.
+2014-05-15 15:58:27,009 -    Creating Dispersal Neighborhood List.
+2014-05-15 15:58:27,010 -    Dispersal:  NeighborRadius=15050, CellLength=100, numCellRadius=150
+2014-05-15 15:58:27,027 -    Loading biomass parameters for age-only disturbances from file "bio-reductions-standard.txt" ...
+2014-05-15 15:58:27,036 -       Reading CohortBiomassReductions.
+2014-05-15 15:58:27,039 -          Adding disturbance:fire...
+2014-05-15 15:58:27,040 -          Adding disturbance:wind...
+2014-05-15 15:58:27,042 -          Adding disturbance:harvest...
+2014-05-15 15:58:27,043 -       Reading DeadBiomassReductions.
+2014-05-15 15:58:27,044 -          Adding disturbance:fire...
+2014-05-15 15:58:27,052 -    Loading initial communities from file "./TestCommunityA.txt" ...
+2014-05-15 15:58:27,072 -    Reading initial communities map "./single_cell_3.img" ...
+2014-05-15 15:58:27,286 - Current time: 1
+2014-05-15 15:58:27,288 - Running Century Succession ...
+2014-05-15 15:58:27,304 - Utilizing Climate Data: SimulatedYear = 1896, actualClimateYearUsed = 1935.
+2014-05-15 15:58:27,763 - Current time: 2
+2014-05-15 15:58:27,765 - Running Century Succession ...
+2014-05-15 15:58:27,766 - Utilizing Climate Data: SimulatedYear = 1897, actualClimateYearUsed = 1899.
+2014-05-15 15:58:28,068 - Current time: 3
+2014-05-15 15:58:28,069 - Running Century Succession ...
+2014-05-15 15:58:28,071 - Utilizing Climate Data: SimulatedYear = 1898, actualClimateYearUsed = 2010.
+2014-05-15 15:58:28,370 - Current time: 4
+2014-05-15 15:58:28,371 - Running Century Succession ...
+2014-05-15 15:58:28,372 - Utilizing Climate Data: SimulatedYear = 1899, actualClimateYearUsed = 1991.
+2014-05-15 15:58:28,682 - Current time: 5
+2014-05-15 15:58:28,684 - Running Century Succession ...
+2014-05-15 15:58:28,685 - Utilizing Climate Data: SimulatedYear = 1900, actualClimateYearUsed = 1950.
+2014-05-15 15:58:28,984 - Current time: 6
+2014-05-15 15:58:28,985 - Running Century Succession ...
+2014-05-15 15:58:28,987 - Utilizing Climate Data: SimulatedYear = 1901, actualClimateYearUsed = 1983.
+2014-05-15 15:58:29,253 - Current time: 7
+2014-05-15 15:58:29,254 - Running Century Succession ...
+2014-05-15 15:58:29,255 - Utilizing Climate Data: SimulatedYear = 1902, actualClimateYearUsed = 1907.
+2014-05-15 15:58:29,542 - Current time: 8
+2014-05-15 15:58:29,544 - Running Century Succession ...
+2014-05-15 15:58:29,545 - Utilizing Climate Data: SimulatedYear = 1903, actualClimateYearUsed = 2003.
+2014-05-15 15:58:29,840 - Current time: 9
+2014-05-15 15:58:29,841 - Running Century Succession ...
+2014-05-15 15:58:29,843 - Utilizing Climate Data: SimulatedYear = 1904, actualClimateYearUsed = 1960.
+2014-05-15 15:58:30,137 - Current time: 10
+2014-05-15 15:58:30,138 - Running Century Succession ...
+2014-05-15 15:58:30,140 - Utilizing Climate Data: SimulatedYear = 1905, actualClimateYearUsed = 1928.
+2014-05-15 15:58:30,420 - Current time: 11
+2014-05-15 15:58:30,422 - Running Century Succession ...
+2014-05-15 15:58:30,423 - Utilizing Climate Data: SimulatedYear = 1906, actualClimateYearUsed = 1898.
+2014-05-15 15:58:30,724 - Current time: 12
+2014-05-15 15:58:30,725 - Running Century Succession ...
+2014-05-15 15:58:30,726 - Utilizing Climate Data: SimulatedYear = 1907, actualClimateYearUsed = 1958.
+2014-05-15 15:58:31,045 - Current time: 13
+2014-05-15 15:58:31,046 - Running Century Succession ...
+2014-05-15 15:58:31,048 - Utilizing Climate Data: SimulatedYear = 1908, actualClimateYearUsed = 1933.
+2014-05-15 15:58:31,360 - Current time: 14
+2014-05-15 15:58:31,361 - Running Century Succession ...
+2014-05-15 15:58:31,362 - Utilizing Climate Data: SimulatedYear = 1909, actualClimateYearUsed = 1936.
+2014-05-15 15:58:31,650 - Current time: 15
+2014-05-15 15:58:31,652 - Running Century Succession ...
+2014-05-15 15:58:31,653 - Utilizing Climate Data: SimulatedYear = 1910, actualClimateYearUsed = 1927.
+2014-05-15 15:58:31,957 - Current time: 16
+2014-05-15 15:58:31,959 - Running Century Succession ...
+2014-05-15 15:58:31,960 - Utilizing Climate Data: SimulatedYear = 1911, actualClimateYearUsed = 1949.
+2014-05-15 15:58:32,271 - Current time: 17
+2014-05-15 15:58:32,272 - Running Century Succession ...
+2014-05-15 15:58:32,274 - Utilizing Climate Data: SimulatedYear = 1912, actualClimateYearUsed = 1958.
+2014-05-15 15:58:32,581 - Current time: 18
+2014-05-15 15:58:32,582 - Running Century Succession ...
+2014-05-15 15:58:32,583 - Utilizing Climate Data: SimulatedYear = 1913, actualClimateYearUsed = 1914.
+2014-05-15 15:58:32,876 - Current time: 19
+2014-05-15 15:58:32,878 - Running Century Succession ...
+2014-05-15 15:58:32,879 - Utilizing Climate Data: SimulatedYear = 1914, actualClimateYearUsed = 1997.
+2014-05-15 15:58:33,172 - Current time: 20
+2014-05-15 15:58:33,173 - Running Century Succession ...
+2014-05-15 15:58:33,174 - Utilizing Climate Data: SimulatedYear = 1915, actualClimateYearUsed = 2012.
+2014-05-15 15:58:33,495 - Current time: 21
+2014-05-15 15:58:33,496 - Running Century Succession ...
+2014-05-15 15:58:33,497 - Utilizing Climate Data: SimulatedYear = 1916, actualClimateYearUsed = 1963.
+2014-05-15 15:58:33,820 - Current time: 22
+2014-05-15 15:58:33,822 - Running Century Succession ...
+2014-05-15 15:58:33,823 - Utilizing Climate Data: SimulatedYear = 1917, actualClimateYearUsed = 1895.
+2014-05-15 15:58:34,143 - Current time: 23
+2014-05-15 15:58:34,144 - Running Century Succession ...
+2014-05-15 15:58:34,146 - Utilizing Climate Data: SimulatedYear = 1918, actualClimateYearUsed = 1913.
+2014-05-15 15:58:34,479 - Current time: 24
+2014-05-15 15:58:34,480 - Running Century Succession ...
+2014-05-15 15:58:34,482 - Utilizing Climate Data: SimulatedYear = 1919, actualClimateYearUsed = 1992.
+2014-05-15 15:58:34,815 - Current time: 25
+2014-05-15 15:58:34,816 - Running Century Succession ...
+2014-05-15 15:58:34,817 - Utilizing Climate Data: SimulatedYear = 1920, actualClimateYearUsed = 1977.
+2014-05-15 15:58:35,114 - Current time: 26
+2014-05-15 15:58:35,115 - Running Century Succession ...
+2014-05-15 15:58:35,116 - Utilizing Climate Data: SimulatedYear = 1921, actualClimateYearUsed = 1936.
+2014-05-15 15:58:35,386 - Current time: 27
+2014-05-15 15:58:35,387 - Running Century Succession ...
+2014-05-15 15:58:35,388 - Utilizing Climate Data: SimulatedYear = 1922, actualClimateYearUsed = 1991.
+2014-05-15 15:58:35,698 - Current time: 28
+2014-05-15 15:58:35,699 - Running Century Succession ...
+2014-05-15 15:58:35,701 - Utilizing Climate Data: SimulatedYear = 1923, actualClimateYearUsed = 1934.
+2014-05-15 15:58:36,020 - Current time: 29
+2014-05-15 15:58:36,022 - Running Century Succession ...
+2014-05-15 15:58:36,023 - Utilizing Climate Data: SimulatedYear = 1924, actualClimateYearUsed = 1946.
+2014-05-15 15:58:36,335 - Current time: 30
+2014-05-15 15:58:36,336 - Running Century Succession ...
+2014-05-15 15:58:36,338 - Utilizing Climate Data: SimulatedYear = 1925, actualClimateYearUsed = 1961.
+2014-05-15 15:58:36,647 - Current time: 31
+2014-05-15 15:58:36,648 - Running Century Succession ...
+2014-05-15 15:58:36,650 - Utilizing Climate Data: SimulatedYear = 1926, actualClimateYearUsed = 1982.
+2014-05-15 15:58:36,952 - Current time: 32
+2014-05-15 15:58:36,959 - Running Century Succession ...
+2014-05-15 15:58:36,960 - Utilizing Climate Data: SimulatedYear = 1927, actualClimateYearUsed = 1935.
+2014-05-15 15:58:37,292 - Current time: 33
+2014-05-15 15:58:37,293 - Running Century Succession ...
+2014-05-15 15:58:37,294 - Utilizing Climate Data: SimulatedYear = 1928, actualClimateYearUsed = 1935.
+2014-05-15 15:58:37,585 - Current time: 34
+2014-05-15 15:58:37,586 - Running Century Succession ...
+2014-05-15 15:58:37,588 - Utilizing Climate Data: SimulatedYear = 1929, actualClimateYearUsed = 1942.
+2014-05-15 15:58:37,906 - Current time: 35
+2014-05-15 15:58:37,907 - Running Century Succession ...
+2014-05-15 15:58:37,909 - Utilizing Climate Data: SimulatedYear = 1930, actualClimateYearUsed = 1960.
+2014-05-15 15:58:38,266 - Current time: 36
+2014-05-15 15:58:38,267 - Running Century Succession ...
+2014-05-15 15:58:38,269 - Utilizing Climate Data: SimulatedYear = 1931, actualClimateYearUsed = 1980.
+2014-05-15 15:58:38,591 - Current time: 37
+2014-05-15 15:58:38,593 - Running Century Succession ...
+2014-05-15 15:58:38,594 - Utilizing Climate Data: SimulatedYear = 1932, actualClimateYearUsed = 1906.
+2014-05-15 15:58:38,872 - Current time: 38
+2014-05-15 15:58:38,874 - Running Century Succession ...
+2014-05-15 15:58:38,875 - Utilizing Climate Data: SimulatedYear = 1933, actualClimateYearUsed = 2008.
+2014-05-15 15:58:39,153 - Current time: 39
+2014-05-15 15:58:39,154 - Running Century Succession ...
+2014-05-15 15:58:39,155 - Utilizing Climate Data: SimulatedYear = 1934, actualClimateYearUsed = 1961.
+2014-05-15 15:58:39,448 - Current time: 40
+2014-05-15 15:58:39,449 - Running Century Succession ...
+2014-05-15 15:58:39,450 - Utilizing Climate Data: SimulatedYear = 1935, actualClimateYearUsed = 1962.
+2014-05-15 15:58:39,777 - Current time: 41
+2014-05-15 15:58:39,779 - Running Century Succession ...
+2014-05-15 15:58:39,780 - Utilizing Climate Data: SimulatedYear = 1936, actualClimateYearUsed = 1895.
+2014-05-15 15:58:40,091 - Current time: 42
+2014-05-15 15:58:40,092 - Running Century Succession ...
+2014-05-15 15:58:40,094 - Utilizing Climate Data: SimulatedYear = 1937, actualClimateYearUsed = 1937.
+2014-05-15 15:58:40,395 - Current time: 43
+2014-05-15 15:58:40,397 - Running Century Succession ...
+2014-05-15 15:58:40,398 - Utilizing Climate Data: SimulatedYear = 1938, actualClimateYearUsed = 1937.
+2014-05-15 15:58:40,712 - Current time: 44
+2014-05-15 15:58:40,714 - Running Century Succession ...
+2014-05-15 15:58:40,715 - Utilizing Climate Data: SimulatedYear = 1939, actualClimateYearUsed = 1917.
+2014-05-15 15:58:41,062 - Current time: 45
+2014-05-15 15:58:41,063 - Running Century Succession ...
+2014-05-15 15:58:41,064 - Utilizing Climate Data: SimulatedYear = 1940, actualClimateYearUsed = 1934.
+2014-05-15 15:58:41,408 - Current time: 46
+2014-05-15 15:58:41,409 - Running Century Succession ...
+2014-05-15 15:58:41,410 - Utilizing Climate Data: SimulatedYear = 1941, actualClimateYearUsed = 1942.
+2014-05-15 15:58:41,733 - Current time: 47
+2014-05-15 15:58:41,734 - Running Century Succession ...
+2014-05-15 15:58:41,736 - Utilizing Climate Data: SimulatedYear = 1942, actualClimateYearUsed = 1999.
+2014-05-15 15:58:42,060 - Current time: 48
+2014-05-15 15:58:42,061 - Running Century Succession ...
+2014-05-15 15:58:42,063 - Utilizing Climate Data: SimulatedYear = 1943, actualClimateYearUsed = 1978.
+2014-05-15 15:58:42,402 - Current time: 49
+2014-05-15 15:58:42,403 - Running Century Succession ...
+2014-05-15 15:58:42,405 - Utilizing Climate Data: SimulatedYear = 1944, actualClimateYearUsed = 1906.
+2014-05-15 15:58:42,718 - Current time: 50
+2014-05-15 15:58:42,720 - Running Century Succession ...
+2014-05-15 15:58:42,721 - Utilizing Climate Data: SimulatedYear = 1945, actualClimateYearUsed = 2001.
+2014-05-15 15:58:43,033 - Current time: 51
+2014-05-15 15:58:43,034 - Running Century Succession ...
+2014-05-15 15:58:43,035 - Utilizing Climate Data: SimulatedYear = 1946, actualClimateYearUsed = 1954.
+2014-05-15 15:58:43,352 - Current time: 52
+2014-05-15 15:58:43,353 - Running Century Succession ...
+2014-05-15 15:58:43,354 - Utilizing Climate Data: SimulatedYear = 1947, actualClimateYearUsed = 1934.
+2014-05-15 15:58:43,651 - Current time: 53
+2014-05-15 15:58:43,652 - Running Century Succession ...
+2014-05-15 15:58:43,654 - Utilizing Climate Data: SimulatedYear = 1948, actualClimateYearUsed = 1961.
+2014-05-15 15:58:43,970 - Current time: 54
+2014-05-15 15:58:43,972 - Running Century Succession ...
+2014-05-15 15:58:43,973 - Utilizing Climate Data: SimulatedYear = 1949, actualClimateYearUsed = 1910.
+2014-05-15 15:58:44,353 - Current time: 55
+2014-05-15 15:58:44,354 - Running Century Succession ...
+2014-05-15 15:58:44,355 - Utilizing Climate Data: SimulatedYear = 1950, actualClimateYearUsed = 1992.
+2014-05-15 15:58:44,701 - Current time: 56
+2014-05-15 15:58:44,702 - Running Century Succession ...
+2014-05-15 15:58:44,704 - Utilizing Climate Data: SimulatedYear = 1951, actualClimateYearUsed = 1944.
+2014-05-15 15:58:45,027 - Current time: 57
+2014-05-15 15:58:45,028 - Running Century Succession ...
+2014-05-15 15:58:45,030 - Utilizing Climate Data: SimulatedYear = 1952, actualClimateYearUsed = 2000.
+2014-05-15 15:58:45,303 - Current time: 58
+2014-05-15 15:58:45,304 - Running Century Succession ...
+2014-05-15 15:58:45,305 - Utilizing Climate Data: SimulatedYear = 1953, actualClimateYearUsed = 1956.
+2014-05-15 15:58:45,593 - Current time: 59
+2014-05-15 15:58:45,594 - Running Century Succession ...
+2014-05-15 15:58:45,595 - Utilizing Climate Data: SimulatedYear = 1954, actualClimateYearUsed = 1955.
+2014-05-15 15:58:45,902 - Current time: 60
+2014-05-15 15:58:45,903 - Running Century Succession ...
+2014-05-15 15:58:45,905 - Utilizing Climate Data: SimulatedYear = 1955, actualClimateYearUsed = 1976.
+2014-05-15 15:58:46,204 - Current time: 61
+2014-05-15 15:58:46,205 - Running Century Succession ...
+2014-05-15 15:58:46,206 - Utilizing Climate Data: SimulatedYear = 1956, actualClimateYearUsed = 1965.
+2014-05-15 15:58:46,493 - Current time: 62
+2014-05-15 15:58:46,495 - Running Century Succession ...
+2014-05-15 15:58:46,496 - Utilizing Climate Data: SimulatedYear = 1957, actualClimateYearUsed = 2002.
+2014-05-15 15:58:46,782 - Current time: 63
+2014-05-15 15:58:46,784 - Running Century Succession ...
+2014-05-15 15:58:46,785 - Utilizing Climate Data: SimulatedYear = 1958, actualClimateYearUsed = 1908.
+2014-05-15 15:58:47,099 - Current time: 64
+2014-05-15 15:58:47,100 - Running Century Succession ...
+2014-05-15 15:58:47,101 - Utilizing Climate Data: SimulatedYear = 1959, actualClimateYearUsed = 1932.
+2014-05-15 15:58:47,381 - Current time: 65
+2014-05-15 15:58:47,382 - Running Century Succession ...
+2014-05-15 15:58:47,383 - Utilizing Climate Data: SimulatedYear = 1960, actualClimateYearUsed = 1977.
+2014-05-15 15:58:47,670 - Current time: 66
+2014-05-15 15:58:47,672 - Running Century Succession ...
+2014-05-15 15:58:47,673 - Utilizing Climate Data: SimulatedYear = 1961, actualClimateYearUsed = 2010.
+2014-05-15 15:58:47,966 - Current time: 67
+2014-05-15 15:58:47,967 - Running Century Succession ...
+2014-05-15 15:58:47,969 - Utilizing Climate Data: SimulatedYear = 1962, actualClimateYearUsed = 1965.
+2014-05-15 15:58:48,263 - Current time: 68
+2014-05-15 15:58:48,264 - Running Century Succession ...
+2014-05-15 15:58:48,266 - Utilizing Climate Data: SimulatedYear = 1963, actualClimateYearUsed = 1930.
+2014-05-15 15:58:48,567 - Current time: 69
+2014-05-15 15:58:48,569 - Running Century Succession ...
+2014-05-15 15:58:48,570 - Utilizing Climate Data: SimulatedYear = 1964, actualClimateYearUsed = 1980.
+2014-05-15 15:58:48,862 - Current time: 70
+2014-05-15 15:58:48,863 - Running Century Succession ...
+2014-05-15 15:58:48,865 - Utilizing Climate Data: SimulatedYear = 1965, actualClimateYearUsed = 1917.
+2014-05-15 15:58:49,145 - Current time: 71
+2014-05-15 15:58:49,146 - Running Century Succession ...
+2014-05-15 15:58:49,147 - Utilizing Climate Data: SimulatedYear = 1966, actualClimateYearUsed = 1938.
+2014-05-15 15:58:49,410 - Current time: 72
+2014-05-15 15:58:49,411 - Running Century Succession ...
+2014-05-15 15:58:49,412 - Utilizing Climate Data: SimulatedYear = 1967, actualClimateYearUsed = 2011.
+2014-05-15 15:58:49,714 - Current time: 73
+2014-05-15 15:58:49,715 - Running Century Succession ...
+2014-05-15 15:58:49,716 - Utilizing Climate Data: SimulatedYear = 1968, actualClimateYearUsed = 1977.
+2014-05-15 15:58:50,012 - Current time: 74
+2014-05-15 15:58:50,014 - Running Century Succession ...
+2014-05-15 15:58:50,015 - Utilizing Climate Data: SimulatedYear = 1969, actualClimateYearUsed = 2007.
+2014-05-15 15:58:50,311 - Current time: 75
+2014-05-15 15:58:50,312 - Running Century Succession ...
+2014-05-15 15:58:50,314 - Utilizing Climate Data: SimulatedYear = 1970, actualClimateYearUsed = 1942.
+2014-05-15 15:58:50,599 - Current time: 76
+2014-05-15 15:58:50,600 - Running Century Succession ...
+2014-05-15 15:58:50,602 - Utilizing Climate Data: SimulatedYear = 1971, actualClimateYearUsed = 1941.
+2014-05-15 15:58:50,927 - Current time: 77
+2014-05-15 15:58:50,928 - Running Century Succession ...
+2014-05-15 15:58:50,930 - Utilizing Climate Data: SimulatedYear = 1972, actualClimateYearUsed = 2010.
+2014-05-15 15:58:51,215 - Current time: 78
+2014-05-15 15:58:51,217 - Running Century Succession ...
+2014-05-15 15:58:51,218 - Utilizing Climate Data: SimulatedYear = 1973, actualClimateYearUsed = 1898.
+2014-05-15 15:58:51,527 - Current time: 79
+2014-05-15 15:58:51,528 - Running Century Succession ...
+2014-05-15 15:58:51,529 - Utilizing Climate Data: SimulatedYear = 1974, actualClimateYearUsed = 1960.
+2014-05-15 15:58:51,838 - Current time: 80
+2014-05-15 15:58:51,840 - Running Century Succession ...
+2014-05-15 15:58:51,841 - Utilizing Climate Data: SimulatedYear = 1975, actualClimateYearUsed = 1957.
+2014-05-15 15:58:52,139 - Current time: 81
+2014-05-15 15:58:52,141 - Running Century Succession ...
+2014-05-15 15:58:52,142 - Utilizing Climate Data: SimulatedYear = 1976, actualClimateYearUsed = 1934.
+2014-05-15 15:58:52,451 - Current time: 82
+2014-05-15 15:58:52,453 - Running Century Succession ...
+2014-05-15 15:58:52,454 - Utilizing Climate Data: SimulatedYear = 1977, actualClimateYearUsed = 1935.
+2014-05-15 15:58:52,760 - Current time: 83
+2014-05-15 15:58:52,761 - Running Century Succession ...
+2014-05-15 15:58:52,763 - Utilizing Climate Data: SimulatedYear = 1978, actualClimateYearUsed = 1915.
+2014-05-15 15:58:53,068 - Current time: 84
+2014-05-15 15:58:53,069 - Running Century Succession ...
+2014-05-15 15:58:53,074 - Utilizing Climate Data: SimulatedYear = 1979, actualClimateYearUsed = 1925.
+2014-05-15 15:58:53,376 - Current time: 85
+2014-05-15 15:58:53,377 - Running Century Succession ...
+2014-05-15 15:58:53,378 - Utilizing Climate Data: SimulatedYear = 1980, actualClimateYearUsed = 1998.
+2014-05-15 15:58:53,721 - Current time: 86
+2014-05-15 15:58:53,722 - Running Century Succession ...
+2014-05-15 15:58:53,724 - Utilizing Climate Data: SimulatedYear = 1981, actualClimateYearUsed = 1945.
+2014-05-15 15:58:54,083 - Current time: 87
+2014-05-15 15:58:54,085 - Running Century Succession ...
+2014-05-15 15:58:54,086 - Utilizing Climate Data: SimulatedYear = 1982, actualClimateYearUsed = 1903.
+2014-05-15 15:58:54,382 - Current time: 88
+2014-05-15 15:58:54,383 - Running Century Succession ...
+2014-05-15 15:58:54,385 - Utilizing Climate Data: SimulatedYear = 1983, actualClimateYearUsed = 2011.
+2014-05-15 15:58:54,698 - Current time: 89
+2014-05-15 15:58:54,700 - Running Century Succession ...
+2014-05-15 15:58:54,701 - Utilizing Climate Data: SimulatedYear = 1984, actualClimateYearUsed = 1912.
+2014-05-15 15:58:55,048 - Current time: 90
+2014-05-15 15:58:55,050 - Running Century Succession ...
+2014-05-15 15:58:55,051 - Utilizing Climate Data: SimulatedYear = 1985, actualClimateYearUsed = 1964.
+2014-05-15 15:58:55,385 - Current time: 91
+2014-05-15 15:58:55,386 - Running Century Succession ...
+2014-05-15 15:58:55,388 - Utilizing Climate Data: SimulatedYear = 1986, actualClimateYearUsed = 1988.
+2014-05-15 15:58:55,723 - Current time: 92
+2014-05-15 15:58:55,724 - Running Century Succession ...
+2014-05-15 15:58:55,726 - Utilizing Climate Data: SimulatedYear = 1987, actualClimateYearUsed = 1921.
+2014-05-15 15:58:56,049 - Current time: 93
+2014-05-15 15:58:56,050 - Running Century Succession ...
+2014-05-15 15:58:56,051 - Utilizing Climate Data: SimulatedYear = 1988, actualClimateYearUsed = 1954.
+2014-05-15 15:58:56,381 - Current time: 94
+2014-05-15 15:58:56,383 - Running Century Succession ...
+2014-05-15 15:58:56,384 - Utilizing Climate Data: SimulatedYear = 1989, actualClimateYearUsed = 1924.
+2014-05-15 15:58:56,684 - Current time: 95
+2014-05-15 15:58:56,685 - Running Century Succession ...
+2014-05-15 15:58:56,687 - Utilizing Climate Data: SimulatedYear = 1990, actualClimateYearUsed = 2002.
+2014-05-15 15:58:56,988 - Current time: 96
+2014-05-15 15:58:56,989 - Running Century Succession ...
+2014-05-15 15:58:56,991 - Utilizing Climate Data: SimulatedYear = 1991, actualClimateYearUsed = 1915.
+2014-05-15 15:58:57,295 - Current time: 97
+2014-05-15 15:58:57,297 - Running Century Succession ...
+2014-05-15 15:58:57,298 - Utilizing Climate Data: SimulatedYear = 1992, actualClimateYearUsed = 1969.
+2014-05-15 15:58:57,594 - Current time: 98
+2014-05-15 15:58:57,595 - Running Century Succession ...
+2014-05-15 15:58:57,596 - Utilizing Climate Data: SimulatedYear = 1993, actualClimateYearUsed = 1941.
+2014-05-15 15:58:57,898 - Current time: 99
+2014-05-15 15:58:57,899 - Running Century Succession ...
+2014-05-15 15:58:57,900 - Utilizing Climate Data: SimulatedYear = 1994, actualClimateYearUsed = 1999.
+2014-05-15 15:58:58,172 - Current time: 100
+2014-05-15 15:58:58,173 - Running Century Succession ...
+2014-05-15 15:58:58,175 - Utilizing Climate Data: SimulatedYear = 1995, actualClimateYearUsed = 2007.
+2014-05-15 15:58:58,442 - Model run is complete.
