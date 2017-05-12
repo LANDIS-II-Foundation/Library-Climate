@@ -1,0 +1,921 @@
+2014-05-16 08:53:45,976 - LANDIS-II 6.0 (official release)
+2014-05-16 08:53:45,991 - 
+2014-05-16 08:53:46,194 - Loading scenario from file "scenario-single-cell.txt" ...
+2014-05-16 08:53:46,319 - Loading species data from file "CNF_species-9.6.13.txt" ...
+2014-05-16 08:53:46,350 - Loading ecoregions from file "CNF_ecoregion-SC.txt" ...
+2014-05-16 08:53:46,381 - Initializing landscape from ecoregions map "single_cell_3.img" ...
+2014-05-16 08:53:46,428 - Cell length = 100 m, cell area = 1 ha
+2014-05-16 08:53:46,428 - Map dimensions: 1 row by 1 column = 1 cell
+2014-05-16 08:53:46,444 - Sites: 1 active (100.0 %), 0 inactive (0.0 %)
+2014-05-16 08:53:46,459 - Loading Century Succession extension ...
+2014-05-16 08:53:46,490 -    Registering Data:  Succession.LeafBiomassCohorts.
+2014-05-16 08:53:46,490 -    Registering Data:  Succession.AgeCohorts.
+2014-05-16 08:53:46,584 -    Begin parsing FUNCTIONAL GROUP table.
+2014-05-16 08:53:46,584 -    Begin reading INITIAL ECOREGION parameters.
+2014-05-16 08:53:46,600 -    Begin reading FIXED ECOREGION parameters.
+2014-05-16 08:53:46,600 -    Begin reading FIRE REDUCTION parameters.
+2014-05-16 08:53:46,600 -    Begin reading HARVEST REDUCTION parameters.
+2014-05-16 08:53:46,615 - Initializing Century Succession ...
+2014-05-16 08:53:46,724 -    Loading weather data ...
+2014-05-16 08:53:46,724 -    Loading spin-up weather data from file GFDLA1fi_6.20.13_SC.csv ...
+2014-05-16 08:53:46,756 -    Converting raw data from text file: GFDLA1fi_6.20.13_SC.csv, Format=daily_temp-c_precip-mmday, Temporal=Daily.
+2014-05-16 08:53:46,849 -    Loading future weather data from file GFDLA1fi_6.20.13_SC.csv ...
+2014-05-16 08:53:46,849 -    Converting raw data from text file: GFDLA1fi_6.20.13_SC.csv, Format=daily_temp-c_precip-mmday, Temporal=Daily.
+2014-05-16 08:53:47,908 -    Core.StartTime = 0, Core.EndTime = 20.
+2014-05-16 08:53:47,908 -    Climate.LandscapeAnnualPDSI.Length = 21.
+2014-05-16 08:53:47,940 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2000.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2001.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2002.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2003.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2004.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2005.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2006.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2007.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2008.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2009.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2010.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2011.
+2014-05-16 08:53:47,955 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2012.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2013.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2014.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2015.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2016.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2017.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2018.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2019.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2020.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2021.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2022.
+2014-05-16 08:53:47,971 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2023.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2024.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2025.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2026.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2027.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2028.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2029.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2030.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2031.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2032.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2033.
+2014-05-16 08:53:47,986 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2034.
+2014-05-16 08:53:48,002 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2035.
+2014-05-16 08:53:48,002 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2036.
+2014-05-16 08:53:48,002 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2037.
+2014-05-16 08:53:48,002 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2038.
+2014-05-16 08:53:48,002 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2039.
+2014-05-16 08:53:48,002 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2040.
+2014-05-16 08:53:48,002 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2041.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2042.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2043.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2044.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2045.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2046.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2047.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2048.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2049.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2050.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2051.
+2014-05-16 08:53:48,018 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2052.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2053.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2054.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2055.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2056.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2057.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2058.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2059.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2060.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2061.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2062.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2063.
+2014-05-16 08:53:48,033 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2064.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2065.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2066.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2067.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2068.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2069.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2070.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2071.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2072.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2073.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2074.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2075.
+2014-05-16 08:53:48,049 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2076.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2077.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2078.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2079.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2080.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2081.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2082.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2083.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2084.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2085.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2086.
+2014-05-16 08:53:48,064 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2087.
+2014-05-16 08:53:48,080 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2088.
+2014-05-16 08:53:48,080 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2089.
+2014-05-16 08:53:48,080 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2090.
+2014-05-16 08:53:48,080 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2091.
+2014-05-16 08:53:48,080 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2092.
+2014-05-16 08:53:48,080 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2093.
+2014-05-16 08:53:48,080 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2094.
+2014-05-16 08:53:48,080 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2095.
+2014-05-16 08:53:48,080 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2096.
+2014-05-16 08:53:48,080 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2097.
+2014-05-16 08:53:48,096 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2098.
+2014-05-16 08:53:48,096 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2099.
+2014-05-16 08:53:48,096 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2100.
+2014-05-16 08:53:48,096 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2101.
+2014-05-16 08:53:48,096 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2102.
+2014-05-16 08:53:48,096 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2103.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2104.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2105.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2106.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2107.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2108.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2109.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2110.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2111.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2112.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2113.
+2014-05-16 08:53:48,111 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2114.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2115.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2116.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2117.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2118.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2119.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2120.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2121.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2122.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2123.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2124.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2125.
+2014-05-16 08:53:48,127 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2126.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2127.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2128.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2129.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2130.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2131.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2132.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2133.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2134.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2135.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2136.
+2014-05-16 08:53:48,142 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2137.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2138.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2139.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2140.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2141.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2142.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2143.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2144.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2145.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2146.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2147.
+2014-05-16 08:53:48,158 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2148.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2149.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2150.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2151.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2152.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2153.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2154.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2155.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2156.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2157.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2158.
+2014-05-16 08:53:48,174 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2159.
+2014-05-16 08:53:48,189 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2160.
+2014-05-16 08:53:48,189 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2161.
+2014-05-16 08:53:48,189 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2162.
+2014-05-16 08:53:48,189 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2163.
+2014-05-16 08:53:48,189 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2164.
+2014-05-16 08:53:48,189 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2165.
+2014-05-16 08:53:48,189 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2166.
+2014-05-16 08:53:48,189 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2167.
+2014-05-16 08:53:48,189 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2168.
+2014-05-16 08:53:48,189 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2169.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2170.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2171.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2172.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2173.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2174.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2175.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2176.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2177.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2178.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2179.
+2014-05-16 08:53:48,205 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2180.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2181.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2182.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2183.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2184.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2185.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2186.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2187.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2188.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2189.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2190.
+2014-05-16 08:53:48,220 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2191.
+2014-05-16 08:53:48,236 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2192.
+2014-05-16 08:53:48,236 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2193.
+2014-05-16 08:53:48,236 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2194.
+2014-05-16 08:53:48,236 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2195.
+2014-05-16 08:53:48,236 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2196.
+2014-05-16 08:53:48,236 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2197.
+2014-05-16 08:53:48,236 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2198.
+2014-05-16 08:53:48,236 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2199.
+2014-05-16 08:53:48,236 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2200.
+2014-05-16 08:53:48,236 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2201.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2202.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2203.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2204.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2205.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2206.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2207.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2208.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2209.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2210.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2211.
+2014-05-16 08:53:48,252 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2212.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2213.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2214.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2215.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2216.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2217.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2218.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2219.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2220.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2221.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2222.
+2014-05-16 08:53:48,267 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2223.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2224.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2225.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2226.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2227.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2228.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2229.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2230.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2231.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2232.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2233.
+2014-05-16 08:53:48,283 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2234.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2235.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2236.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2237.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2238.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2239.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2240.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2241.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2242.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2243.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2244.
+2014-05-16 08:53:48,298 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2245.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2246.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2247.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2248.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2249.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2250.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2251.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2252.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2253.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2254.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2255.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2256.
+2014-05-16 08:53:48,314 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2257.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2258.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2259.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2260.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2261.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2262.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2263.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2264.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2265.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2266.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2267.
+2014-05-16 08:53:48,330 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2268.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2269.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2270.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2271.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2272.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2273.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2274.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2275.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2276.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2277.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2278.
+2014-05-16 08:53:48,345 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2279.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2280.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2281.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2282.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2283.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2284.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2285.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2286.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2287.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2288.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2289.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2290.
+2014-05-16 08:53:48,361 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2291.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2292.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2293.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2294.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2295.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2296.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2297.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2298.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2299.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2300.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2301.
+2014-05-16 08:53:48,376 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2302.
+2014-05-16 08:53:48,392 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2303.
+2014-05-16 08:53:48,392 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2304.
+2014-05-16 08:53:48,392 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2305.
+2014-05-16 08:53:48,392 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2306.
+2014-05-16 08:53:48,392 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2307.
+2014-05-16 08:53:48,392 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2308.
+2014-05-16 08:53:48,392 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2309.
+2014-05-16 08:53:48,392 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2310.
+2014-05-16 08:53:48,392 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2311.
+2014-05-16 08:53:48,392 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2312.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2313.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2314.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2315.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2316.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2317.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2318.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2319.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2320.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2321.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2322.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2323.
+2014-05-16 08:53:48,408 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2324.
+2014-05-16 08:53:48,423 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2325.
+2014-05-16 08:53:48,423 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2326.
+2014-05-16 08:53:48,423 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2327.
+2014-05-16 08:53:48,423 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2328.
+2014-05-16 08:53:48,423 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2329.
+2014-05-16 08:53:48,423 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2330.
+2014-05-16 08:53:48,423 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2331.
+2014-05-16 08:53:48,423 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2332.
+2014-05-16 08:53:48,423 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2333.
+2014-05-16 08:53:48,423 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2334.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2335.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2336.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2337.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2338.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2339.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2340.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2341.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2342.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2343.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2344.
+2014-05-16 08:53:48,439 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2345.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2346.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2347.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2348.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2349.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2350.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2351.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2352.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2353.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2354.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2355.
+2014-05-16 08:53:48,454 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2356.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2357.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2358.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2359.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2360.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2361.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2362.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2363.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2364.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2365.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2366.
+2014-05-16 08:53:48,470 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2367.
+2014-05-16 08:53:48,486 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2368.
+2014-05-16 08:53:48,486 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2369.
+2014-05-16 08:53:48,486 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2370.
+2014-05-16 08:53:48,486 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2371.
+2014-05-16 08:53:48,486 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2372.
+2014-05-16 08:53:48,486 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2373.
+2014-05-16 08:53:48,486 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2374.
+2014-05-16 08:53:48,486 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2375.
+2014-05-16 08:53:48,486 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2376.
+2014-05-16 08:53:48,486 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2377.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2378.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2379.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2380.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2381.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2382.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2383.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2384.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2385.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2386.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2387.
+2014-05-16 08:53:48,501 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2388.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2389.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2390.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2391.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2392.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2393.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2394.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2395.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2396.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2397.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2398.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2399.
+2014-05-16 08:53:48,517 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2400.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2401.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2402.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2403.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2404.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2405.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2406.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2407.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2408.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2409.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2410.
+2014-05-16 08:53:48,532 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2411.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2412.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2413.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2414.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2415.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2416.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2417.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2418.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2419.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2420.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2421.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2422.
+2014-05-16 08:53:48,548 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2423.
+2014-05-16 08:53:48,564 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2424.
+2014-05-16 08:53:48,564 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2425.
+2014-05-16 08:53:48,564 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2426.
+2014-05-16 08:53:48,564 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2427.
+2014-05-16 08:53:48,564 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2428.
+2014-05-16 08:53:48,564 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2429.
+2014-05-16 08:53:48,564 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2430.
+2014-05-16 08:53:48,564 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2431.
+2014-05-16 08:53:48,579 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2432.
+2014-05-16 08:53:48,579 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2433.
+2014-05-16 08:53:48,579 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2434.
+2014-05-16 08:53:48,579 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2435.
+2014-05-16 08:53:48,579 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2436.
+2014-05-16 08:53:48,579 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2437.
+2014-05-16 08:53:48,579 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2438.
+2014-05-16 08:53:48,579 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2439.
+2014-05-16 08:53:48,579 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2440.
+2014-05-16 08:53:48,579 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2441.
+2014-05-16 08:53:48,595 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2442.
+2014-05-16 08:53:48,595 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2443.
+2014-05-16 08:53:48,595 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2444.
+2014-05-16 08:53:48,595 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2445.
+2014-05-16 08:53:48,595 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2446.
+2014-05-16 08:53:48,595 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2447.
+2014-05-16 08:53:48,595 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2448.
+2014-05-16 08:53:48,595 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2449.
+2014-05-16 08:53:48,595 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2450.
+2014-05-16 08:53:48,610 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2451.
+2014-05-16 08:53:48,610 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2452.
+2014-05-16 08:53:48,610 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2453.
+2014-05-16 08:53:48,610 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2454.
+2014-05-16 08:53:48,610 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2455.
+2014-05-16 08:53:48,610 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2456.
+2014-05-16 08:53:48,610 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2457.
+2014-05-16 08:53:48,626 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2458.
+2014-05-16 08:53:48,626 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2459.
+2014-05-16 08:53:48,626 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2460.
+2014-05-16 08:53:48,626 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2461.
+2014-05-16 08:53:48,626 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2462.
+2014-05-16 08:53:48,626 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2463.
+2014-05-16 08:53:48,626 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2464.
+2014-05-16 08:53:48,626 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2465.
+2014-05-16 08:53:48,626 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2466.
+2014-05-16 08:53:48,626 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2467.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2468.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2469.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2470.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2471.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2472.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2473.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2474.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2475.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2476.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2477.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2478.
+2014-05-16 08:53:48,642 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2479.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2480.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2481.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2482.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2483.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2484.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2485.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2486.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2487.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2488.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2489.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2490.
+2014-05-16 08:53:48,657 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2491.
+2014-05-16 08:53:48,673 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2492.
+2014-05-16 08:53:48,673 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2493.
+2014-05-16 08:53:48,673 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2494.
+2014-05-16 08:53:48,673 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2495.
+2014-05-16 08:53:48,673 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2496.
+2014-05-16 08:53:48,673 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2497.
+2014-05-16 08:53:48,673 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2498.
+2014-05-16 08:53:48,673 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2499.
+2014-05-16 08:53:48,673 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2500.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2501.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2502.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2503.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2504.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2505.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2506.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2507.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2508.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2509.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2510.
+2014-05-16 08:53:48,688 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2511.
+2014-05-16 08:53:48,704 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2512.
+2014-05-16 08:53:48,704 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2513.
+2014-05-16 08:53:48,704 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2514.
+2014-05-16 08:53:48,704 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2515.
+2014-05-16 08:53:48,704 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2516.
+2014-05-16 08:53:48,704 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2517.
+2014-05-16 08:53:48,704 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2518.
+2014-05-16 08:53:48,704 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2519.
+2014-05-16 08:53:48,704 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2520.
+2014-05-16 08:53:48,704 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2521.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2522.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2523.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2524.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2525.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2526.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2527.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2528.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2529.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2530.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2531.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2532.
+2014-05-16 08:53:48,720 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2533.
+2014-05-16 08:53:48,735 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2534.
+2014-05-16 08:53:48,735 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2535.
+2014-05-16 08:53:48,735 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2536.
+2014-05-16 08:53:48,735 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2537.
+2014-05-16 08:53:48,735 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2538.
+2014-05-16 08:53:48,735 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2539.
+2014-05-16 08:53:48,735 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2540.
+2014-05-16 08:53:48,735 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2541.
+2014-05-16 08:53:48,735 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2542.
+2014-05-16 08:53:48,751 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2543.
+2014-05-16 08:53:48,751 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2544.
+2014-05-16 08:53:48,751 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2545.
+2014-05-16 08:53:48,751 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2546.
+2014-05-16 08:53:48,751 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2547.
+2014-05-16 08:53:48,751 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2548.
+2014-05-16 08:53:48,751 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2549.
+2014-05-16 08:53:48,751 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2550.
+2014-05-16 08:53:48,751 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2551.
+2014-05-16 08:53:48,751 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2552.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2553.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2554.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2555.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2556.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2557.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2558.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2559.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2560.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2561.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2562.
+2014-05-16 08:53:48,766 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2563.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2564.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2565.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2566.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2567.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2568.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2569.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2570.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2571.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2572.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2573.
+2014-05-16 08:53:48,782 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2574.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2575.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2576.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2577.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2578.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2579.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2580.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2581.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2582.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2583.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2584.
+2014-05-16 08:53:48,798 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2585.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2586.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2587.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2588.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2589.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2590.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2591.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2592.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2593.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2594.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2595.
+2014-05-16 08:53:48,813 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2596.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2597.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2598.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2599.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2600.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2601.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2602.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2603.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2604.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2605.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2606.
+2014-05-16 08:53:48,829 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2607.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2608.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2609.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2610.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2611.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2612.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2613.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2614.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2615.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2616.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2617.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2618.
+2014-05-16 08:53:48,844 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2619.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2620.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2621.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2622.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2623.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2624.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2625.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2626.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2627.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2628.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2629.
+2014-05-16 08:53:48,860 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2630.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2631.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2632.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2633.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2634.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2635.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2636.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2637.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2638.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2639.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2640.
+2014-05-16 08:53:48,876 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2641.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2642.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2643.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2644.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2645.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2646.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2647.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2648.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2649.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2650.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2651.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2652.
+2014-05-16 08:53:48,891 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2653.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2654.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2655.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2656.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2657.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2658.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2659.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2660.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2661.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2662.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2663.
+2014-05-16 08:53:48,907 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2664.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2665.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2666.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2667.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2668.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2669.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2670.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2671.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2672.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2673.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2674.
+2014-05-16 08:53:48,922 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2675.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2676.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2677.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2678.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2679.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2680.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2681.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2682.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2683.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2684.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2685.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2686.
+2014-05-16 08:53:48,938 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2687.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2688.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2689.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2690.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2691.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2692.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2693.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2694.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2695.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2696.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2697.
+2014-05-16 08:53:48,954 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2698.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2699.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2700.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2701.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2702.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2703.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2704.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2705.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2706.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2707.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2708.
+2014-05-16 08:53:48,969 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2709.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2710.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2711.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2712.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2713.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2714.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2715.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2716.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2717.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2718.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2719.
+2014-05-16 08:53:48,985 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2720.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2721.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2722.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2723.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2724.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2725.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2726.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2727.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2728.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2729.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2730.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2731.
+2014-05-16 08:53:49,000 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2732.
+2014-05-16 08:53:49,016 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2733.
+2014-05-16 08:53:49,016 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2734.
+2014-05-16 08:53:49,016 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2735.
+2014-05-16 08:53:49,016 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2736.
+2014-05-16 08:53:49,016 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2737.
+2014-05-16 08:53:49,016 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2738.
+2014-05-16 08:53:49,016 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2739.
+2014-05-16 08:53:49,016 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2740.
+2014-05-16 08:53:49,016 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2741.
+2014-05-16 08:53:49,016 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2742.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2743.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2744.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2745.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2746.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2747.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2748.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2749.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2750.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2751.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2752.
+2014-05-16 08:53:49,032 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2753.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2754.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2755.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2756.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2757.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2758.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2759.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2760.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2761.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2762.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2763.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2764.
+2014-05-16 08:53:49,047 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2765.
+2014-05-16 08:53:49,063 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2766.
+2014-05-16 08:53:49,063 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2767.
+2014-05-16 08:53:49,063 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2768.
+2014-05-16 08:53:49,063 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2769.
+2014-05-16 08:53:49,063 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2770.
+2014-05-16 08:53:49,063 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2771.
+2014-05-16 08:53:49,063 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2772.
+2014-05-16 08:53:49,063 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2773.
+2014-05-16 08:53:49,063 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2774.
+2014-05-16 08:53:49,063 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2775.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2776.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2777.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2778.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2779.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2780.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2781.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2782.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2783.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2784.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2785.
+2014-05-16 08:53:49,078 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2786.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2787.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2788.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2789.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2790.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2791.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2792.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2793.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2794.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2795.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2796.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2797.
+2014-05-16 08:53:49,094 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2798.
+2014-05-16 08:53:49,110 -   Completed calculations for SpinUp_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2799.
+2014-05-16 08:53:49,110 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2000.
+2014-05-16 08:53:49,141 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2001.
+2014-05-16 08:53:49,156 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2002.
+2014-05-16 08:53:49,172 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2003.
+2014-05-16 08:53:49,172 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2004.
+2014-05-16 08:53:49,188 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2005.
+2014-05-16 08:53:49,188 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2006.
+2014-05-16 08:53:49,203 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2007.
+2014-05-16 08:53:49,203 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2008.
+2014-05-16 08:53:49,219 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2009.
+2014-05-16 08:53:49,219 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2010.
+2014-05-16 08:53:49,234 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2011.
+2014-05-16 08:53:49,234 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2012.
+2014-05-16 08:53:49,250 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2013.
+2014-05-16 08:53:49,250 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2014.
+2014-05-16 08:53:49,266 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2015.
+2014-05-16 08:53:49,266 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2016.
+2014-05-16 08:53:49,281 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2017.
+2014-05-16 08:53:49,281 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2018.
+2014-05-16 08:53:49,297 -   Completed calculations for Future_Climate using Daily_AverageAllYears. Ecoregion = MN100, SimulatedYear = 2019.
+2014-05-16 08:53:49,312 -    Opening a Century log file "Century-prob-establish-log.csv" ...
+2014-05-16 08:53:49,344 -    Registering Data:  TimeOfLastSuccession.
+2014-05-16 08:53:49,344 -    Registering Data:  Shade.
+2014-05-16 08:53:49,344 -    Creating Dispersal Neighborhood List.
+2014-05-16 08:53:49,344 -    Dispersal:  NeighborRadius=15050, CellLength=100, numCellRadius=150
+2014-05-16 08:53:49,359 -    Loading biomass parameters for age-only disturbances from file "bio-reductions-standard.txt" ...
+2014-05-16 08:53:49,375 -       Reading CohortBiomassReductions.
+2014-05-16 08:53:49,375 -          Adding disturbance:fire...
+2014-05-16 08:53:49,375 -          Adding disturbance:wind...
+2014-05-16 08:53:49,375 -          Adding disturbance:harvest...
+2014-05-16 08:53:49,375 -       Reading DeadBiomassReductions.
+2014-05-16 08:53:49,375 -          Adding disturbance:fire...
+2014-05-16 08:53:49,390 -    Loading initial communities from file "./TestCommunityA.txt" ...
+2014-05-16 08:53:49,406 -    Reading initial communities map "./single_cell_3.img" ...
+2014-05-16 08:53:49,609 -    Opening Century calibrate log file "Century-calibrate-log.csv" ...
+2014-05-16 08:53:49,624 - Current time: 1
+2014-05-16 08:53:49,624 - Running Century Succession ...
+2014-05-16 08:53:49,640 - Utilizing Climate Data: SimulatedYear = 2001, actualClimateYearUsed = 0.
+2014-05-16 08:53:51,464 - Current time: 2
+2014-05-16 08:53:51,464 - Running Century Succession ...
+2014-05-16 08:53:51,464 - Utilizing Climate Data: SimulatedYear = 2002, actualClimateYearUsed = 0.
+2014-05-16 08:53:53,367 - Current time: 3
+2014-05-16 08:53:53,382 - Running Century Succession ...
+2014-05-16 08:53:53,382 - Utilizing Climate Data: SimulatedYear = 2003, actualClimateYearUsed = 0.
+2014-05-16 08:53:56,280 - Current time: 4
+2014-05-16 08:53:56,280 - Running Century Succession ...
+2014-05-16 08:53:56,280 - Utilizing Climate Data: SimulatedYear = 2004, actualClimateYearUsed = 0.
+2014-05-16 08:53:58,692 - Current time: 5
+2014-05-16 08:53:58,692 - Running Century Succession ...
+2014-05-16 08:53:58,692 - Utilizing Climate Data: SimulatedYear = 2005, actualClimateYearUsed = 0.
+2014-05-16 08:54:01,110 - Current time: 6
+2014-05-16 08:54:01,110 - Running Century Succession ...
+2014-05-16 08:54:01,110 - Utilizing Climate Data: SimulatedYear = 2006, actualClimateYearUsed = 0.
+2014-05-16 08:54:03,685 - Current time: 7
+2014-05-16 08:54:03,685 - Running Century Succession ...
+2014-05-16 08:54:03,685 - Utilizing Climate Data: SimulatedYear = 2007, actualClimateYearUsed = 0.
+2014-05-16 08:54:06,508 - Current time: 8
+2014-05-16 08:54:06,508 - Running Century Succession ...
+2014-05-16 08:54:06,508 - Utilizing Climate Data: SimulatedYear = 2008, actualClimateYearUsed = 0.
+2014-05-16 08:54:09,691 - Current time: 9
+2014-05-16 08:54:09,706 - Running Century Succession ...
+2014-05-16 08:54:09,706 - Utilizing Climate Data: SimulatedYear = 2009, actualClimateYearUsed = 0.
+2014-05-16 08:54:13,497 - Current time: 10
+2014-05-16 08:54:13,497 - Running Century Succession ...
+2014-05-16 08:54:13,497 - Utilizing Climate Data: SimulatedYear = 2010, actualClimateYearUsed = 0.
+2014-05-16 08:54:17,302 - Current time: 11
+2014-05-16 08:54:17,302 - Running Century Succession ...
+2014-05-16 08:54:17,302 - Utilizing Climate Data: SimulatedYear = 2011, actualClimateYearUsed = 0.
+2014-05-16 08:54:21,125 - Current time: 12
+2014-05-16 08:54:21,125 - Running Century Succession ...
+2014-05-16 08:54:21,125 - Utilizing Climate Data: SimulatedYear = 2012, actualClimateYearUsed = 0.
+2014-05-16 08:54:25,399 - Current time: 13
+2014-05-16 08:54:25,399 - Running Century Succession ...
+2014-05-16 08:54:25,399 - Utilizing Climate Data: SimulatedYear = 2013, actualClimateYearUsed = 0.
+2014-05-16 08:54:30,060 - Current time: 14
+2014-05-16 08:54:30,060 - Running Century Succession ...
+2014-05-16 08:54:30,060 - Utilizing Climate Data: SimulatedYear = 2014, actualClimateYearUsed = 0.
+2014-05-16 08:54:34,803 - Current time: 15
+2014-05-16 08:54:34,803 - Running Century Succession ...
+2014-05-16 08:54:34,803 - Utilizing Climate Data: SimulatedYear = 2015, actualClimateYearUsed = 0.
+2014-05-16 08:54:39,748 - Current time: 16
+2014-05-16 08:54:39,764 - Running Century Succession ...
+2014-05-16 08:54:39,764 - Utilizing Climate Data: SimulatedYear = 2016, actualClimateYearUsed = 0.
+2014-05-16 08:54:45,161 - Current time: 17
+2014-05-16 08:54:45,161 - Running Century Succession ...
+2014-05-16 08:54:45,161 - Utilizing Climate Data: SimulatedYear = 2017, actualClimateYearUsed = 0.
+2014-05-16 08:54:50,871 - Current time: 18
+2014-05-16 08:54:50,871 - Running Century Succession ...
+2014-05-16 08:54:50,871 - Utilizing Climate Data: SimulatedYear = 2018, actualClimateYearUsed = 0.
+2014-05-16 08:54:57,454 - Current time: 19
+2014-05-16 08:54:57,470 - Running Century Succession ...
+2014-05-16 08:54:57,470 - Utilizing Climate Data: SimulatedYear = 2019, actualClimateYearUsed = 0.
+2014-05-16 08:55:04,724 - Current time: 20
+2014-05-16 08:55:04,724 - Running Century Succession ...
+2014-05-16 08:55:04,724 - Utilizing Climate Data: SimulatedYear = 2020, actualClimateYearUsed = 0.
+2014-05-16 08:55:11,900 - Model run is complete.

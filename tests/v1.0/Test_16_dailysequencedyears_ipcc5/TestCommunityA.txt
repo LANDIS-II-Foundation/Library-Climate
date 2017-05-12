@@ -1,0 +1,15 @@
+LandisData "Initial Communities"
+
+>>MapCode   3  
+>>pinustro 15
+>>acersacc 15
+
+>>MapCode    3 <<map code 159 with apen and birch
+>>acersacc  1  2
+
+MapCode    3 <<old aspen/birch with residual pine  This is the exact same composition that Rob used when he calibrated at Willow Creek.
+ abiebals  10 
+ acersacc  5 10 30  60
+ betualle  30  60
+ fraxamer  10
+ tiliamer  5 20
