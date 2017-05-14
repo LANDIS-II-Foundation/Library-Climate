@@ -48,6 +48,9 @@ namespace Landis.Library.Climate
         //[DataFieldAttribute(Desc = "Average CO2 concentration (units variable)", Format = "0.00")]
         //public double co2{ get; set; }
 
+        [DataFieldAttribute(Desc = "Average Fire WEather Index (units variable)", Format = "0.00")]
+        public double FWI { get; set; }
+
 
 
     }

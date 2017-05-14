@@ -67,7 +67,7 @@
     </Compile>
     <Compile Include="NoClimateChangeMode.cs" />
     <Compile Include="PDSI_Calculator.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo1.cs" />
     <Compile Include="TemporalGranularity.cs" />
     <Compile Include="Utility\ClimateDataOutOfRangeException.cs" />
     <Compile Include="UnitSystem.cs" />

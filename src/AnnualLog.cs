@@ -38,5 +38,8 @@ namespace Landis.Library.Climate
         [DataFieldAttribute(Desc = "Palmer Drought Severity Index")]
         public double PDSI { set; get; }
 
+        [DataFieldAttribute(Desc = "Fire Weather Index")]
+        public double FWI { set; get; }
+
     }
 }
