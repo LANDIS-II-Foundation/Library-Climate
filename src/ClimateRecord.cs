@@ -32,7 +32,6 @@ namespace Landis.Library.Climate
         private double stdDevCO2;
         private double avgVarCO2;
         private double avgRH;
-        private double avgFWI;
         
 
         
@@ -264,21 +263,10 @@ namespace Landis.Library.Climate
             }
         }
 
-        public double AvgFWI
-        {
-            get
-            {
-                return avgFWI;
-            }
-            set
-            {
-                avgFWI = value;
-            }
-        }
+
 
         public ClimateRecord(double avgMinTemp, double avgMaxTemp, double stdDevTemp, double avgPpt, double stdDevPpt, double avgPAR, double avgVarTemp, double avgVarPpt, double avgWindDirection,
-                            double avgVarWindDirection, double stdDevWindDirection, double avgWindSpeed, double avgVarWindSpeed, double stdDevWindSpeed, double avgNDeposition, double avgVarNDeposition, 
-                            double stdDevNDeposition, double avgCO2, double avgVarCO2, double stdDevCO2, double avgFWI)
+                            double avgVarWindDirection, double stdDevWindDirection, double avgWindSpeed, double avgVarWindSpeed, double stdDevWindSpeed, double avgNDeposition, double avgVarNDeposition, double stdDevNDeposition, double avgCO2, double avgVarCO2, double stdDevCO2)
         {
             this.avgMinTemp = avgMinTemp;
             this.avgMaxTemp = avgMaxTemp;
@@ -300,7 +288,6 @@ namespace Landis.Library.Climate
             this.avgCO2 = avgCO2;
             this.avgVarCO2 = avgVarCO2;
             this.stdDevCO2 = stdDevCO2;
-            this.avgFWI = avgFWI;
         }
         
         public ClimateRecord()
@@ -325,7 +312,6 @@ namespace Landis.Library.Climate
             this.avgCO2 = -99.0;
             this.avgVarCO2 = -99.0;
             this.stdDevCO2 = -99.0;
-            this.avgFWI = -99.0;
         }
     }
 }
