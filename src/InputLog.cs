@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Landis.Library.Metadata;
+﻿using Landis.Library.Metadata;
 
 namespace Landis.Library.Climate
 {
@@ -48,7 +44,7 @@ namespace Landis.Library.Climate
         //[DataFieldAttribute(Desc = "Average CO2 concentration (units variable)", Format = "0.00")]
         //public double co2{ get; set; }
 
-
-
+        [DataFieldAttribute(Desc = "Average Fire WEather Index (units variable)", Format = "0.00")]
+        public double FWI { get; set; }
     }
 }

@@ -412,7 +412,7 @@ namespace Landis.Library.Climate
                         fil.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
                         fil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
                         //fil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        
+
 
                         FutureInputLog.AddObject(fil);
                         FutureInputLog.WriteToFile();
@@ -438,6 +438,8 @@ namespace Landis.Library.Climate
             al.TAP = annualClimateMonthly.TotalAnnualPrecip;
             al.MAT = annualClimateMonthly.MeanAnnualTemperature;
             al.PDSI = Future_MonthlyData[year][ecoregion.Index].PDSI;
+            // VS: might need FWI in annual climate
+            //al.FWI = Future_MonthlyData[year][ecoregion.Index].FWI;
 
             AnnualLog.AddObject(al);
             AnnualLog.WriteToFile();
