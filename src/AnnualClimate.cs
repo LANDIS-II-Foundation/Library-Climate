@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using Landis.Core;
+using System.Linq;
 
 namespace Landis.Library.Climate
 {
@@ -35,6 +36,9 @@ namespace Landis.Library.Climate
         public IEcoregion Ecoregion { get; set; }
         public int TimeStep { get; set; }
         public double PDSI { get; set; }
+
+        public bool FireWeather { get; set; }
+        public double FWI { get; set; }
         
         //---------------------------------------------------------------------
 
@@ -279,6 +283,14 @@ namespace Landis.Library.Climate
         {
             throw new NotImplementedException("Error in calling WriteToLogFile() in AnnualClimate: the WriteToLogFile() should not be called directly and it has to be implemented in subclasses");
         }
+
+
+        /// <summary>
+        /// The Following is for calculating fire weather index
+        /// </summary>
+        /// <returns>FWI: </returns>**************************************************************************************************************************************************************
+
+
 
 
 

@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnnualClimate.cs" />
+    <Compile Include="AnnualClimateFire.cs" />
     <Compile Include="AnnualClimate_Daily.cs" />
     <Compile Include="AnnualClimate_Monthly.cs" />
     <Compile Include="AnnualLog.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="ClimateFileFormatProvider.cs" />
     <Compile Include="ClimateParser.cs" />
     <Compile Include="ClimateRecord.cs" />
+    <Compile Include="FireClimate.cs" />
     <Compile Include="MetadataHandler.cs" />
     <Compile Include="InputLog.cs">
       <SubType>Code</SubType>
