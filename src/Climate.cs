@@ -368,6 +368,10 @@ namespace Landis.Library.Climate
                         sil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
                         sil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
                         //sil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        if (FireClimate.UsingFireClimate)
+                        {
+                            sil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                        }
 
 
                         SpinupInputLog.AddObject(sil);

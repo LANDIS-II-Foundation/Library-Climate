@@ -21,4 +21,12 @@ namespace Landis.Library.Climate
 
         //System.Collections.Generic.KeyNotFoundException
     }
+
+    public class UninitializedClimateData : ApplicationException
+    {
+        public UninitializedClimateData(string message) : base(message)
+        {
+
+        }
+    }
 }
