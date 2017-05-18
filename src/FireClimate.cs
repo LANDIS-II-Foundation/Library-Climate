@@ -88,52 +88,52 @@ namespace Landis.Library.Climate
                     DroughtCode_yesterday = DroughtCode;
                 }
 
-                double mo = Calculate_mo(day, FineFuelMoistureCode_yesterday);
-                double rf = Calculate_rf(day, precipitation);
-                double mr = Calculate_mr(day, mo, rf);
-                double Ed = Calculate_Ed(day, relative_humidity, temperature);
-                double Ew = Calculate_Ew(day, relative_humidity, temperature);
-                double ko = Calculate_ko(day, relative_humidity, WindSpeedVelocity);
-                double kd = Calculate_kd(day, ko, temperature);
-                double kl = Calculate_kl(day, relative_humidity, WindSpeedVelocity);
-                double kw = Calculate_kw(day, kl, temperature);
-                double m = Calculate_m(day, mo, Ed, kd, Ew, kw);
-                double re = Calculate_re(day, precipitation);
-                double Mo = Calculate_Mo(day, DuffMoistureCode_yesterday);
-                double b = Calculate_b(day, DuffMoistureCode_yesterday);
-                double Mr = Calculate_Mr(day, re, b, Mo);
-                double Pr = Calculate_Pr(day, Mr);
+                double mo = Calculate_mo(FineFuelMoistureCode_yesterday);
+                double rf = Calculate_rf(precipitation);
+                double mr = Calculate_mr(mo, rf);
+                double Ed = Calculate_Ed(relative_humidity, temperature);
+                double Ew = Calculate_Ew(relative_humidity, temperature);
+                double ko = Calculate_ko(relative_humidity, WindSpeedVelocity);
+                double kd = Calculate_kd(ko, temperature);
+                double kl = Calculate_kl(relative_humidity, WindSpeedVelocity);
+                double kw = Calculate_kw(kl, temperature);
+                double m = Calculate_m(mo, Ed, kd, Ew, kw);
+                double re = Calculate_re(precipitation);
+                double Mo = Calculate_Mo(DuffMoistureCode_yesterday);
+                double b = Calculate_b(DuffMoistureCode_yesterday);
+                double Mr = Calculate_Mr(re, b, Mo);
+                double Pr = Calculate_Pr(Mr);
                 int month = Calculate_month(day);
-                double Le1 = Calculate_Le1(day, month);
-                double Le2 = Calculate_Le2(day, month);
-                double Le = Calculate_Le(day, Le1, Le2);
-                double K = Calculate_K(day, temperature, relative_humidity, Le);
-                Calculate_DuffMoistureCode(day, precipitation, Pr, K, DuffMoistureCode_yesterday);
-                double rd = Calculate_rd(day, precipitation);
-                double Qo = Calculate_Qo(day, DroughtCode_yesterday);
-                double Qr = Calculate_Qr(day, Qo, rd);
-                double Dr = Calculate_Dr(day, Qr);
-                double Lf = Calculate_Lf(day, month);
-                double V = Calculate_V(day, temperature, Lf);
-                Calculate_DroughtCode(day, precipitation, spring_start, Dr, V, DroughtCode_yesterday);
-                double WindFunction_ISI = Calculate_WindFunction_ISI(d, WindSpeedVelocity);
-                double FineFuelMoistureFunction_ISI = Calculate_FineFuelMoistureFunction_ISI(d, m);
-                double InitialSpreadIndex = Calculate_InitialSpreadIndex(d, spring_start, winter_start, WindFunction_ISI, FineFuelMoistureFunction_ISI);
-                Calculate_BuildUpIndex(d, DuffMoistureCode, DroughtCode);
-                double fD = Calculate_fD(d, BuildUpIndex);
-                double B = Calculate_B(d, InitialSpreadIndex, fD);
-                Calculate_FireWeatherIndex(d, B);
-                double I_scale = Calculate_I_scale(d, FireWeatherIndex);
-                double DSR = Calculate_DSR(d, spring_start, winter_start, FireWeatherIndex);
+                double Le1 = Calculate_Le1(month);
+                double Le2 = Calculate_Le2(month);
+                double Le = Calculate_Le(Le1, Le2);
+                double K = Calculate_K(temperature, relative_humidity, Le);
+                Calculate_DuffMoistureCode(precipitation, Pr, K, DuffMoistureCode_yesterday);
+                double rd = Calculate_rd(precipitation);
+                double Qo = Calculate_Qo(DroughtCode_yesterday);
+                double Qr = Calculate_Qr(Qo, rd);
+                double Dr = Calculate_Dr(Qr);
+                double Lf = Calculate_Lf(month);
+                double V = Calculate_V(temperature, Lf);
+                Calculate_DroughtCode(precipitation, Dr, V, DroughtCode_yesterday);
+                double WindFunction_ISI = Calculate_WindFunction_ISI(WindSpeedVelocity);
+                double FineFuelMoistureFunction_ISI = Calculate_FineFuelMoistureFunction_ISI(m);
+                double InitialSpreadIndex = Calculate_InitialSpreadIndex(WindFunction_ISI, FineFuelMoistureFunction_ISI);
+                Calculate_BuildUpIndex(DuffMoistureCode, DroughtCode);
+                double fD = Calculate_fD(BuildUpIndex);
+                double B = Calculate_B(InitialSpreadIndex, fD);
+                Calculate_FireWeatherIndex(B);
+                double I_scale = Calculate_I_scale(FireWeatherIndex);
+                double DSR = Calculate_DSR(FireWeatherIndex);
 
-                Calculate_FineFuelMoistureCode(d, m, spring_start, winter_start);
+                Calculate_FineFuelMoistureCode(m);
                 //Calculate_Season(d, spring_start, summer_start, fall_start, winter_start);
             }
 
             return;
         }
 
-        private static double Calculate_mo(int d, double FineFuelMoistureCode_yesterday)
+        private static double Calculate_mo(double FineFuelMoistureCode_yesterday)
         {
             double mo = 0;
 
@@ -142,7 +142,7 @@ namespace Landis.Library.Climate
             return mo;
         }
 
-        private static double Calculate_rf(int d, double precipitation)
+        private static double Calculate_rf(double precipitation)
         {
             double rf = 0.0;
 
@@ -150,13 +150,13 @@ namespace Landis.Library.Climate
 
             if (rf < 0)
             {
-                rf = 0;
+                rf = 0.0;
             }
 
             return rf;
         }
 
-        private static double Calculate_mr(int d, double mo, double rf)
+        private static double Calculate_mr(double mo, double rf)
         {
             double mr = 0.0;
 
@@ -183,6 +183,7 @@ namespace Landis.Library.Climate
                     mr = mo;
                 }
             }
+
             if (mr > 250)
             {
                 mr = 250;
@@ -191,7 +192,7 @@ namespace Landis.Library.Climate
             return mr;
         }
 
-        private static double Calculate_Ed(int d, double relative_humidity, double temperature)
+        private static double Calculate_Ed(double relative_humidity, double temperature)
         {
             double Ed = 0.0;
 
@@ -200,7 +201,7 @@ namespace Landis.Library.Climate
             return Ed;
         }
 
-        private static double Calculate_Ew(int d, double relative_humidity, double temperature)
+        private static double Calculate_Ew(double relative_humidity, double temperature)
         {
             double Ew = 0.0;
 
@@ -209,7 +210,7 @@ namespace Landis.Library.Climate
             return Ew;
         }
 
-        private static double Calculate_ko(int d, double relative_humidity, double WindSpeedVelocity)
+        private static double Calculate_ko(double relative_humidity, double WindSpeedVelocity)
         {
             double ko = 0.0;
 
@@ -218,7 +219,7 @@ namespace Landis.Library.Climate
             return ko;
         }
 
-        private static double Calculate_kd(int d, double ko, double temperature)
+        private static double Calculate_kd(double ko, double temperature)
         {
             double kd = 0.0;
 
@@ -227,7 +228,7 @@ namespace Landis.Library.Climate
             return kd;
         }
 
-        private static double Calculate_kl(int d, double relative_humidity, double WindSpeedVelocity)
+        private static double Calculate_kl(double relative_humidity, double WindSpeedVelocity)
         {
             double kl = 0.0;
 
@@ -236,7 +237,7 @@ namespace Landis.Library.Climate
             return kl;
         }
 
-        private static double Calculate_kw(int d, double kl, double temperature)
+        private static double Calculate_kw(double kl, double temperature)
         {
             double kw = 0.0;
 
@@ -245,64 +246,51 @@ namespace Landis.Library.Climate
             return kw;
         }
 
-        private static double Calculate_m(int d, double mo, double Ed, double kd, double Ew, double kw)
+        private static double Calculate_m(double mo, double Ed, double kd, double Ew, double kw)
         {
             double m = 0.0;
 
-            try
+            if (mo > Ed)
             {
-                if (mo > Ed)
+                m = Ed + (mo - Ed) * Math.Pow(10.0, (-kd));
+             }
+            else
+            {
+                if (mo < Ed)
                 {
-                    m = Ed + (mo - Ed) * Math.Pow(10.0, (-kd));
-                }
-                else
-                {
-                    if (mo < Ed)
+                    if (mo < Ew)
                     {
-                        if (mo < Ew)
-                        {
-                            m = Ew - (Ew - mo) * Math.Pow(10.0, (-kw));
-                        }
-                        else
-                        {
-                            m = mo;
-                        }
+                        m = Ew - (Ew - mo) * Math.Pow(10.0, (-kw));
                     }
                     else
                     {
                         m = mo;
                     }
-
+                }
+                else
+                {
+                        m = mo;
                 }
             }
-            catch
-            {
-                throw new System.ArgumentException("m cannot be null", "original");
-            }
+            
 
             return m;
         }
 
-        private static void Calculate_FineFuelMoistureCode(int d, double m, int spring_start, int winter_start)
+        private static void Calculate_FineFuelMoistureCode(double m)
         {
             FineFuelMoistureCode = 0.0;
             
-                FineFuelMoistureCode = 59.5 * (250.0 - m) / (147.2 + m);
+            FineFuelMoistureCode = 59.5 * (250.0 - m) / (147.2 + m);
 
-                if (FineFuelMoistureCode > 100.0)
-                {
-                    FineFuelMoistureCode = 100.0;
-                }
-
-            else
+            if (FineFuelMoistureCode > 100.0)
             {
-                throw new System.ArgumentException("FFMC cannot be null", "original");
+                FineFuelMoistureCode = 100.0;
             }
-
             return;
         }
 
-        private static double Calculate_re(int d, double precipitation)
+        private static double Calculate_re(double precipitation)
         {
             double re = 0.0;
 
@@ -310,88 +298,56 @@ namespace Landis.Library.Climate
             {
                 re = 0.92 * precipitation - 1.27;
             }
-            else
-            {
-                re = 0;
-            }
 
             return re;
         }
 
-        private static double Calculate_Mo(int d, double DuffMoistureCode_yesterday)
+        private static double Calculate_Mo(double DuffMoistureCode_yesterday)
         {
             double Mo = 0.0;
-
-            try
-            {
-                Mo = 20.0 + Math.Exp(5.6348 - DuffMoistureCode_yesterday / 43.43);
-
-            }
-            catch
-            {
-                throw new System.ArgumentException("Mo cannot be null", "original");
-            }
+            
+            Mo = 20.0 + Math.Exp(5.6348 - DuffMoistureCode_yesterday / 43.43);
 
             return Mo;
         }
 
-        private static double Calculate_b(int d, double DuffMoistureCode_yesterday) //, int DMC_start
+        private static double Calculate_b(double DuffMoistureCode_yesterday) //, int DMC_start
         {
             double b = 0.0;
 
-            try
+            if (DuffMoistureCode_yesterday <= 33)
             {
-
-                if (DuffMoistureCode_yesterday <= 33 && d > 0)
-                {
-                    b = 100 / (0.5 + 0.3 * DuffMoistureCode_yesterday);
-                }
-
-                else if (DuffMoistureCode_yesterday > 65 && d > 0)
-                {
-                    b = 6.2 * Math.Log(DuffMoistureCode_yesterday) - 17.2;
-                }
-
-                else if (d > 0)
-                {
-
-                    b = 14.0 - 1.3 * Math.Log(DuffMoistureCode_yesterday);
-                }
-
-                else
-                {
-                    throw new System.ArgumentException("b cannot be null", "original");
-                }
+                b = 100 / (0.5 + 0.3 * DuffMoistureCode_yesterday);
             }
-            catch
+
+            else if (DuffMoistureCode_yesterday > 65)
             {
-                throw new System.ArgumentException("b cannot be null", "original");
+                b = 6.2 * Math.Log(DuffMoistureCode_yesterday) - 17.2;
             }
+
+            else
+            {
+                b = 14.0 - 1.3 * Math.Log(DuffMoistureCode_yesterday);
+            }
+
 
             return b;
         }
 
-        private static double Calculate_Mr(int d, double re, double b, double Mo)
+        private static double Calculate_Mr(double re, double b, double Mo)
         {
             double Mr = 0.0;
 
-            try
-            {
-                Mr = Mo + 1000.0 * re / (48.77 + b * re);
-            }
-            catch
-            {
-                throw new System.ArgumentException("Mr cannot be null", "original");
-            }
-
+            Mr = Mo + 1000.0 * re / (48.77 + b * re);
+            
             return Mr;
         }
 
-        private static double Calculate_Pr(int d, double Mr)
+        private static double Calculate_Pr(double Mr)
         {
             double Pr = 0.0;
-
-            if (d == 91)
+            /* VS: Why the if statement
+            if (day == 91)
             {
                 Pr = 244.72 - 43.43 * Math.Log(Mr - 20.0);
                 if (Pr < 0.0)
@@ -401,19 +357,19 @@ namespace Landis.Library.Climate
             }
             else
             {
-                try
-                {
-                    Pr = 244.72 - 43.43 * Math.Log(Mr - 20.0);
+               Pr = 244.72 - 43.43 * Math.Log(Mr - 20.0);
 
-                    if (Pr < 0.0)
-                    {
-                        Pr = 0.0;
-                    }
-                }
-                catch
+                if (Pr < 0.0)
                 {
-                    throw new System.ArgumentException("pr cannot be null", "original");
+                    Pr = 0.0;
                 }
+            }
+            */
+
+            Pr = 244.72 - 43.43 * Math.Log(Mr - 20.0);
+            if (Pr < 0.0)
+            {
+                Pr = 0.0;
             }
 
             return Pr;
@@ -476,7 +432,7 @@ namespace Landis.Library.Climate
             return month;
         }
 
-        private static double Calculate_Le1(int d, int month)
+        private static double Calculate_Le1(int month)
         {
             double Le1 = 0.0;
 
@@ -520,7 +476,7 @@ namespace Landis.Library.Climate
             return Le1;
         }
 
-        private static double Calculate_Le2(int d, int month)
+        private static double Calculate_Le2(int month)
         {
             double Le2 = 0.0;
 
@@ -549,7 +505,7 @@ namespace Landis.Library.Climate
             return Le2;
         }
 
-        private static double Calculate_Le(int d, double Le1, double Le2)
+        private static double Calculate_Le(double Le1, double Le2)
         {
             double Le = 0.0;
 
@@ -565,7 +521,7 @@ namespace Landis.Library.Climate
             return Le;
         }
 
-        private static double Calculate_K(int d, double temperature, double relative_humidity, double Le)
+        private static double Calculate_K(double temperature, double relative_humidity, double Le)
         {
             double K = 0.0;
 
@@ -582,7 +538,7 @@ namespace Landis.Library.Climate
             return K;
         }
 
-        private static double Calculate_DuffMoistureCode(int d, double precipitation, double Pr, double K, double DuffMoistureCode_yesterday) //int spring_start, int winter_start, double DMC_start
+        private static double Calculate_DuffMoistureCode(double precipitation, double Pr, double K, double DuffMoistureCode_yesterday) //int spring_start, int winter_start, double DMC_start
         {
             if (precipitation > 1.5)
             {
@@ -597,7 +553,7 @@ namespace Landis.Library.Climate
             return DuffMoistureCode;
         }
 
-        private static double Calculate_rd(int d, double precipitation)
+        private static double Calculate_rd(double precipitation)
         {
             double rd = 0.0;
 
@@ -615,61 +571,39 @@ namespace Landis.Library.Climate
         }
 
 
-        private static double Calculate_Qo(int d, double DroughtCode_yesterday) //, int DC_start
+        private static double Calculate_Qo(double DroughtCode_yesterday) //, int DC_start
         {
             double Qo = 0.0;
-
-            try
-            {
-
-                Qo = 800.0 * Math.Exp(-DroughtCode_yesterday / 400.0);
-            }
-            catch
-            {
-                throw new System.ArgumentException("Qo cannot be null", "original");
-            }
+            
+            Qo = 800.0 * Math.Exp(-DroughtCode_yesterday / 400.0);
 
             return Qo;
         }
 
-        private static double Calculate_Qr(int d, double Qo, double rd)
+        private static double Calculate_Qr(double Qo, double rd)
         {
             double Qr = 0.0;
-
-            try
-            {
-                Qr = Qo + 3.937 * rd;
-            }
-            catch
-            {
-                throw new System.ArgumentException("Qr cannot be null", "original");
-            }
-
+            
+            Qr = Qo + 3.937 * rd;
+            
             return Qr;
         }
 
-        private static double Calculate_Dr(int d, double Qr)
+        private static double Calculate_Dr(double Qr)
         {
             double Dr = 0.0;
+            
+            Dr = 400.0 * Math.Log(800.0 / Qr);
 
-            try
-            {
-                Dr = 400.0 * Math.Log(800.0 / Qr);
+           if (Dr < 0)
+           {
+               Dr = 0.0;
+           }
 
-                if (Dr < 0)
-                {
-                    Dr = 0;
-                }
-            }
-            catch
-            {
-                throw new System.ArgumentException("Dr cannot be null", "original");
-            }
-
-            return Dr;
+           return Dr;
         }
 
-        private static double Calculate_Lf(int d, int month)
+        private static double Calculate_Lf(int month)
         {
             double Lf = 0.0;
 
@@ -714,7 +648,7 @@ namespace Landis.Library.Climate
         }
 
 
-        private static double Calculate_V(int d, double temperature, double Lf)
+        private static double Calculate_V(double temperature, double Lf)
         {
             double V = 0.0;
 
@@ -730,10 +664,10 @@ namespace Landis.Library.Climate
             return V;
         }
 
-        private static double Calculate_DroughtCode(int d, double precipitation, int spring_start, double Dr, double V, double DroughtCode_yesterday)
+        private static double Calculate_DroughtCode(double precipitation, /*int spring_start,*/ double Dr, double V, double DroughtCode_yesterday)
         {
-            if (d == spring_start)
-            {
+            //if (d == spring_start)
+            //{
 
                 if (precipitation > 2.8)
                 {
@@ -743,7 +677,8 @@ namespace Landis.Library.Climate
                 {
                     DroughtCode = DroughtCode_yesterday + 0.5 * V;
                 }
-            }
+            //}
+            /* VS: Why? does the same thing
             else
             {
                 if (precipitation > 2.8)
@@ -755,11 +690,12 @@ namespace Landis.Library.Climate
                     DroughtCode = DroughtCode_yesterday + 0.5 * V;
                 }
             }
+            */
 
             return DroughtCode;
         }
 
-        private static double Calculate_WindFunction_ISI(int d, double WindSpeedVelocity)
+        private static double Calculate_WindFunction_ISI(double WindSpeedVelocity)
         {
             double WindFunction_ISI = 0.0;
 
@@ -769,40 +705,25 @@ namespace Landis.Library.Climate
         }
 
 
-        private static double Calculate_FineFuelMoistureFunction_ISI(int d, double m)
+        private static double Calculate_FineFuelMoistureFunction_ISI(double m)
         {
             double FineFuelMoistureFunction_ISI = 0.0;
-
-            try
-            {
-                FineFuelMoistureFunction_ISI = 91.9 * Math.Exp(-0.1386 * m) * (1.0 + Math.Pow(m, 5.31) / (4.93 * Math.Pow(10.0, 7.0)));
-            }
-            catch
-            {
-                throw new System.ArgumentException("FFMC_ISI cannot be null", "original");
-            }
-
+            
+            FineFuelMoistureFunction_ISI = 91.9 * Math.Exp(-0.1386 * m) * (1.0 + Math.Pow(m, 5.31) / (4.93 * Math.Pow(10.0, 7.0)));
+            
             return FineFuelMoistureFunction_ISI;
         }
 
-        private static double Calculate_InitialSpreadIndex(int d, int spring_start, int winter_start, double WindFunction_ISI, double FineFuelMoistureFunction_ISI)
+        private static double Calculate_InitialSpreadIndex(double WindFunction_ISI, double FineFuelMoistureFunction_ISI)
         {
             double InitialSpreadIndex = 0.0;
-
-            if (d >= spring_start && d < winter_start)
-            {
-                InitialSpreadIndex = 0.208 * WindFunction_ISI * FineFuelMoistureFunction_ISI;
-            }
-            /* VS: You would return 0?
-            else
-            {
-                throw new System.ArgumentException("ISI cannot be null", "original");
-            }
-            */
+            
+            InitialSpreadIndex = 0.208 * WindFunction_ISI * FineFuelMoistureFunction_ISI;
+            
             return InitialSpreadIndex;
         }
 
-        private static double Calculate_BuildUpIndex(int d, double DuffMoistureCode, double DroughtCode)  //int spring_start, int winter_start,
+        private static double Calculate_BuildUpIndex(double DuffMoistureCode, double DroughtCode)  //int spring_start, int winter_start,
         {
             if (DuffMoistureCode <= (0.4 * DroughtCode))
             {
@@ -816,12 +737,10 @@ namespace Landis.Library.Climate
             return BuildUpIndex;
         }
 
-        private static double Calculate_fD(int d, double BuildUpIndex)
+        private static double Calculate_fD(double BuildUpIndex)
         {
             double fD = 0.0;
-
-            try
-            {
+            
                 if (BuildUpIndex <= 80.0)
                 {
                     fD = 0.626 * Math.Pow(BuildUpIndex, 0.809) + 2.0;
@@ -830,33 +749,21 @@ namespace Landis.Library.Climate
                 {
                     fD = 1000.0 / (25.0 + 108.64 * Math.Exp(-0.023 * BuildUpIndex));
                 }
-            }
-            catch
-            {
-                throw new System.ArgumentException("fD cannot be null", "original");
-            }
+            
 
             return fD;
         }
 
-        private static double Calculate_B(int d, double InitialSpreadIndex, double fD)
+        private static double Calculate_B(double InitialSpreadIndex, double fD)
         {
             double B = 0.0;
-
-            try
-            {
-                B = 0.1 * InitialSpreadIndex * fD;
-            }
-
-            catch
-            {
-                throw new System.ArgumentException("B cannot be null", "original");
-            }
+            
+            B = 0.1 * InitialSpreadIndex * fD;
 
             return B;
         }
 
-        private static double Calculate_FireWeatherIndex(int d, double B) //int spring_start, int winter_start, 
+        private static double Calculate_FireWeatherIndex(double B) //int spring_start, int winter_start, 
         {
             FireWeatherIndex = 0.0;
 
@@ -872,35 +779,20 @@ namespace Landis.Library.Climate
             return FireWeatherIndex;
         }
 
-        private static double Calculate_I_scale(int d, double FireWeatherIndex)
+        private static double Calculate_I_scale(double FireWeatherIndex)
         {
             double I_scale = 0.0;
-
-            try
-            {
-                I_scale = (1.0 / 0.289) * (Math.Exp(0.98 * (Math.Pow(Math.Log(FireWeatherIndex), 1.546))));
-            }
-            catch
-            {
-                throw new System.ArgumentException("I_scale cannot be null", "original");
-            }
-
+            
+            I_scale = (1.0 / 0.289) * (Math.Exp(0.98 * (Math.Pow(Math.Log(FireWeatherIndex), 1.546))));
+          
             return I_scale;
         }
 
-        private static double Calculate_DSR(int d, int spring_start, int winter_start, double FireWeatherIndex)
+        private static double Calculate_DSR(double FireWeatherIndex)
         {
             double DSR = 0.0;
 
-            if (d >= spring_start && d < winter_start)
-            {
-                DSR = 0.0272 * Math.Pow(FireWeatherIndex, 1.77);
-            }
-
-            else
-            {
-                throw new System.ArgumentException("DSR cannot be null", "original");
-            }
+            DSR = 0.0272 * Math.Pow(FireWeatherIndex, 1.77);
 
             return DSR;
         }
