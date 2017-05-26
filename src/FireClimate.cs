@@ -25,14 +25,15 @@ namespace Landis.Library.Climate
 
             if (Climate.Future_DailyData.ContainsKey(actualYear))
             {
+                
                 // Test to make sure climate data does exist
                 try
                 {
-                    double test = Climate.Future_DailyData[actualYear][ecoregion.Index].AnnualAET;
+                    //double test = Climate.Future_DailyData[actualYear][ecoregion.Index].AnnualAET;
                 }
                 catch
                 {
-                    throw new Exception(String.Format("year: {0} not found in climate data. Missing: AnnualAET", actualYear));
+                    //throw new Exception(String.Format("year: {0} not found in climate data. Missing: AnnualAET", actualYear));
                 }
 
                 // Initialize variables for calculations
@@ -47,7 +48,7 @@ namespace Landis.Library.Climate
                 double DuffMoistureCode_yesterday = 6;
                 double DroughtCode_yesterday = 15;
 
-                AnnualClimate_Daily myWeatherData = Climate.Future_DailyData[actualYear][ecoregion.Index];
+                AnnualClimate_Daily myWeatherData = Climate.Future_DailyData[ecoregion.Index][actualYear];
 
                 //daysInYear = myWeatherData.DailyDataIsLeapYear ? 366 : 365;
 
