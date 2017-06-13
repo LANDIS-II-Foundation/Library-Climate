@@ -36,6 +36,7 @@ namespace Landis.Library.Climate
         //public double[] DailyDayLength = new double[366];
         //public double[] DailyNightLength = new double[366];
         //public int[] DailyGDD = new int[366];
+        public AnnualClimate_Daily() { }
 
         //For Sequenced and Random timeStep arg should be passed
         public AnnualClimate_Daily(IEcoregion ecoregion, double latitude, Climate.Phase spinupOrfuture, int timeStep, int timeStepIndex)

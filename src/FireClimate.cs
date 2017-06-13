@@ -48,7 +48,7 @@ namespace Landis.Library.Climate
                 double DuffMoistureCode_yesterday = 6;
                 double DroughtCode_yesterday = 15;
 
-                AnnualClimate_Daily myWeatherData = Climate.Future_DailyData[ecoregion.Index][actualYear];
+                AnnualClimate_Daily myWeatherData = Climate.Future_DailyData[actualYear][ecoregion.Index];
 
                 //daysInYear = myWeatherData.DailyDataIsLeapYear ? 366 : 365;
 

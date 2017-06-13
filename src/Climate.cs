@@ -13,7 +13,7 @@ using System.Linq;
 namespace Landis.Library.Climate
 {
 
-    public class Climate
+    public static class Climate
     {
         //fire stuff
         public static double FireWeatherIndex;
@@ -51,10 +51,11 @@ namespace Landis.Library.Climate
         public static Dictionary<int, AnnualClimate_Daily[]> Spinup_DailyData;  //dict key = year; climate record = ecoreregion, day
         public static Dictionary<int, AnnualClimate_Monthly[]> Spinup_MonthlyData;  //dict key = year; climate record = ecoreregion, month
 
+        /*
         public Climate()
         {
         }
-
+        */
         //---------------------------------------------------------------------
 
         public static ICore ModelCore
@@ -135,7 +136,7 @@ namespace Landis.Library.Climate
             //}
         }
 
-
+        
 
         //---------------------------------------------------------------------
         public static void Initialize(string climateConfigFilename, bool writeOutput, ICore mCore)
@@ -216,7 +217,6 @@ namespace Landis.Library.Climate
             foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
             {
                 Climate.CalculateFWI(timeStep.Value, timeStep.Key); //, future_allData_granularity);
-                
             }
 
             // write input data to the log
@@ -249,6 +249,11 @@ namespace Landis.Library.Climate
             {
                 Future_MonthlyData.Add(timeStepKey, new AnnualClimate_Monthly[modelCore.Ecoregions.Count]);
                 Future_DailyData.Add(timeStepKey, new AnnualClimate_Daily[modelCore.Ecoregions.Count]);
+            }
+
+            foreach(KeyValuePair<int, ClimateRecord[][]> timestep in future_allData)
+            {
+                WriteFuture_DailyData(timestep.Value, timestep.Key, 365);
             }
         }
 
@@ -408,6 +413,8 @@ namespace Landis.Library.Climate
                             Calculate_FineFuelMoistureCode(m);
 
                             TimestepData[ecoregion.Index][timestep].AvgFWI = FireWeatherIndex;
+                            //Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = FireWeatherIndex;
+                            //Future_DailyData[ecoregion.Index][timestep].AvgFWI = FireWeatherIndex;
                             //ModelCore.UI.WriteLine(string.Format("{0}", FireWeatherIndex));
                         }
                         else
@@ -487,7 +494,6 @@ namespace Landis.Library.Climate
                     }
                 }
             }
-
         }
 
         //---------------------------------------------------------------------
@@ -536,7 +542,42 @@ namespace Landis.Library.Climate
                     }
                 }
             }
+        }
 
+        private static void WriteFuture_DailyData(ClimateRecord[][] TimestepData, int year, int maxTimeStep)
+        {
+            foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
+            {
+                if (ecoregion.Active)
+                {
+                    //for (int month = 0; month < 12; month++)
+                    Future_DailyData[year][ecoregion.Index] = new AnnualClimate_Daily();
+                    for (int timestep = 0; timestep < maxTimeStep; timestep++)
+                    {
+
+                        //fil.SimulationPeriod = period;
+                        Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                        /*
+                        fil.EcoregionIndex = ecoregion.Index;
+                        fil.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
+                        fil.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
+                        fil.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
+                        fil.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
+                        fil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
+                        fil.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
+                        fil.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
+                        fil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
+                        //fil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        //if (FireClimate.UsingFireClimate)
+                        //{
+                        fil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                        //}
+                        */
+
+
+                    }
+                }
+            }
         }
 
         //---------------------------------------------------------------------
