@@ -20,6 +20,7 @@ namespace Landis.Library.Climate
         private string spinUpClimateFileFormat;
         private string spinUpClimateFile;
         private string spinUpClimateTimeSeries;
+        private double rHSlopeAdjust;
 
 
         //---------------------------------------------------------------------
@@ -122,7 +123,18 @@ namespace Landis.Library.Climate
             }
         }
         //---------------------------------------------------------------------
-       
+        public double RHSlopeAdjust
+        {
+            get
+            {
+                return rHSlopeAdjust;
+            }
+            set
+            {
+
+                rHSlopeAdjust = value;
+            }
+        }
 
     }
 }

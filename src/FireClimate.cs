@@ -1,21 +1,15 @@
-//  Copyright: Portland State University 2009-2014
-//  Authors:  Robert M. Scheller, John McNabb, Amin Almassian
-
-using Landis.Core;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System;
-using System.Collections;
-using Landis.Library.Metadata;
 using System.Linq;
-
+using System.Text;
+using Landis.Core;
 
 namespace Landis.Library.Climate
 {
-
-    public static class Climate
+    public static class FireClimate
     {
-        //fire stuff
+        public static bool UsingFireClimate = false;
+
         public static double FireWeatherIndex;
         public static double FineFuelMoistureCode;
         public static double DuffMoistureCode;
@@ -24,586 +18,165 @@ namespace Landis.Library.Climate
         public static double WindSpeedVelocity;
         public static double WindAzimuth;
 
-        private static TemporalGranularity future_allData_granularity;
-        private static TemporalGranularity spinup_allData_granularity;
-        private static Dictionary<int, ClimateRecord[][]> future_allData;
-        private static Dictionary<int, ClimateRecord[][]> spinup_allData;
-        private static List<int> randSelectedTimeKeys_future;
-        private static List<int> randSelectedTimeKeys_spinup;
-        private static ICore modelCore;
-        private static IInputParameters configParameters;
-
-        //private static System.Data.DataTable annualPDSI;
-        private static double[,] annualPDSI;
-        private static double[] landscapeAnnualPDSI;
-
-        //public static MetadataTable<PDSI_Log> PdsiLog;
-        public static MetadataTable<InputLog> SpinupInputLog;
-        public static MetadataTable<InputLog> FutureInputLog;
-        public static MetadataTable<AnnualLog> AnnualLog;
-        public static StreamWriter TextLog;
-
-        public enum Phase {SpinUp_Climate = 0, Future_Climate = 1 }
-
-        // Rob testing storing all monthly and daily data during spinup, to avoid new data creation.
-        public static Dictionary<int, AnnualClimate_Daily[] > Future_DailyData;  //dict key = year; climate record = ecoreregion, day
-        public static Dictionary<int, AnnualClimate_Monthly[]> Future_MonthlyData;  //dict key = year; climate record = ecoreregion, month
-        public static Dictionary<int, AnnualClimate_Daily[]> Spinup_DailyData;  //dict key = year; climate record = ecoreregion, day
-        public static Dictionary<int, AnnualClimate_Monthly[]> Spinup_MonthlyData;  //dict key = year; climate record = ecoreregion, month
-
-        /*
-        public Climate()
+        public static void CalculateFireWeather(double RHslopeAdjust, IEcoregion ecoregion, int springStart, int winterStart, int actualYear)
         {
-        }
-        */
-        //---------------------------------------------------------------------
+            UsingFireClimate = true;
+            int daysInYear = 366;
 
-        public static ICore ModelCore
-        {
-            get
+            if (Climate.Future_DailyData.ContainsKey(actualYear))
             {
-                return modelCore;
-            }
-        }
-
-        public static double[,] AnnualPDSI  //ecoregion.Index, Year
-        {
-            get
-            {
-                return annualPDSI;
-            }
-            set
-            {
-                annualPDSI = value;
-            }
-        }
-
-        public static double[] LandscapeAnnualPDSI //year
-        {
-            get
-            {
-                return landscapeAnnualPDSI;
-            }
-            set
-            {
-                landscapeAnnualPDSI = value;
-            }
-
-        }
-
-        public static TemporalGranularity AllData_granularity
-        {
-            get
-            {
-                return future_allData_granularity;
-            }
-        }
-        public static TemporalGranularity Spinup_allData_granularity
-        {
-            get
-            {
-                return spinup_allData_granularity;
-            }
-        }
-        public static Dictionary<int, ClimateRecord[][]> Future_AllData 
-        {
-            get
-            {
-                return future_allData;
-            }
-        }
-        public static Dictionary<int, ClimateRecord[][]> Spinup_AllData
-        {
-            get
-            {
-                return spinup_allData;
-            }
-        }
-
-        public static List<int> RandSelectedTimeKeys_future { get { return randSelectedTimeKeys_future; } }
-        public static List<int> RandSelectedTimeKeys_spinup { get { return randSelectedTimeKeys_spinup; } }
-
-       
-        public static IInputParameters ConfigParameters
-        {
-            get
-            {
-                return configParameters;
-            }
-            //set
-            //{
-            //    configParameters = value;
-            //}
-        }
-
-        
-
-        //---------------------------------------------------------------------
-        public static void Initialize(string climateConfigFilename, bool writeOutput, ICore mCore)
-        {
-            InputParametersParser inParamsParser = new InputParametersParser();
-            configParameters = Landis.Data.Load<IInputParameters>(climateConfigFilename, inParamsParser);
-
-            TextLog = Landis.Data.CreateTextFile("Landis-climate-log.txt");
-            TextLog.AutoFlush = true;
-
-            modelCore = mCore;
-            MetadataHandler.InitializeMetadata(1, modelCore);
-
-            ModelCore.UI.WriteLine("   Loading weather data ...");
-            Climate.future_allData = new Dictionary<int, ClimateRecord[][]>();
-            Climate.spinup_allData = new Dictionary<int, ClimateRecord[][]>();
-
-            Future_MonthlyData = new Dictionary<int, AnnualClimate_Monthly[]>();
-            Spinup_MonthlyData = new Dictionary<int, AnnualClimate_Monthly[]>();
-            Future_DailyData = new Dictionary<int, AnnualClimate_Daily[]>();
-            Spinup_DailyData = new Dictionary<int, AnnualClimate_Daily[]>();
-            LandscapeAnnualPDSI = new double[Climate.ModelCore.EndTime - Climate.ModelCore.StartTime + 1];
-            
-            TextLog.WriteLine("   Loading spin-up weather data from file {0} ...", configParameters.SpinUpClimateFile);
-            Climate.ConvertFileFormat_FillOutAllData(configParameters.SpinUpClimateTimeSeries, configParameters.SpinUpClimateFile, configParameters.SpinUpClimateFileFormat, Climate.Phase.SpinUp_Climate);
-
-            TextLog.WriteLine("   Loading future weather data from file {0} ...", configParameters.ClimateFile);
-            Climate.ConvertFileFormat_FillOutAllData(configParameters.ClimateTimeSeries, configParameters.ClimateFile, configParameters.ClimateFileFormat, Climate.Phase.Future_Climate);
-
-
-            // **
-            // spinup
-
-            // write input data to the log
-            foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in spinup_allData)
-            {
-                Climate.WriteSpinupInputLog(timeStep.Value, timeStep.Key); //, Climate.Phase.SpinUp_Climate.ToString());
-            }
-
-            // find maxSpeciesAge as the maximum possible time step count for spin up
-            int maxSpeciesAge = 0;
-            foreach (ISpecies sp in ModelCore.Species)
-            {
-                if (sp.Longevity > maxSpeciesAge)
-                    maxSpeciesAge = sp.Longevity;
-            }
-
-            var spinupTimeStepKeys = new List<int>();
-            var spinupKeyList = new List<int>(Climate.spinup_allData.Keys);
-            var spinupStartYear = spinupKeyList.Min();
-            var spinupTimeStepCount = maxSpeciesAge;
-
-            for (var i = 0; i < spinupTimeStepCount; ++i)
-                spinupTimeStepKeys.Add(spinupStartYear + i);
-
-            if (Climate.ConfigParameters.SpinUpClimateTimeSeries.ToLower().Contains("random"))
-            {
-                // generate random keys for the length of maxSpeciesAge
-                Climate.randSelectedTimeKeys_spinup = new List<int>();
-
-                // pick a random year key from allData
-                for (var i = 0; i < spinupTimeStepCount; ++i)
-                    Climate.randSelectedTimeKeys_spinup.Add(spinupKeyList[(int)(spinupKeyList.Count * Climate.ModelCore.GenerateUniform())]);
-            }
-
-            // initialize Spinup data arrays
-            foreach (var timeStepKey in spinupTimeStepKeys)
-            {
-                Spinup_MonthlyData.Add(timeStepKey, new AnnualClimate_Monthly[modelCore.Ecoregions.Count]);
-                Spinup_DailyData.Add(timeStepKey, new AnnualClimate_Daily[modelCore.Ecoregions.Count]);
-            }
-
-
-            // **
-            // future
-
-            // VS: <---this may be a hack...Calculate FWI
-            foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
-            {
-                Climate.CalculateFWI(timeStep.Value, timeStep.Key); //, future_allData_granularity);
-            }
-
-            // write input data to the log
-            foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
-            {
-                Climate.WriteFutureInputLog(timeStep.Value, timeStep.Key);
-                //, future_allData_granularity);
-            }
-
-            var futureTimeStepKeys = new List<int>();
-            var futureKeyList = new List<int>(Climate.future_allData.Keys);
-            var futureStartYear = futureKeyList.Min();
-            var futureTimeStepCount = ModelCore.EndTime - ModelCore.StartTime;
-
-            for (var i = 0; i < futureTimeStepCount; ++i)
-                futureTimeStepKeys.Add(futureStartYear + i);
-
-            if (Climate.ConfigParameters.ClimateTimeSeries.ToLower().Contains("random")) 
-            {
-                // generate random keys for the length of the simulation
-                Climate.randSelectedTimeKeys_future = new List<int>();
-
-                // pick a random year key from allData
-                for (var i = 0; i < futureTimeStepCount; ++i)
-                    Climate.randSelectedTimeKeys_future.Add(futureKeyList[(int)(futureKeyList.Count * Climate.ModelCore.GenerateUniform())]);                                
-            }
-
-            // initialize Future data arrays
-            foreach (var timeStepKey in futureTimeStepKeys)
-            {
-                Future_MonthlyData.Add(timeStepKey, new AnnualClimate_Monthly[modelCore.Ecoregions.Count]);
-                Future_DailyData.Add(timeStepKey, new AnnualClimate_Daily[modelCore.Ecoregions.Count]);
-            }
-
-            foreach(KeyValuePair<int, ClimateRecord[][]> timestep in future_allData)
-            {
-                WriteFuture_DailyData(timestep.Value, timestep.Key, 365);
-            }
-        }
-
-        // Overload method without field capacity and wilting point.  RMS added 9/7/2016
-        // If using this method, CANNOT calculate AET or PDSI.  Note: PDSI not working regardless.
-        public static void GenerateEcoregionClimateData(IEcoregion ecoregion, int startYear, double latitude)
-        {
-            GenerateEcoregionClimateData(ecoregion, startYear, latitude, 20.0, 10.0);
-        }
-
-        public static void GenerateEcoregionClimateData(IEcoregion ecoregion, int startYear, double latitude, double fieldCapacity, double wiltingPoint)
-        {
-                                    
-            // JM:  these next three lines are not currently used, but may need to be modified if used:
-            //int numberOftimeSteps = Climate.ModelCore.EndTime - Climate.ModelCore.StartTime;
-            //annualPDSI = new double[Climate.ModelCore.Ecoregions.Count, future_allData.Count]; 
-            //landscapeAnnualPDSI = new double[future_allData.Count]; 
-            double[] temperature_normals = new double[12];
-            double[] precip_normals = new double[12];
-            
-            double availableWaterCapacity = fieldCapacity - wiltingPoint;
-
-            Climate.TextLog.WriteLine("Core.StartTime = {0}, Core.EndTime = {1}.", ModelCore.StartTime, ModelCore.EndTime);
-            //Climate.TextLog.WriteLine("   Climate.LandscapeAnnualPDSI.Length = {0}.", Climate.LandscapeAnnualPDSI.Length);
-
-            //First Calculate Climate Normals from Spin-up data
-            int timeStepIndex = 0;
-            foreach (KeyValuePair<int, AnnualClimate_Monthly[]> timeStep in Spinup_MonthlyData)
-            {
-
-                //Climate.TextLog.WriteLine("  Calculating Weather for SPINUP: timeStep = {0}, actualYear = {1}", timeStep.Key, startYear + timeStep.Key);
-                AnnualClimate_Monthly annualClimateMonthly = new AnnualClimate_Monthly(ecoregion, latitude, Climate.Phase.SpinUp_Climate, timeStep.Key, timeStepIndex); 
-                Spinup_MonthlyData[startYear + timeStep.Key][ecoregion.Index] = annualClimateMonthly;
-
-                for (int mo = 0; mo < 12; mo++)
+                
+                // Test to make sure climate data does exist
+                try
                 {
-                    temperature_normals[mo] += annualClimateMonthly.MonthlyTemp[mo];
-                    precip_normals[mo] += annualClimateMonthly.MonthlyPrecip[mo];
+                    //double test = Climate.Future_DailyData[actualYear][ecoregion.Index].AnnualAET;
+                }
+                catch
+                {
+                    //throw new Exception(String.Format("year: {0} not found in climate data. Missing: AnnualAET", actualYear));
                 }
 
-                timeStepIndex++;
-            }
+                // Initialize variables for calculations
+                WindSpeedVelocity = -9999.0;
+                WindAzimuth = -9999.0;
+                double temperature = -9999.0;
+                double precipitation = -9999.0;
+                double relative_humidity = -9999.0;
 
-            // Calculate AVERAGE T normal.
-            for (int mo = 0; mo < 12; mo++)
-            {
-                temperature_normals[mo] /= (double)Spinup_MonthlyData.Count;
-                precip_normals[mo] /= (double)Spinup_MonthlyData.Count;
-                //Climate.TextLog.WriteLine("Month = {0}, Original Monthly T normal = {1}", mo, month_Temp_normal[mo]);
+                // These are seed values for the beginning of the fire season
+                double FineFuelMoistureCode_yesterday = 85; 
+                double DuffMoistureCode_yesterday = 6;
+                double DroughtCode_yesterday = 15;
 
-            }
-            
-            timeStepIndex = 0;
+                AnnualClimate_Daily myWeatherData = Climate.Future_DailyData[actualYear][ecoregion.Index];
 
-            //PDSI_Calculator.InitializeEcoregion_PDSI(temperature_normals, precip_normals, availableWaterCapacity, latitude, UnitSystem.metrics, ecoregion);
+                //daysInYear = myWeatherData.DailyDataIsLeapYear ? 366 : 365;
 
-            foreach (KeyValuePair<int, AnnualClimate_Monthly[]> timeStep in Future_MonthlyData)
-            {
-                //Climate.TextLog.WriteLine("  Completed calculations for Future_Climate: TimeStepYear = {0}, actualYear = {1}", timeStep.Key, startYear + timeStep.Key);
-                AnnualClimate_Monthly annualClimateMonthly = new AnnualClimate_Monthly(ecoregion, latitude, Climate.Phase.Future_Climate, timeStep.Key, timeStepIndex);
-                Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index] = annualClimateMonthly;
-
-                // Next calculate PSDI for the future data
-                //Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI = PDSI_Calculator.CalculateEcoregion_PDSI(annualClimateMonthly, temperature_normals, precip_normals, availableWaterCapacity, latitude, UnitSystem.metrics, ecoregion);
-                //Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI = PDSI_Calculator.CalculateEcoregion_PDSI(annualClimateMonthly, temperature_normals, precip_normals, latitude, UnitSystem.metrics, ecoregion);
-                // Climate.LandscapeAnnualPDSI[timeStepIndex] += (Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI / Climate.ModelCore.Ecoregions.Count);
-
-                //Climate.TextLog.WriteLine("Calculated PDSI for Ecoregion {0}, timestep {1}, PDSI Year {2}; PDSI={3:0.00}.", ecoregion.Name, timeStepIndex, timeStep.Key, Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI);
-                timeStepIndex++;
-
-                WriteAnnualLog(ecoregion, startYear + timeStep.Key, annualClimateMonthly);
-            }
-
-
-        }
-
-        private static void CalculateFWI(ClimateRecord[][] TimestepData, int year)
-        {
-            int maxtimestep = 12;
-            if (future_allData_granularity == TemporalGranularity.Daily)
-                maxtimestep = 365;
-            int springStart = 60;
-            int winterStart = 336;
-            WindSpeedVelocity = -9999.0;
-            WindAzimuth = -9999.0;
-            double temperature = -9999.0;
-            double precipitation = -9999.0;
-            double rhSlopeAdjust = 77.68;
-            double relativeHumidity = -9999.0;
-
-            foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
-            {
-                if (ecoregion.Active)
+                //This section loops through all the days of the year and calculates the Fire weather index
+                for (int day = 0; day <= daysInYear; day++)
                 {
-                    // These are seed values for the beginning of the fire season
-                    
-
-                    // These are seed values for the beginning of the fire season
-                    double FineFuelMoistureCode_yesterday = 85;
-                    double DuffMoistureCode_yesterday = 6;
-                    double DroughtCode_yesterday = 15;
-                    //for (int month = 0; month < 12; month++)
-                    for (int timestep = 0; timestep < maxtimestep; timestep++)
+                    try
                     {
-                        if(timestep >= springStart && timestep < winterStart)
-                        {
-                            temperature = (TimestepData[ecoregion.Index][timestep].AvgMaxTemp + TimestepData[ecoregion.Index][timestep].AvgMinTemp) / 2;
-                            precipitation = TimestepData[ecoregion.Index][timestep].AvgPpt;
-                            WindSpeedVelocity = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
-                            WindAzimuth = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
-                            relativeHumidity = 100 * Math.Exp((rhSlopeAdjust * TimestepData[ecoregion.Index][timestep].AvgMinTemp) / (273.15 + TimestepData[ecoregion.Index][timestep].AvgMinTemp) - (rhSlopeAdjust * temperature) / (273.15 + temperature));
+                        temperature = (myWeatherData.DailyMaxTemp[day] + myWeatherData.DailyMinTemp[day]) / 2;
+                        precipitation = myWeatherData.DailyPrecip[day];
+                        WindSpeedVelocity = myWeatherData.DailyWindSpeed[day];
+                        WindAzimuth = myWeatherData.DailyWindDirection[day];
+                        relative_humidity = 100 * Math.Exp((RHslopeAdjust * myWeatherData.DailyMinTemp[day]) / (273.15 + myWeatherData.DailyMinTemp[day]) - (RHslopeAdjust * temperature) / (273.15 + temperature));
+                        //Relative humidity calculations include RHslopeadjust variable to correct for location of study.
+                        
+                        
+                        CheckData(temperature, precipitation, relative_humidity);
+                        // if the day is not within the fire season then FWI = 0;
 
-                            if (timestep != springStart) //for each day, this loop assigns yesterday's fire weather variables
+                        if (day < springStart || day >= winterStart)
+                        {
+                            myWeatherData.DailyFireWeatherIndex[day] = 0.0;
+                        }
+                        else
+                        {
+                            if (day != springStart) //for each day, this loop assigns yesterday's fire weather variables
                             {
                                 FineFuelMoistureCode_yesterday = FineFuelMoistureCode;
                                 DuffMoistureCode_yesterday = DuffMoistureCode;
                                 DroughtCode_yesterday = DroughtCode;
                             }
-
-                            double mo = Calculate_mo(FineFuelMoistureCode_yesterday);
-                            double rf = Calculate_rf(precipitation);
-                            double mr = Calculate_mr(mo, rf);
-                            double Ed = Calculate_Ed(relativeHumidity, temperature);
-                            double Ew = Calculate_Ew(relativeHumidity, temperature);
-                            double ko = Calculate_ko(relativeHumidity, WindSpeedVelocity);
-                            double kd = Calculate_kd(ko, temperature);
-                            double kl = Calculate_kl(relativeHumidity, WindSpeedVelocity);
-                            double kw = Calculate_kw(kl, temperature);
-                            double m = Calculate_m(mo, Ed, kd, Ew, kw);
-                            double re = Calculate_re(precipitation);
-                            double Mo = Calculate_Mo(DuffMoistureCode_yesterday);
-                            double b = Calculate_b(DuffMoistureCode_yesterday);
-                            double Mr = Calculate_Mr(re, b, Mo);
-                            double Pr = Calculate_Pr(Mr);
-                            int month = Calculate_month(timestep);
-                            double Le1 = Calculate_Le1(month);
-                            double Le2 = Calculate_Le2(month);
-                            double Le = Calculate_Le(Le1, Le2);
-                            double K = Calculate_K(temperature, relativeHumidity, Le);
-                            Calculate_DuffMoistureCode(precipitation, Pr, K, DuffMoistureCode_yesterday);
-                            double rd = Calculate_rd(precipitation);
-                            double Qo = Calculate_Qo(DroughtCode_yesterday);
-                            double Qr = Calculate_Qr(Qo, rd);
-                            double Dr = Calculate_Dr(Qr);
-                            double Lf = Calculate_Lf(month);
-                            double V = Calculate_V(temperature, Lf);
-                            Calculate_DroughtCode(precipitation, Dr, V, DroughtCode_yesterday);
-                            double WindFunction_ISI = Calculate_WindFunction_ISI(WindSpeedVelocity);
-                            double FineFuelMoistureFunction_ISI = Calculate_FineFuelMoistureFunction_ISI(m);
-                            double InitialSpreadIndex = Calculate_InitialSpreadIndex(WindFunction_ISI, FineFuelMoistureFunction_ISI);
-                            Calculate_BuildUpIndex(DuffMoistureCode, DroughtCode);
-                            double fD = Calculate_fD(BuildUpIndex);
-                            double B = Calculate_B(InitialSpreadIndex, fD);
-                            Calculate_FireWeatherIndex(B);
-                            double I_scale = Calculate_I_scale(FireWeatherIndex);
-                            double DSR = Calculate_DSR(FireWeatherIndex);
-                            Calculate_FineFuelMoistureCode(m);
-
-                            TimestepData[ecoregion.Index][timestep].AvgFWI = FireWeatherIndex;
-                            //Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = FireWeatherIndex;
-                            //Future_DailyData[ecoregion.Index][timestep].AvgFWI = FireWeatherIndex;
-                            //ModelCore.UI.WriteLine(string.Format("{0}", FireWeatherIndex));
+                            //Fire Weather Index Calculation
+                            try
+                            {
+                                double mo = Calculate_mo(FineFuelMoistureCode_yesterday);
+                                double rf = Calculate_rf(precipitation);
+                                double mr = Calculate_mr(mo, rf);
+                                double Ed = Calculate_Ed(relative_humidity, temperature);
+                                double Ew = Calculate_Ew(relative_humidity, temperature);
+                                double ko = Calculate_ko(relative_humidity, WindSpeedVelocity);
+                                double kd = Calculate_kd(ko, temperature);
+                                double kl = Calculate_kl(relative_humidity, WindSpeedVelocity);
+                                double kw = Calculate_kw(kl, temperature);
+                                double m = Calculate_m(mo, Ed, kd, Ew, kw);
+                                double re = Calculate_re(precipitation);
+                                double Mo = Calculate_Mo(DuffMoistureCode_yesterday);
+                                double b = Calculate_b(DuffMoistureCode_yesterday);
+                                double Mr = Calculate_Mr(re, b, Mo);
+                                double Pr = Calculate_Pr(Mr);
+                                int month = Calculate_month(day);
+                                double Le1 = Calculate_Le1(month);
+                                double Le2 = Calculate_Le2(month);
+                                double Le = Calculate_Le(Le1, Le2);
+                                double K = Calculate_K(temperature, relative_humidity, Le);
+                                Calculate_DuffMoistureCode(precipitation, Pr, K, DuffMoistureCode_yesterday);
+                                double rd = Calculate_rd(precipitation);
+                                double Qo = Calculate_Qo(DroughtCode_yesterday);
+                                double Qr = Calculate_Qr(Qo, rd);
+                                double Dr = Calculate_Dr(Qr);
+                                double Lf = Calculate_Lf(month);
+                                double V = Calculate_V(temperature, Lf);
+                                Calculate_DroughtCode(precipitation, Dr, V, DroughtCode_yesterday);
+                                double WindFunction_ISI = Calculate_WindFunction_ISI(WindSpeedVelocity);
+                                double FineFuelMoistureFunction_ISI = Calculate_FineFuelMoistureFunction_ISI(m);
+                                double InitialSpreadIndex = Calculate_InitialSpreadIndex(WindFunction_ISI, FineFuelMoistureFunction_ISI);
+                                Calculate_BuildUpIndex(DuffMoistureCode, DroughtCode);
+                                double fD = Calculate_fD(BuildUpIndex);
+                                double B = Calculate_B(InitialSpreadIndex, fD);
+                                Calculate_FireWeatherIndex(B);
+                                double I_scale = Calculate_I_scale(FireWeatherIndex);
+                                double DSR = Calculate_DSR(FireWeatherIndex);
+                                Calculate_FineFuelMoistureCode(m);
+                            }
+                            catch (FireWeatherCalculationException ex)
+                            {
+                                throw new ApplicationException(string.Format("Error calculating fire weather index in function: {0}", ex.Message));
+                            }
+                            catch
+                            {
+                                throw new Exception(string.Format("Exception thrown during fire weather index calculation"));
+                            }
+                            
+                            
+                            myWeatherData.DailyFireWeatherIndex[day] = FireWeatherIndex;
                         }
-                        else
-                        {
-                            TimestepData[ecoregion.Index][timestep].AvgFWI = 0;
-                        }
+                    }
+                    catch (UninitializedClimateData uninitVarException)
+                    {
+                        throw new Exception(string.Format("Could not find climate data: {3} for day: {0} of year: {1} for ecoregion: {2}", 
+                                                          day, actualYear, ecoregion.Name.ToString(), uninitVarException.Message));
+                    }
+                    catch
+                    {
+                        throw new Exception(string.Format("Climate data error. Day: {0}, Year: {1}, EcoRegion: {3}", day, actualYear, ecoregion.Name.ToString()));
                     }
                 }
             }
-        }
-        /// <summary>
-        /// Converts USGS Data to Standard Input climate Data and fill out the Future_AllData and/or Spinup_AllData
-        /// </summary>
-        /// 
-        public static void ConvertFileFormat_FillOutAllData(String timeSeries, string filePath, string fileFormat, Climate.Phase climatePhase)
-        {
-            if (climatePhase == Climate.Phase.Future_Climate && timeSeries.Contains("Daily"))
-                future_allData_granularity = TemporalGranularity.Daily;
-                
-            else if (climatePhase == Climate.Phase.Future_Climate && timeSeries.Contains("Monthly"))
-                future_allData_granularity = TemporalGranularity.Monthly;
-
-            else if (climatePhase == Climate.Phase.SpinUp_Climate && timeSeries.Contains("Daily"))
-                spinup_allData_granularity = TemporalGranularity.Daily;
-
-            else if (climatePhase == Climate.Phase.SpinUp_Climate && timeSeries.Contains("Monthly"))
-                spinup_allData_granularity = TemporalGranularity.Monthly;
-
-            if (timeSeries.Contains("Daily"))
-                ClimateDataConvertor.Convert_USGS_to_ClimateData_FillAlldata(TemporalGranularity.Daily, filePath, fileFormat, climatePhase);
-            
-            else if (timeSeries.Contains("Monthly"))
-                ClimateDataConvertor.Convert_USGS_to_ClimateData_FillAlldata(TemporalGranularity.Monthly, filePath, fileFormat, climatePhase);
+            else
+            {
+                throw new Exception(String.Format("year: {0} not found in climate data for ecoRegion: {1}.", actualYear, ecoregion.Name.ToString()));
+            }
 
             return;
-
         }
-        //---------------------------------------------------------------------
-        private static void WriteSpinupInputLog(ClimateRecord[][] TimestepData, int year)
+
+        private static void CheckData(double temperature, double precipitation, double relative_humidity)
         {
-            int maxtimestep = 12;
-            if (spinup_allData_granularity == TemporalGranularity.Daily)
-                maxtimestep = 365;
-            
-            //spinup_allData.
-            foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
+            if (WindSpeedVelocity == -9999.0)
             {
-                if (ecoregion.Active)
-                {
-                    //for (int month = 0; month < 12; month++)
-                        for (int timestep = 0; timestep < maxtimestep; timestep++)
-                        {
-                        SpinupInputLog.Clear();
-                        InputLog sil = new InputLog();
-
-                        //sil.SimulationPeriod = period;
-                        sil.Year = year;
-                        sil.Timestep = timestep + 1;
-                        sil.EcoregionName = ecoregion.Name;
-                        sil.EcoregionIndex = ecoregion.Index;
-                        sil.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
-                        sil.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
-                        sil.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
-                        sil.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
-                        sil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
-                        sil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
-                        //sil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        if (FireClimate.UsingFireClimate)
-                        {
-                            sil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
-                        }
-
-
-                        SpinupInputLog.AddObject(sil);
-                        SpinupInputLog.WriteToFile();
-
-                    }
-                }
+                throw new UninitializedClimateData("WindSpeedVelocity");
+            }
+            else if (WindAzimuth == -9999.0)
+            {
+                throw new UninitializedClimateData("WindAzimuth");
+            }
+            else if (temperature == -9999.0)
+            {
+                throw new UninitializedClimateData("temperature");
+            }
+            else if (relative_humidity == -9999.0)
+            {
+                throw new UninitializedClimateData("relative_humidity");
+            }
+            else if (precipitation == -9999.0)
+            {
+                throw new UninitializedClimateData("precipitation");
             }
         }
-
-        //---------------------------------------------------------------------
-        private static void WriteFutureInputLog(ClimateRecord[][] TimestepData, int year)
-        {
-            //spinup_allData.
-            //CalculateFWI(ref TimestepData, year);
-            int maxtimestep = 12;
-            if (future_allData_granularity == TemporalGranularity.Daily)
-                maxtimestep = 365;
-
-            foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
-            {
-                if (ecoregion.Active)
-                {
-
-                    //for (int month = 0; month < 12; month++)
-                    for (int timestep = 0; timestep < maxtimestep; timestep++)
-                    {
-                        FutureInputLog.Clear();
-                        InputLog fil = new InputLog();
-
-                        //fil.SimulationPeriod = period;
-                        fil.Year = year;
-                        fil.Timestep = timestep + 1;
-                        fil.EcoregionName = ecoregion.Name;
-                        fil.EcoregionIndex = ecoregion.Index;
-                        fil.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
-                        fil.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
-                        fil.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
-                        fil.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
-                        fil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
-                        fil.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
-                        fil.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
-                        fil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
-                        //fil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        //if (FireClimate.UsingFireClimate)
-                        //{
-                        fil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
-                        //}
-
-
-                        FutureInputLog.AddObject(fil);
-                        FutureInputLog.WriteToFile();
-
-                    }
-                }
-            }
-        }
-
-        private static void WriteFuture_DailyData(ClimateRecord[][] TimestepData, int year, int maxTimeStep)
-        {
-            foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
-            {
-                if (ecoregion.Active)
-                {
-                    //for (int month = 0; month < 12; month++)
-                    Future_DailyData[year][ecoregion.Index] = new AnnualClimate_Daily();
-                    for (int timestep = 0; timestep < maxTimeStep; timestep++)
-                    {
-
-                        //fil.SimulationPeriod = period;
-                        Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = TimestepData[ecoregion.Index][timestep].AvgFWI;
-                        /*
-                        fil.EcoregionIndex = ecoregion.Index;
-                        fil.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
-                        fil.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
-                        fil.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
-                        fil.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
-                        fil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
-                        fil.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
-                        fil.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
-                        fil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
-                        //fil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        //if (FireClimate.UsingFireClimate)
-                        //{
-                        fil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
-                        //}
-                        */
-
-
-                    }
-                }
-            }
-        }
-
-        //---------------------------------------------------------------------
-        private static void WriteAnnualLog(IEcoregion ecoregion, int year, AnnualClimate_Monthly annualClimateMonthly)
-        {
-            AnnualLog.Clear();
-            AnnualLog al = new AnnualLog();
-
-            //al.SimulationPeriod = TBD
-            al.Time = year;
-            al.EcoregionName = ecoregion.Name;
-            al.EcoregionIndex = ecoregion.Index;
-            al.BeginGrow = annualClimateMonthly.BeginGrowing;
-            al.EndGrow = annualClimateMonthly.EndGrowing;
-            al.TAP = annualClimateMonthly.TotalAnnualPrecip;
-            al.MAT = annualClimateMonthly.MeanAnnualTemperature;
-            al.PDSI = Future_MonthlyData[year][ecoregion.Index].PDSI;
-            // VS: might need FWI in annual climate
-            //al.FWI = Future_MonthlyData[year][ecoregion.Index].FWI;
-
-            AnnualLog.AddObject(al);
-            AnnualLog.WriteToFile();
-
-
-        }
-
 
         private static double Calculate_mo(double FineFuelMoistureCode_yesterday)
         {
@@ -612,13 +185,13 @@ namespace Landis.Library.Climate
             {
                 mo = 147.2 * (101.0 - FineFuelMoistureCode_yesterday) / (59.5 + FineFuelMoistureCode_yesterday);  //This used to be an explicit seed value for FFMC
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 // Fetch the name of the function
                 string meathodName = ex.TargetSite?.Name;
                 throw new FireWeatherCalculationException(meathodName);
             }
-
+            
 
             return mo;
         }
@@ -1596,45 +1169,4 @@ namespace Landis.Library.Climate
             return DSR;
         }
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////////////////////////FIRE STUFF
-
-
-
-
-
-
-
-
-
