@@ -10,150 +10,115 @@ namespace Landis.Library.Climate
     {
         public static bool UsingFireClimate = false;
 
-        public static double FireWeatherIndex;
-        public static double FineFuelMoistureCode;
-        public static double DuffMoistureCode;
-        public static double DroughtCode;
-        public static double BuildUpIndex;
-        public static double WindSpeedVelocity;
-        public static double WindAzimuth;
+        private static double RHSlopeAdjust;
+        private static int SpringStart;
+        private static int WinterStart;
+        private static double FireWeatherIndex;
+        private static double FineFuelMoistureCode;
+        private static double DuffMoistureCode;
+        private static double DroughtCode;
+        private static double BuildUpIndex;
+        private static double WindSpeedVelocity;
+        private static double WindAzimuth;
 
-        public static void CalculateFireWeather(double RHslopeAdjust, IEcoregion ecoregion, int springStart, int winterStart, int actualYear)
+        public static void CalculateFireWeather(double rHSlopeAdjust, int springStart, int winterStart, int year, ClimateRecord[][] TimestepData)
         {
-            UsingFireClimate = true;
-            int daysInYear = 366;
+            int maxtimestep = 12;
+            if (Climate.AllData_granularity == TemporalGranularity.Daily)
+                maxtimestep = 365;
+            WindSpeedVelocity = -9999.0;
+            WindAzimuth = -9999.0;
+            double temperature = -9999.0;
+            double precipitation = -9999.0;
+            double relativeHumidity = -9999.0;
 
-            if (Climate.Future_DailyData.ContainsKey(actualYear))
+            foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
             {
-                
-                // Test to make sure climate data does exist
-                try
+                if (ecoregion.Active)
                 {
-                    //double test = Climate.Future_DailyData[actualYear][ecoregion.Index].AnnualAET;
-                }
-                catch
-                {
-                    //throw new Exception(String.Format("year: {0} not found in climate data. Missing: AnnualAET", actualYear));
-                }
 
-                // Initialize variables for calculations
-                WindSpeedVelocity = -9999.0;
-                WindAzimuth = -9999.0;
-                double temperature = -9999.0;
-                double precipitation = -9999.0;
-                double relative_humidity = -9999.0;
-
-                // These are seed values for the beginning of the fire season
-                double FineFuelMoistureCode_yesterday = 85; 
-                double DuffMoistureCode_yesterday = 6;
-                double DroughtCode_yesterday = 15;
-
-                AnnualClimate_Daily myWeatherData = Climate.Future_DailyData[actualYear][ecoregion.Index];
-
-                //daysInYear = myWeatherData.DailyDataIsLeapYear ? 366 : 365;
-
-                //This section loops through all the days of the year and calculates the Fire weather index
-                for (int day = 0; day <= daysInYear; day++)
-                {
-                    try
+                    // These are seed values for the beginning of the fire season
+                    double FineFuelMoistureCode_yesterday = 85;
+                    double DuffMoistureCode_yesterday = 6;
+                    double DroughtCode_yesterday = 15;
+                    //for (int month = 0; month < 12; month++)
+                    for (int timestep = 0; timestep < maxtimestep; timestep++)
                     {
-                        temperature = (myWeatherData.DailyMaxTemp[day] + myWeatherData.DailyMinTemp[day]) / 2;
-                        precipitation = myWeatherData.DailyPrecip[day];
-                        WindSpeedVelocity = myWeatherData.DailyWindSpeed[day];
-                        WindAzimuth = myWeatherData.DailyWindDirection[day];
-                        relative_humidity = 100 * Math.Exp((RHslopeAdjust * myWeatherData.DailyMinTemp[day]) / (273.15 + myWeatherData.DailyMinTemp[day]) - (RHslopeAdjust * temperature) / (273.15 + temperature));
-                        //Relative humidity calculations include RHslopeadjust variable to correct for location of study.
-                        
-                        
-                        CheckData(temperature, precipitation, relative_humidity);
-                        // if the day is not within the fire season then FWI = 0;
+                        if (timestep >= springStart && timestep < winterStart)
+                        {
+                            temperature = (TimestepData[ecoregion.Index][timestep].AvgMaxTemp + TimestepData[ecoregion.Index][timestep].AvgMinTemp) / 2;
+                            precipitation = TimestepData[ecoregion.Index][timestep].AvgPpt;
+                            WindSpeedVelocity = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
+                            WindAzimuth = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
+                            relativeHumidity = 100 * Math.Exp((rHSlopeAdjust * TimestepData[ecoregion.Index][timestep].AvgMinTemp) / (273.15 + TimestepData[ecoregion.Index][timestep].AvgMinTemp) - (rHSlopeAdjust * temperature) / (273.15 + temperature));
+                            if (relativeHumidity > 100)
+                            {
+                                relativeHumidity = 100.0;
+                            }
 
-                        if (day < springStart || day >= winterStart)
-                        {
-                            myWeatherData.DailyFireWeatherIndex[day] = 0.0;
-                        }
-                        else
-                        {
-                            if (day != springStart) //for each day, this loop assigns yesterday's fire weather variables
+                            if (timestep != springStart) //for each day, this loop assigns yesterday's fire weather variables
                             {
                                 FineFuelMoistureCode_yesterday = FineFuelMoistureCode;
                                 DuffMoistureCode_yesterday = DuffMoistureCode;
                                 DroughtCode_yesterday = DroughtCode;
                             }
-                            //Fire Weather Index Calculation
-                            try
-                            {
-                                double mo = Calculate_mo(FineFuelMoistureCode_yesterday);
-                                double rf = Calculate_rf(precipitation);
-                                double mr = Calculate_mr(mo, rf);
-                                double Ed = Calculate_Ed(relative_humidity, temperature);
-                                double Ew = Calculate_Ew(relative_humidity, temperature);
-                                double ko = Calculate_ko(relative_humidity, WindSpeedVelocity);
-                                double kd = Calculate_kd(ko, temperature);
-                                double kl = Calculate_kl(relative_humidity, WindSpeedVelocity);
-                                double kw = Calculate_kw(kl, temperature);
-                                double m = Calculate_m(mo, Ed, kd, Ew, kw);
-                                double re = Calculate_re(precipitation);
-                                double Mo = Calculate_Mo(DuffMoistureCode_yesterday);
-                                double b = Calculate_b(DuffMoistureCode_yesterday);
-                                double Mr = Calculate_Mr(re, b, Mo);
-                                double Pr = Calculate_Pr(Mr);
-                                int month = Calculate_month(day);
-                                double Le1 = Calculate_Le1(month);
-                                double Le2 = Calculate_Le2(month);
-                                double Le = Calculate_Le(Le1, Le2);
-                                double K = Calculate_K(temperature, relative_humidity, Le);
-                                Calculate_DuffMoistureCode(precipitation, Pr, K, DuffMoistureCode_yesterday);
-                                double rd = Calculate_rd(precipitation);
-                                double Qo = Calculate_Qo(DroughtCode_yesterday);
-                                double Qr = Calculate_Qr(Qo, rd);
-                                double Dr = Calculate_Dr(Qr);
-                                double Lf = Calculate_Lf(month);
-                                double V = Calculate_V(temperature, Lf);
-                                Calculate_DroughtCode(precipitation, Dr, V, DroughtCode_yesterday);
-                                double WindFunction_ISI = Calculate_WindFunction_ISI(WindSpeedVelocity);
-                                double FineFuelMoistureFunction_ISI = Calculate_FineFuelMoistureFunction_ISI(m);
-                                double InitialSpreadIndex = Calculate_InitialSpreadIndex(WindFunction_ISI, FineFuelMoistureFunction_ISI);
-                                Calculate_BuildUpIndex(DuffMoistureCode, DroughtCode);
-                                double fD = Calculate_fD(BuildUpIndex);
-                                double B = Calculate_B(InitialSpreadIndex, fD);
-                                Calculate_FireWeatherIndex(B);
-                                double I_scale = Calculate_I_scale(FireWeatherIndex);
-                                double DSR = Calculate_DSR(FireWeatherIndex);
-                                Calculate_FineFuelMoistureCode(m);
-                            }
-                            catch (FireWeatherCalculationException ex)
-                            {
-                                throw new ApplicationException(string.Format("Error calculating fire weather index in function: {0}", ex.Message));
-                            }
-                            catch
-                            {
-                                throw new Exception(string.Format("Exception thrown during fire weather index calculation"));
-                            }
-                            
-                            
-                            myWeatherData.DailyFireWeatherIndex[day] = FireWeatherIndex;
+
+                            double mo = Calculate_mo(FineFuelMoistureCode_yesterday);
+                            double rf = Calculate_rf(precipitation);
+                            double mr = Calculate_mr(mo, rf);
+                            double Ed = Calculate_Ed(relativeHumidity, temperature);
+                            double Ew = Calculate_Ew(relativeHumidity, temperature);
+                            double ko = Calculate_ko(relativeHumidity, WindSpeedVelocity);
+                            double kd = Calculate_kd(ko, temperature);
+                            double kl = Calculate_kl(relativeHumidity, WindSpeedVelocity);
+                            double kw = Calculate_kw(kl, temperature);
+                            double m = Calculate_m(mo, Ed, kd, Ew, kw);
+                            double re = Calculate_re(precipitation);
+                            double Mo = Calculate_Mo(DuffMoistureCode_yesterday);
+                            double b = Calculate_b(DuffMoistureCode_yesterday);
+                            double Mr = Calculate_Mr(re, b, Mo);
+                            double Pr = Calculate_Pr(Mr);
+                            int month = Calculate_month(timestep);
+                            double Le1 = Calculate_Le1(month);
+                            double Le2 = Calculate_Le2(month);
+                            double Le = Calculate_Le(Le1, Le2);
+                            double K = Calculate_K(temperature, relativeHumidity, Le);
+                            Calculate_DuffMoistureCode(precipitation, Pr, K, DuffMoistureCode_yesterday);
+                            double rd = Calculate_rd(precipitation);
+                            double Qo = Calculate_Qo(DroughtCode_yesterday);
+                            double Qr = Calculate_Qr(Qo, rd);
+                            double Dr = Calculate_Dr(Qr);
+                            double Lf = Calculate_Lf(month);
+                            double V = Calculate_V(temperature, Lf);
+                            Calculate_DroughtCode(precipitation, Dr, V, DroughtCode_yesterday);
+                            double WindFunction_ISI = Calculate_WindFunction_ISI(WindSpeedVelocity);
+                            double FineFuelMoistureFunction_ISI = Calculate_FineFuelMoistureFunction_ISI(m);
+                            double InitialSpreadIndex = Calculate_InitialSpreadIndex(WindFunction_ISI, FineFuelMoistureFunction_ISI);
+                            Calculate_BuildUpIndex(DuffMoistureCode, DroughtCode);
+                            double fD = Calculate_fD(BuildUpIndex);
+                            double B = Calculate_B(InitialSpreadIndex, fD);
+                            Calculate_FireWeatherIndex(B);
+                            double I_scale = Calculate_I_scale(FireWeatherIndex);
+                            double DSR = Calculate_DSR(FireWeatherIndex);
+                            Calculate_FineFuelMoistureCode(m);
+
+                            TimestepData[ecoregion.Index][timestep].AvgFWI = FireWeatherIndex;
+                            //Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = FireWeatherIndex;
+                            //Future_DailyData[ecoregion.Index][timestep].AvgFWI = FireWeatherIndex;
+                            //ModelCore.UI.WriteLine(string.Format("{0}", FireWeatherIndex));
                         }
-                    }
-                    catch (UninitializedClimateData uninitVarException)
-                    {
-                        throw new Exception(string.Format("Could not find climate data: {3} for day: {0} of year: {1} for ecoregion: {2}", 
-                                                          day, actualYear, ecoregion.Name.ToString(), uninitVarException.Message));
-                    }
-                    catch
-                    {
-                        throw new Exception(string.Format("Climate data error. Day: {0}, Year: {1}, EcoRegion: {3}", day, actualYear, ecoregion.Name.ToString()));
+                        else
+                        {
+                            TimestepData[ecoregion.Index][timestep].AvgFWI = 0;
+                        }
                     }
                 }
             }
-            else
-            {
-                throw new Exception(String.Format("year: {0} not found in climate data for ecoRegion: {1}.", actualYear, ecoregion.Name.ToString()));
-            }
-
-            return;
         }
 
+        /// <summary>
+        /// Calculations for CalculateFireWeather(double, int, int, int, ClimateRecord[][])
+        /// </summary>
         private static void CheckData(double temperature, double precipitation, double relative_humidity)
         {
             if (WindSpeedVelocity == -9999.0)
