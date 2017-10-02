@@ -15,7 +15,7 @@ namespace Landis.Library.Climate
 
     public static class Climate
     {
-        
+
 
         private static TemporalGranularity future_allData_granularity;
         private static TemporalGranularity spinup_allData_granularity;
@@ -211,6 +211,7 @@ namespace Landis.Library.Climate
             {
                 // VS FIXME: This needs to CalcuCalculateFireWeather
                 FireClimate.CalculateFireWeather(77.68, 60, 336, timeStep.Key, timeStep.Value); //, future_allData_granularity);
+
             }
 
             // write input data to the log
@@ -323,7 +324,6 @@ namespace Landis.Library.Climate
 
 
         }
-        
         /// <summary>
         /// Converts USGS Data to Standard Input climate Data and fill out the Future_AllData and/or Spinup_AllData
         /// </summary>
@@ -474,7 +474,6 @@ namespace Landis.Library.Climate
                         //}
                         */
 
-
                     }
                 }
             }
@@ -503,6 +502,7 @@ namespace Landis.Library.Climate
 
 
         }
+
         
     }
 

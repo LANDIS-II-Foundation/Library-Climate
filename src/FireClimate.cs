@@ -10,6 +10,7 @@ namespace Landis.Library.Climate
     {
         public static bool UsingFireClimate = false;
 
+
         private static double RHSlopeAdjust;
         private static int SpringStart;
         private static int WinterStart;
@@ -57,11 +58,13 @@ namespace Landis.Library.Climate
                             }
 
                             if (timestep != springStart) //for each day, this loop assigns yesterday's fire weather variables
+
                             {
                                 FineFuelMoistureCode_yesterday = FineFuelMoistureCode;
                                 DuffMoistureCode_yesterday = DuffMoistureCode;
                                 DroughtCode_yesterday = DroughtCode;
                             }
+
 
                             double mo = Calculate_mo(FineFuelMoistureCode_yesterday);
                             double rf = Calculate_rf(precipitation);
