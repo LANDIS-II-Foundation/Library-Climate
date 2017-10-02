@@ -29,9 +29,7 @@ namespace Landis.Library.Climate
 
         public static class Names
         {
-            //public const string Timestep = "Timestep";
-
-
+            //public const string Timestep = "Timestep";            
             public const string LandisData = "LandisData";
             public const string ClimateConfigFile = "ClimateConfigFile";
             public const string ClimateTimeSeries = "ClimateTimeSeries";
@@ -40,9 +38,7 @@ namespace Landis.Library.Climate
             public const string SpinUpClimateTimeSeries = "SpinUpClimateTimeSeries";
             public const string SpinUpClimateFile = "SpinUpClimateFile";
             public const string SpinUpClimateFileFormat = "SpinUpClimateFileFormat";
-
-           
-            
+            public const string RHSlopeAdjust = "RelativeHumiditySlopeAdjust";
         }
 
         //---------------------------------------------------------------------
@@ -116,7 +112,10 @@ namespace Landis.Library.Climate
                 throw new ApplicationException("You are requesting a Daily Time Step but not inputting daily data:" + parameters.ClimateTimeSeries + " and " + parameters.ClimateFileFormat);
             }
 
-            
+            InputVar<double> rHSlopeAdjust = new InputVar<double>(Names.RHSlopeAdjust);
+            ReadOptionalVar(rHSlopeAdjust);
+            parameters.RHSlopeAdjust = rHSlopeAdjust.Value;
+
             return parameters; 
 
 

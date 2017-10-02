@@ -13,8 +13,9 @@ using System.Linq;
 namespace Landis.Library.Climate
 {
 
-    public class Climate
+    public static class Climate
     {
+
 
         private static TemporalGranularity future_allData_granularity;
         private static TemporalGranularity spinup_allData_granularity;
@@ -43,10 +44,11 @@ namespace Landis.Library.Climate
         public static Dictionary<int, AnnualClimate_Daily[]> Spinup_DailyData;  //dict key = year; climate record = ecoreregion, day
         public static Dictionary<int, AnnualClimate_Monthly[]> Spinup_MonthlyData;  //dict key = year; climate record = ecoreregion, month
 
+        /*
         public Climate()
         {
         }
-
+        */
         //---------------------------------------------------------------------
 
         public static ICore ModelCore
@@ -127,7 +129,7 @@ namespace Landis.Library.Climate
             //}
         }
 
-
+        
 
         //---------------------------------------------------------------------
         public static void Initialize(string climateConfigFilename, bool writeOutput, ICore mCore)
@@ -204,10 +206,19 @@ namespace Landis.Library.Climate
             // **
             // future
 
+            // VS: <---this may be a hack...Calculate FWI
+            foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
+            {
+                // VS FIXME: This needs to CalcuCalculateFireWeather
+                FireClimate.CalculateFireWeather(77.68, 60, 336, timeStep.Key, timeStep.Value); //, future_allData_granularity);
+
+            }
+
             // write input data to the log
             foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
             {
-                Climate.WriteFutureInputLog(timeStep.Value, timeStep.Key); //, future_allData_granularity);
+                Climate.WriteFutureInputLog(timeStep.Value, timeStep.Key);
+                //, future_allData_granularity);
             }
 
             var futureTimeStepKeys = new List<int>();
@@ -233,6 +244,11 @@ namespace Landis.Library.Climate
             {
                 Future_MonthlyData.Add(timeStepKey, new AnnualClimate_Monthly[modelCore.Ecoregions.Count]);
                 Future_DailyData.Add(timeStepKey, new AnnualClimate_Daily[modelCore.Ecoregions.Count]);
+            }
+
+            foreach(KeyValuePair<int, ClimateRecord[][]> timestep in future_allData)
+            {
+                WriteFuture_DailyData(timestep.Value, timestep.Key, 365);
             }
         }
 
@@ -308,9 +324,6 @@ namespace Landis.Library.Climate
 
 
         }
-
-
-
         /// <summary>
         /// Converts USGS Data to Standard Input climate Data and fill out the Future_AllData and/or Spinup_AllData
         /// </summary>
@@ -338,6 +351,7 @@ namespace Landis.Library.Climate
             return;
 
         }
+
         //---------------------------------------------------------------------
         private static void WriteSpinupInputLog(ClimateRecord[][] TimestepData, int year)
         {
@@ -368,6 +382,10 @@ namespace Landis.Library.Climate
                         sil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
                         sil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
                         //sil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        if (FireClimate.UsingFireClimate)
+                        {
+                            sil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                        }
 
 
                         SpinupInputLog.AddObject(sil);
@@ -376,13 +394,13 @@ namespace Landis.Library.Climate
                     }
                 }
             }
-
         }
 
         //---------------------------------------------------------------------
         private static void WriteFutureInputLog(ClimateRecord[][] TimestepData, int year)
         {
             //spinup_allData.
+            //CalculateFWI(ref TimestepData, year);
             int maxtimestep = 12;
             if (future_allData_granularity == TemporalGranularity.Daily)
                 maxtimestep = 365;
@@ -412,7 +430,11 @@ namespace Landis.Library.Climate
                         fil.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
                         fil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
                         //fil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        
+                        //if (FireClimate.UsingFireClimate)
+                        //{
+                        fil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                        //}
+
 
                         FutureInputLog.AddObject(fil);
                         FutureInputLog.WriteToFile();
@@ -420,7 +442,41 @@ namespace Landis.Library.Climate
                     }
                 }
             }
+        }
 
+        private static void WriteFuture_DailyData(ClimateRecord[][] TimestepData, int year, int maxTimeStep)
+        {
+            foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
+            {
+                if (ecoregion.Active)
+                {
+                    //for (int month = 0; month < 12; month++)
+                    Future_DailyData[year][ecoregion.Index] = new AnnualClimate_Daily();
+                    for (int timestep = 0; timestep < maxTimeStep; timestep++)
+                    {
+
+                        //fil.SimulationPeriod = period;
+                        Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                        /*
+                        fil.EcoregionIndex = ecoregion.Index;
+                        fil.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
+                        fil.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
+                        fil.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
+                        fil.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
+                        fil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
+                        fil.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
+                        fil.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
+                        fil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
+                        //fil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        //if (FireClimate.UsingFireClimate)
+                        //{
+                        fil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                        //}
+                        */
+
+                    }
+                }
+            }
         }
 
         //---------------------------------------------------------------------
@@ -438,6 +494,8 @@ namespace Landis.Library.Climate
             al.TAP = annualClimateMonthly.TotalAnnualPrecip;
             al.MAT = annualClimateMonthly.MeanAnnualTemperature;
             al.PDSI = Future_MonthlyData[year][ecoregion.Index].PDSI;
+            // VS: might need FWI in annual climate
+            //al.FWI = Future_MonthlyData[year][ecoregion.Index].FWI;
 
             AnnualLog.AddObject(al);
             AnnualLog.WriteToFile();
@@ -445,16 +503,7 @@ namespace Landis.Library.Climate
 
         }
 
-
+        
     }
 
 }
-
-
-
-
-
-
-
-
-

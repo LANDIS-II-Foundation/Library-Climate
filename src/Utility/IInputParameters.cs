@@ -2,8 +2,8 @@
 //  Author: Robert Scheller, Ben Sulman
 
 //using Landis.Library.Succession;
-using Edu.Wisc.Forest.Flel.Util;
-using System.Collections.Generic;
+//using Edu.Wisc.Forest.Flel.Util;
+//using System.Collections.Generic;
 
 namespace Landis.Library.Climate
 {
@@ -24,6 +24,8 @@ namespace Landis.Library.Climate
         string SpinUpClimateTimeSeries { get; set; }
         string SpinUpClimateFile { get; set; }
         string SpinUpClimateFileFormat { get; set; }
+        double RHSlopeAdjust { get; set; }
+
  
 
 

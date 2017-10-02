@@ -5,7 +5,6 @@ using Landis.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Landis.Library.Climate
 {
@@ -27,6 +26,8 @@ namespace Landis.Library.Climate
         public double[] DailyNDeposition = new double[366];
         public double[] DailyCO2 = new double[366];
         public double[] DailyRH = new double[366];
+        public double[] DailyFireWeatherIndex = new double[366];
+
 
         //public int tempEcoIndex = -1;
 
@@ -35,6 +36,7 @@ namespace Landis.Library.Climate
         //public double[] DailyDayLength = new double[366];
         //public double[] DailyNightLength = new double[366];
         //public int[] DailyGDD = new int[366];
+        public AnnualClimate_Daily() { }
 
         //For Sequenced and Random timeStep arg should be passed
         public AnnualClimate_Daily(IEcoregion ecoregion, double latitude, Climate.Phase spinupOrfuture, int timeStep, int timeStepIndex)
@@ -156,6 +158,7 @@ namespace Landis.Library.Climate
                 this.DailyWindSpeed[d] = dailyClimateRecords[d].AvgWindSpeed;
                 this.DailyNDeposition[d] = dailyClimateRecords[d].AvgNDeposition;
                 this.DailyCO2[d] = dailyClimateRecords[d].AvgCO2;
+                this.DailyFireWeatherIndex[d] = dailyClimateRecords[d].AvgFWI;
 
                 this.DailyTemp[d] = (this.DailyMinTemp[d] + this.DailyMaxTemp[d]) / 2.0;
 
@@ -202,6 +205,7 @@ namespace Landis.Library.Climate
                 var dailyNDeposition = 0.0;
                 var dailyCO2 = 0.0;
                 var dailyRH = 0.0;
+                var dailyFWI = 0.0;
 
                 // loop over years
                 int dIndex;
@@ -224,6 +228,7 @@ namespace Landis.Library.Climate
                         dailyNDeposition += (yearRecords[d].AvgNDeposition + yearRecords[d + 1].AvgNDeposition) / 2.0;
                         dailyCO2 += (yearRecords[d].AvgCO2 + yearRecords[d + 1].AvgCO2) / 2.0;
                         dailyRH += (yearRecords[d].AvgRH + yearRecords[d + 1].AvgRH) / 2.0;
+                        dailyFWI += (yearRecords[d].AvgFWI + yearRecords[d + 1].AvgFWI) / 2.0;
                     }
                     else
                     {
@@ -240,6 +245,7 @@ namespace Landis.Library.Climate
                         dailyWindSpeed += yearRecords[dIndex].AvgWindSpeed;
                         dailyNDeposition += yearRecords[dIndex].AvgNDeposition;
                         dailyRH += yearRecords[dIndex].AvgRH;
+                        dailyFWI += yearRecords[dIndex].AvgFWI;
                         
                     }
                 }
@@ -260,6 +266,7 @@ namespace Landis.Library.Climate
                     dailyData[d].AvgNDeposition = dailyNDeposition / yearCount;
                     dailyData[d].AvgCO2 = dailyCO2 / yearCount;
                     dailyData[d].AvgRH = dailyRH / yearCount;
+                    dailyData[d].AvgFWI = dailyFWI / yearCount;
                 }
             }
 
