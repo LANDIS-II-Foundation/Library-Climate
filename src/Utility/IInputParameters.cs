@@ -25,6 +25,7 @@ namespace Landis.Library.Climate
         string SpinUpClimateFile { get; set; }
         string SpinUpClimateFileFormat { get; set; }
         double RHSlopeAdjust { get; set; }
+
  
 
 
