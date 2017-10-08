@@ -1,5 +1,4 @@
-//  Copyright: Portland State University 2009-2014
-//  Authors:  Robert M. Scheller, Amin Almassian
+//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
 
 using System.Collections.Generic;
 

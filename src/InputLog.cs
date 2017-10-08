@@ -1,4 +1,6 @@
-﻿using Landis.Library.Metadata;
+﻿//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
+
+using Landis.Library.Metadata;
 
 namespace Landis.Library.Climate
 {

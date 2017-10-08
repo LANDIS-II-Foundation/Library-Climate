@@ -1,9 +1,4 @@
-//  Copyright 2007-2010 Portland State University, University of Wisconsin-Madison
-//  Author: Robert Scheller, Ben Sulman
-
-//using Landis.Library.Succession;
-//using Edu.Wisc.Forest.Flel.Util;
-//using System.Collections.Generic;
+//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
 
 namespace Landis.Library.Climate
 {
@@ -15,9 +10,6 @@ namespace Landis.Library.Climate
     /// </summary>
     public interface IInputParameters
     {
-        //int Timestep{ get;set;}
-        //string LandisDataValue { }
-
         string ClimateTimeSeries { get; set; }
         string ClimateFile { get; set; }
         string ClimateFileFormat { get; set; }
@@ -25,14 +17,8 @@ namespace Landis.Library.Climate
         string SpinUpClimateFile { get; set; }
         string SpinUpClimateFileFormat { get; set; }
         double RHSlopeAdjust { get; set; }
-
- 
-
-
-        //---------------------------------------------------------------------
-
-
-
+        int SpringStart { get; set; }
+        int WinterStart { get; set; }
         
     }
 }

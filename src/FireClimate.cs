@@ -1,4 +1,6 @@
-﻿using System;
+﻿//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash, Vincent Schuster
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +13,9 @@ namespace Landis.Library.Climate
         public static bool UsingFireClimate = false;
 
 
-        private static double RHSlopeAdjust;
-        private static int SpringStart;
-        private static int WinterStart;
+        //private static double RHSlopeAdjust;
+        //private static int SpringStart;
+        //private static int WinterStart;
         private static double FireWeatherIndex;
         private static double FineFuelMoistureCode;
         private static double DuffMoistureCode;

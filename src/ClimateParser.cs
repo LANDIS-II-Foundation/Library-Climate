@@ -1,5 +1,4 @@
-//  Copyright 2009-2010 Portland State University, Conservation Biology Institute
-//  Authors:  Robert M. Scheller
+//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
 
 using Edu.Wisc.Forest.Flel.Util;
 using Landis.Core;

@@ -1,5 +1,4 @@
-﻿//  Copyright: Portland State University 2009-2014
-//  Authors:  Robert M. Scheller, John McNabb and Amin Almassian
+﻿//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
 
 using Landis.Core;
 using System;

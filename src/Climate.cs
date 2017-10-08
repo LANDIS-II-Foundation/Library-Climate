@@ -1,5 +1,4 @@
-//  Copyright: Portland State University 2009-2014
-//  Authors:  Robert M. Scheller, John McNabb, Amin Almassian
+//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
 
 using Landis.Core;
 using System.Collections.Generic;
@@ -209,16 +208,13 @@ namespace Landis.Library.Climate
             // VS: <---this may be a hack...Calculate FWI
             foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
             {
-                // VS FIXME: This needs to CalcuCalculateFireWeather
-                FireClimate.CalculateFireWeather(77.68, 60, 336, timeStep.Key, timeStep.Value); //, future_allData_granularity);
-
+                FireClimate.CalculateFireWeather(Climate.ConfigParameters.RHSlopeAdjust, Climate.ConfigParameters.SpringStart, Climate.ConfigParameters.WinterStart, timeStep.Key, timeStep.Value); //, future_allData_granularity);
             }
 
             // write input data to the log
             foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
             {
                 Climate.WriteFutureInputLog(timeStep.Value, timeStep.Key);
-                //, future_allData_granularity);
             }
 
             var futureTimeStepKeys = new List<int>();
