@@ -242,10 +242,12 @@ namespace Landis.Library.Climate
                 Future_DailyData.Add(timeStepKey, new AnnualClimate_Daily[modelCore.Ecoregions.Count]);
             }
 
-            foreach(KeyValuePair<int, ClimateRecord[][]> timestep in future_allData)
-            {
-                WriteFuture_DailyData(timestep.Value, timestep.Key, 365);
-            }
+            //foreach(KeyValuePair<int, ClimateRecord[][]> timestep in future_allData)
+            //foreach (var timeStepKey in futureTimeStepKeys)
+            //{
+            //    //AddFuture_FWI(timeStep.Value, timeStep.Key, 365);
+            //    AddFuture_FWI(timeStepKey, 365);
+            //}
         }
 
         // Overload method without field capacity and wilting point.  RMS added 9/7/2016
@@ -440,35 +442,38 @@ namespace Landis.Library.Climate
             }
         }
 
-        private static void WriteFuture_DailyData(ClimateRecord[][] TimestepData, int year, int maxTimeStep)
+        //private static void AddFuture_FWI(ClimateRecord[][] TimestepData, int year, int maxTimeStep)
+        private static void AddFuture_FWI(int year, int maxTimeStep)
         {
             foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
             {
                 if (ecoregion.Active)
                 {
-                    //for (int month = 0; month < 12; month++)
-                    Future_DailyData[year][ecoregion.Index] = new AnnualClimate_Daily();
+                    //try
+                    //{
+                    //    Future_DailyData[year][ecoregion.Index] = new AnnualClimate_Daily();
+                    //}
+                    //catch
+                    //{
+                    //    throw new UninitializedClimateData(string.Format("Year could not be found: {0}, in ecoregion: {1} not found", year, ecoregion.Name));
+                    //}
+
+                    //Future_DailyData[year][ecoregion.Index] = new AnnualClimate_Daily();
+                    //KeyValuePair<int, ClimateRecord[][]> timestep in 
+                    ClimateRecord[][] temp = future_allData[year];
                     for (int timestep = 0; timestep < maxTimeStep; timestep++)
                     {
 
                         //fil.SimulationPeriod = period;
-                        Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = TimestepData[ecoregion.Index][timestep].AvgFWI;
-                        /*
-                        fil.EcoregionIndex = ecoregion.Index;
-                        fil.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
-                        fil.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
-                        fil.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
-                        fil.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
-                        fil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
-                        fil.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
-                        fil.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
-                        fil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
-                        //fil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        //if (FireClimate.UsingFireClimate)
-                        //{
-                        fil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
-                        //}
-                        */
+                        try
+                        {
+                            //Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                            Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = temp[ecoregion.Index][timestep].AvgFWI;
+                        }
+                        catch
+                        {
+                            throw new UninitializedClimateData(string.Format("Timestep could not be found: {0}, in ecoregion: {1}, year: {2} not found", timestep, ecoregion.Name, year));
+                        }
 
                     }
                 }
