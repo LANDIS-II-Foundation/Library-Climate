@@ -24,8 +24,12 @@ namespace Landis.Library.Climate
         private static double WindSpeedVelocity;
         private static double WindAzimuth;
 
-        public static void CalculateFireWeather(double rHSlopeAdjust, int springStart, int winterStart, int year, ClimateRecord[][] TimestepData)
+        public static void CalculateFireWeather(int year, ClimateRecord[][] TimestepData)
         {
+            double rHSlopeAdjust = Climate.ConfigParameters.RHSlopeAdjust;
+            int springStart = Climate.ConfigParameters.SpringStart;
+            int winterStart = Climate.ConfigParameters.WinterStart;
+
             int maxtimestep = 12;
             if (Climate.AllData_granularity == TemporalGranularity.Daily)
                 maxtimestep = 365;
@@ -54,6 +58,7 @@ namespace Landis.Library.Climate
                             WindSpeedVelocity = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
                             WindAzimuth = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
                             relativeHumidity = 100 * Math.Exp((rHSlopeAdjust * TimestepData[ecoregion.Index][timestep].AvgMinTemp) / (273.15 + TimestepData[ecoregion.Index][timestep].AvgMinTemp) - (rHSlopeAdjust * temperature) / (273.15 + temperature));
+                            //= TimestepData[ecoregion.Index][timestep].AvgFWI;
                             if (relativeHumidity > 100)
                             {
                                 relativeHumidity = 100.0;
@@ -108,9 +113,7 @@ namespace Landis.Library.Climate
                             Calculate_FineFuelMoistureCode(m);
 
                             TimestepData[ecoregion.Index][timestep].AvgFWI = FireWeatherIndex;
-                            //Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = FireWeatherIndex;
-                            //Future_DailyData[ecoregion.Index][timestep].AvgFWI = FireWeatherIndex;
-                            //ModelCore.UI.WriteLine(string.Format("{0}", FireWeatherIndex));
+                            //Climate.Future_AllData[ecoregion.Index][timestep]..AvgFWI = FireWeatherIndex;
                         }
                         else
                         {

@@ -206,12 +206,16 @@ namespace Landis.Library.Climate
             // future
 
             // VS: <---this may be a hack...Calculate FWI
-            foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
+            if (Climate.ConfigParameters.RHSlopeAdjust > 0)
             {
-                FireClimate.CalculateFireWeather(Climate.ConfigParameters.RHSlopeAdjust, Climate.ConfigParameters.SpringStart, Climate.ConfigParameters.WinterStart, timeStep.Key, timeStep.Value); //, future_allData_granularity);
+                foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
+                {
+                    FireClimate.CalculateFireWeather(timeStep.Key, timeStep.Value); //, future_allData_granularity);
+                                                                                    //AddFuture_FWI(timeStep.Key, timeStep.Value, 365);
+                }
             }
 
-            // write input data to the log
+            //write input data to the log
             foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
             {
                 Climate.WriteFutureInputLog(timeStep.Value, timeStep.Key);
@@ -242,13 +246,48 @@ namespace Landis.Library.Climate
                 Future_DailyData.Add(timeStepKey, new AnnualClimate_Daily[modelCore.Ecoregions.Count]);
             }
 
-            //foreach(KeyValuePair<int, ClimateRecord[][]> timestep in future_allData)
-            //foreach (var timeStepKey in futureTimeStepKeys)
+            //foreach (KeyValuePair<int, ClimateRecord[][]> timestep in future_allData)
             //{
-            //    //AddFuture_FWI(timeStep.Value, timeStep.Key, 365);
-            //    AddFuture_FWI(timeStepKey, 365);
+            //    AddFuture_FWI(timestep.Key, timestep.Value, 365);
             //}
         }
+
+        //private static void AddFuture_FWI(int year, ClimateRecord[][] TimestepData, int maxTimeStep)
+        ////private static void AddFuture_FWI(int year, int maxTimeStep)
+        //{
+        //    foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
+        //    {
+        //        if (ecoregion.Active)
+        //        {
+
+        //            Future_DailyData[year][ecoregion.Index] = new AnnualClimate_Daily();
+        //            for (int timestep = 0; timestep < maxTimeStep; timestep++)
+        //            {
+        //                double FWI = 0.0;
+        //                try
+        //                {
+        //                    FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
+        //                }
+        //                catch
+        //                {
+        //                    throw new UninitializedClimateData(string.Format("FWI could not be found: Year: {0}. Day: {1}. Ecoregion: {2}", year, timestep, ecoregion.Name));
+        //                }
+
+        //                //fil.SimulationPeriod = period;
+        //                try
+        //                {
+        //                    Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = FWI;
+        //                    //Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = temp[ecoregion.Index][timestep].AvgFWI;
+        //                }
+        //                catch
+        //                {
+        //                    throw new UninitializedClimateData(string.Format("Future Daily Data not found: Year: {0}. Day: {1}. Ecoregion: {2}", year, timestep, ecoregion.Name));
+        //                }
+
+        //            }
+        //        }
+        //    }
+        //}
 
         // Overload method without field capacity and wilting point.  RMS added 9/7/2016
         // If using this method, CANNOT calculate AET or PDSI.  Note: PDSI not working regardless.
@@ -428,10 +467,7 @@ namespace Landis.Library.Climate
                         fil.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
                         fil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
                         //fil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        //if (FireClimate.UsingFireClimate)
-                        //{
                         fil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
-                        //}
 
 
                         FutureInputLog.AddObject(fil);
@@ -442,43 +478,6 @@ namespace Landis.Library.Climate
             }
         }
 
-        //private static void AddFuture_FWI(ClimateRecord[][] TimestepData, int year, int maxTimeStep)
-        private static void AddFuture_FWI(int year, int maxTimeStep)
-        {
-            foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
-            {
-                if (ecoregion.Active)
-                {
-                    //try
-                    //{
-                    //    Future_DailyData[year][ecoregion.Index] = new AnnualClimate_Daily();
-                    //}
-                    //catch
-                    //{
-                    //    throw new UninitializedClimateData(string.Format("Year could not be found: {0}, in ecoregion: {1} not found", year, ecoregion.Name));
-                    //}
-
-                    //Future_DailyData[year][ecoregion.Index] = new AnnualClimate_Daily();
-                    //KeyValuePair<int, ClimateRecord[][]> timestep in 
-                    ClimateRecord[][] temp = future_allData[year];
-                    for (int timestep = 0; timestep < maxTimeStep; timestep++)
-                    {
-
-                        //fil.SimulationPeriod = period;
-                        try
-                        {
-                            //Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = TimestepData[ecoregion.Index][timestep].AvgFWI;
-                            Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = temp[ecoregion.Index][timestep].AvgFWI;
-                        }
-                        catch
-                        {
-                            throw new UninitializedClimateData(string.Format("Timestep could not be found: {0}, in ecoregion: {1}, year: {2} not found", timestep, ecoregion.Name, year));
-                        }
-
-                    }
-                }
-            }
-        }
 
         //---------------------------------------------------------------------
         private static void WriteAnnualLog(IEcoregion ecoregion, int year, AnnualClimate_Monthly annualClimateMonthly)
