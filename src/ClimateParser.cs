@@ -1,5 +1,4 @@
-//  Copyright 2009-2010 Portland State University, Conservation Biology Institute
-//  Authors:  Robert M. Scheller
+//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
 
 using Edu.Wisc.Forest.Flel.Util;
 using Landis.Core;
@@ -16,7 +15,6 @@ namespace Landis.Library.Climate
     public class ClimateParser
         : TextParser<Dictionary<int, ClimateRecord[,]>>
     {
-
         //private IEcoregionDataset ecoregionDataset;
         //---------------------------------------------------------------------
         private string _LandisDataValue = "Climate Data";
@@ -144,7 +142,7 @@ namespace Landis.Library.Climate
 
         //---------------------------------------------------------------------
 
-        private IEcoregion GetEcoregion(InputValue<string>      ecoregionName)
+        private IEcoregion GetEcoregion(InputValue<string> ecoregionName)
         {
             IEcoregion ecoregion = Climate.ModelCore.Ecoregions[ecoregionName.Actual];
             if (ecoregion == null)
@@ -154,6 +152,5 @@ namespace Landis.Library.Climate
             
             return ecoregion;
         }
-
     }
 }

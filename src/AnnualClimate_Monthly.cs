@@ -27,6 +27,7 @@ namespace  Landis.Library.Climate
         public double[] MonthlyDayLength = new double[12];
         public double[] MonthlyNightLength = new double[12];
         public int[] MonthlyGDD = new int[12];
+        public double[] MonthlyFWI = new double[12];
 
         public AnnualClimate_Monthly(IEcoregion ecoregion, double latitude, Climate.Phase spinupOrfuture, int timeStep, int timeStepIndex)
         {
@@ -234,7 +235,7 @@ namespace  Landis.Library.Climate
                 this.MonthlyVarPpt[mo] = monthlyClimateRecords[mo].AvgVarPpt;
                 this.MonthlyPrecip[mo] = monthlyClimateRecords[mo].AvgPpt;
                 this.MonthlyPAR[mo] = monthlyClimateRecords[mo].AvgPAR;
-
+                this.MonthlyFWI[mo] = monthlyClimateRecords[mo].AvgFWI;
                 this.MonthlyTemp[mo] = (this.MonthlyMinTemp[mo] + this.MonthlyMaxTemp[mo]) / 2.0;
 
                 this.TotalAnnualPrecip += this.MonthlyPrecip[mo];
@@ -276,6 +277,7 @@ namespace  Landis.Library.Climate
                 this.MonthlyWindDirection[mo] = ecoClimate[mo].AvgWindDirection;
                 this.MonthlyWindSpeed[mo] = ecoClimate[mo].AvgWindSpeed;
                 this.MonthlyNDeposition[mo] = ecoClimate[mo].AvgNDeposition;
+                this.MonthlyFWI[mo] = ecoClimate[mo].AvgFWI;
 
                 this.TotalAnnualPrecip += this.MonthlyPrecip[mo];
 
@@ -314,11 +316,14 @@ namespace  Landis.Library.Climate
                 this.MonthlyWindDirection[mo] = ecoClimate[mo].AvgWindDirection;
                 this.MonthlyWindSpeed[mo] = ecoClimate[mo].AvgWindSpeed;
                 this.MonthlyNDeposition[mo] = ecoClimate[mo].AvgNDeposition;
+                this.MonthlyFWI[mo] = ecoClimate[mo].AvgFWI;
 
                 this.TotalAnnualPrecip += this.MonthlyPrecip[mo];
 
                 if (this.MonthlyPrecip[mo] < 0)
+                {
                     this.MonthlyPrecip[mo] = 0;
+                }
 
                 double hr = CalculateDayLength(mo, latitude);
                 this.MonthlyDayLength[mo] = (60.0 * 60.0 * hr);                  // seconds of daylight/day
@@ -356,6 +361,7 @@ namespace  Landis.Library.Climate
                 var monthlyWindDirection = 0.0;
                 var monthlyWindSpeed = 0.0;
                 var monthlyNDeposition = 0.0;
+                var monthlyFWI = 0.0;
 
                 foreach (var yearMonthlyRecords in timestepData.Values)
                 {
@@ -368,6 +374,7 @@ namespace  Landis.Library.Climate
                     monthlyWindDirection += yearMonthlyRecords[ecoregion.Index][mo].AvgWindDirection;
                     monthlyWindSpeed += yearMonthlyRecords[ecoregion.Index][mo].AvgWindSpeed;
                     monthlyNDeposition += yearMonthlyRecords[ecoregion.Index][mo].AvgNDeposition;
+                    monthlyFWI += yearMonthlyRecords[ecoregion.Index][mo].AvgFWI;
 
                 }
 
@@ -385,6 +392,7 @@ namespace  Landis.Library.Climate
                     monthlyData[mo].AvgWindDirection = monthlyWindDirection / yearCount;
                     monthlyData[mo].AvgWindSpeed = monthlyWindSpeed / yearCount;
                     monthlyData[mo].AvgNDeposition = monthlyNDeposition / yearCount;
+                    monthlyData[mo].AvgFWI = monthlyFWI / yearCount;
                 }
             }
             return monthlyData;
@@ -420,6 +428,7 @@ namespace  Landis.Library.Climate
                 var monthlyNDeposition = 0.0;
                 var monthlyCO2 = 0.0;
                 var monthlyRH = 0.0;
+                var monthlyFWI = 0.0;
 
                 nDays = daysInMonth[mo];
                 for (int d = 0; d < nDays; d++)
@@ -435,6 +444,7 @@ namespace  Landis.Library.Climate
                     monthlyNDeposition += annDaily.DailyNDeposition[dayOfYear];
                     monthlyCO2 += annDaily.DailyCO2[dayOfYear];
                     monthlyRH += annDaily.DailyRH[dayOfYear];
+                    monthlyFWI += annDaily.DailyFireWeatherIndex[dayOfYear];
 
                     dayOfYear++;
                 }
@@ -454,6 +464,7 @@ namespace  Landis.Library.Climate
                 monthlyData[mo].AvgNDeposition = monthlyNDeposition / nDays;
                 monthlyData[mo].AvgCO2 = monthlyCO2 / nDays;
                 monthlyData[mo].AvgRH = monthlyRH / nDays;
+                monthlyData[mo].AvgFWI = monthlyFWI / nDays;
             }
 
             return monthlyData;

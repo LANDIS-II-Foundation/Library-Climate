@@ -1,10 +1,8 @@
-//  Copyright 2007-2010 Portland State University, University of Wisconsin-Madison
-//  Author: Robert Scheller, Ben Sulman
+//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
 
 using Landis.Core;
 using Landis.SpatialModeling;
 using Edu.Wisc.Forest.Flel.Util;
-//using Landis.Library.Succession;
 using System.Collections.Generic;
 using System;
 
@@ -29,9 +27,7 @@ namespace Landis.Library.Climate
 
         public static class Names
         {
-            //public const string Timestep = "Timestep";
-
-
+            //public const string Timestep = "Timestep";            
             public const string LandisData = "LandisData";
             public const string ClimateConfigFile = "ClimateConfigFile";
             public const string ClimateTimeSeries = "ClimateTimeSeries";
@@ -40,9 +36,7 @@ namespace Landis.Library.Climate
             public const string SpinUpClimateTimeSeries = "SpinUpClimateTimeSeries";
             public const string SpinUpClimateFile = "SpinUpClimateFile";
             public const string SpinUpClimateFileFormat = "SpinUpClimateFileFormat";
-
-           
-            
+            public const string RHSlopeAdjust = "RelativeHumiditySlopeAdjust";
         }
 
         //---------------------------------------------------------------------
@@ -116,7 +110,25 @@ namespace Landis.Library.Climate
                 throw new ApplicationException("You are requesting a Daily Time Step but not inputting daily data:" + parameters.ClimateTimeSeries + " and " + parameters.ClimateFileFormat);
             }
 
-            
+            InputVar<bool> climateFire = new InputVar<bool>("UsingFireClimate");
+            ReadOptionalVar(climateFire);
+            FireClimate.UsingFireClimate = climateFire.Value;
+
+            if (FireClimate.UsingFireClimate)
+            {
+                InputVar<double> rHSlopeAdjust = new InputVar<double>(Names.RHSlopeAdjust);
+                ReadVar(rHSlopeAdjust);
+                parameters.RHSlopeAdjust = rHSlopeAdjust.Value;
+
+                InputVar<int> sStart = new InputVar<int>("SpringStart");
+                ReadVar(sStart);
+                parameters.SpringStart = sStart.Value;
+
+                InputVar<int> wStart = new InputVar<int>("WinterStart");
+                ReadVar(wStart);
+                parameters.WinterStart = wStart.Value;
+            }
+
             return parameters; 
 
 

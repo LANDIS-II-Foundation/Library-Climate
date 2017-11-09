@@ -1,5 +1,4 @@
-﻿//  Copyright: Portland State University 2009-2014
-//  Authors:  Robert M. Scheller, John McNabb and Amin Almassian
+﻿//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
 
 using System;
 //using System.Collections;
@@ -28,70 +27,6 @@ namespace Landis.Library.Climate
 
         public static void Convert_USGS_to_ClimateData_FillAlldata(TemporalGranularity timeStep, string climateFile, string climateFileFormat, Climate.Phase climatePhase)
         {
-            //Dictionary<int, ClimateRecord[][]> allDataRef = null; //this dictionary is filled out either by Daily data or Monthly
-            //if (climatePhase == Climate.Phase.Future_Climate)
-            //    allDataRef = Climate.Future_AllData;
-
-            //if (climatePhase == Climate.Phase.SpinUp_Climate)
-            //    allDataRef = Climate.Spinup_AllData;
-
-            //// parse the input file into lists of timestamps and corresponding climate records arrays
-            //List<string> timeStamps;
-            //List<ClimateRecord>[] climateRecords;       // indexing: [ecoregion.Count][i]
-            //Convert_USGS_to_ClimateData(timeStep, climateFile, climateFileFormat, out timeStamps, out climateRecords);
-            
-            //// break up the ecoregion lists into a dictionary by year based on timeStamp keys
-            //var yearData = new Dictionary<int, List<ClimateRecord>[]>();    // indexing: [year][ecoregion][i]
-
-            //var currentYear = -999;
-
-            //List<ClimateRecord>[] yearRecords = null;
-
-            //for (var j = 0; j < timeStamps.Count; ++j)
-            //{
-            //    var year = int.Parse(timeStamps[j].Substring(0, 4));
-
-            //    // timestamps are grouped by year in the input files
-            //    if (year != currentYear)
-            //    {
-            //        // make yearRecords instance for the new year
-            //        yearRecords = new List<ClimateRecord>[Climate.ModelCore.Ecoregions.Count];
-            //        for (var i = 0; i < Climate.ModelCore.Ecoregions.Count; ++i)
-            //            yearRecords[i] = new List<ClimateRecord>();
-                    
-            //        yearData[year] = yearRecords;
-            //        currentYear = year;
-            //    }
-
-            //    // add the climate records onto the year records
-            //    for (var i = 0; i < Climate.ModelCore.Ecoregions.Count; ++i)
-            //        yearRecords[i].Add(climateRecords[i][j]);
-            //}            
-
-            //// transfer the data to allDataRef and 
-            //// do some basic error checking
-
-            //if (allDataRef == null)
-            //    allDataRef = new Dictionary<int, ClimateRecord[][]>();
-            //else
-            //    allDataRef.Clear();
-
-            //foreach (var key in yearData.Keys)
-            //{
-            //    allDataRef[key] = new ClimateRecord[Climate.ModelCore.Ecoregions.Count][];
-
-            //    for (var i = 0; i < Climate.ModelCore.Ecoregions.Count; ++i)
-            //    {
-            //        if (timeStep == TemporalGranularity.Monthly && yearData[key][i].Count != 12)
-            //            throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Monthly data for year {0} in climate file '{1}' does not have 12 records.  It has {2} records.", key, climateFile, yearData[key][i].Count));
-
-            //        if (timeStep == TemporalGranularity.Daily && yearData[key][i].Count != 365)
-            //            throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Daily data for year {0} in climate file '{1}' does not have 365 records.  It has {2} records.", key, climateFile, yearData[key][i].Count));
-
-            //        // convert the yearRecords from List<ClimateRecord>[] to ClimateRecord[][]
-            //        allDataRef[key][i] = yearData[key][i].ToArray();
-            //    }
-            //}
 
             // **
             // John McNabb:  new parsing code

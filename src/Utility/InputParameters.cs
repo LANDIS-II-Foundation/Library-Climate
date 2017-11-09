@@ -1,5 +1,4 @@
-//  Copyright: Portland State University 2009-2014
-//  Authors:  Robert M. Scheller, Amin Almassian
+//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
 
 using Edu.Wisc.Forest.Flel.Util;
 
@@ -20,6 +19,9 @@ namespace Landis.Library.Climate
         private string spinUpClimateFileFormat;
         private string spinUpClimateFile;
         private string spinUpClimateTimeSeries;
+        private double rHSlopeAdjust;
+        private int springStart;
+        private int winterStart;
 
 
         //---------------------------------------------------------------------
@@ -122,7 +124,46 @@ namespace Landis.Library.Climate
             }
         }
         //---------------------------------------------------------------------
-       
+        public double RHSlopeAdjust
+        {
+            get
+            {
+                return rHSlopeAdjust;
+            }
+            set
+            {
 
+                rHSlopeAdjust = value;
+            }
+        }
+
+        //---------------------------------------------------------------------
+        public int SpringStart
+        {
+            get
+            {
+                return springStart;
+            }
+            set
+            {
+                if(value < 0 || value > 365)
+                    throw new InputValueException(value.ToString(), "\"{0}\" must be a valid Julian day of year.", value);
+                springStart = value;
+            }
+        }
+        //---------------------------------------------------------------------
+        public int WinterStart
+        {
+            get
+            {
+                return winterStart;
+            }
+            set
+            {
+                if (value < 0 || value > 365 || value < SpringStart)
+                    throw new InputValueException(value.ToString(), "\"{0}\" must be a valid Julian day of year AND > spring start.", value);
+                winterStart = value;
+            }
+        }
     }
 }
