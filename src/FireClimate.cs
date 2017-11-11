@@ -10,7 +10,7 @@ namespace Landis.Library.Climate
 {
     public static class FireClimate
     {
-        public static bool UsingFireClimate = false;
+        //public static bool UsingFireClimate = false;
 
 
         //private static double RHSlopeAdjust;

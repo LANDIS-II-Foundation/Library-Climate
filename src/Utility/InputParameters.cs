@@ -19,6 +19,7 @@ namespace Landis.Library.Climate
         private string spinUpClimateFileFormat;
         private string spinUpClimateFile;
         private string spinUpClimateTimeSeries;
+        private bool climateFire = false;
         private double rHSlopeAdjust;
         private int springStart;
         private int winterStart;
@@ -121,6 +122,19 @@ namespace Landis.Library.Climate
                 if (spinUpClimateFileFormat != "no" && path.Trim(null).Length == 0)
                     throw new InputValueException(path, "\"{0}\" is not a valid path.", path);
                 spinUpClimateFile = value;
+            }
+        }
+        //---------------------------------------------------------------------
+        public bool UsingFireClimate
+        {
+            get
+            {
+                return climateFire;
+            }
+            set
+            {
+
+                climateFire = value;
             }
         }
         //---------------------------------------------------------------------

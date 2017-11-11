@@ -112,9 +112,9 @@ namespace Landis.Library.Climate
 
             InputVar<bool> climateFire = new InputVar<bool>("UsingFireClimate");
             ReadOptionalVar(climateFire);
-            FireClimate.UsingFireClimate = climateFire.Value;
+            parameters.UsingFireClimate = climateFire.Value;
 
-            if (FireClimate.UsingFireClimate)
+            if (parameters.UsingFireClimate)
             {
                 InputVar<double> rHSlopeAdjust = new InputVar<double>(Names.RHSlopeAdjust);
                 ReadVar(rHSlopeAdjust);

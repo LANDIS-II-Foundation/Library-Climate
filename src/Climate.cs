@@ -205,13 +205,11 @@ namespace Landis.Library.Climate
             // **
             // future
 
-            // VS: <---this may be a hack...Calculate FWI
-            if (Climate.ConfigParameters.RHSlopeAdjust > 0)
+            if (Climate.ConfigParameters.UsingFireClimate) //.RHSlopeAdjust > 0)
             {
                 foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
                 {
-                    FireClimate.CalculateFireWeather(timeStep.Key, timeStep.Value); //, future_allData_granularity);
-                                                                                    //AddFuture_FWI(timeStep.Key, timeStep.Value, 365);
+                    FireClimate.CalculateFireWeather(timeStep.Key, timeStep.Value); 
                 }
             }
 
@@ -246,48 +244,8 @@ namespace Landis.Library.Climate
                 Future_DailyData.Add(timeStepKey, new AnnualClimate_Daily[modelCore.Ecoregions.Count]);
             }
 
-            //foreach (KeyValuePair<int, ClimateRecord[][]> timestep in future_allData)
-            //{
-            //    AddFuture_FWI(timestep.Key, timestep.Value, 365);
-            //}
         }
 
-        //private static void AddFuture_FWI(int year, ClimateRecord[][] TimestepData, int maxTimeStep)
-        ////private static void AddFuture_FWI(int year, int maxTimeStep)
-        //{
-        //    foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
-        //    {
-        //        if (ecoregion.Active)
-        //        {
-
-        //            Future_DailyData[year][ecoregion.Index] = new AnnualClimate_Daily();
-        //            for (int timestep = 0; timestep < maxTimeStep; timestep++)
-        //            {
-        //                double FWI = 0.0;
-        //                try
-        //                {
-        //                    FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
-        //                }
-        //                catch
-        //                {
-        //                    throw new UninitializedClimateData(string.Format("FWI could not be found: Year: {0}. Day: {1}. Ecoregion: {2}", year, timestep, ecoregion.Name));
-        //                }
-
-        //                //fil.SimulationPeriod = period;
-        //                try
-        //                {
-        //                    Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = FWI;
-        //                    //Future_DailyData[year][ecoregion.Index].DailyFireWeatherIndex[timestep] = temp[ecoregion.Index][timestep].AvgFWI;
-        //                }
-        //                catch
-        //                {
-        //                    throw new UninitializedClimateData(string.Format("Future Daily Data not found: Year: {0}. Day: {1}. Ecoregion: {2}", year, timestep, ecoregion.Name));
-        //                }
-
-        //            }
-        //        }
-        //    }
-        //}
 
         // Overload method without field capacity and wilting point.  RMS added 9/7/2016
         // If using this method, CANNOT calculate AET or PDSI.  Note: PDSI not working regardless.
@@ -419,7 +377,7 @@ namespace Landis.Library.Climate
                         sil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
                         sil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
                         //sil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        if (FireClimate.UsingFireClimate)
+                        if (Climate.ConfigParameters.UsingFireClimate)
                         {
                             sil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
                         }
@@ -467,7 +425,8 @@ namespace Landis.Library.Climate
                         fil.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
                         fil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
                         //fil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        fil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                        if (Climate.ConfigParameters.UsingFireClimate)
+                            fil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
 
 
                         FutureInputLog.AddObject(fil);
