@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Landis</RootNamespace>
-    <AssemblyName>Landis.Library.Climate-v1.1</AssemblyName>
+    <AssemblyName>Landis.Library.Climate-beta1.1</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

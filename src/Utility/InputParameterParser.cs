@@ -20,7 +20,7 @@ namespace Landis.Library.Climate
         {
             get
             {
-                return landisDataValue;  //"Climate Config";
+                return landisDataValue;  
             }
         }
 
