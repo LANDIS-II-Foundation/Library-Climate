@@ -111,8 +111,8 @@ namespace Landis.Library.Climate
             }
 
             InputVar<bool> climateFire = new InputVar<bool>("UsingFireClimate");
-            ReadOptionalVar(climateFire);
-            parameters.UsingFireClimate = climateFire.Value;
+            if(ReadOptionalVar(climateFire))
+                parameters.UsingFireClimate = climateFire.Value;
 
             if (parameters.UsingFireClimate)
             {
