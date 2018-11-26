@@ -22,7 +22,9 @@ namespace Landis.Library.Climate
             NDeposition = 6,
             Winddirection = 4,
             Windspeed = 5,
-            CO2 = 7
+            CO2 = 7,
+            MaxRelativeHumidity = 8,
+            MinRelativeHumidity = 9
         }
 
         public static void Convert_USGS_to_ClimateData_FillAlldata(TemporalGranularity timeStep, string climateFile, string climateFileFormat, Climate.Phase climatePhase)
@@ -117,6 +119,10 @@ namespace Landis.Library.Climate
                         section = FileSection.Windspeed;
                     else if (format.CO2TriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
                         section = FileSection.CO2;
+                    else if (format.MaxRHTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                        section = FileSection.MaxRelativeHumidity;
+                    else if (format.MinRHTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                        section = FileSection.MinRelativeHumidity;
                     else
                         throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Unrecognized trigger word '{0}' in climate file '{1}'.", triggerWord, climateFile));
 
@@ -249,6 +255,7 @@ namespace Landis.Library.Climate
                             ecoRecords[rowIndex].StdDevNDeposition = stdev;
                             break;
 
+
                         case FileSection.CO2:
                             ecoRecords[rowIndex].AvgCO2 = mean;
                             ecoRecords[rowIndex].AvgVarCO2 = variance;
@@ -267,6 +274,7 @@ namespace Landis.Library.Climate
             // indexing of precip and wind ClimateRecords:  [yearIndex][ecoregion][i], where yearIndex is [0..n] corresponding to the yearKeys index, i.e. index 0 is for 1950, index 1 for 1951, etc.
             var precipClimateRecords = new List<List<ClimateRecord>[]>();
             var windClimateRecords = new List<List<ClimateRecord>[]>();
+        
 
             // get trigger words for parsing based on file format
             ClimateFileFormatProvider format = new ClimateFileFormatProvider(climateFileFormat);
@@ -284,7 +292,7 @@ namespace Landis.Library.Climate
             int[] ecoRegionIndexMap = null;
             var ecoRegionCount = 0;
 
-            var numberOfGroups = 2;     // the number of allowed groups. Presently:  (1) precip, tmin, tmax, Ndep, CO2;  (2) winddirection & windspeed
+            var numberOfGroups = 2;     // the number of allowed groups. Presently:  (1) precip, tmin, tmax, Ndep, CO2;  (2) winddirection, windspeed,  minRH, maxRH
             var groupSectionCounts = new int[numberOfGroups];       // used to know if I'm beyond the first section in a group 
             var groupTimeSteps = new List<string>[numberOfGroups];      // keeps track of timesteps within each group to ensure they match
             for (var i = 0; i < numberOfGroups; ++i)
@@ -350,6 +358,16 @@ namespace Landis.Library.Climate
                     {
                         section = FileSection.CO2;
                         groupIndex = 0;
+                    }
+                    else if (format.MaxRHTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                    {
+                        section = FileSection.MaxRelativeHumidity;
+                        groupIndex = 1;
+                    }
+                    else if (format.MinRHTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                    {
+                        section = FileSection.MinRelativeHumidity;
+                        groupIndex = 1;
                     }
                     else
                         throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Unrecognized trigger word '{0}' in climate file '{1}'.", triggerWord, climateFile));
@@ -525,7 +543,7 @@ namespace Landis.Library.Climate
                     }
                     else if (groupIndex == 1)
                     {
-                        // "wind" group
+                        // "wind and RH" group
                         switch (section)
                         {
                             case FileSection.Winddirection:
@@ -541,6 +559,19 @@ namespace Landis.Library.Climate
                                 ecoRecord.AvgWindSpeed = mean * format.WindSpeedTransformation;
                                 ecoRecord.AvgVarWindSpeed = variance;
                                 ecoRecord.StdDevWindSpeed = stdev;
+                                break;
+
+                            case FileSection.MaxRelativeHumidity:
+                            case FileSection.MinRelativeHumidity:
+
+                                if (section == FileSection.MaxRelativeHumidity)
+                                    ecoRecord.AvgMaxRH = mean;
+                                else
+                                    ecoRecord.AvgMinRH = mean;
+
+                                ecoRecord.AvgVarRH = variance;
+                                ecoRecord.StdDevRH = stdev;
+
                                 break;
                         }
                     }
@@ -600,7 +631,8 @@ namespace Landis.Library.Climate
                             // average some Feb. 29 values with their corresponding Feb. 28 values
                             feb28Record.AvgMinTemp = 0.5 * (feb28Record.AvgMinTemp + feb29Record.AvgMinTemp);
                             feb28Record.AvgMaxTemp = 0.5 * (feb28Record.AvgMaxTemp + feb29Record.AvgMaxTemp);
-                            feb28Record.AvgRH = 0.5 * (feb28Record.AvgRH + feb29Record.AvgRH);
+                            feb28Record.AvgMinRH = 0.5 * (feb28Record.AvgMinRH + feb29Record.AvgMinRH);
+                            feb28Record.AvgMaxRH = 0.5 * (feb28Record.AvgMaxRH + feb29Record.AvgMaxRH);
                             feb28Record.AvgCO2 = 0.5 * (feb28Record.AvgCO2 + feb29Record.AvgCO2);
                             feb28Record.AvgPAR = 0.5 * (feb28Record.AvgPAR + feb29Record.AvgPAR);
 
@@ -632,6 +664,8 @@ namespace Landis.Library.Climate
                                 // average some Feb. 29 values with their corresponding Feb. 28 values
                                 feb28Record.AvgWindDirection = 0.5 * (feb28Record.AvgWindDirection + feb29Record.AvgWindDirection);
                                 feb28Record.AvgWindSpeed = 0.5 * (feb28Record.AvgWindSpeed + feb29Record.AvgWindSpeed);
+                                feb28Record.AvgMinRH = 0.5 * (feb28Record.AvgMinRH + feb29Record.AvgMinRH);
+                                feb28Record.AvgMaxRH = 0.5 * (feb28Record.AvgMaxRH + feb29Record.AvgMaxRH);
                             }
 
             }
@@ -654,6 +688,11 @@ namespace Landis.Library.Climate
                             precipRecord.AvgWindSpeed = windRecord.AvgWindSpeed;
                             precipRecord.AvgVarWindSpeed = windRecord.AvgVarWindSpeed;
                             precipRecord.StdDevWindSpeed = windRecord.StdDevWindSpeed;
+
+                            precipRecord.AvgMinRH = windRecord.AvgMinRH;
+                            precipRecord.AvgMaxRH = windRecord.AvgMaxRH;
+                            precipRecord.AvgVarRH = windRecord.AvgVarRH;
+                            precipRecord.StdDevRH = windRecord.StdDevRH;
                         }
 
             // **

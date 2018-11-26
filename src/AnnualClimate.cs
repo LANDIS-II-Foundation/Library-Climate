@@ -16,15 +16,16 @@ namespace Landis.Library.Climate
         protected int beginGrowing;
         protected int endGrowing;
         protected int growingDegreeDays;
-        protected int rh;
+        //protected int rh;
 
         public int BeginGrowing {get {return this.beginGrowing;}}
         public int EndGrowing { get { return this.endGrowing; } }
         public int GrowingDegreeDays { get { return this.growingDegreeDays; } }
-        public int RelativeHumdity { get { return this.rh; } }
+        //public int RelativeHumdity { get { return this.rh; } }
 
         public double TotalAnnualPrecip;
         public double MeanAnnualTemperature;
+     
         public double JJAtemperature;
         //public double AnnualN;
         public double AnnualAET;  // Actual Evapotranspiration

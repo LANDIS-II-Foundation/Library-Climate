@@ -43,10 +43,16 @@ namespace Landis.Library.Climate
         [DataFieldAttribute(Desc = "Average Nitrogen Deposition (units variable)", Format = "0.00")]
         public double ndeposition { get; set; }
 
+        [DataFieldAttribute(Desc = "Average Minimum Relative Humidity (units variable)", Format = "0.00")]
+        public double min_relativehumidity { get; set; }
+
+        [DataFieldAttribute(Desc = "Average Maximum Air Humidity (units variable)", Format = "0.00")]
+        public double max_relativehumdity { get; set; }
+
         //[DataFieldAttribute(Desc = "Average CO2 concentration (units variable)", Format = "0.00")]
         //public double co2{ get; set; }
 
-        [DataFieldAttribute(Desc = "Average Fire WEather Index (units variable)", Format = "0.00")]
+        [DataFieldAttribute(Desc = "Average Fire Weather Index (units variable)", Format = "0.00")]
         public double FWI { get; set; }
     }
 }

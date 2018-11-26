@@ -18,6 +18,8 @@ namespace Landis.Library.Climate
         private List<string> windSpeedTriggerWord;
         private List<string> nDepositionTriggerWord;
         private List<string> co2TriggerWord;
+        private List<string> maxRHTriggerWord;
+        private List<string> minRHTriggerWord;
 
         private const double ABS_ZERO = -273.15;
             
@@ -30,6 +32,8 @@ namespace Landis.Library.Climate
         public List<string> WindSpeedTriggerWord { get { return this.windSpeedTriggerWord; } }
         public List<string> NDepositionTriggerWord { get { return this.nDepositionTriggerWord; } }
         public List<string> CO2TriggerWord { get { return this.co2TriggerWord; } }
+        public List<string> MaxRHTriggerWord { get { return this.maxRHTriggerWord; } }
+        public List<string> MinRHTriggerWord { get { return this.minRHTriggerWord; } }
         public string SelectedFormat { get { return format; } }
   
         // JM: properties for transformations
@@ -51,6 +55,8 @@ namespace Landis.Library.Climate
             this.windSpeedTriggerWord = new List<string>() { "windSpeed", "ws", "wind_speed" };
             this.nDepositionTriggerWord = new List<string>() { "Ndeposition", "Ndep" };
             this.co2TriggerWord = new List<string>() { "CO2", "CO2conc" };
+            this.maxRHTriggerWord = new List<string>() { "max_relative_humidity", "maxRH" };
+            this.minRHTriggerWord = new List<string>() { "min_relative_humidity", "minRH" };
 
             //IMPORTANT FOR ML:  Need to add these as optional trigger words.
             //this.precipTriggerWord = "Prcp";

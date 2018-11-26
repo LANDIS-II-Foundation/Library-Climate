@@ -25,6 +25,8 @@ namespace Landis.Library.Climate
         public double[] DailyNDeposition = new double[366];
         public double[] DailyCO2 = new double[366];
         public double[] DailyRH = new double[366];
+        public double[] DailyMinRH = new double[366];
+        public double[] DailyMaxRH = new double[366];
         public double[] DailyFireWeatherIndex = new double[366];
 
 
@@ -157,9 +159,12 @@ namespace Landis.Library.Climate
                 this.DailyWindSpeed[d] = dailyClimateRecords[d].AvgWindSpeed;
                 this.DailyNDeposition[d] = dailyClimateRecords[d].AvgNDeposition;
                 this.DailyCO2[d] = dailyClimateRecords[d].AvgCO2;
+                this.DailyMinRH[d] = dailyClimateRecords[d].AvgMinRH;
+                this.DailyMaxRH[d] = dailyClimateRecords[d].AvgMaxRH;
                 this.DailyFireWeatherIndex[d] = dailyClimateRecords[d].AvgFWI;
 
                 this.DailyTemp[d] = (this.DailyMinTemp[d] + this.DailyMaxTemp[d]) / 2.0;
+                this.DailyRH[d] = (this.DailyMinRH[d] + this.DailyMaxRH[d]) / 2.0;
 
                 this.TotalAnnualPrecip += this.DailyPrecip[d];
 
@@ -167,7 +172,7 @@ namespace Landis.Library.Climate
                 //this.DailyDayLength[d] = (3600.0 * hr);                  // seconds of daylight/day
                 //this.DailyNightLength[d] = (3600.0 * (24.0 - hr));         // seconds of nighttime/day
                 var avgTemp = (this.DailyMinTemp[d] + this.DailyMaxTemp[d])/2;
-                this.DailyRH[d] = 100 * Math.Exp((17.269 * this.DailyMinTemp[d]) / (273.15 + this.DailyMinTemp[d]) - (17.269 * avgTemp) / (273.15 + avgTemp));
+                //this.DailyRH[d] = 100 * Math.Exp((17.269 * this.DailyMinTemp[d]) / (273.15 + this.DailyMinTemp[d]) - (17.269 * avgTemp) / (273.15 + avgTemp));
             }
         }
 
@@ -203,7 +208,8 @@ namespace Landis.Library.Climate
                 var dailyWindSpeed = 0.0;
                 var dailyNDeposition = 0.0;
                 var dailyCO2 = 0.0;
-                var dailyRH = 0.0;
+                var dailyMinRH = 0.0;
+                var dailyMaxRH = 0.0;
                 var dailyFWI = 0.0;
 
                 // loop over years
@@ -226,7 +232,8 @@ namespace Landis.Library.Climate
                         dailyWindSpeed += (yearRecords[d].AvgWindSpeed + yearRecords[d + 1].AvgWindSpeed) / 2.0;
                         dailyNDeposition += (yearRecords[d].AvgNDeposition + yearRecords[d + 1].AvgNDeposition) / 2.0;
                         dailyCO2 += (yearRecords[d].AvgCO2 + yearRecords[d + 1].AvgCO2) / 2.0;
-                        dailyRH += (yearRecords[d].AvgRH + yearRecords[d + 1].AvgRH) / 2.0;
+                        dailyMinRH += (yearRecords[d].AvgMinRH + yearRecords[d + 1].AvgMinRH) / 2.0;
+                        dailyMaxRH += (yearRecords[d].AvgMaxRH + yearRecords[d + 1].AvgMaxRH) / 2.0;
                         dailyFWI += (yearRecords[d].AvgFWI + yearRecords[d + 1].AvgFWI) / 2.0;
                     }
                     else
@@ -243,7 +250,8 @@ namespace Landis.Library.Climate
                         dailyWindDirection += yearRecords[dIndex].AvgWindDirection;
                         dailyWindSpeed += yearRecords[dIndex].AvgWindSpeed;
                         dailyNDeposition += yearRecords[dIndex].AvgNDeposition;
-                        dailyRH += yearRecords[dIndex].AvgRH;
+                        dailyMinRH += yearRecords[dIndex].AvgMinRH;
+                        dailyMaxRH += yearRecords[dIndex].AvgMaxRH;
                         dailyFWI += yearRecords[dIndex].AvgFWI;
                         
                     }
@@ -264,7 +272,8 @@ namespace Landis.Library.Climate
                     dailyData[d].AvgWindSpeed = dailyWindSpeed / yearCount;
                     dailyData[d].AvgNDeposition = dailyNDeposition / yearCount;
                     dailyData[d].AvgCO2 = dailyCO2 / yearCount;
-                    dailyData[d].AvgRH = dailyRH / yearCount;
+                    dailyData[d].AvgMinRH = dailyMinRH / yearCount;
+                    dailyData[d].AvgMaxRH = dailyMaxRH / yearCount;
                     dailyData[d].AvgFWI = dailyFWI / yearCount;
                 }
             }
