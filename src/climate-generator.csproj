@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <RootNamespace>Landis.Library.Climate</RootNamespace>
-    <AssemblyName>Landis.Library.Climate-v3</AssemblyName>
-    <AssemblyTitle>Landis.Library.Climate-v3</AssemblyTitle>
+    <AssemblyName>Landis.Library.Climate-v4</AssemblyName>
+    <AssemblyTitle>Landis.Library.Climate-v4</AssemblyTitle>
     <AssemblyCompany>LANDIS-II Foundation</AssemblyCompany>
     <AssemblyProduct>Landis.Properties</AssemblyProduct>
     <AssemblyCopyright>LANDIS-II Foundation</AssemblyCopyright>
-    <AssemblyVersion>3.0</AssemblyVersion>
+    <AssemblyVersion>4.0</AssemblyVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/LANDIS-II-Foundation/Library-Climate</RepositoryUrl>
@@ -17,7 +17,7 @@
     <Authors>LANDIS-II Foundation</Authors>
     <Product>Landis.Properties</Product>
     <Copyright>LANDIS-II Foundation</Copyright>
-    <Version>3.0</Version>
+    <Version>4.0</Version>
     <PackageTags>LANDIS-II;Landis;Library;Climate</PackageTags>
     <Description>The climate library for integrating and coordinating climatic inputs.</Description>
     <PackageReleaseNotes>.NET Standard 2.0 update.</PackageReleaseNotes>
