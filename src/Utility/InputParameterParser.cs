@@ -36,7 +36,7 @@ namespace Landis.Library.Climate
             public const string SpinUpClimateTimeSeries = "SpinUpClimateTimeSeries";
             public const string SpinUpClimateFile = "SpinUpClimateFile";
             public const string SpinUpClimateFileFormat = "SpinUpClimateFileFormat";
-            public const string RHSlopeAdjust = "RelativeHumiditySlopeAdjust";
+            //public const string RHSlopeAdjust = "RelativeHumiditySlopeAdjust";
         }
 
         //---------------------------------------------------------------------
@@ -116,9 +116,9 @@ namespace Landis.Library.Climate
 
             if (parameters.UsingFireClimate)
             {
-                InputVar<double> rHSlopeAdjust = new InputVar<double>(Names.RHSlopeAdjust);
-                ReadVar(rHSlopeAdjust);
-                parameters.RHSlopeAdjust = rHSlopeAdjust.Value;
+                //InputVar<double> rHSlopeAdjust = new InputVar<double>(Names.RHSlopeAdjust);
+                //ReadVar(rHSlopeAdjust);
+                //parameters.RHSlopeAdjust = rHSlopeAdjust.Value;
 
                 InputVar<int> sStart = new InputVar<int>("SpringStart");
                 ReadVar(sStart);

@@ -12,7 +12,7 @@ namespace Landis.Library.Climate
         string SpinUpClimateFile { get; set; }
         string SpinUpClimateFileFormat { get; set; }
         bool UsingFireClimate { get; set; }
-        double RHSlopeAdjust { get; set; }
+        //double RHSlopeAdjust { get; set; }
         int SpringStart { get; set; }
         int WinterStart { get; set; }
         
