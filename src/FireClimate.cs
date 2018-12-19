@@ -26,7 +26,7 @@ namespace Landis.Library.Climate
 
         public static void CalculateFireWeather(int year, ClimateRecord[][] TimestepData)
         {
-            double rHSlopeAdjust = Climate.ConfigParameters.RHSlopeAdjust;
+            //double rHSlopeAdjust = Climate.ConfigParameters.RHSlopeAdjust;
             int springStart = Climate.ConfigParameters.SpringStart;
             int winterStart = Climate.ConfigParameters.WinterStart;
 
@@ -57,7 +57,8 @@ namespace Landis.Library.Climate
                             precipitation = TimestepData[ecoregion.Index][timestep].AvgPpt;
                             WindSpeedVelocity = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
                             WindAzimuth = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
-                            relativeHumidity = 100 * Math.Exp((rHSlopeAdjust * TimestepData[ecoregion.Index][timestep].AvgMinTemp) / (273.15 + TimestepData[ecoregion.Index][timestep].AvgMinTemp) - (rHSlopeAdjust * temperature) / (273.15 + temperature));
+                            relativeHumidity = (TimestepData[ecoregion.Index][timestep].AvgMaxRH + TimestepData[ecoregion.Index][timestep].AvgMinRH) / 2;
+                            //relativeHumidity = 100 * Math.Exp((rHSlopeAdjust * TimestepData[ecoregion.Index][timestep].AvgMinTemp) / (273.15 + TimestepData[ecoregion.Index][timestep].AvgMinTemp) - (rHSlopeAdjust * temperature) / (273.15 + temperature));
                             //= TimestepData[ecoregion.Index][timestep].AvgFWI;
                             if (relativeHumidity > 100)
                             {
