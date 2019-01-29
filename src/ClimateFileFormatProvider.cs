@@ -20,6 +20,9 @@ namespace Landis.Library.Climate
         private List<string> co2TriggerWord;
         private List<string> maxRHTriggerWord;
         private List<string> minRHTriggerWord;
+        private List<string> parTriggerWord;
+        private List<string> ozoneTriggerWord;
+        private List<string> shortwaveradiationTriggerWord;
 
         private const double ABS_ZERO = -273.15;
             
@@ -34,6 +37,9 @@ namespace Landis.Library.Climate
         public List<string> CO2TriggerWord { get { return this.co2TriggerWord; } }
         public List<string> MaxRHTriggerWord { get { return this.maxRHTriggerWord; } }
         public List<string> MinRHTriggerWord { get { return this.minRHTriggerWord; } }
+        public List<string> PARTriggerWord { get { return this.parTriggerWord; } }
+        public List<string> OzoneTriggerWord { get { return this.ozoneTriggerWord; } }
+        public List<string> ShortWaveRadiationTriggerWord { get { return this.shortwaveradiationTriggerWord; } }
         public string SelectedFormat { get { return format; } }
   
         // JM: properties for transformations
@@ -57,6 +63,9 @@ namespace Landis.Library.Climate
             this.co2TriggerWord = new List<string>() { "CO2", "CO2conc" };
             this.maxRHTriggerWord = new List<string>() { "max_relative_humidity", "maxRH" };
             this.minRHTriggerWord = new List<string>() { "min_relative_humidity", "minRH" };
+            this.parTriggerWord = new List<string>() { "PAR", "Light"};
+            this.ozoneTriggerWord = new List<string>() { "ozone", "O3" };
+            this.shortwaveradiationTriggerWord = new List<string>() { "SWR", "ShortWave","SW" };
 
             //IMPORTANT FOR ML:  Need to add these as optional trigger words.
             //this.precipTriggerWord = "Prcp";

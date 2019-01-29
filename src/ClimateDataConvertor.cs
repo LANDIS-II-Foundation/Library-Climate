@@ -24,7 +24,10 @@ namespace Landis.Library.Climate
             Windspeed = 5,
             CO2 = 7,
             MaxRelativeHumidity = 8,
-            MinRelativeHumidity = 9
+            MinRelativeHumidity = 9,
+            PAR = 10,
+            Ozone = 11,
+            ShortWaveRadiation = 12
         }
 
         public static void Convert_USGS_to_ClimateData_FillAlldata(TemporalGranularity timeStep, string climateFile, string climateFileFormat, Climate.Phase climatePhase)
@@ -123,6 +126,12 @@ namespace Landis.Library.Climate
                         section = FileSection.MaxRelativeHumidity;
                     else if (format.MinRHTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
                         section = FileSection.MinRelativeHumidity;
+                    else if (format.PARTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                        section = FileSection.PAR;
+                    else if (format.OzoneTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                        section = FileSection.Ozone;
+                    else if (format.ShortWaveRadiationTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                        section = FileSection.ShortWaveRadiation;
                     else
                         throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Unrecognized trigger word '{0}' in climate file '{1}'.", triggerWord, climateFile));
 
@@ -261,6 +270,21 @@ namespace Landis.Library.Climate
                             ecoRecords[rowIndex].AvgVarCO2 = variance;
                             ecoRecords[rowIndex].StdDevCO2 = stdev;
                             break;
+                        case FileSection.PAR:
+                            ecoRecords[rowIndex].AvgPAR = mean;
+                            ecoRecords[rowIndex].AvgVarPAR = variance;
+                            ecoRecords[rowIndex].StdDevPAR = stdev;
+                            break;
+                        case FileSection.Ozone:
+                            ecoRecords[rowIndex].AvgOzone = mean;
+                            ecoRecords[rowIndex].AvgVarOzone = variance;
+                            ecoRecords[rowIndex].StdDevOzone = stdev;
+                            break;
+                        case FileSection.ShortWaveRadiation:
+                            ecoRecords[rowIndex].AvgShortWaveRadiation = mean;
+                            ecoRecords[rowIndex].AvgVarShortWaveRadiation = variance;
+                            ecoRecords[rowIndex].StdDevShortWaveRadiation = stdev;
+                            break;
                     }
                 }                
             }
@@ -369,6 +393,23 @@ namespace Landis.Library.Climate
                         section = FileSection.MinRelativeHumidity;
                         groupIndex = 1;
                     }
+                    else if (format.PARTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                    {
+                        section = FileSection.PAR;
+                        groupIndex = 1;
+                    }
+                    else if (format.OzoneTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                    {
+                        section = FileSection.Ozone;
+                        groupIndex = 1;
+                    }
+                    else if (format.ShortWaveRadiationTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                    {
+                        section = FileSection.ShortWaveRadiation;
+                        groupIndex = 1;
+                    }
+
+
                     else
                         throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Unrecognized trigger word '{0}' in climate file '{1}'.", triggerWord, climateFile));
 
@@ -572,6 +613,22 @@ namespace Landis.Library.Climate
                                 ecoRecord.AvgVarRH = variance;
                                 ecoRecord.StdDevRH = stdev;
 
+                                break;
+
+                            case FileSection.PAR:
+                                ecoRecord.AvgPAR = mean;
+                                ecoRecord.AvgVarPAR = variance;
+                                ecoRecord.StdDevPAR = stdev;
+                                break;
+                            case FileSection.Ozone:
+                                ecoRecord.AvgOzone = mean;
+                                ecoRecord.AvgVarOzone = variance;
+                                ecoRecord.StdDevOzone = stdev;
+                                break;
+                            case FileSection.ShortWaveRadiation:
+                                ecoRecord.AvgShortWaveRadiation = mean;
+                                ecoRecord.AvgVarShortWaveRadiation = variance;
+                                ecoRecord.StdDevShortWaveRadiation = stdev;
                                 break;
                         }
                     }
