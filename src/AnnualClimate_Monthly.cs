@@ -25,6 +25,7 @@ namespace  Landis.Library.Climate
         public double[] MonthlyMaxRH = new double[12];
         public double[] MonthlyPAR = new double[12];
         public double[] MonthlyOzone = new double[12];
+        public double[] MonthlyCO2 = new double[12];
         public double[] MonthlyShortWaveRadiation = new double[12];
         public int tempEcoIndex = -1;
         public double[] MonthlyPET = new double[12];  // Potential Evapotranspiration
@@ -241,6 +242,7 @@ namespace  Landis.Library.Climate
                 this.MonthlyPrecip[mo] = monthlyClimateRecords[mo].AvgPpt;
                 this.MonthlyPAR[mo] = monthlyClimateRecords[mo].AvgPAR;
                 this.MonthlyOzone[mo] = monthlyClimateRecords[mo].AvgOzone;
+                this.MonthlyCO2[mo] = monthlyClimateRecords[mo].AvgCO2;
                 this.MonthlyShortWaveRadiation[mo] = monthlyClimateRecords[mo].AvgShortWaveRadiation;
                 this.MonthlyFWI[mo] = monthlyClimateRecords[mo].AvgFWI;
                 this.MonthlyTemp[mo] = (this.MonthlyMinTemp[mo] + this.MonthlyMaxTemp[mo]) / 2.0;
@@ -290,6 +292,7 @@ namespace  Landis.Library.Climate
                 this.MonthlyNDeposition[mo] = ecoClimate[mo].AvgNDeposition;
                 this.MonthlyPAR[mo] = ecoClimate[mo].AvgPAR;
                 this.MonthlyOzone[mo] = ecoClimate[mo].AvgOzone;
+                this.MonthlyCO2[mo] = ecoClimate[mo].AvgCO2;
                 this.MonthlyShortWaveRadiation[mo] = ecoClimate[mo].AvgShortWaveRadiation;
                 this.MonthlyFWI[mo] = ecoClimate[mo].AvgFWI;
 
@@ -335,6 +338,7 @@ namespace  Landis.Library.Climate
                 this.MonthlyMaxRH[mo] = ecoClimate[mo].AvgMaxRH;
                 this.MonthlyPAR[mo] = ecoClimate[mo].AvgPAR;
                 this.MonthlyOzone[mo] = ecoClimate[mo].AvgOzone;
+                this.MonthlyCO2[mo] = ecoClimate[mo].AvgOzone;
                 this.MonthlyShortWaveRadiation[mo] = ecoClimate[mo].AvgShortWaveRadiation;
                 this.MonthlyFWI[mo] = ecoClimate[mo].AvgFWI;
 
@@ -384,6 +388,7 @@ namespace  Landis.Library.Climate
                 var monthlyMaxRH = 0.0;
                 var monthlyPAR = 0.0;
                 var monthlyOzone = 0.0;
+                var monthlyCO2 = 0.0;
                 var monthlyShortWaveRadiation = 0.0;
                 var monthlyFWI = 0.0;
 
@@ -401,6 +406,7 @@ namespace  Landis.Library.Climate
                     monthlyMaxRH += yearMonthlyRecords[ecoregion.Index][mo].AvgMaxRH;
                     monthlyPAR += yearMonthlyRecords[ecoregion.Index][mo].AvgPAR;
                     monthlyOzone += yearMonthlyRecords[ecoregion.Index][mo].AvgOzone;
+                    monthlyCO2 += yearMonthlyRecords[ecoregion.Index][mo].AvgCO2;
                     monthlyShortWaveRadiation += yearMonthlyRecords[ecoregion.Index][mo].AvgOzone;
                     monthlyFWI += yearMonthlyRecords[ecoregion.Index][mo].AvgFWI;
 
@@ -419,10 +425,11 @@ namespace  Landis.Library.Climate
                     monthlyData[mo].AvgWindDirection = monthlyWindDirection / yearCount;
                     monthlyData[mo].AvgWindSpeed = monthlyWindSpeed / yearCount;
                     monthlyData[mo].AvgNDeposition = monthlyNDeposition / yearCount;
-                    monthlyData[mo].AvgMinRH = monthlyPAR / yearCount;
-                    monthlyData[mo].AvgMaxRH = monthlyPAR / yearCount;
+                    monthlyData[mo].AvgMinRH = monthlyMinRH / yearCount;
+                    monthlyData[mo].AvgMaxRH = monthlyMaxRH / yearCount;
                     monthlyData[mo].AvgPAR = monthlyPAR / yearCount;
-                    monthlyData[mo].AvgOzone = monthlyPAR / yearCount;
+                    monthlyData[mo].AvgOzone = monthlyOzone / yearCount;
+                    monthlyData[mo].AvgCO2 = monthlyCO2 / yearCount;
                     monthlyData[mo].AvgShortWaveRadiation = monthlyFWI / yearCount;
                 }
             }
