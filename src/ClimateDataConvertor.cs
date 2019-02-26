@@ -750,6 +750,18 @@ namespace Landis.Library.Climate
                             precipRecord.AvgMaxRH = windRecord.AvgMaxRH;
                             precipRecord.AvgVarRH = windRecord.AvgVarRH;
                             precipRecord.StdDevRH = windRecord.StdDevRH;
+
+                            precipRecord.AvgPAR = windRecord.AvgPAR;
+                            precipRecord.StdDevPAR = windRecord.StdDevPAR;
+                            precipRecord.AvgVarPAR = windRecord.AvgVarPAR;
+
+                            precipRecord.AvgOzone = windRecord.AvgOzone;
+                            precipRecord.AvgVarOzone = windRecord.AvgVarOzone;
+                            precipRecord.StdDevOzone = windRecord.StdDevOzone;
+
+                            precipRecord.AvgShortWaveRadiation = windRecord.AvgShortWaveRadiation;
+                            precipRecord.AvgVarShortWaveRadiation = windRecord.AvgVarShortWaveRadiation;
+                            precipRecord.StdDevShortWaveRadiation = windRecord.StdDevShortWaveRadiation;
                         }
 
             // **

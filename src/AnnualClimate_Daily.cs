@@ -164,9 +164,7 @@ namespace Landis.Library.Climate
                 this.DailyMaxRH[d] = dailyClimateRecords[d].AvgMaxRH;
                 this.DailyPAR[d] = dailyClimateRecords[d].AvgPAR;
                 this.DailyOzone[d] = dailyClimateRecords[d].AvgOzone;
-                this.DailyOzone[d] = dailyClimateRecords[d].AvgPAR;
                 this.DailyFireWeatherIndex[d] = dailyClimateRecords[d].AvgFWI;
-
                 this.DailyTemp[d] = (this.DailyMinTemp[d] + this.DailyMaxTemp[d]) / 2.0;
                 this.DailyRH[d] = (this.DailyMinRH[d] + this.DailyMaxRH[d]) / 2.0;
 
@@ -259,7 +257,7 @@ namespace Landis.Library.Climate
                         dailyNDeposition += yearRecords[dIndex].AvgNDeposition;
                         dailyMinRH += yearRecords[dIndex].AvgMinRH;
                         dailyMaxRH += yearRecords[dIndex].AvgMaxRH;
-                        dailyPAR += yearRecords[dIndex].AvgPAR;
+                        dailyCO2 += yearRecords[dIndex].AvgCO2;
                         dailyOzone += yearRecords[dIndex].AvgOzone;
                         dailyShortWaveRadiation += yearRecords[dIndex].AvgShortWaveRadiation;
                         dailyFWI += yearRecords[dIndex].AvgFWI;

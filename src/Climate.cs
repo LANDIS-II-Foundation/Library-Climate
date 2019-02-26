@@ -376,7 +376,9 @@ namespace Landis.Library.Climate
                         sil.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
                         sil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
                         sil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
-                        //sil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        sil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        sil.par = TimestepData[ecoregion.Index][timestep].AvgPAR;
+                        sil.ozone = TimestepData[ecoregion.Index][timestep].AvgOzone;
                         if (Climate.ConfigParameters.UsingFireClimate)
                         {
                             sil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
