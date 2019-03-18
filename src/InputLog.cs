@@ -47,7 +47,7 @@ namespace Landis.Library.Climate
         public double min_relativehumidity { get; set; }
 
         [DataFieldAttribute(Desc = "Average Maximum Air Humidity (units variable)", Format = "0.00")]
-        public double max_relativehumdity { get; set; }
+        public double max_relativehumidity { get; set; }
 
         [DataFieldAttribute(Desc = "Average CO2 concentration (units variable)", Format = "0.00")]
         public double co2 { get; set; }
@@ -57,6 +57,9 @@ namespace Landis.Library.Climate
 
         [DataFieldAttribute(Desc = "Average Ozone (units variable)", Format = "0.00")]
         public double ozone { get; set; }
+
+        [DataFieldAttribute(Desc = "Average Shortwave Radiation (units variable)", Format = "0.00")]
+        public double shortwave { get; set; }
 
         [DataFieldAttribute(Desc = "Average Fire Weather Index (units variable)", Format = "0.00")]
         public double FWI { get; set; }

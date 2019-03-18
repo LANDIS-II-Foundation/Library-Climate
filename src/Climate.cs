@@ -354,38 +354,40 @@ namespace Landis.Library.Climate
             if (spinup_allData_granularity == TemporalGranularity.Daily)
                 maxtimestep = 365;
             
-            //spinup_allData.
             foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
             {
                 if (ecoregion.Active)
                 {
-                    //for (int month = 0; month < 12; month++)
-                        for (int timestep = 0; timestep < maxtimestep; timestep++)
-                        {
+                    for (int timestep = 0; timestep < maxtimestep; timestep++)
+                    {
                         SpinupInputLog.Clear();
-                        InputLog sil = new InputLog();
+                        var il = new InputLog();
 
-                        //sil.SimulationPeriod = period;
-                        sil.Year = year;
-                        sil.Timestep = timestep + 1;
-                        sil.EcoregionName = ecoregion.Name;
-                        sil.EcoregionIndex = ecoregion.Index;
-                        sil.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
-                        sil.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
-                        sil.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
-                        sil.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
-                        sil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
-                        sil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
-                        sil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        sil.par = TimestepData[ecoregion.Index][timestep].AvgPAR;
-                        sil.ozone = TimestepData[ecoregion.Index][timestep].AvgOzone;
+                        il.Year = year;
+                        il.Timestep = timestep + 1;
+                        il.EcoregionName = ecoregion.Name;
+                        il.EcoregionIndex = ecoregion.Index;
+                        il.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
+                        il.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
+                        il.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
+                        il.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
+                        il.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
+                        il.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
+                        il.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
+                        il.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
+                        il.min_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMinRH;
+                        il.max_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMaxRH;
+                        il.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        il.par = TimestepData[ecoregion.Index][timestep].AvgPAR;
+                        il.ozone = TimestepData[ecoregion.Index][timestep].AvgOzone;
+                        il.shortwave = TimestepData[ecoregion.Index][timestep].AvgShortWaveRadiation;
                         if (Climate.ConfigParameters.UsingFireClimate)
                         {
-                            sil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                            il.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
                         }
 
 
-                        SpinupInputLog.AddObject(sil);
+                        SpinupInputLog.AddObject(il);
                         SpinupInputLog.WriteToFile();
 
                     }
@@ -396,7 +398,6 @@ namespace Landis.Library.Climate
         //---------------------------------------------------------------------
         private static void WriteFutureInputLog(ClimateRecord[][] TimestepData, int year)
         {
-            //spinup_allData.
             //CalculateFWI(ref TimestepData, year);
             int maxtimestep = 12;
             if (future_allData_granularity == TemporalGranularity.Daily)
@@ -407,31 +408,36 @@ namespace Landis.Library.Climate
                 if (ecoregion.Active)
                 {
 
-                    //for (int month = 0; month < 12; month++)
                     for (int timestep = 0; timestep < maxtimestep; timestep++)
                     {
                         FutureInputLog.Clear();
-                        InputLog fil = new InputLog();
+                        var il = new InputLog();
 
-                        //fil.SimulationPeriod = period;
-                        fil.Year = year;
-                        fil.Timestep = timestep + 1;
-                        fil.EcoregionName = ecoregion.Name;
-                        fil.EcoregionIndex = ecoregion.Index;
-                        fil.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
-                        fil.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
-                        fil.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
-                        fil.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
-                        fil.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
-                        fil.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
-                        fil.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
-                        fil.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
-                        //fil.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        il.Year = year;
+                        il.Timestep = timestep + 1;
+                        il.EcoregionName = ecoregion.Name;
+                        il.EcoregionIndex = ecoregion.Index;
+                        il.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
+                        il.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
+                        il.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
+                        il.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
+                        il.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
+                        il.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
+                        il.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
+                        il.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
+                        il.min_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMinRH;
+                        il.max_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMaxRH;
+                        il.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        il.par = TimestepData[ecoregion.Index][timestep].AvgPAR;
+                        il.ozone = TimestepData[ecoregion.Index][timestep].AvgOzone;
+                        il.shortwave = TimestepData[ecoregion.Index][timestep].AvgShortWaveRadiation;
                         if (Climate.ConfigParameters.UsingFireClimate)
-                            fil.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                        {
+                            il.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
+                        }
 
 
-                        FutureInputLog.AddObject(fil);
+                        FutureInputLog.AddObject(il);
                         FutureInputLog.WriteToFile();
 
                     }
