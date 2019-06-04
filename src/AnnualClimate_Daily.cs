@@ -257,6 +257,7 @@ namespace Landis.Library.Climate
                         dailyNDeposition += yearRecords[dIndex].AvgNDeposition;
                         dailyMinRH += yearRecords[dIndex].AvgMinRH;
                         dailyMaxRH += yearRecords[dIndex].AvgMaxRH;
+                        dailyPAR += yearRecords[dIndex].AvgPAR;
                         dailyCO2 += yearRecords[dIndex].AvgCO2;
                         dailyOzone += yearRecords[dIndex].AvgOzone;
                         dailyShortWaveRadiation += yearRecords[dIndex].AvgShortWaveRadiation;
