@@ -19,15 +19,18 @@ namespace Landis.Library.Climate
             Precipitation = 1,
             MaxTemperature = 2,
             MinTemperature = 3,
-            NDeposition = 6,
             Winddirection = 4,
             Windspeed = 5,
-            CO2 = 7,
-            MaxRelativeHumidity = 8,
-            MinRelativeHumidity = 9,
-            PAR = 10,
-            Ozone = 11,
-            ShortWaveRadiation = 12
+            WindEasting = 6,
+            WindNorthing = 7,
+            NDeposition = 8,
+            CO2 = 9,
+            MaxRelativeHumidity = 10,
+            MinRelativeHumidity = 11,
+            PAR = 12,
+            Ozone = 13,
+            ShortWaveRadiation = 14
+            
         }
 
         public static void Convert_USGS_to_ClimateData_FillAlldata(TemporalGranularity timeStep, string climateFile, string climateFileFormat, Climate.Phase climatePhase)
@@ -66,229 +69,243 @@ namespace Landis.Library.Climate
         }
 
         // no longer used
-        private static void Convert_USGS_to_ClimateData(TemporalGranularity sourceTemporalGranularity, string climateFile, string climateFileFormat, out List<string> timeStamps, out List<ClimateRecord>[] climateRecords)
-        {
-            // each item in timeStamps is the timeStamp 'key' for the data
-            // each item in climateRecords is of length Climate.ModelCore.Ecoregions.Count, and is filled in with data from the input file, indexed by Ecoregion.Index.
+        //private static void Convert_USGS_to_ClimateData(TemporalGranularity sourceTemporalGranularity, string climateFile, string climateFileFormat, out List<string> timeStamps, out List<ClimateRecord>[] climateRecords)
+        //{
+        //    // each item in timeStamps is the timeStamp 'key' for the data
+        //    // each item in climateRecords is of length Climate.ModelCore.Ecoregions.Count, and is filled in with data from the input file, indexed by Ecoregion.Index.
 
-            timeStamps = new List<string>();
-            climateRecords = new List<ClimateRecord>[Climate.ModelCore.Ecoregions.Count];
-            for (var i = 0; i < Climate.ModelCore.Ecoregions.Count; ++i)
-                climateRecords[i] = new List<ClimateRecord>();
+        //    timeStamps = new List<string>();
+        //    climateRecords = new List<ClimateRecord>[Climate.ModelCore.Ecoregions.Count];
+        //    for (var i = 0; i < Climate.ModelCore.Ecoregions.Count; ++i)
+        //        climateRecords[i] = new List<ClimateRecord>();
 
-            // get trigger words for parsing based on file format
-            ClimateFileFormatProvider format = new ClimateFileFormatProvider(climateFileFormat);
+        //    // get trigger words for parsing based on file format
+        //    ClimateFileFormatProvider format = new ClimateFileFormatProvider(climateFileFormat);
 
-            if (!File.Exists(climateFile))
-            {
-                throw new ApplicationException("Error in ClimateDataConvertor: Cannot open climate file" + climateFile);
-            }
+        //    if (!File.Exists(climateFile))
+        //    {
+        //        throw new ApplicationException("Error in ClimateDataConvertor: Cannot open climate file" + climateFile);
+        //    }
 
-            var reader = File.OpenText(climateFile);
+        //    var reader = File.OpenText(climateFile);
 
-            Climate.TextLog.WriteLine("   Converting raw data from text file: {0}, Format={1}, Temporal={2}.", climateFile, climateFileFormat.ToLower(), sourceTemporalGranularity);
+        //    Climate.TextLog.WriteLine("   Converting raw data from text file: {0}, Format={1}, Temporal={2}.", climateFile, climateFileFormat.ToLower(), sourceTemporalGranularity);
 
-            // maps from ecoregion column index in the input file to the ecoregion.index for the region
-            int[] ecoRegionIndexMap = null;
-            var ecoRegionCount = 0;
+        //    // maps from ecoregion column index in the input file to the ecoregion.index for the region
+        //    int[] ecoRegionIndexMap = null;
+        //    var ecoRegionCount = 0;
 
-            var rowIndex = -1;
-            var sectionIndex = -1;
-            FileSection section = 0;
+        //    var rowIndex = -1;
+        //    var sectionIndex = -1;
+        //    FileSection section = 0;
 
-            string row;
+        //    string row;
 
-            while ((row = reader.ReadLine()) != null)
-            {
-                var fields = row.Replace(" ", "").Split(',').ToList();    // JM: don't know if stripping blanks is needed, but just in case
+        //    while ((row = reader.ReadLine()) != null)
+        //    {
+        //        var fields = row.Replace(" ", "").Split(',').ToList();    // JM: don't know if stripping blanks is needed, but just in case
 
-                // check for trigger word
-                if (fields[0].StartsWith("#"))
-                {
-                    // determine which section we're in
-                    var triggerWord = fields[0].TrimStart('#');   // remove the leading "#"
+        //        // check for trigger word
+        //        if (fields[0].StartsWith("#"))
+        //        {
+        //            // determine which section we're in
+        //            var triggerWord = fields[0].TrimStart('#');   // remove the leading "#"
 
-                    if (format.PrecipTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.Precipitation;
-                    else if (format.MaxTempTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.MaxTemperature;
-                    else if (format.MinTempTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.MinTemperature;
-                    else if (format.NDepositionTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.NDeposition;
-                    else if (format.WindDirectionTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.Winddirection;
-                    else if (format.WindSpeedTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.Windspeed;
-                    else if (format.CO2TriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.CO2;
-                    else if (format.MaxRHTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.MaxRelativeHumidity;
-                    else if (format.MinRHTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.MinRelativeHumidity;
-                    else if (format.PARTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.PAR;
-                    else if (format.OzoneTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.Ozone;
-                    else if (format.ShortWaveRadiationTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
-                        section = FileSection.ShortWaveRadiation;
-                    else
-                        throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Unrecognized trigger word '{0}' in climate file '{1}'.", triggerWord, climateFile));
+        //            if (format.PrecipTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.Precipitation;
+        //            else if (format.MaxTempTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.MaxTemperature;
+        //            else if (format.MinTempTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.MinTemperature;
+        //            else if (format.NDepositionTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.NDeposition;
+        //            else if (format.WindDirectionTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.Winddirection;
+        //            else if (format.WindSpeedTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.Windspeed;
+        //            else if (format.WindEastingTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.WindEasting;
+        //            else if (format.WindNorthingTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.WindNorthing;
+        //            else if (format.CO2TriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.CO2;
+        //            else if (format.MaxRHTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.MaxRelativeHumidity;
+        //            else if (format.MinRHTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.MinRelativeHumidity;
+        //            else if (format.PARTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.PAR;
+        //            else if (format.OzoneTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.Ozone;
+        //            else if (format.ShortWaveRadiationTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+        //                section = FileSection.ShortWaveRadiation;                    
+        //            else
+        //                throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Unrecognized trigger word '{0}' in climate file '{1}'.", triggerWord, climateFile));
 
-                    sectionIndex++;
+        //            sectionIndex++;
 
-                    // if this is the first section then parse the ecoregions, etc.
-                    if (sectionIndex == 0)
-                    {
-                        // read next line to get ecoregion headers
-                        var ecoRegionHeaders = reader.ReadLine().Replace(" ", "").Split(',').ToList();
-                        ecoRegionHeaders.RemoveAt(0);   // remove blank cell at the beginning of ecoregion header row
+        //            // if this is the first section then parse the ecoregions, etc.
+        //            if (sectionIndex == 0)
+        //            {
+        //                // read next line to get ecoregion headers
+        //                var ecoRegionHeaders = reader.ReadLine().Replace(" ", "").Split(',').ToList();
+        //                ecoRegionHeaders.RemoveAt(0);   // remove blank cell at the beginning of ecoregion header row
 
-                        // JM: the next line assumes all input files have exactly three groups of columns: Mean, Variance, Std_dev
-                        ecoRegionCount = ecoRegionHeaders.Count / 3;
+        //                // JM: the next line assumes all input files have exactly three groups of columns: Mean, Variance, Std_dev
+        //                ecoRegionCount = ecoRegionHeaders.Count / 3;
 
-                        if (ecoRegionCount == 0)
-                            throw new ApplicationException(string.Format("Error in ClimateDataConvertor: climate file '{0}' contains no ecoregion data.", climateFile));
+        //                if (ecoRegionCount == 0)
+        //                    throw new ApplicationException(string.Format("Error in ClimateDataConvertor: climate file '{0}' contains no ecoregion data.", climateFile));
 
-                        var modelCoreActiveEcoRegionCount = Climate.ModelCore.Ecoregions.Count(x => x.Active);
+        //                var modelCoreActiveEcoRegionCount = Climate.ModelCore.Ecoregions.Count(x => x.Active);
 
-                        if (ecoRegionCount != modelCoreActiveEcoRegionCount)
-                            throw new ApplicationException(string.Format("Error in ClimateDataConvertor: climate file '{0}' contains data for {1} ecoregions, but the simulation has {2} active ecoregions.", climateFile, ecoRegionCount, modelCoreActiveEcoRegionCount));
+        //                if (ecoRegionCount != modelCoreActiveEcoRegionCount)
+        //                    throw new ApplicationException(string.Format("Error in ClimateDataConvertor: climate file '{0}' contains data for {1} ecoregions, but the simulation has {2} active ecoregions.", climateFile, ecoRegionCount, modelCoreActiveEcoRegionCount));
 
-                        // determine the map from ecoregions in this file to ecoregion indices in ModelCore
-                        ecoRegionIndexMap = new int[ecoRegionCount];
-                        for (var i = 0; i < ecoRegionCount; ++i)
-                        {
-                            IEcoregion eco = Climate.ModelCore.Ecoregions[ecoRegionHeaders[i]];     // JM:  Ecoregions appear to be indexed by string name, but I don't know if it is case-sensitive.
-                            if (eco != null && eco.Active)
-                                ecoRegionIndexMap[i] = eco.Index;
-                            else
-                                throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Ecoregion name '{0}' in climate file '{1}' is not recognized or is inactive", ecoRegionHeaders[i], climateFile));
-                        }
-                    }
-                    else
-                        // skip ecoregion header line
-                        reader.ReadLine();
+        //                // determine the map from ecoregions in this file to ecoregion indices in ModelCore
+        //                ecoRegionIndexMap = new int[ecoRegionCount];
+        //                for (var i = 0; i < ecoRegionCount; ++i)
+        //                {
+        //                    IEcoregion eco = Climate.ModelCore.Ecoregions[ecoRegionHeaders[i]];     // JM:  Ecoregions appear to be indexed by string name, but I don't know if it is case-sensitive.
+        //                    if (eco != null && eco.Active)
+        //                        ecoRegionIndexMap[i] = eco.Index;
+        //                    else
+        //                        throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Ecoregion name '{0}' in climate file '{1}' is not recognized or is inactive", ecoRegionHeaders[i], climateFile));
+        //                }
+        //            }
+        //            else
+        //                // skip ecoregion header line
+        //                reader.ReadLine();
 
-                    // skip data headers
-                    reader.ReadLine();
+        //            // skip data headers
+        //            reader.ReadLine();
 
-                    // get next line as first line of data
-                    fields = reader.ReadLine().Replace(" ", "").Split(',').ToList();
+        //            // get next line as first line of data
+        //            fields = reader.ReadLine().Replace(" ", "").Split(',').ToList();
 
-                    // reset row index
-                    rowIndex = -1;
-                }
+        //            // reset row index
+        //            rowIndex = -1;
+        //        }
 
 
-                // **
-                // process line of data
+        //        // **
+        //        // process line of data
                 
-                ++rowIndex;
+        //        ++rowIndex;
 
-                // grab the key as the first field and remove it from the data
-                var key = fields[0];
-                fields.RemoveAt(0);
+        //        // grab the key as the first field and remove it from the data
+        //        var key = fields[0];
+        //        fields.RemoveAt(0);
 
-                // if this is the first section then add key to timestamps and add new climate records for this rowIndex to the ecoregion array
-                if (sectionIndex == 0)
-                {
-                    timeStamps.Add(key);
-                    for (var i = 0; i < Climate.ModelCore.Ecoregions.Count; ++i)
-                        climateRecords[i].Add(new ClimateRecord());
-                }
-                else
-                {
-                    // check that the timestamp key order matches
-                    if (key != timeStamps[rowIndex])
-                        throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Timestamp order mismatch in section '{0}' timestamp '{1}' in climate file '{2}'.", section, key, climateFile));
-                }
+        //        // if this is the first section then add key to timestamps and add new climate records for this rowIndex to the ecoregion array
+        //        if (sectionIndex == 0)
+        //        {
+        //            timeStamps.Add(key);
+        //            for (var i = 0; i < Climate.ModelCore.Ecoregions.Count; ++i)
+        //                climateRecords[i].Add(new ClimateRecord());
+        //        }
+        //        else
+        //        {
+        //            // check that the timestamp key order matches
+        //            if (key != timeStamps[rowIndex])
+        //                throw new ApplicationException(string.Format("Error in ClimateDataConvertor: Timestamp order mismatch in section '{0}' timestamp '{1}' in climate file '{2}'.", section, key, climateFile));
+        //        }
 
-                for (var i = 0; i < ecoRegionCount; ++i)
-                {
-                    var ecoIndex = ecoRegionIndexMap[i];
+        //        for (var i = 0; i < ecoRegionCount; ++i)
+        //        {
+        //            var ecoIndex = ecoRegionIndexMap[i];
 
-                    var ecoRecords = climateRecords[ecoIndex];
+        //            var ecoRecords = climateRecords[ecoIndex];
 
-                    // JM: the next line assumes all input files have exactly three groups of columns: Mean, Variance, Std_dev
-                    var mean = double.Parse(fields[i]);
-                    var variance = double.Parse(fields[ecoRegionCount + i]);
-                    var stdev = double.Parse(fields[2 * ecoRegionCount + i]);
+        //            // JM: the next line assumes all input files have exactly three groups of columns: Mean, Variance, Std_dev
+        //            var mean = double.Parse(fields[i]);
+        //            var variance = double.Parse(fields[ecoRegionCount + i]);
+        //            var stdev = double.Parse(fields[2 * ecoRegionCount + i]);
 
-                    switch (section)
-                    {
-                        case FileSection.Precipitation:
-                            ecoRecords[rowIndex].AvgPpt = mean * format.PrecipTransformation;
-                            ecoRecords[rowIndex].StdDevPpt = stdev * format.PrecipTransformation;
-                            break;
+        //            switch (section)
+        //            {
+        //                case FileSection.Precipitation:
+        //                    ecoRecords[rowIndex].AvgPpt = mean * format.PrecipTransformation;
+        //                    ecoRecords[rowIndex].StdDevPpt = stdev * format.PrecipTransformation;
+        //                    break;
 
-                        case FileSection.MaxTemperature:
-                        case FileSection.MinTemperature:
+        //                case FileSection.MaxTemperature:
+        //                case FileSection.MinTemperature:
 
-                            mean += format.TemperatureTransformation;
+        //                    mean += format.TemperatureTransformation;
 
 
-                            if (section == FileSection.MaxTemperature)
-                                ecoRecords[rowIndex].AvgMaxTemp = mean;
-                            else
-                                ecoRecords[rowIndex].AvgMinTemp = mean;
+        //                    if (section == FileSection.MaxTemperature)
+        //                        ecoRecords[rowIndex].AvgMaxTemp = mean;
+        //                    else
+        //                        ecoRecords[rowIndex].AvgMinTemp = mean;
 
-                            // for temperature variance wait until both min and max have been read before calculating the final value
-                            if (ecoRecords[rowIndex].AvgVarTemp == -99.0)
-                                ecoRecords[rowIndex].AvgVarTemp = variance;        // set AvgVarTemp to the first value we have (min or max)
-                            else
-                                // have both min and max, so average the variance
-                                ecoRecords[rowIndex].AvgVarTemp = (ecoRecords[rowIndex].AvgVarTemp + variance) / 2.0;
+        //                    // for temperature variance wait until both min and max have been read before calculating the final value
+        //                    if (ecoRecords[rowIndex].AvgVarTemp == -99.0)
+        //                        ecoRecords[rowIndex].AvgVarTemp = variance;        // set AvgVarTemp to the first value we have (min or max)
+        //                    else
+        //                        // have both min and max, so average the variance
+        //                        ecoRecords[rowIndex].AvgVarTemp = (ecoRecords[rowIndex].AvgVarTemp + variance) / 2.0;
 
-                            ecoRecords[rowIndex].StdDevTemp = System.Math.Sqrt(ecoRecords[rowIndex].AvgVarTemp);      // this will set the st dev even if the data file only has one temperature section
-                            break;
+        //                    ecoRecords[rowIndex].StdDevTemp = System.Math.Sqrt(ecoRecords[rowIndex].AvgVarTemp);      // this will set the st dev even if the data file only has one temperature section
+        //                    break;
 
-                        case FileSection.Winddirection:
-                            mean += format.WindDirectionTransformation;
-                            if (mean > 360.0) mean -= 360;
-                            ecoRecords[rowIndex].AvgWindDirection = mean;
+        //                case FileSection.Winddirection:
+        //                    mean += format.WindDirectionTransformation;
+        //                    if (mean > 360.0) mean -= 360;
+        //                    ecoRecords[rowIndex].AvgWindDirection = mean;
                                                        
-                            ecoRecords[rowIndex].AvgVarWindDirection = variance;
-                            ecoRecords[rowIndex].StdDevWindDirection = stdev;
-                            break;
+        //                    ecoRecords[rowIndex].AvgVarWindDirection = variance;
+        //                    ecoRecords[rowIndex].StdDevWindDirection = stdev;
+        //                    break;
 
-                        case FileSection.Windspeed:
-                            ecoRecords[rowIndex].AvgWindSpeed = mean * format.WindSpeedTransformation;
-                            ecoRecords[rowIndex].AvgVarWindSpeed = variance;
-                            ecoRecords[rowIndex].StdDevWindSpeed = stdev;
-                            break;
+        //                case FileSection.Windspeed:
+        //                    ecoRecords[rowIndex].AvgWindSpeed = mean * format.WindSpeedTransformation;
+        //                    ecoRecords[rowIndex].AvgVarWindSpeed = variance;
+        //                    ecoRecords[rowIndex].StdDevWindSpeed = stdev;
+        //                    break;
+        //                case FileSection.WindEasting:
+        //                    ecoRecords[rowIndex].AvgWindEasting = mean;
+        //                    ecoRecords[rowIndex].AvgVarWindEasting = variance;
+        //                    ecoRecords[rowIndex].StdDevWindEasting = stdev;
+        //                    break;
+        //                case FileSection.WindNorthing:
+        //                    ecoRecords[rowIndex].AvgWindNorthing = mean;
+        //                    ecoRecords[rowIndex].AvgVarWindNorthing = variance;
+        //                    ecoRecords[rowIndex].StdDevWindNorthing = stdev;
+        //                    break;
 
-                        case FileSection.NDeposition:
-                            ecoRecords[rowIndex].AvgNDeposition = mean;
-                            ecoRecords[rowIndex].AvgVarNDeposition = variance;
-                            ecoRecords[rowIndex].StdDevNDeposition = stdev;
-                            break;
+        //                case FileSection.NDeposition:
+        //                    ecoRecords[rowIndex].AvgNDeposition = mean;
+        //                    ecoRecords[rowIndex].AvgVarNDeposition = variance;
+        //                    ecoRecords[rowIndex].StdDevNDeposition = stdev;
+        //                    break;
 
 
-                        case FileSection.CO2:
-                            ecoRecords[rowIndex].AvgCO2 = mean;
-                            ecoRecords[rowIndex].AvgVarCO2 = variance;
-                            ecoRecords[rowIndex].StdDevCO2 = stdev;
-                            break;
-                        case FileSection.PAR:
-                            ecoRecords[rowIndex].AvgPAR = mean;
-                            ecoRecords[rowIndex].AvgVarPAR = variance;
-                            ecoRecords[rowIndex].StdDevPAR = stdev;
-                            break;
-                        case FileSection.Ozone:
-                            ecoRecords[rowIndex].AvgOzone = mean;
-                            ecoRecords[rowIndex].AvgVarOzone = variance;
-                            ecoRecords[rowIndex].StdDevOzone = stdev;
-                            break;
-                        case FileSection.ShortWaveRadiation:
-                            ecoRecords[rowIndex].AvgShortWaveRadiation = mean;
-                            ecoRecords[rowIndex].AvgVarShortWaveRadiation = variance;
-                            ecoRecords[rowIndex].StdDevShortWaveRadiation = stdev;
-                            break;
-                    }
-                }                
-            }
-        }
+        //                case FileSection.CO2:
+        //                    ecoRecords[rowIndex].AvgCO2 = mean;
+        //                    ecoRecords[rowIndex].AvgVarCO2 = variance;
+        //                    ecoRecords[rowIndex].StdDevCO2 = stdev;
+        //                    break;
+        //                case FileSection.PAR:
+        //                    ecoRecords[rowIndex].AvgPAR = mean;
+        //                    ecoRecords[rowIndex].AvgVarPAR = variance;
+        //                    ecoRecords[rowIndex].StdDevPAR = stdev;
+        //                    break;
+        //                case FileSection.Ozone:
+        //                    ecoRecords[rowIndex].AvgOzone = mean;
+        //                    ecoRecords[rowIndex].AvgVarOzone = variance;
+        //                    ecoRecords[rowIndex].StdDevOzone = stdev;
+        //                    break;
+        //                case FileSection.ShortWaveRadiation:
+        //                    ecoRecords[rowIndex].AvgShortWaveRadiation = mean;
+        //                    ecoRecords[rowIndex].AvgVarShortWaveRadiation = variance;
+        //                    ecoRecords[rowIndex].StdDevShortWaveRadiation = stdev;
+        //                    break;                       
+        //            }
+        //        }                
+        //    }
+        //}
 
         private static void Convert_USGS_to_ClimateData2(TemporalGranularity sourceTemporalGranularity, string climateFile, string climateFileFormat, out List<int> yearKeys, out List<List<ClimateRecord>[]> climateRecords)
         {
@@ -378,6 +395,16 @@ namespace Landis.Library.Climate
                         section = FileSection.Windspeed;
                         groupIndex = 1;
                     }
+                    else if (format.WindEastingTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                    {
+                        section = FileSection.WindEasting;
+                        groupIndex = 1;
+                    }
+                    else if (format.WindNorthingTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                    {
+                        section = FileSection.WindNorthing;
+                        groupIndex = 1;
+                    }
                     else if (format.CO2TriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
                     {
                         section = FileSection.CO2;
@@ -408,6 +435,7 @@ namespace Landis.Library.Climate
                         section = FileSection.ShortWaveRadiation;
                         groupIndex = 1;
                     }
+                   
 
 
                     else
@@ -600,6 +628,30 @@ namespace Landis.Library.Climate
                                 ecoRecord.AvgWindSpeed = mean * format.WindSpeedTransformation;
                                 ecoRecord.AvgVarWindSpeed = variance;
                                 ecoRecord.StdDevWindSpeed = stdev;
+                                break;
+
+                            case FileSection.WindEasting:
+                            case FileSection.WindNorthing:
+                                if (section == FileSection.WindEasting)
+                                    ecoRecord.AvgWindEasting = mean;
+                                else
+                                    ecoRecord.AvgWindNorthing = mean;
+
+                                // John McNabb:
+                                // if we have data for both easting and westing, calculate WindSpeed and WindDirection
+                                if (ecoRecord.AvgWindEasting > -99.0 && ecoRecord.AvgWindNorthing > -99.0)
+                                {
+                                    ecoRecord.AvgWindSpeed = Math.Sqrt(ecoRecord.AvgWindEasting * ecoRecord.AvgWindEasting + ecoRecord.AvgWindNorthing * ecoRecord.AvgWindNorthing) * format.WindSpeedTransformation;
+                                    var t = Math.Atan2(-ecoRecord.AvgWindNorthing, ecoRecord.AvgWindEasting) * 180.0 / Math.PI + 90;
+                                    if (t < 0.0)
+                                        t += 360.0;
+                                    ecoRecord.AvgWindDirection = t;
+                                }
+
+                                // no need for variance or stdev if using easting and westing
+                                //ecoRecord.AvgVarWindVectors = variance;
+                                //ecoRecord.StdDevWindVectors = stdev;
+
                                 break;
 
                             case FileSection.MaxRelativeHumidity:

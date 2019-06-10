@@ -16,6 +16,8 @@ namespace Landis.Library.Climate
         private List<string> precipTriggerWord;
         private List<string> windDirectionTriggerWord;
         private List<string> windSpeedTriggerWord;
+        private List<string> windEastingTriggerWord;
+        private List<string> windNorthingTriggerWord;
         private List<string> nDepositionTriggerWord;
         private List<string> co2TriggerWord;
         private List<string> maxRHTriggerWord;
@@ -23,6 +25,7 @@ namespace Landis.Library.Climate
         private List<string> parTriggerWord;
         private List<string> ozoneTriggerWord;
         private List<string> shortwaveradiationTriggerWord;
+        
 
         private const double ABS_ZERO = -273.15;
             
@@ -33,20 +36,22 @@ namespace Landis.Library.Climate
         public List<string> PrecipTriggerWord { get { return this.precipTriggerWord; } }
         public List<string> WindDirectionTriggerWord { get { return this.windDirectionTriggerWord; } }
         public List<string> WindSpeedTriggerWord { get { return this.windSpeedTriggerWord; } }
+        public List<string> WindEastingTriggerWord { get { return this.windEastingTriggerWord; } }
+        public List<string> WindNorthingTriggerWord { get { return this.windNorthingTriggerWord; } }
         public List<string> NDepositionTriggerWord { get { return this.nDepositionTriggerWord; } }
         public List<string> CO2TriggerWord { get { return this.co2TriggerWord; } }
         public List<string> MaxRHTriggerWord { get { return this.maxRHTriggerWord; } }
         public List<string> MinRHTriggerWord { get { return this.minRHTriggerWord; } }
         public List<string> PARTriggerWord { get { return this.parTriggerWord; } }
         public List<string> OzoneTriggerWord { get { return this.ozoneTriggerWord; } }
-        public List<string> ShortWaveRadiationTriggerWord { get { return this.shortwaveradiationTriggerWord; } }
+        public List<string> ShortWaveRadiationTriggerWord { get { return this.shortwaveradiationTriggerWord; } }      
         public string SelectedFormat { get { return format; } }
   
         // JM: properties for transformations
         public double PrecipTransformation { get; private set; }
-        public double TemperatureTransformation { get; private set; }
+        public double TemperatureTransformation { get; private set; }        
         public double WindSpeedTransformation { get; private set; }
-        public double WindDirectionTransformation { get; private set; }
+        public double WindDirectionTransformation { get; private set; }        
 
         //------
         public ClimateFileFormatProvider(string format)
@@ -59,6 +64,8 @@ namespace Landis.Library.Climate
             this.precipTriggerWord = new List<string>() { "ppt", "precip", "Prcp" };
             this.windDirectionTriggerWord = new List<string>() { "windDirect", "wd", "winddirection", "wind_from_direction" };
             this.windSpeedTriggerWord = new List<string>() { "windSpeed", "ws", "wind_speed" };
+            this.windEastingTriggerWord = new List<string>() { "wind_easting", "easting"};
+            this.windNorthingTriggerWord = new List<string>() { "northing" , "wind_northing"};
             this.nDepositionTriggerWord = new List<string>() { "Ndeposition", "Ndep" };
             this.co2TriggerWord = new List<string>() { "CO2", "CO2conc" };
             this.maxRHTriggerWord = new List<string>() { "max_relative_humidity", "maxRH" };
@@ -77,6 +84,7 @@ namespace Landis.Library.Climate
             this.TemperatureTransformation = 0.0;   // Assumes data is in degrees Celsius so no transformation is needed.
             this.WindSpeedTransformation = 3.6;  //Assumes datas is in m/s so it converts the data to km/h
             this.WindDirectionTransformation = 180;  //Assumes datas is expressed as the direction the wind comes FROM so it converts it to the direction where wind is blowing TO.
+      
 
             //this.timeStep = ((this.format == "PRISM") ? TemporalGranularity.Monthly : TemporalGranularity.Daily);
             switch (this.format.ToLower())
@@ -109,7 +117,7 @@ namespace Landis.Library.Climate
                 case "daily_temp-k_precip-mmday":               // U of Idaho data     
                     this.timeStep = TemporalGranularity.Daily;     //Temp are in Kelvin and precip is in mm.   
                     this.TemperatureTransformation = ABS_ZERO;                           
-                    break;
+                    break;                
 
                 //case "prism_monthly":  //was 'prism'
                 //    this.timeStep = TemporalGranularity.Monthly;
@@ -121,7 +129,7 @@ namespace Landis.Library.Climate
                 //    this.maxTempTriggerWord = "Tmax";
                 //    this.minTempTriggerWord = "Tmin";
                 //    // RH and wind speed for Mauer are the default trigger words
-                    //break;
+                //break;
 
                 default:
                     Climate.TextLog.WriteLine("Error in ClimateFileFormatProvider: the given \"{0}\" file format is not supported.", this.format);

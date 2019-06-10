@@ -22,6 +22,10 @@ namespace Landis.Library.Climate
         private double avgWindSpeed;
         private double stdDevWindSpeed;
         private double avgVarWindSpeed;
+        private double avgWindEasting;
+        private double stdDevWindVectors;
+        private double avgVarWindVectors;
+        private double avgWindNorthing;        
         private double avgNDeposition;
         private double stdDevNDeposition;
         private double avgVarNDeposition;
@@ -182,7 +186,51 @@ namespace Landis.Library.Climate
                 avgVarWindSpeed = value;
             }
         }
+        public double AvgWindEasting
+        {
+            get
+            {
+                return avgWindEasting;
+            }
+            set
+            {
+                avgWindEasting = value;
+            }
+        }
+        public double StdDevWindVectors
+        {
+            get
+            {
+                return stdDevWindVectors;
+            }
+            set
+            {
+                stdDevWindVectors = value;
+            }
+        }
+        public double AvgVarWindVectors
+        {
+            get
+            {
+                return avgVarWindVectors;
+            }
+            set
+            {
+                avgVarWindVectors = value;
+            }
+        }
 
+        public double AvgWindNorthing
+        {
+            get
+            {
+                return avgWindNorthing;
+            }
+            set
+            {
+                avgWindNorthing = value;
+            }
+        }        
 
         public double AvgNDeposition
         {
@@ -413,7 +461,7 @@ namespace Landis.Library.Climate
         }
 
         public ClimateRecord(double avgMinTemp, double avgMaxTemp, double stdDevTemp, double avgPpt, double stdDevPpt, double avgVarTemp, double avgVarPpt, double avgWindDirection,
-                            double avgVarWindDirection, double stdDevWindDirection, double avgWindSpeed, double avgVarWindSpeed, double stdDevWindSpeed, double avgNDeposition, double avgVarNDeposition, 
+                            double avgVarWindDirection, double stdDevWindDirection, double avgWindSpeed, double avgVarWindSpeed, double stdDevWindSpeed, double avgWindEasting, double avgWindNorthing, double stdDevWindVectors, double avgVarWindVectors, double avgNDeposition, double avgVarNDeposition, 
                             double stdDevNDeposition, double avgCO2, double avgVarCO2, double stdDevCO2, double avgMinRH, double avgMaxRH, double stdDevRH, double avgVarRH, double avgPAR, double stdDevPAR, double avgVarPAR,
                             double avgOzone, double avgVarOzone, double stdDevOzone, double avgShortWaveRadiation, double avgVarShortWaveRadiation, double stdDevShortWaveRadiation, double avgFWI)
         {
@@ -430,6 +478,10 @@ namespace Landis.Library.Climate
             this.avgWindSpeed = avgWindSpeed;
             this.avgVarWindSpeed = avgVarWindSpeed;
             this.stdDevWindSpeed = stdDevWindSpeed;
+            this.avgWindEasting = avgWindEasting;
+            this.avgWindNorthing = avgWindNorthing;            
+            this.stdDevWindVectors = stdDevWindVectors;
+            this.avgVarWindVectors = avgVarWindVectors;
             this.avgNDeposition = avgNDeposition;
             this.avgVarNDeposition = avgVarNDeposition;
             this.stdDevNDeposition = stdDevNDeposition;
@@ -464,6 +516,11 @@ namespace Landis.Library.Climate
             this.avgWindDirection = -99.0;
             this.avgVarWindDirection = -99.0;
             this.stdDevWindDirection = -99.0;
+            this.avgWindEasting = -99.0;
+            this.avgWindNorthing = -99.0;
+            this.stdDevWindVectors = -99.0;
+            this.avgVarWindVectors = -99.0;            
+            this.avgVarRH = -99.0;
             this.avgWindSpeed = -99.0;
             this.avgVarWindSpeed = -99.0;
             this.stdDevWindSpeed = -99.0;
