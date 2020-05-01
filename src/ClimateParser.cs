@@ -62,8 +62,8 @@ namespace Landis.Library.Climate
             InputVar<double> avgPpt     = new InputVar<double>("Monthly Precipitation Value");
             InputVar<double> stdDevPpt  = new InputVar<double>("Monthly Std Deviation Precipitation Value");
             InputVar<double> avgPAR = new InputVar<double>("Monthly Photosynthetically Active Radiation Value");
-            InputVar<double> avgVarTemp = new InputVar<double>("Monthly Variance Temperature Value");
-            InputVar<double> avgVarPpt = new InputVar<double>("Monthly Precipitation Variance Temperature Value");
+            InputVar<double> VarTemp = new InputVar<double>("Monthly Variance Temperature Value");
+            InputVar<double> VarPpt = new InputVar<double>("Monthly Precipitation Variance Temperature Value");
             
             while (! AtEndOfInput)
             {
@@ -109,15 +109,15 @@ namespace Landis.Library.Climate
                                
                 try
                 {
-                    ReadValue(avgVarTemp, currentLine);
-                    climateRecord.AvgVarTemp = avgVarTemp.Value;
+                    ReadValue(VarTemp, currentLine);
+                    climateRecord.VarTemp = VarTemp.Value;
 
-                    ReadValue(avgVarPpt, currentLine);
-                    climateRecord.AvgVarPpt = avgVarPpt.Value;
+                    ReadValue(VarPpt, currentLine);
+                    climateRecord.VarPpt = VarPpt.Value;
 
                     allData[yr][ecoregion.Index, mo - 1] = climateRecord;
 
-                    CheckNoDataAfter("the " + avgVarPpt.Name + " column",
+                    CheckNoDataAfter("the " + VarPpt.Name + " column",
                                      currentLine);
                 }
                 catch (InputVariableException ex)

@@ -12,42 +12,43 @@ namespace Landis.Library.Climate
         private double avgMinTemp;
         private double avgMaxTemp;
         private double stdDevTemp;
-        private double avgVarTemp;
+        private double varTemp;
         private double avgPpt;
-        private double avgVarPpt;
+        private double varPpt;
         private double stdDevPpt;       
         private double avgWindDirection;
         private double stdDevWindDirection;
-        private double avgVarWindDirection;
+        private double varWindDirection;
         private double avgWindSpeed;
         private double stdDevWindSpeed;
-        private double avgVarWindSpeed;
+        private double varWindSpeed;
         private double avgWindEasting;
         private double stdDevWindVectors;
-        private double avgVarWindVectors;
+        private double varWindVectors;
         private double avgWindNorthing;        
         private double avgNDeposition;
         private double stdDevNDeposition;
-        private double avgVarNDeposition;
+        private double varNDeposition;
         private double avgCO2;
         private double stdDevCO2;
-        private double avgVarCO2;
+        private double varCO2;
+        private double avgRH;
         private double avgMinRH;
         private double avgMaxRH;
         private double stdDevRH;
-        private double avgVarRH;
+        private double varRH;
+        private double avgSpecificHumidity;
         private double avgPAR;
         private double stdDevPAR;
-        private double avgVarPAR;
+        private double varPAR;
         private double avgOzone;
         private double stdDevOzone;
-        private double avgVarOzone;
+        private double varOzone;
         private double avgShortWaveRadiation;
         private double stdDevShortWaveRadiation;
-        private double avgVarShortWaveRadiation;
-        private double avgFWI;
-        
-
+        private double varShortWaveRadiation;
+        private double temp;
+        private double avgFWI;    
         
         public double AvgMinTemp
         {
@@ -96,26 +97,26 @@ namespace Landis.Library.Climate
             }
         }
        
-        public double AvgVarTemp
+        public double VarTemp
         {
             get
             {
-                return avgVarTemp;
+                return varTemp;
             }
             set
             {
-                avgVarTemp = value;
+                varTemp = value;
             }
         }
-        public double AvgVarPpt
+        public double VarPpt
         {
             get
             {
-                return avgVarPpt;
+                return varPpt;
             }
             set
             {
-                avgVarPpt = value;
+                varPpt = value;
             }
         }
 
@@ -141,15 +142,15 @@ namespace Landis.Library.Climate
                 stdDevWindDirection = value;
             }
         }
-        public double AvgVarWindDirection
+        public double VarWindDirection
         {
             get
             {
-                return avgVarWindDirection;
+                return varWindDirection;
             }
             set
             {
-                avgVarWindDirection = value;
+                varWindDirection = value;
             }
         }
 
@@ -175,15 +176,15 @@ namespace Landis.Library.Climate
                 stdDevWindSpeed = value;
             }
         }
-        public double AvgVarWindSpeed
+        public double VarWindSpeed
         {
             get
             {
-                return avgVarWindSpeed;
+                return varWindSpeed;
             }
             set
             {
-                avgVarWindSpeed = value;
+                varWindSpeed = value;
             }
         }
         public double AvgWindEasting
@@ -208,15 +209,15 @@ namespace Landis.Library.Climate
                 stdDevWindVectors = value;
             }
         }
-        public double AvgVarWindVectors
+        public double VarWindVectors
         {
             get
             {
-                return avgVarWindVectors;
+                return varWindVectors;
             }
             set
             {
-                avgVarWindVectors = value;
+                varWindVectors = value;
             }
         }
 
@@ -244,15 +245,15 @@ namespace Landis.Library.Climate
             }
         }
 
-        public double AvgVarNDeposition
+        public double VarNDeposition
         {
             get
             {
-                return avgVarNDeposition;
+                return varNDeposition;
             }
             set
             {
-                avgVarNDeposition = value;
+                varNDeposition = value;
             }
         }
 
@@ -278,15 +279,15 @@ namespace Landis.Library.Climate
                 avgCO2 = value;
             }
         }
-        public double AvgVarCO2
+        public double VarCO2
         {
             get
             {
-                return avgVarCO2;
+                return varCO2;
             }
             set
             {
-                avgVarCO2 = value;
+                varCO2 = value;
             }
         }
         public double StdDevCO2
@@ -300,7 +301,19 @@ namespace Landis.Library.Climate
                 stdDevCO2 = value;
             }
         }
-       
+
+        public double AvgRH
+        {
+            get
+            {
+                return avgRH;
+            }
+            set
+            {
+                avgRH = value;
+            }
+        }
+
         public double AvgMinRH
         {
             get
@@ -336,15 +349,26 @@ namespace Landis.Library.Climate
                 stdDevRH = value;
             }
         }
-        public double AvgVarRH
+        public double VarRH
         {
             get
             {
-                return avgVarRH;
+                return varRH;
             }
             set
             {
-                avgVarRH = value;
+                varRH = value;
+            }
+        }
+        public double AvgSpecificHumidity
+        {
+            get
+            {
+                return avgSpecificHumidity;
+            }
+            set
+            {
+                avgSpecificHumidity = value;
             }
         }
         public double AvgPAR
@@ -369,15 +393,15 @@ namespace Landis.Library.Climate
                 stdDevPAR = value;
             }
         }
-        public double AvgVarPAR
+        public double VarPAR
         {
             get
             {
-                return avgVarPAR;
+                return varPAR;
             }
             set
             {
-                avgVarPAR = value;
+                varPAR = value;
             }
         }
         public double AvgOzone
@@ -402,15 +426,15 @@ namespace Landis.Library.Climate
                 stdDevOzone = value;
             }
         }
-        public double AvgVarOzone
+        public double VarOzone
         {
             get
             {
-                return avgVarOzone;
+                return varOzone;
             }
             set
             {
-                avgVarOzone = value;
+                varOzone = value;
             }
         }
 
@@ -436,15 +460,27 @@ namespace Landis.Library.Climate
                 stdDevShortWaveRadiation = value;
             }
         }
-        public double AvgVarShortWaveRadiation
+        public double VarShortWaveRadiation
         {
             get
             {
-                return avgVarShortWaveRadiation;
+                return varShortWaveRadiation;
             }
             set
             {
-                avgVarShortWaveRadiation = value;
+                varShortWaveRadiation = value;
+            }
+        }
+
+        public double Temp
+        {
+            get
+            {
+                return temp;
+            }
+            set
+            {
+                temp = value;
             }
         }
 
@@ -460,47 +496,50 @@ namespace Landis.Library.Climate
             }
         }
 
-        public ClimateRecord(double avgMinTemp, double avgMaxTemp, double stdDevTemp, double avgPpt, double stdDevPpt, double avgVarTemp, double avgVarPpt, double avgWindDirection,
-                            double avgVarWindDirection, double stdDevWindDirection, double avgWindSpeed, double avgVarWindSpeed, double stdDevWindSpeed, double avgWindEasting, double avgWindNorthing, double stdDevWindVectors, double avgVarWindVectors, double avgNDeposition, double avgVarNDeposition, 
-                            double stdDevNDeposition, double avgCO2, double avgVarCO2, double stdDevCO2, double avgMinRH, double avgMaxRH, double stdDevRH, double avgVarRH, double avgPAR, double stdDevPAR, double avgVarPAR,
-                            double avgOzone, double avgVarOzone, double stdDevOzone, double avgShortWaveRadiation, double avgVarShortWaveRadiation, double stdDevShortWaveRadiation, double avgFWI)
+        public ClimateRecord(double avgMinTemp, double avgMaxTemp, double stdDevTemp, double avgPpt, double stdDevPpt, double varTemp, double varPpt, double avgWindDirection,
+                            double varWindDirection, double stdDevWindDirection, double avgWindSpeed, double varWindSpeed, double stdDevWindSpeed, double avgWindEasting, double avgWindNorthing, double stdDevWindVectors, double varWindVectors, double avgNDeposition, double varNDeposition, 
+                            double stdDevNDeposition, double avgCO2, double varCO2, double stdDevCO2, double avgRH, double avgMinRH, double avgMaxRH, double stdDevRH, double varRH, double avgSpecificHumidity, double avgPAR, double stdDevPAR, double varPAR,
+                            double avgOzone, double VarOzone, double stdDevOzone, double avgShortWaveRadiation, double varShortWaveRadiation, double stdDevShortWaveRadiation,double temp,double avgFWI)
         {
             this.avgMinTemp = avgMinTemp;
             this.avgMaxTemp = avgMaxTemp;
             this.stdDevTemp = stdDevTemp;
             this.avgPpt = avgPpt;
             this.stdDevPpt = stdDevPpt;
-            this.avgVarTemp = avgVarTemp;
-            this.avgVarPpt = avgVarPpt;
+            this.varTemp = VarTemp;
+            this.varPpt = VarPpt;
             this.avgWindDirection = avgWindDirection;
-            this.avgVarWindDirection = avgVarWindDirection;
+            this.varWindDirection = varWindDirection;
             this.stdDevWindDirection = stdDevWindDirection;
             this.avgWindSpeed = avgWindSpeed;
-            this.avgVarWindSpeed = avgVarWindSpeed;
+            this.varWindSpeed = varWindSpeed;
             this.stdDevWindSpeed = stdDevWindSpeed;
             this.avgWindEasting = avgWindEasting;
             this.avgWindNorthing = avgWindNorthing;            
             this.stdDevWindVectors = stdDevWindVectors;
-            this.avgVarWindVectors = avgVarWindVectors;
+            this.varWindVectors = varWindVectors;
             this.avgNDeposition = avgNDeposition;
-            this.avgVarNDeposition = avgVarNDeposition;
+            this.varNDeposition = varNDeposition;
             this.stdDevNDeposition = stdDevNDeposition;
             this.avgCO2 = avgCO2;
-            this.avgVarCO2 = avgVarCO2;
+            this.varCO2 = varCO2;
             this.stdDevCO2 = stdDevCO2;
+            this.avgRH = avgRH;
             this.avgMinRH = avgMinRH;
             this.avgMaxRH = avgMaxRH;
             this.stdDevRH = stdDevRH;
-            this.avgVarRH = avgVarRH;
+            this.varRH = VarRH;
+            this.avgSpecificHumidity = avgSpecificHumidity;
             this.avgPAR = avgPAR;
             this.stdDevPAR = stdDevPAR;
-            this.avgVarPAR = avgVarPAR;
+            this.varPAR = VarPAR;
             this.avgOzone = avgOzone;
             this.stdDevOzone = stdDevOzone;
-            this.avgVarOzone = avgVarOzone;
+            this.varOzone = VarOzone;
             this.avgShortWaveRadiation = avgShortWaveRadiation;
             this.stdDevShortWaveRadiation = stdDevShortWaveRadiation;
-            this.avgVarShortWaveRadiation = avgVarShortWaveRadiation;
+            this.varShortWaveRadiation = varShortWaveRadiation;
+            this.temp = temp;
             this.avgFWI = avgFWI;
         }
         
@@ -511,38 +550,41 @@ namespace Landis.Library.Climate
             this.stdDevTemp = -99.0;
             this.avgPpt = -99.0;
             this.stdDevPpt = -99.0;            
-            this.avgVarTemp = -99.0;
-            this.avgVarPpt = -99.0;
+            this.varTemp = -99.0;
+            this.varPpt = -99.0;
             this.avgWindDirection = -99.0;
-            this.avgVarWindDirection = -99.0;
+            this.varWindDirection = -99.0;
             this.stdDevWindDirection = -99.0;
             this.avgWindEasting = -99.0;
             this.avgWindNorthing = -99.0;
             this.stdDevWindVectors = -99.0;
-            this.avgVarWindVectors = -99.0;            
-            this.avgVarRH = -99.0;
+            this.varWindVectors = -99.0;     
             this.avgWindSpeed = -99.0;
-            this.avgVarWindSpeed = -99.0;
+            this.varWindSpeed = -99.0;
             this.stdDevWindSpeed = -99.0;
             this.avgNDeposition = -99.0;
-            this.avgVarNDeposition = -99.0;
+            this.varNDeposition = -99.0;
             this.stdDevNDeposition = -99.0;
             this.avgCO2 = -99.0;
-            this.avgVarCO2 = -99.0;
+            this.varCO2 = -99.0;
             this.stdDevCO2 = -99.0;
+            this.avgRH = -99.0;
             this.avgMinRH = -99.0;
             this.avgMaxRH = -99.0;
             this.stdDevRH = -99.0;
-            this.avgVarRH = -99.0;
+            this.varRH = -99.0;
+            this.avgSpecificHumidity = -99.0;
             this.avgPAR = -99.0;
             this.stdDevPAR = -99.0;
-            this.avgVarPAR = -99.0;
+            this.varPAR = -99.0;
             this.avgOzone = -99.0;
             this.stdDevOzone = -99.0;
-            this.avgVarOzone = -99.0;
+            this.varOzone = -99.0;
             this.avgShortWaveRadiation = -99.0;
             this.stdDevShortWaveRadiation = -99.0;
-            this.avgVarShortWaveRadiation = -99.0;
+            this.varShortWaveRadiation = -99.0;
+            this.varShortWaveRadiation = -99.0;
+            this.temp = -99.0;
             this.avgFWI = -99.0;
         }
     }

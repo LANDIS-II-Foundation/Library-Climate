@@ -370,17 +370,20 @@ namespace Landis.Library.Climate
                         il.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
                         il.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
                         il.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
-                        il.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
-                        il.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
+                        //il.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
+                        //il.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
                         il.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
                         il.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
                         il.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
+                        il.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        il.relativehumidity = TimestepData[ecoregion.Index][timestep].AvgRH;
                         il.min_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMinRH;
                         il.max_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMaxRH;
-                        il.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
+                        il.specifichumidty = TimestepData[ecoregion.Index][timestep].AvgSpecificHumidity;
                         il.par = TimestepData[ecoregion.Index][timestep].AvgPAR;
                         il.ozone = TimestepData[ecoregion.Index][timestep].AvgOzone;
                         il.shortwave = TimestepData[ecoregion.Index][timestep].AvgShortWaveRadiation;
+                        il.temperature = TimestepData[ecoregion.Index][timestep].Temp;
                         if (Climate.ConfigParameters.UsingFireClimate)
                         {
                             il.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
@@ -420,17 +423,20 @@ namespace Landis.Library.Climate
                         il.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
                         il.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
                         il.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
-                        il.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
-                        il.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
+                        //il.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
+                        //il.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
                         il.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
                         il.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
                         il.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
+                        il.relativehumidity = TimestepData[ecoregion.Index][timestep].AvgRH;
                         il.min_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMinRH;
                         il.max_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMaxRH;
+                        il.specifichumidty = TimestepData[ecoregion.Index][timestep].AvgSpecificHumidity;
                         il.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
                         il.par = TimestepData[ecoregion.Index][timestep].AvgPAR;
                         il.ozone = TimestepData[ecoregion.Index][timestep].AvgOzone;
-                        il.shortwave = TimestepData[ecoregion.Index][timestep].AvgShortWaveRadiation;
+                        il.shortwave = TimestepData[ecoregion.Index][timestep].AvgShortWaveRadiation;                        
+                        il.temperature = TimestepData[ecoregion.Index][timestep].Temp;
                         if (Climate.ConfigParameters.UsingFireClimate)
                         {
                             il.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;

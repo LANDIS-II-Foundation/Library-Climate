@@ -13,32 +13,29 @@ namespace Landis.Library.Climate
 
         public int MaxDayInYear { get { return DailyDataIsLeapYear? 366 : 365; } } // = 366;
 
-        public double[] DailyTemp = new double[366];
+        public double[] DailyTemp = new double[366];  
         public double[] DailyMinTemp = new double[366];
         public double[] DailyMaxTemp = new double[366];
-        public double[] DailyPrecip = new double[366];        
-        public double[] DailyVarTemp = new double[366];
-        public double[] DailyVarPpt = new double[366];
+        //public double[] DailyAvgTemp = new double[366];
+        public double[] DailyPrecip = new double[366];
+
         public double[] DailyWindDirection = new double[366];
         public double[] DailyWindSpeed = new double[366];
+        public double[] DailyWindEasting = new double[366];
+        public double[] DailyWindNorthing = new double[366];
         public double[] DailyNDeposition = new double[366];
         public double[] DailyCO2 = new double[366];
         public double[] DailyRH = new double[366];
         public double[] DailyMinRH = new double[366];
         public double[] DailyMaxRH = new double[366];
+        public double[] DailySpecificHumidity = new double[366];
         public double[] DailyPAR = new double[366];
         public double[] DailyOzone = new double[366];
         public double[] DailyShortWaveRadiation = new double[366];
         public double[] DailyFireWeatherIndex = new double[366];
+        public double[] DailyVarTemp = new double[366];
+        public double[] DailyVarPpt = new double[366];
 
-
-        //public int tempEcoIndex = -1;
-
-        //public double[] DailyPET = new double[366];  // Potential Evapotranspiration
-        //public double[] DailyVPD = new double[366];  // Vapor Pressure Deficit
-        //public double[] DailyDayLength = new double[366];
-        //public double[] DailyNightLength = new double[366];
-        //public int[] DailyGDD = new int[366];
         public AnnualClimate_Daily() { }
 
         //For Sequenced and Random timeStep arg should be passed
@@ -58,7 +55,6 @@ namespace Landis.Library.Climate
 
             int actualTimeStep;
 
-            //Climate.TextLog.WriteLine("  Calculating daily data ...  Ecoregion = {0}, Year = {1}, timestep = {2}.", ecoregion.Name, actualYear, timeStep);
             switch (climateOption)
             {
                 case "Daily_RandomYears":
@@ -134,12 +130,10 @@ namespace Landis.Library.Climate
                     throw new ApplicationException(String.Format("Unknown Climate Time Series: {0}", climateOption));
 
             }
-
-                       
+            
             this.beginGrowing = CalculateBeginGrowingDay_Daily(); //ecoClimate);
             this.endGrowing = CalculateEndGrowingDay_Daily(dailyData);
-            this.growingDegreeDays = GrowSeasonDegreeDays();
-
+            this.growingDegreeDays = GrowSeasonDegreeDays();         
             this.DailyDataIsLeapYear = dailyData.Length == 366;
 
         }
@@ -150,38 +144,32 @@ namespace Landis.Library.Climate
 
             this.TotalAnnualPrecip = 0.0;
             for (int d = 0; d < dailyClimateRecords.Length; d++)
-            {
+            {                
                 this.DailyMinTemp[d] = dailyClimateRecords[d].AvgMinTemp;
                 this.DailyMaxTemp[d] = dailyClimateRecords[d].AvgMaxTemp;
-                this.DailyVarTemp[d] = dailyClimateRecords[d].AvgVarTemp;
-                this.DailyVarPpt[d] = dailyClimateRecords[d].AvgVarPpt;
-                this.DailyPrecip[d] = dailyClimateRecords[d].AvgPpt;
+                this.DailyTemp[d] = dailyClimateRecords[d].Temp == -99.0 ? (DailyMinTemp[d] + DailyMaxTemp[d]) / 2.0 : dailyClimateRecords[d].Temp;         // if Temp is missing, then estimate as the average of min and max.
+                this.TotalAnnualPrecip += this.DailyPrecip[d];
                 this.DailyWindDirection[d] = dailyClimateRecords[d].AvgWindDirection;
                 this.DailyWindSpeed[d] = dailyClimateRecords[d].AvgWindSpeed;
                 this.DailyNDeposition[d] = dailyClimateRecords[d].AvgNDeposition;
                 this.DailyCO2[d] = dailyClimateRecords[d].AvgCO2;
                 this.DailyMinRH[d] = dailyClimateRecords[d].AvgMinRH;
                 this.DailyMaxRH[d] = dailyClimateRecords[d].AvgMaxRH;
+                this.DailyRH[d] = dailyClimateRecords[d].AvgRH == -99.0 ? (this.DailyMinRH[d] + this.DailyMaxRH[d]) / 2.0 : dailyClimateRecords[d].AvgRH;   // if RH is missing, then estimate as the average of min and max.
+                this.DailySpecificHumidity[d] = dailyClimateRecords[d].AvgSpecificHumidity;
                 this.DailyPAR[d] = dailyClimateRecords[d].AvgPAR;
                 this.DailyOzone[d] = dailyClimateRecords[d].AvgOzone;
                 this.DailyFireWeatherIndex[d] = dailyClimateRecords[d].AvgFWI;
-                this.DailyTemp[d] = (this.DailyMinTemp[d] + this.DailyMaxTemp[d]) / 2.0;
-                this.DailyRH[d] = (this.DailyMinRH[d] + this.DailyMaxRH[d]) / 2.0;
 
-                this.TotalAnnualPrecip += this.DailyPrecip[d];
 
-                //var hr = CalculateDayLength(d, latitude);
-                //this.DailyDayLength[d] = (3600.0 * hr);                  // seconds of daylight/day
-                //this.DailyNightLength[d] = (3600.0 * (24.0 - hr));         // seconds of nighttime/day
+                this.DailyVarTemp[d] = dailyClimateRecords[d].VarTemp;
+                this.DailyVarPpt[d] = dailyClimateRecords[d].VarPpt;
+                this.DailyPrecip[d] = dailyClimateRecords[d].AvgPpt;
+
                 var avgTemp = (this.DailyMinTemp[d] + this.DailyMaxTemp[d])/2;
                 //this.DailyRH[d] = 100 * Math.Exp((17.269 * this.DailyMinTemp[d]) / (273.15 + this.DailyMinTemp[d]) - (17.269 * avgTemp) / (273.15 + avgTemp));
             }
         }
-
-
-        //public double[] DailyRH = new double[366];
-        //public double[] DailyWindSpeed = new double[366];
-        //public double[] DailyNdeposition = new double[366];
 
         private ClimateRecord[] AnnualClimate_AvgDaily(IEcoregion ecoregion, double latitude)
         {
@@ -211,6 +199,7 @@ namespace Landis.Library.Climate
                 var dailyCO2 = 0.0;
                 var dailyMinRH = 0.0;
                 var dailyMaxRH = 0.0;
+                var dailySpecificHumidity = 0.0;
                 var dailyPAR = 0.0;
                 var dailyOzone = 0.0;
                 var dailyShortWaveRadiation = 0.0;
@@ -228,8 +217,8 @@ namespace Landis.Library.Climate
                         // average data for both Feb28 and Feb29
                         dailyMinTemp += (yearRecords[d].AvgMinTemp + yearRecords[d + 1].AvgMinTemp) / 2.0;
                         dailyMaxTemp += (yearRecords[d].AvgMaxTemp + yearRecords[d + 1].AvgMaxTemp) / 2.0;
-                        dailyVarTemp += (yearRecords[d].AvgVarTemp + yearRecords[d + 1].AvgVarTemp) / 2.0;
-                        dailyVarPpt += (yearRecords[d].AvgVarPpt + yearRecords[d + 1].AvgVarPpt) / 2.0;
+                        dailyVarTemp += (yearRecords[d].VarTemp + yearRecords[d + 1].VarTemp) / 2.0;
+                        dailyVarPpt += (yearRecords[d].VarPpt + yearRecords[d + 1].VarPpt) / 2.0;
                         dailyPrecip += (yearRecords[d].AvgPpt + yearRecords[d + 1].AvgPpt) / 2.0;                        
                         dailyWindDirection += (yearRecords[d].AvgWindDirection + yearRecords[d + 1].AvgWindDirection) / 2.0;
                         dailyWindSpeed += (yearRecords[d].AvgWindSpeed + yearRecords[d + 1].AvgWindSpeed) / 2.0;
@@ -237,6 +226,7 @@ namespace Landis.Library.Climate
                         dailyCO2 += (yearRecords[d].AvgCO2 + yearRecords[d + 1].AvgCO2) / 2.0;
                         dailyMinRH += (yearRecords[d].AvgMinRH + yearRecords[d + 1].AvgMinRH) / 2.0;
                         dailyMaxRH += (yearRecords[d].AvgMaxRH + yearRecords[d + 1].AvgMaxRH) / 2.0;
+                        dailySpecificHumidity += (yearRecords[d].AvgSpecificHumidity + yearRecords[d + 1].AvgSpecificHumidity) / 2.0;
                         dailyPAR += (yearRecords[d].AvgPAR + yearRecords[d + 1].AvgPAR) / 2.0;
                         dailyOzone += (yearRecords[d].AvgOzone + yearRecords[d + 1].AvgOzone) / 2.0;
                         dailyShortWaveRadiation += (yearRecords[d].AvgShortWaveRadiation + yearRecords[d + 1].AvgShortWaveRadiation) / 2.0;
@@ -249,14 +239,15 @@ namespace Landis.Library.Climate
 
                         dailyMinTemp += yearRecords[dIndex].AvgMinTemp;
                         dailyMaxTemp += yearRecords[dIndex].AvgMaxTemp;
-                        dailyVarTemp += yearRecords[dIndex].AvgVarTemp;
-                        dailyVarPpt += yearRecords[dIndex].AvgVarPpt;
+                        dailyVarTemp += yearRecords[dIndex].VarTemp;
+                        dailyVarPpt += yearRecords[dIndex].VarPpt;
                         dailyPrecip += yearRecords[dIndex].AvgPpt;         
                         dailyWindDirection += yearRecords[dIndex].AvgWindDirection;
                         dailyWindSpeed += yearRecords[dIndex].AvgWindSpeed;
                         dailyNDeposition += yearRecords[dIndex].AvgNDeposition;
                         dailyMinRH += yearRecords[dIndex].AvgMinRH;
                         dailyMaxRH += yearRecords[dIndex].AvgMaxRH;
+                        dailySpecificHumidity += yearRecords[dIndex].AvgSpecificHumidity;
                         dailyPAR += yearRecords[dIndex].AvgPAR;
                         dailyCO2 += yearRecords[dIndex].AvgCO2;
                         dailyOzone += yearRecords[dIndex].AvgOzone;
@@ -271,9 +262,9 @@ namespace Landis.Library.Climate
                 {
                     dailyData[d].AvgMinTemp = dailyMinTemp / yearCount;
                     dailyData[d].AvgMaxTemp = dailyMaxTemp / yearCount;
-                    dailyData[d].AvgVarTemp = dailyVarTemp / yearCount;
+                    dailyData[d].VarTemp = dailyVarTemp / yearCount;
                     dailyData[d].StdDevTemp = Math.Sqrt(dailyVarTemp / yearCount);
-                    dailyData[d].AvgVarPpt = dailyVarPpt / yearCount;
+                    dailyData[d].VarPpt = dailyVarPpt / yearCount;
                     dailyData[d].AvgPpt = dailyPrecip / yearCount;
                     dailyData[d].StdDevPpt = Math.Sqrt(dailyPrecip / yearCount);                    
                     dailyData[d].AvgWindDirection = dailyWindDirection / yearCount;
@@ -282,6 +273,7 @@ namespace Landis.Library.Climate
                     dailyData[d].AvgCO2 = dailyCO2 / yearCount;
                     dailyData[d].AvgMinRH = dailyMinRH / yearCount;
                     dailyData[d].AvgMaxRH = dailyMaxRH / yearCount;
+                    dailyData[d].AvgSpecificHumidity = dailySpecificHumidity / yearCount;
                     dailyData[d].AvgPAR = dailyPAR / yearCount;
                     dailyData[d].AvgOzone = dailyOzone / yearCount;
                     dailyData[d].AvgShortWaveRadiation = dailyShortWaveRadiation / yearCount;
@@ -296,7 +288,6 @@ namespace Landis.Library.Climate
         
         private int GetJulianMonthFromJulianDay(int yr, int mo, int d)
         {
-            //System.Globalization.GregorianCalendar gc = new System.Globalization.GregorianCalendar();
             System.Globalization.JulianCalendar jc = new System.Globalization.JulianCalendar();
             return jc.GetMonth(new DateTime(yr,mo,d,jc));
         }
@@ -324,7 +315,7 @@ namespace Landis.Library.Climate
         }
 
         //---------------------------------------------------------------------------
-        private int CalculateEndGrowingDay_Daily(ClimateRecord[] annualClimate)//, Random autoRand)  //Actually only using monthly data for establishment.
+        private int CalculateEndGrowingDay_Daily(ClimateRecord[] annualClimate)//  //Actually only using monthly data for establishment.
         //Calculate End Growing Degree Day (First frost; Minimum = 0 degrees C):
         {
             double nightTemp = 0.0;
@@ -371,14 +362,55 @@ namespace Landis.Library.Climate
                                     
             }
             this.growingDegreeDays = (int)Deg_Days;            
-            return (int) Deg_Days;
-
-            
+            return (int) Deg_Days;            
         }
 
-            
         //---------------------------------------------------------------------------
-                    
-        }              
+        private double CalculateTdew()
+
+        // Function to convert specific humidity to dewpoint temp, calcs develped by Adrienne Marshall
+        // Reference: http://glossary.ametsoc.org/wiki/Mixing_ratio
+        {
+            double T_dew = 0.0;
+            double a = 0.611; // kPa
+            double b = 17.502; // 
+            double c = 240.97; // Â°C
+            double atm_pressure = Climate.ConfigParameters.AtmPressure;
+            for (int day = 1; day < 365; day++)  //Loop through all the days of the year from day 1 to day 365
+            {
+                var specific_humidity = (this.DailySpecificHumidity[day]);
+                var ea = (specific_humidity * atm_pressure) / (specific_humidity + 0.622);  
+
+        //Convert vapor pressure to dewpoint temperature. 
+        // From Campbell and Norman, 1998
+                T_dew = (c * Math.Log(ea / a)) / (b - Math.Log(ea / a));
+            }
+            return T_dew;
+        }
+
+        //---------------------------------------------------------------------------
+        private double ConvertSHtoRH()
+
+        //Calculate Begin Growing Degree Day (Last Frost; Minimum = 0 degrees C):   calcs develped by Adrienne Marshall
+        {
+            double relative_humidity = 0.0;
+            double a = 0.611; // kPa
+            double b = 17.502; // 
+            double c = 240.97; // Â°C
+            double atm_pressure = Climate.ConfigParameters.AtmPressure;
+            for (int day = 1; day < 365; day++)  //Loop through all the days of the year from day 1 to day 365
+            {
+                var specific_humidity = (this.DailySpecificHumidity[day]);
+                var ea = (specific_humidity * atm_pressure) / (specific_humidity + 0.622);   // 
+                //# Calculate saturated vapor pressure based on temperature.
+                var esat = (a * Math.Log(b* DailyTemp[day]) / (DailyTemp[day]) + c);
+                relative_humidity = 100 * ea / esat;
+            }
+            return relative_humidity;
+        }
+
+        //---------------------------------------------------------------------------
+
+    }              
     }
 

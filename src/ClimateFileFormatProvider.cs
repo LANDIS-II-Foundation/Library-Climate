@@ -20,12 +20,15 @@ namespace Landis.Library.Climate
         private List<string> windNorthingTriggerWord;
         private List<string> nDepositionTriggerWord;
         private List<string> co2TriggerWord;
+        private List<string> relativeHumidityTriggerWord;
         private List<string> maxRHTriggerWord;
         private List<string> minRHTriggerWord;
+        private List<string> specificHumidityTriggerWord;
         private List<string> parTriggerWord;
         private List<string> ozoneTriggerWord;
-        private List<string> shortwaveradiationTriggerWord;
-        
+        private List<string> shortWaveRadiationTriggerWord;
+        private List<string> temperatureTriggerWord;
+
 
         private const double ABS_ZERO = -273.15;
             
@@ -40,11 +43,14 @@ namespace Landis.Library.Climate
         public List<string> WindNorthingTriggerWord { get { return this.windNorthingTriggerWord; } }
         public List<string> NDepositionTriggerWord { get { return this.nDepositionTriggerWord; } }
         public List<string> CO2TriggerWord { get { return this.co2TriggerWord; } }
+        public List<string> RelativeHumidityTriggerWord { get { return this.relativeHumidityTriggerWord; } }
         public List<string> MaxRHTriggerWord { get { return this.maxRHTriggerWord; } }
         public List<string> MinRHTriggerWord { get { return this.minRHTriggerWord; } }
+        public List<string> SpecificHumidityTriggerWord { get { return this.specificHumidityTriggerWord; } }
         public List<string> PARTriggerWord { get { return this.parTriggerWord; } }
         public List<string> OzoneTriggerWord { get { return this.ozoneTriggerWord; } }
-        public List<string> ShortWaveRadiationTriggerWord { get { return this.shortwaveradiationTriggerWord; } }      
+        public List<string> ShortWaveRadiationTriggerWord { get { return this.shortWaveRadiationTriggerWord; } }
+        public List<string> TemperatureTriggerWord { get { return this.temperatureTriggerWord; } }
         public string SelectedFormat { get { return format; } }
   
         // JM: properties for transformations
@@ -68,11 +74,14 @@ namespace Landis.Library.Climate
             this.windNorthingTriggerWord = new List<string>() { "northing" , "wind_northing"};
             this.nDepositionTriggerWord = new List<string>() { "Ndeposition", "Ndep" };
             this.co2TriggerWord = new List<string>() { "CO2", "CO2conc" };
+            this.relativeHumidityTriggerWord = new List<string>() { "relative_humidity", "RH" };
             this.maxRHTriggerWord = new List<string>() { "max_relative_humidity", "maxRH" };
             this.minRHTriggerWord = new List<string>() { "min_relative_humidity", "minRH" };
+            this.specificHumidityTriggerWord = new List<string>() { "specific_humidity", "SH" };
             this.parTriggerWord = new List<string>() { "PAR", "Light"};
             this.ozoneTriggerWord = new List<string>() { "ozone", "O3" };
-            this.shortwaveradiationTriggerWord = new List<string>() { "SWR", "ShortWave","SW" };
+            this.shortWaveRadiationTriggerWord = new List<string>() { "shortwave_radiation", "SW_radiation", "SWR"};
+            this.temperatureTriggerWord = new List<string>() { "Temp", "Temperature"};
 
             //IMPORTANT FOR ML:  Need to add these as optional trigger words.
             //this.precipTriggerWord = "Prcp";
@@ -80,10 +89,10 @@ namespace Landis.Library.Climate
             //    this.minTempTriggerWord = "Tmin";
 
             // Transformations used for all formats that have temps in C and precip in mm
-            this.PrecipTransformation = 0.1;        // Assumes data is in mm and so it converts the data from mm to cm.  
-            this.TemperatureTransformation = 0.0;   // Assumes data is in degrees Celsius so no transformation is needed.
-            this.WindSpeedTransformation = 3.6;  //Assumes datas is in m/s so it converts the data to km/h
-            this.WindDirectionTransformation = 180;  //Assumes datas is expressed as the direction the wind comes FROM so it converts it to the direction where wind is blowing TO.
+            this.PrecipTransformation = 0.1;        // Assumes data are in mm and so it converts the data from mm to cm.  
+            this.TemperatureTransformation = 0.0;   // Assumes data are in degrees Celsius so no transformation is needed.
+            this.WindSpeedTransformation = 3.6;  //Assumes data are in m/s so it converts the data to km/h
+            this.WindDirectionTransformation = 180;  //Assumes data are expressed as the direction the wind comes FROM so it converts it to the direction where wind is blowing TO.
       
 
             //this.timeStep = ((this.format == "PRISM") ? TemporalGranularity.Monthly : TemporalGranularity.Daily);
@@ -117,20 +126,7 @@ namespace Landis.Library.Climate
                 case "daily_temp-k_precip-mmday":               // U of Idaho data     
                     this.timeStep = TemporalGranularity.Daily;     //Temp are in Kelvin and precip is in mm.   
                     this.TemperatureTransformation = ABS_ZERO;                           
-                    break;                
-
-                //case "prism_monthly":  //was 'prism'
-                //    this.timeStep = TemporalGranularity.Monthly;
-                //    break;
-
-                //case "mauer_daily":  //was griddedobserved
-                //    this.timeStep = TemporalGranularity.Daily;
-                //    this.precipTriggerWord = "Prcp";
-                //    this.maxTempTriggerWord = "Tmax";
-                //    this.minTempTriggerWord = "Tmin";
-                //    // RH and wind speed for Mauer are the default trigger words
-                //break;
-
+                    break;    
                 default:
                     Climate.TextLog.WriteLine("Error in ClimateFileFormatProvider: the given \"{0}\" file format is not supported.", this.format);
                     throw new ApplicationException("Error in ClimateFileFormatProvider: the given \"" + this.format + "\" file format is not supported.");
