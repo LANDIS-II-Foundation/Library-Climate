@@ -7,18 +7,17 @@ using System.Linq;
 
 namespace Landis.Library.Climate
 {
-    public class AnnualClimate_Daily: AnnualClimate
+    public class AnnualClimate_Daily : AnnualClimate
     {
         public bool DailyDataIsLeapYear;
 
-        public int MaxDayInYear { get { return DailyDataIsLeapYear? 366 : 365; } } // = 366;
+        public int MaxDayInYear { get { return DailyDataIsLeapYear ? 366 : 365; } } // = 366;
 
-        public double[] DailyTemp = new double[366];  
+        public double[] DailyTemp = new double[366];
         public double[] DailyMinTemp = new double[366];
         public double[] DailyMaxTemp = new double[366];
         //public double[] DailyAvgTemp = new double[366];
         public double[] DailyPrecip = new double[366];
-
         public double[] DailyWindDirection = new double[366];
         public double[] DailyWindSpeed = new double[366];
         public double[] DailyWindEasting = new double[366];
@@ -91,7 +90,7 @@ namespace Landis.Library.Climate
                         CalculateDailyData(ecoregion, dailyData, actualTimeStep, latitude);
                         break;
 
-                       
+
                     }
                 case "Daily_AverageAllYears":
                     {
@@ -130,10 +129,10 @@ namespace Landis.Library.Climate
                     throw new ApplicationException(String.Format("Unknown Climate Time Series: {0}", climateOption));
 
             }
-            
+
             this.beginGrowing = CalculateBeginGrowingDay_Daily(); //ecoClimate);
             this.endGrowing = CalculateEndGrowingDay_Daily(dailyData);
-            this.growingDegreeDays = GrowSeasonDegreeDays();         
+            this.growingDegreeDays = GrowSeasonDegreeDays();
             this.DailyDataIsLeapYear = dailyData.Length == 366;
 
         }
@@ -144,7 +143,7 @@ namespace Landis.Library.Climate
 
             this.TotalAnnualPrecip = 0.0;
             for (int d = 0; d < dailyClimateRecords.Length; d++)
-            {                
+            {
                 this.DailyMinTemp[d] = dailyClimateRecords[d].AvgMinTemp;
                 this.DailyMaxTemp[d] = dailyClimateRecords[d].AvgMaxTemp;
                 this.DailyTemp[d] = dailyClimateRecords[d].Temp == -99.0 ? (DailyMinTemp[d] + DailyMaxTemp[d]) / 2.0 : dailyClimateRecords[d].Temp;         // if Temp is missing, then estimate as the average of min and max.
@@ -155,18 +154,25 @@ namespace Landis.Library.Climate
                 this.DailyCO2[d] = dailyClimateRecords[d].AvgCO2;
                 this.DailyMinRH[d] = dailyClimateRecords[d].AvgMinRH;
                 this.DailyMaxRH[d] = dailyClimateRecords[d].AvgMaxRH;
-                this.DailyRH[d] = dailyClimateRecords[d].AvgRH == -99.0 ? (this.DailyMinRH[d] + this.DailyMaxRH[d]) / 2.0 : dailyClimateRecords[d].AvgRH;   // if RH is missing, then estimate as the average of min and max.
                 this.DailySpecificHumidity[d] = dailyClimateRecords[d].AvgSpecificHumidity;
+
+                if (DailyMinRH[d] != -99.0)
+                    this.DailyRH[d] = (this.DailyMinRH[d] + this.DailyMaxRH[d]) / 2.0;   // if minRH exists, then estimate as the average of min and max  
+                else if (dailyClimateRecords[d].AvgSpecificHumidity != -99.0)
+                    this.DailyRH[d] = ConvertSHtoRH(dailyClimateRecords[d].AvgSpecificHumidity, DailyTemp[d]);                                   // if specific humidity is present, then use it to calculate RH.
+                else
+                    this.DailyRH[d] = -99.0;
+
                 this.DailyPAR[d] = dailyClimateRecords[d].AvgPAR;
                 this.DailyOzone[d] = dailyClimateRecords[d].AvgOzone;
                 this.DailyFireWeatherIndex[d] = dailyClimateRecords[d].AvgFWI;
-
+                this.DailyShortWaveRadiation[d] = dailyClimateRecords[d].AvgShortWaveRadiation;
 
                 this.DailyVarTemp[d] = dailyClimateRecords[d].VarTemp;
                 this.DailyVarPpt[d] = dailyClimateRecords[d].VarPpt;
                 this.DailyPrecip[d] = dailyClimateRecords[d].AvgPpt;
 
-                var avgTemp = (this.DailyMinTemp[d] + this.DailyMaxTemp[d])/2;
+                var avgTemp = (this.DailyMinTemp[d] + this.DailyMaxTemp[d]) / 2;
                 //this.DailyRH[d] = 100 * Math.Exp((17.269 * this.DailyMinTemp[d]) / (273.15 + this.DailyMinTemp[d]) - (17.269 * avgTemp) / (273.15 + avgTemp));
             }
         }
@@ -219,7 +225,7 @@ namespace Landis.Library.Climate
                         dailyMaxTemp += (yearRecords[d].AvgMaxTemp + yearRecords[d + 1].AvgMaxTemp) / 2.0;
                         dailyVarTemp += (yearRecords[d].VarTemp + yearRecords[d + 1].VarTemp) / 2.0;
                         dailyVarPpt += (yearRecords[d].VarPpt + yearRecords[d + 1].VarPpt) / 2.0;
-                        dailyPrecip += (yearRecords[d].AvgPpt + yearRecords[d + 1].AvgPpt) / 2.0;                        
+                        dailyPrecip += (yearRecords[d].AvgPpt + yearRecords[d + 1].AvgPpt) / 2.0;
                         dailyWindDirection += (yearRecords[d].AvgWindDirection + yearRecords[d + 1].AvgWindDirection) / 2.0;
                         dailyWindSpeed += (yearRecords[d].AvgWindSpeed + yearRecords[d + 1].AvgWindSpeed) / 2.0;
                         dailyNDeposition += (yearRecords[d].AvgNDeposition + yearRecords[d + 1].AvgNDeposition) / 2.0;
@@ -241,7 +247,7 @@ namespace Landis.Library.Climate
                         dailyMaxTemp += yearRecords[dIndex].AvgMaxTemp;
                         dailyVarTemp += yearRecords[dIndex].VarTemp;
                         dailyVarPpt += yearRecords[dIndex].VarPpt;
-                        dailyPrecip += yearRecords[dIndex].AvgPpt;         
+                        dailyPrecip += yearRecords[dIndex].AvgPpt;
                         dailyWindDirection += yearRecords[dIndex].AvgWindDirection;
                         dailyWindSpeed += yearRecords[dIndex].AvgWindSpeed;
                         dailyNDeposition += yearRecords[dIndex].AvgNDeposition;
@@ -253,7 +259,7 @@ namespace Landis.Library.Climate
                         dailyOzone += yearRecords[dIndex].AvgOzone;
                         dailyShortWaveRadiation += yearRecords[dIndex].AvgShortWaveRadiation;
                         dailyFWI += yearRecords[dIndex].AvgFWI;
-                        
+
                     }
                 }
 
@@ -266,7 +272,7 @@ namespace Landis.Library.Climate
                     dailyData[d].StdDevTemp = Math.Sqrt(dailyVarTemp / yearCount);
                     dailyData[d].VarPpt = dailyVarPpt / yearCount;
                     dailyData[d].AvgPpt = dailyPrecip / yearCount;
-                    dailyData[d].StdDevPpt = Math.Sqrt(dailyPrecip / yearCount);                    
+                    dailyData[d].StdDevPpt = Math.Sqrt(dailyPrecip / yearCount);
                     dailyData[d].AvgWindDirection = dailyWindDirection / yearCount;
                     dailyData[d].AvgWindSpeed = dailyWindSpeed / yearCount;
                     dailyData[d].AvgNDeposition = dailyNDeposition / yearCount;
@@ -284,34 +290,34 @@ namespace Landis.Library.Climate
             return dailyData;
         }
 
-        
-        
+
+
         private int GetJulianMonthFromJulianDay(int yr, int mo, int d)
         {
             System.Globalization.JulianCalendar jc = new System.Globalization.JulianCalendar();
-            return jc.GetMonth(new DateTime(yr,mo,d,jc));
+            return jc.GetMonth(new DateTime(yr, mo, d, jc));
         }
-                     
+
 
         //---------------------------------------------------------------------------
         private int CalculateBeginGrowingDay_Daily()  //Actually only using monthly data to calculate parameter for establishment.
-        
+
         //Calculate Begin Growing Degree Day (Last Frost; Minimum = 0 degrees C): 
         {
             double nightTemp = 0.0;
             int beginGrow = 162;
-            for (int i = 1 ; i < 162; i++)  //Loop through all the days of the year from day 1 to day 162
+            for (int i = 1; i < 162; i++)  //Loop through all the days of the year from day 1 to day 162
             {
                 nightTemp = this.DailyMinTemp[i];
                 if (nightTemp > 0.0)
                 {
-                   // this.beginGrowing = i;
+                    // this.beginGrowing = i;
                     beginGrow = i;
                     break;
                 }
             }
-            
-            return beginGrow;           
+
+            return beginGrow;
         }
 
         //---------------------------------------------------------------------------
@@ -333,22 +339,22 @@ namespace Landis.Library.Climate
                 }
                 //Climate.TextLog.WriteLine("  Calculating end begin growing season day...{0}", endGrowingDay);
             }
-            
+
             return 0;
         }
 
-       
 
-         //---------------------------------------------------------------------------
+
+        //---------------------------------------------------------------------------
         public int GrowSeasonDegreeDays()            //Actually only using only monthly data for establishment.
         //Method for calculating the growing season degree days (Degree_Day) based on daily temperatures
         {
-             //degDayBase is temperature (C) above which degree days (Degree_Day)
+            //degDayBase is temperature (C) above which degree days (Degree_Day)
             //are counted
             //In v3.1, we used to use a base of 42F but Botkin et al actually recommends 40oF in his original publication- RS/ML
             //double degDayBase = 5.56;      // 42F.
             double degDayBase = 4.44;      // 40F.
-            
+
             double Deg_Days = 0.0;
 
             for (int day = 0; day < 365; day++) //for every day of the year
@@ -359,10 +365,10 @@ namespace Landis.Library.Climate
                     Deg_Days += (DailyTemp[day] - degDayBase);
                     //Climate.TextLog.WriteLine("DailyTemp={0:0.0}, Deg_DayBase={1:0.00}, Deg_Days={2:0.00},", DailyTemp[day], degDayBase, Deg_Days);
                 }
-                                    
+
             }
-            this.growingDegreeDays = (int)Deg_Days;            
-            return (int) Deg_Days;            
+            this.growingDegreeDays = (int)Deg_Days;
+            return (int)Deg_Days;
         }
 
         //---------------------------------------------------------------------------
@@ -379,38 +385,34 @@ namespace Landis.Library.Climate
             for (int day = 1; day < 365; day++)  //Loop through all the days of the year from day 1 to day 365
             {
                 var specific_humidity = (this.DailySpecificHumidity[day]);
-                var ea = (specific_humidity * atm_pressure) / (specific_humidity + 0.622);  
+                var ea = (specific_humidity * atm_pressure) / (specific_humidity + 0.622);
 
-        //Convert vapor pressure to dewpoint temperature. 
-        // From Campbell and Norman, 1998
+                //Convert vapor pressure to dewpoint temperature. 
+                // From Campbell and Norman, 1998
                 T_dew = (c * Math.Log(ea / a)) / (b - Math.Log(ea / a));
             }
             return T_dew;
         }
 
         //---------------------------------------------------------------------------
-        private double ConvertSHtoRH()
-
-        //Calculate Begin Growing Degree Day (Last Frost; Minimum = 0 degrees C):   calcs develped by Adrienne Marshall
+        private static double ConvertSHtoRH(double specific_humidity, double daily_temp)
         {
+            //Calculate relative humidity based on average temp and specific humidity:   calcs develped by Adrienne Marshall
+
             double relative_humidity = 0.0;
             double a = 0.611; // kPa
             double b = 17.502; // 
             double c = 240.97; // Â°C
-            double atm_pressure = Climate.ConfigParameters.AtmPressure;
-            for (int day = 1; day < 365; day++)  //Loop through all the days of the year from day 1 to day 365
-            {
-                var specific_humidity = (this.DailySpecificHumidity[day]);
-                var ea = (specific_humidity * atm_pressure) / (specific_humidity + 0.622);   // 
-                //# Calculate saturated vapor pressure based on temperature.
-                var esat = (a * Math.Log(b* DailyTemp[day]) / (DailyTemp[day]) + c);
-                relative_humidity = 100 * ea / esat;
-            }
+            double atm_pressure = Climate.ConfigParameters.AtmPressure;  // units of kPa
+            var ea = (specific_humidity * atm_pressure) / (specific_humidity + 0.622);   // specific humidity in units of g/kg
+            //# Calculate saturated vapor pressure based on temperature.
+            var esat = (a * Math.Log(b * (daily_temp + 273.15)) / (daily_temp + 273.15) + c); //daily_temp is in C, thus the conversion to K is internal
+            relative_humidity = 100 * ea / esat;
             return relative_humidity;
         }
 
         //---------------------------------------------------------------------------
 
-    }              
     }
+}
 

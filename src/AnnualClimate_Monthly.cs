@@ -399,7 +399,6 @@ namespace  Landis.Library.Climate
                     monthlyData[mo].AvgOzone = monthlyOzone / yearCount;
                     monthlyData[mo].AvgCO2 = monthlyCO2 / yearCount;
                     monthlyData[mo].AvgShortWaveRadiation = monthlyFWI / yearCount;
-                    monthlyData[mo].AvgShortWaveRadiation = monthlyFWI / yearCount;
                 }
             }
             return monthlyData;
