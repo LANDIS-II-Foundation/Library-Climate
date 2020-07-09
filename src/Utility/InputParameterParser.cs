@@ -129,29 +129,14 @@ namespace Landis.Library.Climate
                 parameters.WinterStart = wStart.Value;
             }
 
+            InputVar<int> atmPressure = new InputVar<int>("AtmosphericPressure");
+            if (ReadOptionalVar(atmPressure))
+                parameters.AtmPressure = atmPressure.Value;
+
+
             return parameters; 
 
 
-        }
-         //---------------------------------------------------------------------
-
-//        public static TimeSeriesNames TimeSeriesParse(string word)
-//        {
-//Monthly_AverageAllYears, Monthly_AverageWithVariation, Monthly_RandomYear, Monthly_SequencedYears, Daily_RandomYear, Daily_AverageAllYears, Daily_SequencedYears
-            
-//            if (word == "gamma")
-//                return Distribution.gamma;
-//            else if (word == "lognormal")
-//                return Distribution.lognormal;
-//            else if (word == "normal")
-//                return Distribution.normal;
-//            else if (word == "Weibull")
-//                return Distribution.Weibull;
-//            throw new System.FormatException("Valid Distributions: gamma, lognormal, normal, Weibull");
-//        }   
+        }         
     }
-
-
-
-
 }

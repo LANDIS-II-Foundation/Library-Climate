@@ -23,6 +23,7 @@ namespace Landis.Library.Climate
         //private double rHSlopeAdjust;
         private int springStart;
         private int winterStart;
+        private int atmPressure;
 
 
         //---------------------------------------------------------------------
@@ -177,6 +178,20 @@ namespace Landis.Library.Climate
                 if (value < 0 || value > 365 || value < SpringStart)
                     throw new InputValueException(value.ToString(), "\"{0}\" must be a valid Julian day of year AND > spring start.", value);
                 winterStart = value;
+            }
+        }
+        //---------------------------------------------------------------------
+        public int AtmPressure
+        {
+            get
+            {
+                return atmPressure;
+            }
+            set
+            {
+                if (value < 30 || value > 120 || value < AtmPressure)
+                    throw new InputValueException(value.ToString(), "\"{0}\" must be a valid atmospheric pressure between 30 and 120 kPa.", value);
+                atmPressure = value;
             }
         }
     }

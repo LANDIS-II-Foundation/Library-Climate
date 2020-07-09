@@ -15,6 +15,7 @@ namespace Landis.Library.Climate
         //double RHSlopeAdjust { get; set; }
         int SpringStart { get; set; }
         int WinterStart { get; set; }
-        
+        int AtmPressure { get; set; }
+
     }
 }

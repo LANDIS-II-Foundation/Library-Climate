@@ -45,20 +45,31 @@ namespace Landis.Library.Climate
                 {
 
                     // These are seed values for the beginning of the fire season
-                    double FineFuelMoistureCode_yesterday = 85;
-                    double DuffMoistureCode_yesterday = 6;
-                    double DroughtCode_yesterday = 15;
+                    //double FineFuelMoistureCode_yesterday = 85; default
+                    double FineFuelMoistureCode_yesterday = 88;
+                    //double DuffMoistureCode_yesterday = 6;  default
+                    double DuffMoistureCode_yesterday = 59;
+                    //double DroughtCode_yesterday = 15; default
+                    double DroughtCode_yesterday = 136;
                     //for (int month = 0; month < 12; month++)
                     for (int timestep = 0; timestep < maxtimestep; timestep++)
                     {
                         if (timestep >= springStart && timestep < winterStart)
                         {
-                            temperature = (TimestepData[ecoregion.Index][timestep].AvgMaxTemp + TimestepData[ecoregion.Index][timestep].AvgMinTemp) / 2;
+                            //temperature = (TimestepData[ecoregion.Index][timestep].AvgMaxTemp + TimestepData[ecoregion.Index][timestep].AvgMinTemp) / 2;
+                            temperature = TimestepData[ecoregion.Index][timestep].Temp == -99.0 ? (TimestepData[ecoregion.Index][timestep].AvgMinTemp + TimestepData[ecoregion.Index][timestep].AvgMaxTemp) / 2.0 : TimestepData[ecoregion.Index][timestep].Temp;
                             precipitation = TimestepData[ecoregion.Index][timestep].AvgPpt;
                             WindSpeedVelocity = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
                             WindAzimuth = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
                             //relativeHumidity = (TimestepData[ecoregion.Index][timestep].AvgMaxRH + TimestepData[ecoregion.Index][timestep].AvgMinRH) / 2;
-                            relativeHumidity = TimestepData[ecoregion.Index][timestep].AvgRH;
+                            //relativeHumidity = TimestepData[ecoregion.Index][timestep].AvgRH;
+                            if (TimestepData[ecoregion.Index][timestep].AvgMinRH != -99.0)
+                                relativeHumidity = (TimestepData[ecoregion.Index][timestep].AvgMinRH + TimestepData[ecoregion.Index][timestep].AvgMaxRH) / 2.0;   // if minRH exists, then estimate as the average of min and max  
+                            else if (TimestepData[ecoregion.Index][timestep].AvgSpecificHumidity != -99.0)
+                                relativeHumidity = AnnualClimate_Daily.ConvertSHtoRH(TimestepData[ecoregion.Index][timestep].AvgSpecificHumidity, temperature);                                   // if specific humidity is present, then use it to calculate RH.
+                            else
+                                relativeHumidity = -99.0;
+
 
                             if (relativeHumidity > 100)
                             {
