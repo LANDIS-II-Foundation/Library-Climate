@@ -45,12 +45,12 @@ namespace Landis.Library.Climate
                 {
 
                     // These are seed values for the beginning of the fire season
-                    //double FineFuelMoistureCode_yesterday = 85; default
-                    double FineFuelMoistureCode_yesterday = 88;
-                    //double DuffMoistureCode_yesterday = 6;  default
-                    double DuffMoistureCode_yesterday = 59;
-                    //double DroughtCode_yesterday = 15; default
-                    double DroughtCode_yesterday = 136;
+                    double FineFuelMoistureCode_yesterday = 85; 
+                    //double FineFuelMoistureCode_yesterday = 88;  //AK value
+                    double DuffMoistureCode_yesterday = 6;  
+                    //double DuffMoistureCode_yesterday = 59;  //AK value
+                    double DroughtCode_yesterday = 15; 
+                    //double DroughtCode_yesterday = 136;  //AK value
                     //for (int month = 0; month < 12; month++)
                     for (int timestep = 0; timestep < maxtimestep; timestep++)
                     {
