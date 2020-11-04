@@ -404,7 +404,7 @@ namespace Landis.Library.Climate
             double b = 17.502; // 
             double c = 240.97; // Â°C
             double atm_pressure = Climate.ConfigParameters.AtmPressure;  // units of kPa
-            var ea = ((specific_humidity/1000) * atm_pressure) / ((specific_humidity/1000) + 0.622);   // specific humidity in units of g/kg
+            var ea = ((specific_humidity) * atm_pressure) / ((specific_humidity) + 0.622);   // specific humidity in units of kg/kg
             //# Calculate saturated vapor pressure based on temperature.
             //var esat = (a * Math.Log(b * (daily_temp + 273.15)) / (daily_temp + 273.15) + c); //daily_temp is in C, but the equation might be in K. not sure.
             var esat = a * Math.Exp((b * daily_temp) / (daily_temp + c)); //daily_temp is in C,

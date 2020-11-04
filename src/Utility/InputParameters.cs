@@ -21,6 +21,9 @@ namespace Landis.Library.Climate
         private string spinUpClimateTimeSeries;
         private bool climateFire = false;
         //private double rHSlopeAdjust;
+        private int FineFuelMoistureCode_yesterday;
+        private int DuffMoistureCode_yesterday;
+        private int DroughtCode_yesterday;
         private int springStart;
         private int winterStart;
         private int atmPressure;
@@ -151,6 +154,54 @@ namespace Landis.Library.Climate
         //        rHSlopeAdjust = value;
         //    }
         //}
+
+        //---------------------------------------------------------------------
+        
+        public int FineFuelMoistureCode_Yesterday
+        {
+            get
+            {
+                return FineFuelMoistureCode_yesterday;
+            }
+            set
+            {
+                if (value < 0 || value > 500)
+                    throw new InputValueException(value.ToString(), "\"{0}\" must be a valid fine fuel moisture code.", value);
+                FineFuelMoistureCode_yesterday = value;
+            }
+        }
+
+        //---------------------------------------------------------------------
+
+        public int DuffMoistureCode_Yesterday
+        {
+            get
+            {
+                return DuffMoistureCode_yesterday;
+            }
+            set
+            {
+                if (value < 0 || value > 500)
+                    throw new InputValueException(value.ToString(), "\"{0}\" must be a valid duff moisture code.", value);
+                DuffMoistureCode_yesterday = value;
+            }
+        }
+
+        //---------------------------------------------------------------------
+
+        public int DroughtCode_Yesterday
+        {
+            get
+            {
+                return DroughtCode_yesterday;
+            }
+            set
+            {
+                if (value < 0 || value > 365)
+                    throw new InputValueException(value.ToString(), "\"{0}\" must be a valid drought code.", value);
+                DroughtCode_yesterday = value;
+            }
+        }
 
         //---------------------------------------------------------------------
         public int SpringStart

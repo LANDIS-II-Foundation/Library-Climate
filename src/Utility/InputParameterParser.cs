@@ -119,6 +119,17 @@ namespace Landis.Library.Climate
                 //InputVar<double> rHSlopeAdjust = new InputVar<double>(Names.RHSlopeAdjust);
                 //ReadVar(rHSlopeAdjust);
                 //parameters.RHSlopeAdjust = rHSlopeAdjust.Value;
+                InputVar<int> FFMoistCode = new InputVar<int>("FineFuelMoistureCode");
+                ReadVar(FFMoistCode);
+                parameters.FineFuelMoistureCode_Yesterday = FFMoistCode.Value;
+
+                InputVar<int> DuffMoistCode = new InputVar<int>("DuffMoistureCode");
+                ReadVar(DuffMoistCode);
+                parameters.DuffMoistureCode_Yesterday = DuffMoistCode.Value;
+
+                InputVar<int> DroughtCode = new InputVar<int>("DroughtCode");
+                ReadVar(DroughtCode);
+                parameters.DroughtCode_Yesterday = DroughtCode.Value;
 
                 InputVar<int> sStart = new InputVar<int>("SpringStart");
                 ReadVar(sStart);

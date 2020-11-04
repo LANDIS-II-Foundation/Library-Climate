@@ -13,6 +13,9 @@ namespace Landis.Library.Climate
         string SpinUpClimateFileFormat { get; set; }
         bool UsingFireClimate { get; set; }
         //double RHSlopeAdjust { get; set; }
+        int FineFuelMoistureCode_Yesterday { get; set; }
+        int DuffMoistureCode_Yesterday { get; set; }
+        int DroughtCode_Yesterday { get; set; }
         int SpringStart { get; set; }
         int WinterStart { get; set; }
         int AtmPressure { get; set; }

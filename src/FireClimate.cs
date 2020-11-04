@@ -27,6 +27,9 @@ namespace Landis.Library.Climate
         public static void CalculateFireWeather(int year, ClimateRecord[][] TimestepData)
         {
             //double rHSlopeAdjust = Climate.ConfigParameters.RHSlopeAdjust;
+            double FineFuelMoistureCode_yesterday = Climate.ConfigParameters.FineFuelMoistureCode_Yesterday;
+            double DuffMoistureCode_yesterday = Climate.ConfigParameters.DuffMoistureCode_Yesterday;
+            double DroughtCode_yesterday = Climate.ConfigParameters.DroughtCode_Yesterday;
             int springStart = Climate.ConfigParameters.SpringStart;
             int winterStart = Climate.ConfigParameters.WinterStart;
 
@@ -44,12 +47,12 @@ namespace Landis.Library.Climate
                 if (ecoregion.Active)
                 {
 
-                    // These are seed values for the beginning of the fire season
-                    double FineFuelMoistureCode_yesterday = 85; 
-                    //double FineFuelMoistureCode_yesterday = 88;  //AK value
-                    double DuffMoistureCode_yesterday = 6;  
-                    //double DuffMoistureCode_yesterday = 59;  //AK value
-                    double DroughtCode_yesterday = 15; 
+                    // These are seed values for the beginning of the fire season                    
+                    //double FineFuelMoistureCode_yesterday = 85; 
+                    //double FineFuelMoistureCode_yesterday = 88;  //AK value                    
+                    //double DuffMoistureCode_yesterday = 6;  
+                    //double DuffMoistureCode_yesterday = 59;  //AK value                    
+                    //double DroughtCode_yesterday = 15; 
                     //double DroughtCode_yesterday = 136;  //AK value
                     //for (int month = 0; month < 12; month++)
                     for (int timestep = 0; timestep < maxtimestep; timestep++)
