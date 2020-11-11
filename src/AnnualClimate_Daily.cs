@@ -25,9 +25,10 @@ namespace Landis.Library.Climate
         public double[] DailyNDeposition = new double[366];
         public double[] DailyCO2 = new double[366];
         public double[] DailyRH = new double[366];
+        public double[] DailyTdew = new double[366];
         public double[] DailyMinRH = new double[366];
         public double[] DailyMaxRH = new double[366];
-        public double[] DailySpecificHumidity = new double[366];
+        public double[] DailySpecificHumidity = new double[366];        
         public double[] DailyPAR = new double[366];
         public double[] DailyOzone = new double[366];
         public double[] DailyShortWaveRadiation = new double[366];
@@ -159,9 +160,15 @@ namespace Landis.Library.Climate
                 if (DailyMinRH[d] != -99.0)
                     this.DailyRH[d] = (this.DailyMinRH[d] + this.DailyMaxRH[d]) / 2.0;   // if minRH exists, then estimate as the average of min and max  
                 else if (dailyClimateRecords[d].AvgSpecificHumidity != -99.0)
-                    this.DailyRH[d] = ConvertSHtoRH(dailyClimateRecords[d].AvgSpecificHumidity, DailyTemp[d]);                                   // if specific humidity is present, then use it to calculate RH.
+                {
+                    this.DailyRH[d] = ConvertSHtoRH(dailyClimateRecords[d].AvgSpecificHumidity, DailyTemp[d]);   // if specific humidity is present, then use it to calculate RH.
+                    this.DailyTdew[d] = ConvertSHtoTdew(dailyClimateRecords[d].AvgSpecificHumidity);   // if specific humidity is present, then use it to calculate RH.
+                }
                 else
+                {
                     this.DailyRH[d] = -99.0;
+                    this.DailyTdew[d] = -99.0;
+                }
 
                 this.DailyPAR[d] = dailyClimateRecords[d].AvgPAR;
                 this.DailyOzone[d] = dailyClimateRecords[d].AvgOzone;
@@ -372,46 +379,88 @@ namespace Landis.Library.Climate
         }
 
         //---------------------------------------------------------------------------
-        private double CalculateTdew()
+    //    private double ConvertSHtoTdew(double specific_humidity)
+
+    //     Function to convert specific humidity to dewpoint temp, calcs develped by Adrienne Marshall
+
+    //     Reference: http://glossary.ametsoc.org/wiki/Mixing_ratio
+    //    {
+    //        double T_dew = 0.0;
+    //    double a = 0.611; // kPa
+    //    double b = 17.502; // 
+    //    double c = 240.97; // Â°C
+    //    double atm_pressure = Climate.ConfigParameters.AtmPressure;
+    //        for (int day = 1; day< 365; day++)  //Loop through all the days of the year from day 1 to day 365
+    //        {
+    //            var specific_humidity = (this.DailySpecificHumidity[day]);
+    //    var ea = (specific_humidity * atm_pressure) / (specific_humidity + 0.622);
+
+    //    Convert vapor pressure to dewpoint temperature.
+    //     From Campbell and Norman, 1998
+
+    //    T_dew = (c * Math.Log(ea / a)) / (b - Math.Log(ea / a));
+    //}
+    //        return T_dew;
+    //    }
+
+//---------------------------------------------------------------------------
+private double ConvertSHtoTdew(double specific_humidity)
 
         // Function to convert specific humidity to dewpoint temp, calcs develped by Adrienne Marshall
-        // Reference: http://glossary.ametsoc.org/wiki/Mixing_ratio
+
+        // (https://archive.eol.ucar.edu/projects/ceop/dm/documents/refdata_report/eqns.html)
+        //# From Bolton, 1980
         {
             double T_dew = 0.0;
-            double a = 0.611; // kPa
-            double b = 17.502; // 
-            double c = 240.97; // Â°C
-            double atm_pressure = Climate.ConfigParameters.AtmPressure;
+            double atm_pressure = Climate.ConfigParameters.AtmPressure *10; //Convert pressure to kPa to mb
             for (int day = 1; day < 365; day++)  //Loop through all the days of the year from day 1 to day 365
             {
-                var specific_humidity = (this.DailySpecificHumidity[day]);
-                var ea = (specific_humidity * atm_pressure) / (specific_humidity + 0.622);
-
+                var ea = (specific_humidity * atm_pressure) / (0.378 * specific_humidity + 0.622);            
+                
+                
                 //Convert vapor pressure to dewpoint temperature. 
                 // From Campbell and Norman, 1998
-                T_dew = (c * Math.Log(ea / a)) / (b - Math.Log(ea / a));
+                T_dew = Math.Log(ea / 6.112) * 243.5 / (17.67 - Math.Log(ea / 6.112));
             }
             return T_dew;
         }
+        ////---------------------------------------------------------------------------
+        //public static double ConvertSHtoRH(double specific_humidity, double daily_temp)
+        //{
+        //    //Calculate relative humidity based on average temp and specific humidity:   calcs develped by Adrienne Marshall
+
+        //    double relative_humidity = 0.0;
+        //    double a = 0.611; // kPa
+        //    double b = 17.502; // 
+        //    double c = 240.97; // Â°C
+        //    double atm_pressure = Climate.ConfigParameters.AtmPressure;  // units of kPa
+        //    var ea = ((specific_humidity) * atm_pressure) / ((specific_humidity) + 0.622);   // specific humidity in units of kg/kg
+        //    //# Calculate saturated vapor pressure based on temperature.
+        //    //var esat = (a * Math.Log(b * (daily_temp + 273.15)) / (daily_temp + 273.15) + c); //daily_temp is in C, but the equation might be in K. not sure.
+        //    var esat = a * Math.Exp((b * daily_temp) / (daily_temp + c)); //daily_temp is in C,
+        //    relative_humidity = 100 * (ea / esat);
+        //    return relative_humidity;
+        //}
 
         //---------------------------------------------------------------------------
         public static double ConvertSHtoRH(double specific_humidity, double daily_temp)
         {
-            //Calculate relative humidity based on average temp and specific humidity:   calcs develped by Adrienne Marshall
+            //Calculate relative humidity based on average temp and specific humidity:   
+            //(https://archive.eol.ucar.edu/projects/ceop/dm/documents/refdata_report/eqns.html) From Bolton, 1980
 
             double relative_humidity = 0.0;
             double a = 0.611; // kPa
             double b = 17.502; // 
             double c = 240.97; // Â°C
-            double atm_pressure = Climate.ConfigParameters.AtmPressure;  // units of kPa
-            var ea = ((specific_humidity) * atm_pressure) / ((specific_humidity) + 0.622);   // specific humidity in units of kg/kg
+            double atm_pressure = Climate.ConfigParameters.AtmPressure *10 ;  // units of kPa converted to mb
+            var ea_mb  = specific_humidity * atm_pressure / (0.378 + specific_humidity + 0.622);   // specific humidity in units of kg/kg
+            var ea = ea_mb / 10;
             //# Calculate saturated vapor pressure based on temperature.
             //var esat = (a * Math.Log(b * (daily_temp + 273.15)) / (daily_temp + 273.15) + c); //daily_temp is in C, but the equation might be in K. not sure.
             var esat = a * Math.Exp((b * daily_temp) / (daily_temp + c)); //daily_temp is in C,
-            relative_humidity = 100 * ea / esat;
+            relative_humidity = 100 * (ea / esat);
             return relative_humidity;
         }
-
         //---------------------------------------------------------------------------
 
     }
