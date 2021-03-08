@@ -131,11 +131,11 @@ namespace Landis.Library.Climate
                 ReadVar(DroughtCode);
                 parameters.DroughtCode_Yesterday = DroughtCode.Value;
 
-                InputVar<int> sStart = new InputVar<int>("SpringStart");
+                InputVar<int> sStart = new InputVar<int>("FirstDayFire");
                 ReadVar(sStart);
                 parameters.SpringStart = sStart.Value;
 
-                InputVar<int> wStart = new InputVar<int>("WinterStart");
+                InputVar<int> wStart = new InputVar<int>("LastDayFire");
                 ReadVar(wStart);
                 parameters.WinterStart = wStart.Value;
             }

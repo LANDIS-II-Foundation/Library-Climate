@@ -131,7 +131,7 @@ namespace Landis.Library.Climate
 
             }
 
-            this.beginGrowing = CalculateBeginGrowingDay_Daily(); //ecoClimate);
+            this.beginGrowing = CalculateBeginGrowingDay_Daily(dailyData); //ecoClimate);
             this.endGrowing = CalculateEndGrowingDay_Daily(dailyData);
             this.growingDegreeDays = GrowSeasonDegreeDays();
             this.DailyDataIsLeapYear = dailyData.Length == 366;
@@ -307,7 +307,9 @@ namespace Landis.Library.Climate
 
 
         //---------------------------------------------------------------------------
-        private int CalculateBeginGrowingDay_Daily()  //Actually only using monthly data to calculate parameter for establishment.
+        //private int CalculateBeginGrowingDay_Daily()  //Actually only using monthly data to calculate parameter for establishment.
+        private int CalculateBeginGrowingDay_Daily(ClimateRecord[] annualClimate)  //Actually only using monthly data to calculate parameter for establishment.
+
 
         //Calculate Begin Growing Degree Day (Last Frost; Minimum = 0 degrees C): 
         {

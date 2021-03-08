@@ -240,7 +240,7 @@ namespace  Landis.Library.Climate
             {
                 this.MonthlyMinTemp[mo] = monthlyClimateRecords[mo].AvgMinTemp;
                 this.MonthlyMaxTemp[mo] = monthlyClimateRecords[mo].AvgMaxTemp;
-                this.MonthlyTemp[mo] = (this.MonthlyMinTemp[mo] + this.MonthlyMaxTemp[mo]) / 2.0;
+                this.MonthlyTemp[mo] = monthlyClimateRecords[mo].Temp == -99.0 ? (this.MonthlyMinTemp[mo] + this.MonthlyMaxTemp[mo]) / 2.0 : monthlyClimateRecords[mo].Temp;
                 this.MonthlyVarTemp[mo] = monthlyClimateRecords[mo].VarTemp;
                 this.MonthlyVarPpt[mo] = monthlyClimateRecords[mo].VarPpt;
                 this.MonthlyPrecip[mo] = monthlyClimateRecords[mo].AvgPpt;
@@ -258,7 +258,7 @@ namespace  Landis.Library.Climate
                 this.MonthlyPAR[mo] = monthlyClimateRecords[mo].AvgPAR;
                 this.MonthlyOzone[mo] = monthlyClimateRecords[mo].AvgOzone;
                 this.MonthlyShortWaveRadiation[mo] = monthlyClimateRecords[mo].AvgShortWaveRadiation;
-                this.MonthlyTemp[mo] = monthlyClimateRecords[mo].Temp;
+                //this.MonthlyTemp[mo] = monthlyClimateRecords[mo].Temp;
                 this.MonthlyFWI[mo] = monthlyClimateRecords[mo].AvgFWI;
 
                 var hr = CalculateDayLength(mo, latitude);
@@ -551,7 +551,7 @@ namespace  Landis.Library.Climate
             int beginGrowingSeasonMonth = 0;  //"Month" when growing season starts, units are actually in days though.  For example, it returns 29 in Feb, 60(29+31) in March, etc.
             int beginGrowingSeason = 0;  //Returns that actual day when the growing season starts.
             
-            for (int month = 1; month < 5; month++)  //Begin looking in February (month=1).  Should be safe for at least 100 years.
+            for (int month = 1; month < 8; month++)  //Begin looking in February (month=1).  Should be safe for at least 100 years.
             {
                 int totalDays = (DaysInMonth(month, this.Year) + DaysInMonth(month - 1, this.Year)) / 2; 
                 double MonthlyMinTemp = this.MonthlyMinTemp[month];

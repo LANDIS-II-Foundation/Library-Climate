@@ -314,6 +314,7 @@ namespace Landis.Library.Climate
                 //Climate.TextLog.WriteLine("Calculated PDSI for Ecoregion {0}, timestep {1}, PDSI Year {2}; PDSI={3:0.00}.", ecoregion.Name, timeStepIndex, timeStep.Key, Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI);
                 timeStepIndex++;
 
+                //WriteAnnualLog(ecoregion, startYear + timeStep.Key, annualClimateMonthly, annualClimateDaily);
                 WriteAnnualLog(ecoregion, startYear + timeStep.Key, annualClimateMonthly);
             }
 
@@ -453,6 +454,7 @@ namespace Landis.Library.Climate
 
 
         //---------------------------------------------------------------------
+        //private static void WriteAnnualLog(IEcoregion ecoregion, int year, AnnualClimate_Monthly annualClimateMonthly, AnnualClimate_Daily annualClimate_Daily)
         private static void WriteAnnualLog(IEcoregion ecoregion, int year, AnnualClimate_Monthly annualClimateMonthly)
         {
             AnnualLog.Clear();
@@ -462,8 +464,14 @@ namespace Landis.Library.Climate
             al.Time = year;
             al.EcoregionName = ecoregion.Name;
             al.EcoregionIndex = ecoregion.Index;
-            al.BeginGrow = annualClimateMonthly.BeginGrowing;
-            al.EndGrow = annualClimateMonthly.EndGrowing;
+            //if (future_allData_granularity == TemporalGranularity.Daily)
+            //    al.BeginGrow = annualClimate_Daily.BeginGrowing;
+            //else
+                al.BeginGrow = annualClimateMonthly.BeginGrowing;
+            //if (future_allData_granularity == TemporalGranularity.Daily)
+            //    al.EndGrow = annualClimate_Daily.EndGrowing;
+            //else
+                al.EndGrow = annualClimateMonthly.EndGrowing;
             al.TAP = annualClimateMonthly.TotalAnnualPrecip;
             al.MAT = annualClimateMonthly.MeanAnnualTemperature;
             al.PDSI = Future_MonthlyData[year][ecoregion.Index].PDSI;
