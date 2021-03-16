@@ -38,6 +38,7 @@ namespace Landis.Library.Climate
         private double stdDevRH;
         private double varRH;
         private double avgSpecificHumidity;
+        private double avgPET;
         private double avgPAR;
         private double stdDevPAR;
         private double varPAR;
@@ -371,6 +372,18 @@ namespace Landis.Library.Climate
                 avgSpecificHumidity = value;
             }
         }
+        public double AvgPET
+        {
+            get
+            {
+                return avgPET;
+            }
+            set
+            {
+                avgPET = value;
+            }
+        }
+
         public double AvgPAR
         {
             get
@@ -498,7 +511,7 @@ namespace Landis.Library.Climate
 
         public ClimateRecord(double avgMinTemp, double avgMaxTemp, double stdDevTemp, double avgPpt, double stdDevPpt, double varTemp, double varPpt, double avgWindDirection,
                             double varWindDirection, double stdDevWindDirection, double avgWindSpeed, double varWindSpeed, double stdDevWindSpeed, double avgWindEasting, double avgWindNorthing, double stdDevWindVectors, double varWindVectors, double avgNDeposition, double varNDeposition, 
-                            double stdDevNDeposition, double avgCO2, double varCO2, double stdDevCO2, double avgRH, double avgMinRH, double avgMaxRH, double stdDevRH, double varRH, double avgSpecificHumidity, double avgPAR, double stdDevPAR, double varPAR,
+                            double stdDevNDeposition, double avgCO2, double varCO2, double stdDevCO2, double avgRH, double avgMinRH, double avgMaxRH, double stdDevRH, double varRH, double avgSpecificHumidity, double avgPET, double avgPAR, double stdDevPAR, double varPAR,
                             double avgOzone, double VarOzone, double stdDevOzone, double avgShortWaveRadiation, double varShortWaveRadiation, double stdDevShortWaveRadiation,double temp,double avgFWI)
         {
             this.avgMinTemp = avgMinTemp;
@@ -530,6 +543,7 @@ namespace Landis.Library.Climate
             this.stdDevRH = stdDevRH;
             this.varRH = VarRH;
             this.avgSpecificHumidity = avgSpecificHumidity;
+            this.avgPET = avgPET;
             this.avgPAR = avgPAR;
             this.stdDevPAR = stdDevPAR;
             this.varPAR = VarPAR;

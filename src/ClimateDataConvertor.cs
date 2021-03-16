@@ -29,10 +29,11 @@ namespace Landis.Library.Climate
             MinRelativeHumidity = 11,
             MaxRelativeHumidity = 12,
             SpecificHumidity = 13,
-            PAR = 14,
-            Ozone = 15,
-            ShortWaveRadiation = 16,
-            Temperature = 17
+            PET = 14,
+            PAR = 15,
+            Ozone = 16,
+            ShortWaveRadiation = 17,
+            Temperature = 18
         }
 
         public static void Convert_USGS_to_ClimateData_FillAlldata(TemporalGranularity timeStep, string climateFile, string climateFileFormat, Climate.Phase climatePhase)
@@ -190,6 +191,11 @@ namespace Landis.Library.Climate
                     else if (format.SpecificHumidityTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
                     {
                         section = FileSection.SpecificHumidity;
+                        groupIndex = 1;
+                    }
+                    else if (format.PETTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)
+                    {
+                        section = FileSection.PET;
                         groupIndex = 1;
                     }
                     else if (format.PARTriggerWord.FindIndex(x => x.Equals(triggerWord, StringComparison.OrdinalIgnoreCase)) >= 0)

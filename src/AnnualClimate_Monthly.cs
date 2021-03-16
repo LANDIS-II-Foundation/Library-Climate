@@ -436,6 +436,7 @@ namespace  Landis.Library.Climate
                 var monthlyMinRH = 0.0;
                 var monthlyMaxRH = 0.0;
                 var monthlySH = 0.0;
+                var monthlyPET = 0.0;
                 var monthlyPAR = 0.0;
                 var monthlyOzone = 0.0;
                 var monthlyShortWaveRadiation = 0.0;
@@ -458,6 +459,7 @@ namespace  Landis.Library.Climate
                     monthlyMaxRH += annDaily.DailyMaxRH[dayOfYear];
                     monthlyMinRH += annDaily.DailyMinRH[dayOfYear];
                     monthlySH += annDaily.DailySpecificHumidity[dayOfYear];
+                    monthlyPET += annDaily.DailyPET[dayOfYear];
                     monthlyPAR += annDaily.DailyPAR[dayOfYear];
                     monthlyOzone += annDaily.DailyOzone[dayOfYear];
                     monthlyShortWaveRadiation += annDaily.DailyShortWaveRadiation[dayOfYear];
@@ -483,6 +485,7 @@ namespace  Landis.Library.Climate
                 monthlyData[mo].AvgMinRH = monthlyMinRH / nDays;
                 monthlyData[mo].AvgMaxRH = monthlyMaxRH / nDays;
                 monthlyData[mo].AvgSpecificHumidity = monthlySH / nDays;
+                monthlyData[mo].AvgPET = monthlyPET / nDays;
                 monthlyData[mo].AvgPAR = monthlyPAR / nDays;
                 monthlyData[mo].AvgOzone = monthlyOzone / nDays;
                 monthlyData[mo].AvgShortWaveRadiation = monthlyShortWaveRadiation / nDays;

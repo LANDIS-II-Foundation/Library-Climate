@@ -28,7 +28,8 @@ namespace Landis.Library.Climate
         public double[] DailyTdew = new double[366];
         public double[] DailyMinRH = new double[366];
         public double[] DailyMaxRH = new double[366];
-        public double[] DailySpecificHumidity = new double[366];        
+        public double[] DailySpecificHumidity = new double[366];
+        public double[] DailyPET = new double[366];
         public double[] DailyPAR = new double[366];
         public double[] DailyOzone = new double[366];
         public double[] DailyShortWaveRadiation = new double[366];
@@ -156,6 +157,7 @@ namespace Landis.Library.Climate
                 this.DailyMinRH[d] = dailyClimateRecords[d].AvgMinRH;
                 this.DailyMaxRH[d] = dailyClimateRecords[d].AvgMaxRH;
                 this.DailySpecificHumidity[d] = dailyClimateRecords[d].AvgSpecificHumidity;
+                this.DailyPET[d] = dailyClimateRecords[d].AvgPET;
 
                 if (DailyMinRH[d] != -99.0)
                     this.DailyRH[d] = (this.DailyMinRH[d] + this.DailyMaxRH[d]) / 2.0;   // if minRH exists, then estimate as the average of min and max  
@@ -213,6 +215,7 @@ namespace Landis.Library.Climate
                 var dailyMinRH = 0.0;
                 var dailyMaxRH = 0.0;
                 var dailySpecificHumidity = 0.0;
+                var dailyPET = 0.0;
                 var dailyPAR = 0.0;
                 var dailyOzone = 0.0;
                 var dailyShortWaveRadiation = 0.0;
@@ -240,6 +243,7 @@ namespace Landis.Library.Climate
                         dailyMinRH += (yearRecords[d].AvgMinRH + yearRecords[d + 1].AvgMinRH) / 2.0;
                         dailyMaxRH += (yearRecords[d].AvgMaxRH + yearRecords[d + 1].AvgMaxRH) / 2.0;
                         dailySpecificHumidity += (yearRecords[d].AvgSpecificHumidity + yearRecords[d + 1].AvgSpecificHumidity) / 2.0;
+                        dailyPET += (yearRecords[d].AvgPET + yearRecords[d + 1].AvgPET) / 2.0;
                         dailyPAR += (yearRecords[d].AvgPAR + yearRecords[d + 1].AvgPAR) / 2.0;
                         dailyOzone += (yearRecords[d].AvgOzone + yearRecords[d + 1].AvgOzone) / 2.0;
                         dailyShortWaveRadiation += (yearRecords[d].AvgShortWaveRadiation + yearRecords[d + 1].AvgShortWaveRadiation) / 2.0;
@@ -261,6 +265,7 @@ namespace Landis.Library.Climate
                         dailyMinRH += yearRecords[dIndex].AvgMinRH;
                         dailyMaxRH += yearRecords[dIndex].AvgMaxRH;
                         dailySpecificHumidity += yearRecords[dIndex].AvgSpecificHumidity;
+                        dailyPET += yearRecords[dIndex].AvgPET;
                         dailyPAR += yearRecords[dIndex].AvgPAR;
                         dailyCO2 += yearRecords[dIndex].AvgCO2;
                         dailyOzone += yearRecords[dIndex].AvgOzone;
@@ -287,6 +292,7 @@ namespace Landis.Library.Climate
                     dailyData[d].AvgMinRH = dailyMinRH / yearCount;
                     dailyData[d].AvgMaxRH = dailyMaxRH / yearCount;
                     dailyData[d].AvgSpecificHumidity = dailySpecificHumidity / yearCount;
+                    dailyData[d].AvgPET = dailyPET / yearCount;
                     dailyData[d].AvgPAR = dailyPAR / yearCount;
                     dailyData[d].AvgOzone = dailyOzone / yearCount;
                     dailyData[d].AvgShortWaveRadiation = dailyShortWaveRadiation / yearCount;

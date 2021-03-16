@@ -24,6 +24,7 @@ namespace Landis.Library.Climate
         private List<string> maxRHTriggerWord;
         private List<string> minRHTriggerWord;
         private List<string> specificHumidityTriggerWord;
+        private List<string> petTriggerWord;
         private List<string> parTriggerWord;
         private List<string> ozoneTriggerWord;
         private List<string> shortWaveRadiationTriggerWord;
@@ -47,6 +48,7 @@ namespace Landis.Library.Climate
         public List<string> MaxRHTriggerWord { get { return this.maxRHTriggerWord; } }
         public List<string> MinRHTriggerWord { get { return this.minRHTriggerWord; } }
         public List<string> SpecificHumidityTriggerWord { get { return this.specificHumidityTriggerWord; } }
+        public List<string> PETTriggerWord { get { return this.petTriggerWord; } }
         public List<string> PARTriggerWord { get { return this.parTriggerWord; } }
         public List<string> OzoneTriggerWord { get { return this.ozoneTriggerWord; } }
         public List<string> ShortWaveRadiationTriggerWord { get { return this.shortWaveRadiationTriggerWord; } }
@@ -78,6 +80,7 @@ namespace Landis.Library.Climate
             this.maxRHTriggerWord = new List<string>() { "max_relative_humidity", "maxRH" };
             this.minRHTriggerWord = new List<string>() { "min_relative_humidity", "minRH" };
             this.specificHumidityTriggerWord = new List<string>() { "specific_humidity", "SH" };
+            this.petTriggerWord = new List<string>() { "pet", "PET","potentialevapotranspiration"};
             this.parTriggerWord = new List<string>() { "PAR", "Light"};
             this.ozoneTriggerWord = new List<string>() { "ozone", "O3" };
             this.shortWaveRadiationTriggerWord = new List<string>() { "shortwave_radiation", "SW_radiation", "SWR"};
