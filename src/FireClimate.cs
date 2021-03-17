@@ -1,4 +1,13 @@
 ﻿//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash, Vincent Schuster
+// Derived from 
+// Forestry Canada Fire Danger Group 1992. Development and structure of
+// the Canadian Forest Fire Behavior Prediction System. Forestry
+// Canada, Science and Sustainable Development Directorate,
+// Information Report ST-X-3, Ottawa, Ontario, Canada.
+// 
+// Van Wagner, C. E. 1987. Development and structure of the Canadian
+// Forest Fire Weather Index System. Canadian Forest Service, Ottawa,
+// Ontario. Forestry Technical Report 35.
 
 using System;
 using System.Collections.Generic;
