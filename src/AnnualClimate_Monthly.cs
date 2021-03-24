@@ -24,7 +24,7 @@ namespace  Landis.Library.Climate
         public double[] MonthlyMinRH = new double[12];
         public double[] MonthlyMaxRH = new double[12];
         public double[] MonthlyRH = new double[12];
-        public double[] MonthlySpecificHumidity = new double[12];
+        public double[] MonthlySpecificHumidity = new double[12];        
         public double[] MonthlyPAR = new double[12];
         public double[] MonthlyOzone = new double[12];        
         public double[] MonthlyShortWaveRadiation = new double[12];
@@ -214,7 +214,10 @@ namespace  Landis.Library.Climate
             }
 
             //this.MonthlyPET = CalculatePotentialEvapotranspiration();
-            this.MonthlyPET = CalculatePotentialEvapotranspirationThornwaite(); 
+            if (this.MonthlyPET[0] == 0.0)
+                this.MonthlyPET = CalculatePotentialEvapotranspirationThornwaite(); ;   // if minRH exists, then estimate as the average of min and max  
+            
+            //this.MonthlyPET = CalculatePotentialEvapotranspirationThornwaite(); 
             this.MonthlyVPD = CalculateVaporPressureDeficit();
             this.MonthlyGDD = CalculatePnETGDD(); 
 

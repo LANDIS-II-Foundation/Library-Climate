@@ -509,6 +509,7 @@ namespace Landis.Library.Climate
             }
         }
 
+        // no longer being used.
         public ClimateRecord(double avgMinTemp, double avgMaxTemp, double stdDevTemp, double avgPpt, double stdDevPpt, double varTemp, double varPpt, double avgWindDirection,
                             double varWindDirection, double stdDevWindDirection, double avgWindSpeed, double varWindSpeed, double stdDevWindSpeed, double avgWindEasting, double avgWindNorthing, double stdDevWindVectors, double varWindVectors, double avgNDeposition, double varNDeposition, 
                             double stdDevNDeposition, double avgCO2, double varCO2, double stdDevCO2, double avgRH, double avgMinRH, double avgMaxRH, double stdDevRH, double varRH, double avgSpecificHumidity, double avgPET, double avgPAR, double stdDevPAR, double varPAR,
@@ -588,6 +589,7 @@ namespace Landis.Library.Climate
             this.stdDevRH = -99.0;
             this.varRH = -99.0;
             this.avgSpecificHumidity = -99.0;
+            this.avgPET = -99.0;
             this.avgPAR = -99.0;
             this.stdDevPAR = -99.0;
             this.varPAR = -99.0;

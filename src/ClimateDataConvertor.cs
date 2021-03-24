@@ -462,6 +462,10 @@ namespace Landis.Library.Climate
                                 ecoRecord.AvgSpecificHumidity = mean;
                                 break;
 
+                            case FileSection.PET:
+                                ecoRecord.AvgPET = mean;
+                                break;
+
                             case FileSection.PAR:
                                 ecoRecord.AvgPAR = mean;
                                 //ecoRecord.VarPAR = variance;
@@ -603,6 +607,8 @@ namespace Landis.Library.Climate
                             precipRecord.AvgWindSpeed = windRecord.AvgWindSpeed;
                             //precipRecord.VarWindSpeed = windRecord.VarWindSpeed;
                             //precipRecord.StdDevWindSpeed = windRecord.StdDevWindSpeed;
+
+                            precipRecord.AvgPET = windRecord.AvgPET;
 
                             precipRecord.AvgPAR = windRecord.AvgPAR;
                             //precipRecord.StdDevPAR = windRecord.StdDevPAR;

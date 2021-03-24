@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <RootNamespace>Landis.Library.Climate</RootNamespace>
-    <AssemblyName>Landis.Library.Climate-v4.1</AssemblyName>
+    <AssemblyName>Landis.Library.Climate-v4.2</AssemblyName>
     <AssemblyTitle>Landis.Library.Climate-v4</AssemblyTitle>
     <AssemblyCompany>LANDIS-II Foundation</AssemblyCompany>
     <AssemblyProduct>Landis.Properties</AssemblyProduct>
@@ -17,12 +17,12 @@
     <Authors>LANDIS-II Foundation</Authors>
     <Product>Landis.Properties</Product>
     <Copyright>LANDIS-II Foundation</Copyright>
-    <Version>4.1</Version>
+    <Version>4.2</Version>
     <PackageTags>LANDIS-II;Landis;Library;Climate</PackageTags>
     <Description>The climate library for integrating and coordinating climatic inputs.</Description>
     <PackageReleaseNotes>.NET Standard 2.0 update.</PackageReleaseNotes>
     <FileVersion>7.0</FileVersion>
-    <PackageId>Landis.Library.Climate-v4.1</PackageId>
+    <PackageId>Landis.Library.Climate-v4.2</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <Reference Include="Landis.Library.Metadata-v2">
-      <HintPath>lib\Landis.Library.Metadata-v2.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\LANDIS-II-v7\extensions\Landis.Library.Metadata-v2.dll</HintPath>
     </Reference>
   </ItemGroup>
   

@@ -381,6 +381,7 @@ namespace Landis.Library.Climate
                         il.min_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMinRH;
                         il.max_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMaxRH;
                         il.specifichumidty = TimestepData[ecoregion.Index][timestep].AvgSpecificHumidity;
+                        il.pet = TimestepData[ecoregion.Index][timestep].AvgPET;
                         il.par = TimestepData[ecoregion.Index][timestep].AvgPAR;
                         il.ozone = TimestepData[ecoregion.Index][timestep].AvgOzone;
                         il.shortwave = TimestepData[ecoregion.Index][timestep].AvgShortWaveRadiation;
@@ -433,6 +434,7 @@ namespace Landis.Library.Climate
                         il.min_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMinRH;
                         il.max_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMaxRH;
                         il.specifichumidty = TimestepData[ecoregion.Index][timestep].AvgSpecificHumidity;
+                        il.pet = TimestepData[ecoregion.Index][timestep].AvgPET;
                         il.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
                         il.par = TimestepData[ecoregion.Index][timestep].AvgPAR;
                         il.ozone = TimestepData[ecoregion.Index][timestep].AvgOzone;
