@@ -509,6 +509,11 @@ namespace Landis.Library.Climate
             }
         }
 
+        public double DuffMoistureCode { get; set; }
+        public double DroughtCode { get; set; }
+        public double BuildUpIndex { get; set; }
+        public double FineFuelMoistureCode { get; set; }
+
         // no longer being used.
         public ClimateRecord(double avgMinTemp, double avgMaxTemp, double stdDevTemp, double avgPpt, double stdDevPpt, double varTemp, double varPpt, double avgWindDirection,
                             double varWindDirection, double stdDevWindDirection, double avgWindSpeed, double varWindSpeed, double stdDevWindSpeed, double avgWindEasting, double avgWindNorthing, double stdDevWindVectors, double varWindVectors, double avgNDeposition, double varNDeposition, 

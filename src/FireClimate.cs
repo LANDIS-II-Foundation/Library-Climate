@@ -127,6 +127,10 @@ namespace Landis.Library.Climate
                             double DSR = Calculate_DSR(FireWeatherIndex);
                             Calculate_FineFuelMoistureCode(m);
 
+                            TimestepData[ecoregion.Index][timestep].DuffMoistureCode = DuffMoistureCode;
+                            TimestepData[ecoregion.Index][timestep].DroughtCode = DroughtCode;
+                            TimestepData[ecoregion.Index][timestep].BuildUpIndex = BuildUpIndex;
+                            TimestepData[ecoregion.Index][timestep].FineFuelMoistureCode = FineFuelMoistureCode;
                             TimestepData[ecoregion.Index][timestep].AvgFWI = FireWeatherIndex;
                             //Climate.Future_AllData[ecoregion.Index][timestep]..AvgFWI = FireWeatherIndex;
                         }
@@ -392,7 +396,7 @@ namespace Landis.Library.Climate
             return m;
         }
 
-        private static void Calculate_FineFuelMoistureCode(double m)
+        private static double Calculate_FineFuelMoistureCode(double m)
         {
             FineFuelMoistureCode = 0.0;
 
@@ -412,7 +416,7 @@ namespace Landis.Library.Climate
                 throw new FireWeatherCalculationException(meathodName);
             }
 
-            return;
+            return FineFuelMoistureCode;
         }
 
         private static double Calculate_re(double precipitation)

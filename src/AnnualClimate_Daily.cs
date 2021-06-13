@@ -33,6 +33,10 @@ namespace Landis.Library.Climate
         public double[] DailyPAR = new double[366];
         public double[] DailyOzone = new double[366];
         public double[] DailyShortWaveRadiation = new double[366];
+        public double[] DailyDuffMoistureCode = new double[366];
+        public double[] DailyDroughtCode = new double[366];
+        public double[] DailyBuildUpIndex = new double[366];
+        public double[] DailyFineFuelMoistureCode = new double[366];
         public double[] DailyFireWeatherIndex = new double[366];
         public double[] DailyVarTemp = new double[366];
         public double[] DailyVarPpt = new double[366];
@@ -174,6 +178,10 @@ namespace Landis.Library.Climate
 
                 this.DailyPAR[d] = dailyClimateRecords[d].AvgPAR;
                 this.DailyOzone[d] = dailyClimateRecords[d].AvgOzone;
+                this.DailyDuffMoistureCode[d] = dailyClimateRecords[d].DuffMoistureCode;
+                this.DailyDroughtCode[d] = dailyClimateRecords[d].DroughtCode;
+                this.DailyBuildUpIndex[d] = dailyClimateRecords[d].BuildUpIndex;
+                this.DailyFineFuelMoistureCode[d] = dailyClimateRecords[d].FineFuelMoistureCode;
                 this.DailyFireWeatherIndex[d] = dailyClimateRecords[d].AvgFWI;
                 this.DailyShortWaveRadiation[d] = dailyClimateRecords[d].AvgShortWaveRadiation;
 
@@ -219,6 +227,10 @@ namespace Landis.Library.Climate
                 var dailyPAR = 0.0;
                 var dailyOzone = 0.0;
                 var dailyShortWaveRadiation = 0.0;
+                var dailyDuffMoistureCode = 0.0;
+                var dailyDroughtCode = 0.0;
+                var dailyBuildUpIndex = 0.0;
+                var dailyFineFuelMoistureCode = 0.0;
                 var dailyFWI = 0.0;
 
                 // loop over years
@@ -247,6 +259,10 @@ namespace Landis.Library.Climate
                         dailyPAR += (yearRecords[d].AvgPAR + yearRecords[d + 1].AvgPAR) / 2.0;
                         dailyOzone += (yearRecords[d].AvgOzone + yearRecords[d + 1].AvgOzone) / 2.0;
                         dailyShortWaveRadiation += (yearRecords[d].AvgShortWaveRadiation + yearRecords[d + 1].AvgShortWaveRadiation) / 2.0;
+                        dailyDuffMoistureCode += (yearRecords[d].DuffMoistureCode + yearRecords[d + 1].DuffMoistureCode) / 2.0;
+                        dailyDroughtCode += (yearRecords[d].DroughtCode + yearRecords[d + 1].DroughtCode) / 2.0;
+                        dailyBuildUpIndex += (yearRecords[d].BuildUpIndex + yearRecords[d + 1].BuildUpIndex) / 2.0;
+                        dailyFineFuelMoistureCode += (yearRecords[d].FineFuelMoistureCode + yearRecords[d + 1].FineFuelMoistureCode) / 2.0;
                         dailyFWI += (yearRecords[d].AvgFWI + yearRecords[d + 1].AvgFWI) / 2.0;
                     }
                     else
@@ -270,6 +286,10 @@ namespace Landis.Library.Climate
                         dailyCO2 += yearRecords[dIndex].AvgCO2;
                         dailyOzone += yearRecords[dIndex].AvgOzone;
                         dailyShortWaveRadiation += yearRecords[dIndex].AvgShortWaveRadiation;
+                        dailyDuffMoistureCode += yearRecords[dIndex].DuffMoistureCode;
+                        dailyDroughtCode += yearRecords[dIndex].DroughtCode;
+                        dailyBuildUpIndex += yearRecords[dIndex].BuildUpIndex;
+                        dailyFineFuelMoistureCode += yearRecords[dIndex].FineFuelMoistureCode;
                         dailyFWI += yearRecords[dIndex].AvgFWI;
 
                     }
@@ -296,6 +316,10 @@ namespace Landis.Library.Climate
                     dailyData[d].AvgPAR = dailyPAR / yearCount;
                     dailyData[d].AvgOzone = dailyOzone / yearCount;
                     dailyData[d].AvgShortWaveRadiation = dailyShortWaveRadiation / yearCount;
+                    dailyData[d].DuffMoistureCode = dailyDuffMoistureCode / yearCount;
+                    dailyData[d].DroughtCode = dailyDroughtCode / yearCount;
+                    dailyData[d].BuildUpIndex = dailyBuildUpIndex / yearCount;
+                    dailyData[d].FineFuelMoistureCode = dailyFineFuelMoistureCode / yearCount;
                     dailyData[d].AvgFWI = dailyFWI / yearCount;
                 }
             }

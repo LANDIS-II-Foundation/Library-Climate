@@ -36,6 +36,10 @@ namespace  Landis.Library.Climate
         public double[] MonthlyDayLength = new double[12];
         public double[] MonthlyNightLength = new double[12];
         public int[] MonthlyGDD = new int[12];
+        public double[] MonthlyDuffMoistureCode = new double[12];
+        public double[] MonthlyDroughtCode = new double[12];
+        public double[] MonthlyBuildUpIndex = new double[12];
+        public double[] MonthlyFineFuelMoistureCode = new double[12];
         public double[] MonthlyFWI = new double[12];
 
         public AnnualClimate_Monthly(IEcoregion ecoregion, double latitude, Climate.Phase spinupOrfuture, int timeStep, int timeStepIndex)
@@ -262,6 +266,10 @@ namespace  Landis.Library.Climate
                 this.MonthlyOzone[mo] = monthlyClimateRecords[mo].AvgOzone;
                 this.MonthlyShortWaveRadiation[mo] = monthlyClimateRecords[mo].AvgShortWaveRadiation;
                 //this.MonthlyTemp[mo] = monthlyClimateRecords[mo].Temp;
+                this.MonthlyDuffMoistureCode[mo] = monthlyClimateRecords[mo].DuffMoistureCode;
+                this.MonthlyDroughtCode[mo] = monthlyClimateRecords[mo].DroughtCode;
+                this.MonthlyBuildUpIndex[mo] = monthlyClimateRecords[mo].BuildUpIndex;
+                this.MonthlyFineFuelMoistureCode[mo] = monthlyClimateRecords[mo].FineFuelMoistureCode;
                 this.MonthlyFWI[mo] = monthlyClimateRecords[mo].AvgFWI;
 
                 var hr = CalculateDayLength(mo, latitude);
@@ -304,6 +312,10 @@ namespace  Landis.Library.Climate
                 this.MonthlyCO2[mo] = ecoClimate[mo].AvgOzone;
                 this.MonthlyShortWaveRadiation[mo] = ecoClimate[mo].AvgShortWaveRadiation;
                 this.MonthlyTemperature[mo] = ecoClimate[mo].Temp;
+                this.MonthlyDuffMoistureCode[mo] = ecoClimate[mo].DuffMoistureCode;
+                this.MonthlyDroughtCode[mo] = ecoClimate[mo].DroughtCode;
+                this.MonthlyBuildUpIndex[mo] = ecoClimate[mo].BuildUpIndex;
+                this.MonthlyFineFuelMoistureCode[mo] = ecoClimate[mo].FineFuelMoistureCode;
                 this.MonthlyFWI[mo] = ecoClimate[mo].AvgFWI;
 
                 this.TotalAnnualPrecip += this.MonthlyPrecip[mo];
@@ -357,6 +369,10 @@ namespace  Landis.Library.Climate
                 var monthlyOzone = 0.0;
                 var monthlyShortWaveRadiation = 0.0;
                 var monthlyTemperature = 0.0;
+                var monthlyDuffMoistureCode = 0.0;
+                var monthlyDroughtCode = 0.0;
+                var monthlyBuildUpIndex = 0.0;
+                var monthlyFineFuelMoistureCode = 0.0;
                 var monthlyFWI = 0.0;
 
                 foreach (var yearMonthlyRecords in timestepData.Values)
@@ -379,8 +395,11 @@ namespace  Landis.Library.Climate
 
                     monthlyShortWaveRadiation += yearMonthlyRecords[ecoregion.Index][mo].AvgShortWaveRadiation;
                     monthlyTemperature += yearMonthlyRecords[ecoregion.Index][mo].Temp;
+                    monthlyDuffMoistureCode += yearMonthlyRecords[ecoregion.Index][mo].DuffMoistureCode;
+                    monthlyDroughtCode += yearMonthlyRecords[ecoregion.Index][mo].DroughtCode;
+                    monthlyBuildUpIndex += yearMonthlyRecords[ecoregion.Index][mo].BuildUpIndex;
+                    monthlyFineFuelMoistureCode += yearMonthlyRecords[ecoregion.Index][mo].FineFuelMoistureCode;
                     monthlyFWI += yearMonthlyRecords[ecoregion.Index][mo].AvgFWI;
-
                 }
 
                 monthlyData[mo] = new ClimateRecord();
@@ -400,8 +419,13 @@ namespace  Landis.Library.Climate
                     monthlyData[mo].AvgMaxRH = monthlyMaxRH / yearCount;
                     monthlyData[mo].AvgPAR = monthlyPAR / yearCount;
                     monthlyData[mo].AvgOzone = monthlyOzone / yearCount;
-                    monthlyData[mo].AvgCO2 = monthlyCO2 / yearCount;
-                    monthlyData[mo].AvgShortWaveRadiation = monthlyFWI / yearCount;
+                    monthlyData[mo].AvgCO2 = monthlyCO2 / yearCount;                    
+                    monthlyData[mo].AvgShortWaveRadiation = monthlyShortWaveRadiation / yearCount;
+                    monthlyData[mo].DuffMoistureCode = monthlyDuffMoistureCode / yearCount;
+                    monthlyData[mo].DroughtCode = monthlyDroughtCode / yearCount;
+                    monthlyData[mo].BuildUpIndex = monthlyBuildUpIndex / yearCount;
+                    monthlyData[mo].FineFuelMoistureCode = monthlyFineFuelMoistureCode / yearCount;
+                    monthlyData[mo].AvgFWI = monthlyFWI / yearCount;
                 }
             }
             return monthlyData;
@@ -444,6 +468,10 @@ namespace  Landis.Library.Climate
                 var monthlyOzone = 0.0;
                 var monthlyShortWaveRadiation = 0.0;
                 var monthlyTemperature = 0.0;
+                var monthlyDuffMoistureCode = 0.0;
+                var monthlyDroughtCode = 0.0;
+                var monthlyBuildUpIndex = 0.0;
+                var monthlyFineFuelMoistureCode = 0.0;
                 var monthlyFWI = 0.0;
 
                 nDays = daysInMonth[mo];
@@ -467,6 +495,10 @@ namespace  Landis.Library.Climate
                     monthlyOzone += annDaily.DailyOzone[dayOfYear];
                     monthlyShortWaveRadiation += annDaily.DailyShortWaveRadiation[dayOfYear];
                     monthlyTemperature += annDaily.DailyTemp[dayOfYear];
+                    monthlyDuffMoistureCode += annDaily.DailyDuffMoistureCode[dayOfYear];
+                    monthlyDroughtCode += annDaily.DailyDroughtCode[dayOfYear];
+                    monthlyBuildUpIndex += annDaily.DailyBuildUpIndex[dayOfYear];
+                    monthlyFineFuelMoistureCode += annDaily.DailyFineFuelMoistureCode[dayOfYear];
                     monthlyFWI += annDaily.DailyFireWeatherIndex[dayOfYear];
 
                     dayOfYear++;
@@ -493,6 +525,10 @@ namespace  Landis.Library.Climate
                 monthlyData[mo].AvgOzone = monthlyOzone / nDays;
                 monthlyData[mo].AvgShortWaveRadiation = monthlyShortWaveRadiation / nDays;
                 monthlyData[mo].Temp = monthlyTemperature / nDays;
+                monthlyData[mo].DuffMoistureCode = monthlyDuffMoistureCode / nDays;
+                monthlyData[mo].DroughtCode = monthlyDroughtCode / nDays;
+                monthlyData[mo].BuildUpIndex = monthlyBuildUpIndex / nDays;
+                monthlyData[mo].FineFuelMoistureCode = monthlyFineFuelMoistureCode / nDays;
                 monthlyData[mo].AvgFWI = monthlyFWI / nDays;
             }
 

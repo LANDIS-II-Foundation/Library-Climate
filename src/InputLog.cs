@@ -56,7 +56,10 @@ namespace Landis.Library.Climate
         public double max_relativehumidity { get; set; }
 
         [DataFieldAttribute(Desc = "Average Specific Humidity (units variable)", Format = "0.000000")]
-        public double specifichumidty { get; set; }        
+        public double specifichumidty { get; set; }
+
+        [DataFieldAttribute(Desc = "Average Potential Evapotranspiration (units variable)", Format = "0.000000")]
+        public double pet { get; set; }
 
         [DataFieldAttribute(Desc = "Average PAR (units variable)", Format = "0.00")]
         public double par { get; set; }
@@ -69,6 +72,18 @@ namespace Landis.Library.Climate
 
         [DataFieldAttribute(Desc = "Average Temperature (units variable)", Format = "0.00")]
         public double temperature { get; set; }
+
+        [DataFieldAttribute(Desc = "DuffMoistureCode (units variable)", Format = "0.00")]
+        public double DuffMoistureCode { get; set; }
+
+        [DataFieldAttribute(Desc = "DroughtCode (units variable)", Format = "0.00")]
+        public double DroughtCode { get; set; }
+
+        [DataFieldAttribute(Desc = "BuildUpIndex (units variable)", Format = "0.00")]
+        public double BuildUpIndex { get; set; }
+
+        [DataFieldAttribute(Desc = "FineFuelMoistureCode (units variable)", Format = "0.00")]
+        public double FineFuelMoistureCode { get; set; }
 
         [DataFieldAttribute(Desc = "Average Fire Weather Index (units variable)", Format = "0.00")]
         public double FWI { get; set; }

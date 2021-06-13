@@ -388,6 +388,10 @@ namespace Landis.Library.Climate
                         il.temperature = TimestepData[ecoregion.Index][timestep].Temp;
                         if (Climate.ConfigParameters.UsingFireClimate)
                         {
+                            il.DuffMoistureCode = TimestepData[ecoregion.Index][timestep].DuffMoistureCode;
+                            il.DroughtCode = TimestepData[ecoregion.Index][timestep].DroughtCode;
+                            il.BuildUpIndex = TimestepData[ecoregion.Index][timestep].BuildUpIndex;
+                            il.FineFuelMoistureCode = TimestepData[ecoregion.Index][timestep].FineFuelMoistureCode;
                             il.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
                         }
 
@@ -442,6 +446,10 @@ namespace Landis.Library.Climate
                         il.temperature = TimestepData[ecoregion.Index][timestep].Temp;
                         if (Climate.ConfigParameters.UsingFireClimate)
                         {
+                            il.DuffMoistureCode = TimestepData[ecoregion.Index][timestep].DuffMoistureCode;
+                            il.DroughtCode = TimestepData[ecoregion.Index][timestep].DroughtCode;
+                            il.BuildUpIndex = TimestepData[ecoregion.Index][timestep].BuildUpIndex;
+                            il.FineFuelMoistureCode = TimestepData[ecoregion.Index][timestep].FineFuelMoistureCode;
                             il.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
                         }
 
