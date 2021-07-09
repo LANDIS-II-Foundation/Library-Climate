@@ -16,31 +16,43 @@ namespace Landis.Library.Climate
         //private static double RHSlopeAdjust;
         //private static int SpringStart;
         //private static int WinterStart;
-        private static double FireWeatherIndex;
-        private static double FineFuelMoistureCode;
-        private static double DuffMoistureCode;
-        private static double DroughtCode;
-        private static double BuildUpIndex;
+        //private static double FireWeatherIndex;
+        //private static double FineFuelMoistureCode;
+        //private static double DuffMoistureCode;
+        //private static double DroughtCode;
+        //private static double BuildUpIndex;
         private static double WindSpeedVelocity;
         private static double WindAzimuth;
 
+        //private static double[] _fireWeatherIndex;
+        private static double[] _fineFuelMoistureCode;
+        private static double[] _duffMoistureCode;
+        private static double[] _droughtCode;
+        //private static double[] _buildUpIndex;
+
+
         public static void CalculateFireWeather(int year, ClimateRecord[][] TimestepData)
         {
-            //double rHSlopeAdjust = Climate.ConfigParameters.RHSlopeAdjust;
-            double FineFuelMoistureCode_yesterday = Climate.ConfigParameters.FineFuelMoistureCode_Yesterday;
-            double DuffMoistureCode_yesterday = Climate.ConfigParameters.DuffMoistureCode_Yesterday;
-            double DroughtCode_yesterday = Climate.ConfigParameters.DroughtCode_Yesterday;
-            int springStart = Climate.ConfigParameters.SpringStart;
-            int winterStart = Climate.ConfigParameters.WinterStart;
+            double fineFuelMoistureCodeYesterday, duffMoistureCodeYesterday, droughtCodeYesterday;
+            var springStart = Climate.ConfigParameters.SpringStart;
+            var winterStart = Climate.ConfigParameters.WinterStart;
 
             int maxtimestep = 12;
             if (Climate.AllData_granularity == TemporalGranularity.Daily)
                 maxtimestep = 365;
             WindSpeedVelocity = -9999.0;
             WindAzimuth = -9999.0;
-            double temperature = -9999.0;
-            double precipitation = -9999.0;
-            double relativeHumidity = -9999.0;
+            var temperature = -9999.0;
+            var precipitation = -9999.0;
+            var relativeHumidity = -9999.0;
+
+            // initialize arrays to save ecoregion data
+            if (_fineFuelMoistureCode == null)
+            {
+                _fineFuelMoistureCode = new double[Climate.ModelCore.Ecoregions.Count];
+                _duffMoistureCode = new double[Climate.ModelCore.Ecoregions.Count];
+                _droughtCode = new double[Climate.ModelCore.Ecoregions.Count];
+            }
 
             foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
             {
@@ -80,15 +92,19 @@ namespace Landis.Library.Climate
                             }
 
                             if (timestep != springStart) //for each day, this loop assigns yesterday's fire weather variables
-
                             {
-                                FineFuelMoistureCode_yesterday = FineFuelMoistureCode;
-                                DuffMoistureCode_yesterday = DuffMoistureCode;
-                                DroughtCode_yesterday = DroughtCode;
+                                fineFuelMoistureCodeYesterday = _fineFuelMoistureCode[ecoregion.Index];
+                                duffMoistureCodeYesterday = _duffMoistureCode[ecoregion.Index];
+                                droughtCodeYesterday = _droughtCode[ecoregion.Index];
+                            }
+                            else
+                            {
+                                fineFuelMoistureCodeYesterday = Climate.ConfigParameters.FineFuelMoistureCode_Yesterday;
+                                duffMoistureCodeYesterday = Climate.ConfigParameters.DuffMoistureCode_Yesterday;
+                                droughtCodeYesterday = Climate.ConfigParameters.DroughtCode_Yesterday;
                             }
 
-
-                            double mo = Calculate_mo(FineFuelMoistureCode_yesterday);
+                            double mo = Calculate_mo(fineFuelMoistureCodeYesterday);
                             double rf = Calculate_rf(precipitation);
                             double mr = Calculate_mr(mo, rf);
                             double Ed = Calculate_Ed(relativeHumidity, temperature);
@@ -99,8 +115,8 @@ namespace Landis.Library.Climate
                             double kw = Calculate_kw(kl, temperature);
                             double m = Calculate_m(mo, Ed, kd, Ew, kw);
                             double re = Calculate_re(precipitation);
-                            double Mo = Calculate_Mo(DuffMoistureCode_yesterday);
-                            double b = Calculate_b(DuffMoistureCode_yesterday);
+                            double Mo = Calculate_Mo(duffMoistureCodeYesterday);
+                            double b = Calculate_b(duffMoistureCodeYesterday);
                             double Mr = Calculate_Mr(re, b, Mo);
                             double Pr = Calculate_Pr(Mr);
                             int month = Calculate_month(timestep);
@@ -108,31 +124,30 @@ namespace Landis.Library.Climate
                             double Le2 = Calculate_Le2(month);
                             double Le = Calculate_Le(Le1, Le2);
                             double K = Calculate_K(temperature, relativeHumidity, Le);
-                            Calculate_DuffMoistureCode(precipitation, Pr, K, DuffMoistureCode_yesterday);
+                            _duffMoistureCode[ecoregion.Index] = Calculate_DuffMoistureCode(precipitation, Pr, K, duffMoistureCodeYesterday);
                             double rd = Calculate_rd(precipitation);
-                            double Qo = Calculate_Qo(DroughtCode_yesterday);
+                            double Qo = Calculate_Qo(droughtCodeYesterday);
                             double Qr = Calculate_Qr(Qo, rd);
                             double Dr = Calculate_Dr(Qr);
                             double Lf = Calculate_Lf(month);
                             double V = Calculate_V(temperature, Lf);
-                            Calculate_DroughtCode(precipitation, Dr, V, DroughtCode_yesterday);
+                            _droughtCode[ecoregion.Index] = Calculate_DroughtCode(precipitation, Dr, V, droughtCodeYesterday);
                             double WindFunction_ISI = Calculate_WindFunction_ISI(WindSpeedVelocity);
                             double FineFuelMoistureFunction_ISI = Calculate_FineFuelMoistureFunction_ISI(m);
                             double InitialSpreadIndex = Calculate_InitialSpreadIndex(WindFunction_ISI, FineFuelMoistureFunction_ISI);
-                            Calculate_BuildUpIndex(DuffMoistureCode, DroughtCode);
-                            double fD = Calculate_fD(BuildUpIndex);
+                            var buildUpIndex = Calculate_BuildUpIndex(_duffMoistureCode[ecoregion.Index], _droughtCode[ecoregion.Index]);
+                            double fD = Calculate_fD(buildUpIndex);
                             double B = Calculate_B(InitialSpreadIndex, fD);
-                            Calculate_FireWeatherIndex(B);
-                            double I_scale = Calculate_I_scale(FireWeatherIndex);
-                            double DSR = Calculate_DSR(FireWeatherIndex);
-                            Calculate_FineFuelMoistureCode(m);
+                            var fireWeatherIndex = Calculate_FireWeatherIndex(B);
+                            double I_scale = Calculate_I_scale(fireWeatherIndex);
+                            double DSR = Calculate_DSR(fireWeatherIndex);
+                            _fineFuelMoistureCode[ecoregion.Index] = Calculate_FineFuelMoistureCode(m);
 
-                            TimestepData[ecoregion.Index][timestep].DuffMoistureCode = DuffMoistureCode;
-                            TimestepData[ecoregion.Index][timestep].DroughtCode = DroughtCode;
-                            TimestepData[ecoregion.Index][timestep].BuildUpIndex = BuildUpIndex;
-                            TimestepData[ecoregion.Index][timestep].FineFuelMoistureCode = FineFuelMoistureCode;
-                            TimestepData[ecoregion.Index][timestep].AvgFWI = FireWeatherIndex;
-                            //Climate.Future_AllData[ecoregion.Index][timestep]..AvgFWI = FireWeatherIndex;
+                            TimestepData[ecoregion.Index][timestep].DuffMoistureCode = _duffMoistureCode[ecoregion.Index];
+                            TimestepData[ecoregion.Index][timestep].DroughtCode = _droughtCode[ecoregion.Index];
+                            TimestepData[ecoregion.Index][timestep].BuildUpIndex = buildUpIndex;
+                            TimestepData[ecoregion.Index][timestep].FineFuelMoistureCode = _fineFuelMoistureCode[ecoregion.Index];
+                            TimestepData[ecoregion.Index][timestep].AvgFWI = fireWeatherIndex;
                         }
                         else
                         {
@@ -398,16 +413,16 @@ namespace Landis.Library.Climate
 
         private static double Calculate_FineFuelMoistureCode(double m)
         {
-            FineFuelMoistureCode = 0.0;
-
             try
             {
-                FineFuelMoistureCode = 59.5 * (250.0 - m) / (147.2 + m);
+                var fineFuelMoistureCode = 59.5 * (250.0 - m) / (147.2 + m);
 
-                if (FineFuelMoistureCode > 100.0)
+                if (fineFuelMoistureCode > 100.0)
                 {
-                    FineFuelMoistureCode = 100.0;
+                    fineFuelMoistureCode = 100.0;
                 }
+
+                return fineFuelMoistureCode;
             }
             catch (Exception ex)
             {
@@ -415,8 +430,6 @@ namespace Landis.Library.Climate
                 string meathodName = ex.TargetSite?.Name;
                 throw new FireWeatherCalculationException(meathodName);
             }
-
-            return FineFuelMoistureCode;
         }
 
         private static double Calculate_re(double precipitation)
@@ -757,15 +770,7 @@ namespace Landis.Library.Climate
         {
             try
             {
-                if (precipitation > 1.5)
-                {
-                    DuffMoistureCode = Pr + 100.0 * K;
-                }
-
-                else
-                {
-                    DuffMoistureCode = DuffMoistureCode_yesterday + 100.0 * K;
-                }
+                return precipitation > 1.5 ? Pr + 100.0 * K : DuffMoistureCode_yesterday + 100.0 * K;
             }
             catch (Exception ex)
             {
@@ -773,8 +778,6 @@ namespace Landis.Library.Climate
                 string meathodName = ex.TargetSite?.Name;
                 throw new FireWeatherCalculationException(meathodName);
             }
-
-            return DuffMoistureCode;
         }
 
         private static double Calculate_rd(double precipitation)
@@ -940,21 +943,12 @@ namespace Landis.Library.Climate
             return V;
         }
 
-        private static double Calculate_DroughtCode(double precipitation, /*int spring_start,*/ double Dr, double V, double DroughtCode_yesterday)
+        private static double Calculate_DroughtCode(double precipitation, double Dr, double V, double droughtCodeYesterday)
         {
-            //if (d == spring_start)
-            //{
 
             try
             {
-                if (precipitation > 2.8)
-                {
-                    DroughtCode = Dr + 0.5 * V;
-                }
-                else
-                {
-                    DroughtCode = DroughtCode_yesterday + 0.5 * V;
-                }
+                return precipitation > 2.8 ? Dr + 0.5 * V : droughtCodeYesterday + 0.5 * V;
             }
             catch (Exception ex)
             {
@@ -962,22 +956,6 @@ namespace Landis.Library.Climate
                 string meathodName = ex.TargetSite?.Name;
                 throw new FireWeatherCalculationException(meathodName);
             }
-            //}
-            /* VS: Why? does the same thing
-            else
-            {
-                if (precipitation > 2.8)
-                {
-                    DroughtCode = Dr + 0.5 * V;
-                }
-                else
-                {
-                    DroughtCode = DroughtCode_yesterday + 0.5 * V;
-                }
-            }
-            */
-
-            return DroughtCode;
         }
 
         private static double Calculate_WindFunction_ISI(double WindSpeedVelocity)
@@ -1040,11 +1018,11 @@ namespace Landis.Library.Climate
             {
                 if (DuffMoistureCode <= (0.4 * DroughtCode))
                 {
-                    BuildUpIndex = 0.8 * DuffMoistureCode * DroughtCode / (DuffMoistureCode + 0.4 * DroughtCode);
+                    return 0.8 * DuffMoistureCode * DroughtCode / (DuffMoistureCode + 0.4 * DroughtCode);
                 }
                 else
                 {
-                    BuildUpIndex = DuffMoistureCode - (1.0 - 0.8 * DroughtCode / (DuffMoistureCode + 0.4 * DroughtCode)) * (0.92 + (0.0114 * Math.Pow(DuffMoistureCode, 1.7)));
+                    return DuffMoistureCode - (1.0 - 0.8 * DroughtCode / (DuffMoistureCode + 0.4 * DroughtCode)) * (0.92 + (0.0114 * Math.Pow(DuffMoistureCode, 1.7)));
                 }
             }
             catch (Exception ex)
@@ -1053,8 +1031,6 @@ namespace Landis.Library.Climate
                 string meathodName = ex.TargetSite?.Name;
                 throw new FireWeatherCalculationException(meathodName);
             }
-
-            return BuildUpIndex;
         }
 
         private static double Calculate_fD(double BuildUpIndex)
@@ -1102,18 +1078,9 @@ namespace Landis.Library.Climate
 
         private static double Calculate_FireWeatherIndex(double B) //int spring_start, int winter_start, 
         {
-            FireWeatherIndex = 0.0;
-
             try
             {
-                if (B > 1.0)
-                {
-                    FireWeatherIndex = Math.Exp(2.72 * Math.Pow((0.434 * Math.Log(B)), 0.647));
-                }
-                else
-                {
-                    FireWeatherIndex = B;
-                }
+                return B > 1.0 ? Math.Exp(2.72 * Math.Pow((0.434 * Math.Log(B)), 0.647)) : B;
             }
             catch (Exception ex)
             {
@@ -1121,8 +1088,6 @@ namespace Landis.Library.Climate
                 string meathodName = ex.TargetSite?.Name;
                 throw new FireWeatherCalculationException(meathodName);
             }
-
-            return FireWeatherIndex;
         }
 
         private static double Calculate_I_scale(double FireWeatherIndex)
