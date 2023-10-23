@@ -158,3 +158,4 @@ $RECYCLE.BIN/
 # LANDIS-II
 /src/lib/*.dll
 /src/.vs
+src/climate-generator.sln
