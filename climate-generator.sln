@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "climate-generator", "climate-generator.csproj", "{7E8E8B06-FA69-4861-9733-B600352065D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GiplDamm", "..\Library-GIPL\Library-GIPL\src\GiplDamm.csproj", "{C9612FF5-1AAC-4451-9102-D83E1AD7F0BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShawDammNewInputs", "..\Library-SHAW\Library-Shaw\src\ShawDammNewInputs.csproj", "{0F9B5571-9ADE-4587-AC52-459CBEB4AFB1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DGS-succession", "..\Extension-DGS_Succession_VersionNotOnGitHub\src\DGS-succession.csproj", "{154458C4-EAB2-44B6-9E3C-55D2C9FE2963}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E8E8B06-FA69-4861-9733-B600352065D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E8E8B06-FA69-4861-9733-B600352065D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E8E8B06-FA69-4861-9733-B600352065D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E8E8B06-FA69-4861-9733-B600352065D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9612FF5-1AAC-4451-9102-D83E1AD7F0BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9612FF5-1AAC-4451-9102-D83E1AD7F0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9612FF5-1AAC-4451-9102-D83E1AD7F0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9612FF5-1AAC-4451-9102-D83E1AD7F0BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F9B5571-9ADE-4587-AC52-459CBEB4AFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F9B5571-9ADE-4587-AC52-459CBEB4AFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F9B5571-9ADE-4587-AC52-459CBEB4AFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F9B5571-9ADE-4587-AC52-459CBEB4AFB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154458C4-EAB2-44B6-9E3C-55D2C9FE2963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{154458C4-EAB2-44B6-9E3C-55D2C9FE2963}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{154458C4-EAB2-44B6-9E3C-55D2C9FE2963}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{154458C4-EAB2-44B6-9E3C-55D2C9FE2963}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F1E52BD-D40F-4900-B0E6-C14AE9E3A51E}
+	EndGlobalSection
+EndGlobal
