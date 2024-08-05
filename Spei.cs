@@ -1,109 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Landis.Core;
 
 namespace Landis.Library.Climate
 {
-    public static class Spei
+    public static partial class Climate
     {
-        public static Dictionary<int, double[]> CalculateMonthlySpei(IEcoregion ecoregion, double latitude, Climate.Phase spinupOrfuture, int scale)
+        #region private methods
+
+        private static void CalculateMonthlySpei(List<AnnualClimate> annualClimate, int scale)
         {
-            var climateData = spinupOrfuture == Climate.Phase.SpinUp_Climate ? Climate.Spinup_AllData : Climate.Future_AllData;
-            var granularity = spinupOrfuture == Climate.Phase.SpinUp_Climate ? Climate.Spinup_allData_granularity : Climate.AllData_granularity;
+            // annualClimate is sequenced by input years
 
-            // calculate monthly day length in seconds
-            var monthlyDayLengthInSec = Enumerable.Range(0, 12).Select(x => AnnualClimate.CalculateDayLength(x, latitude) * 3600.0).ToArray();
+            var precipByYearAndMonth = annualClimate.Select(x => x.MonthlyPrecip).ToList();
+            var petByYearAndMonth = annualClimate.Select(x => x.MonthlyPET).ToList();
 
-            // get ordered years
-            var years = climateData.Keys.OrderBy(x => x).ToList();
-
-            // climate records for this ecoregion, either monthly or daily
-            var ecoRegionClimateRecords = years.Select(x => climateData[x][ecoregion.Index]).ToList();
-
-            var precipByYearAndMonth = new double[years.Count][];
-            var petByYearAndMonth = new double[years.Count][];
-
-            for (var y = 0; y < years.Count; ++y)
-            {
-                var precip = new double[12];
-                var temperature = new double[12];
-
-                if (granularity == TemporalGranularity.Daily)
-                {
-                    var daysInMonth = ecoRegionClimateRecords[y].Length == 366 ? new[] { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 } : new[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-                    var d = 0;
-                    for (var m = 0; m < 12; ++m)
-                    {
-                        var temperatureSum = 0.0;
-                        var pptSum = 0.0;
-
-                        for (var i = 0; i < daysInMonth[m]; ++i)
-                        {
-                            temperatureSum += ecoRegionClimateRecords[y][d].Temp == -99.0 ? 0.5 * (ecoRegionClimateRecords[y][d].AvgMinTemp + ecoRegionClimateRecords[y][d].AvgMaxTemp) : ecoRegionClimateRecords[y][d].Temp;
-                            pptSum += ecoRegionClimateRecords[y][d].AvgPpt;
-                            ++d;
-                        }
-
-                        precip[m] = pptSum;                                     // precip is totalled over the month
-                        temperature[m] = temperatureSum / daysInMonth[m];       // temperature is averaged over the month
-                    }
-                }
-                else
-                {
-                    for (var m = 0; m < 12; ++m)
-                    {
-                        precip[m] = ecoRegionClimateRecords[y][m].AvgPpt;
-                        temperature[m] = ecoRegionClimateRecords[y][m].Temp == -99.0 ? 0.5 * (ecoRegionClimateRecords[y][m].AvgMinTemp + ecoRegionClimateRecords[y][m].AvgMaxTemp) : ecoRegionClimateRecords[y][m].Temp;
-                    }
-                }
-
-                precipByYearAndMonth[y] = precip;
-                petByYearAndMonth[y] = AnnualClimate_Monthly.CalculatePotentialEvapotranspirationThornwaite(temperature, monthlyDayLengthInSec, years[y]);
-            }
-
-            // calculate SPEI
-            var speiByYearAndMonth = SpeiByYearAndMonth(precipByYearAndMonth, petByYearAndMonth, scale);
-
-            var speiData = new Dictionary<int, double[]>();     // [year] -> monthly spei
-
-            for (var y = 0; y < years.Count; ++y)
-            {
-                speiData[years[y]] = speiByYearAndMonth[y];
-            }
-
-            return speiData;
-        }
-
-        public static double[] AverageSpeiOverYears(Dictionary<int, double[]> speiData)
-        {
-            // average over years in determistic order to avoid run-to-run roundoff variation
-            var speiByYearAndMonth = speiData.Keys.OrderBy(x => x).Select(x => speiData[x]).ToList();
-
-            var avgSpei = new double[12];
-            for (var m = 0; m < 12; ++m)
-            {
-                avgSpei[m] = speiByYearAndMonth.Average(x => x[m]);
-            }
-
-            return avgSpei;
-        }
-
-        #region SPEI
-
-        /// <summary>
-        /// Returns SPEI by [year][month].
-        /// </summary>
-        private static double[][] SpeiByYearAndMonth(IEnumerable<double[]> precipByYearAndMonth, IEnumerable<double[]> petByYearAndMonth, int scale)
-        {
-            // indexing of precipByYearAndMonth and petByYearAndMonth is [year][month]
-
-            var precipInput = precipByYearAndMonth as double[][] ?? precipByYearAndMonth.ToArray();
-            var petInput = petByYearAndMonth as double[][] ?? petByYearAndMonth.ToArray();
-
-            var yearCount = precipInput.Length;
+            var yearCount = annualClimate.Count;
 
             // calculate deficit D = P - PET
             var deficit = new List<double>();
@@ -111,7 +23,7 @@ namespace Landis.Library.Climate
             {
                 for (var j = 0; j < 12; ++j)
                 {
-                    deficit.Add(precipInput[i][j] - petInput[i][j]);
+                    deficit.Add(precipByYearAndMonth[i][j] - petByYearAndMonth[i][j]);
                 }
             }
 
@@ -159,7 +71,11 @@ namespace Landis.Library.Climate
                 }
             }
 
-            return speiByYearAndMonth;
+            // attach spei data to input data
+            for (var i = 0; i < yearCount; ++i)
+            {
+                annualClimate[i].MonthlySpei = speiByYearAndMonth[i];
+            }
         }
 
         private static double[] ProbabilityWeightedMoments(double[] sortedData)

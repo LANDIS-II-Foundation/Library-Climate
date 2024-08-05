@@ -7,10 +7,10 @@ namespace Landis.Library.Climate
     {
         string ClimateTimeSeries { get; set; }
         string ClimateFile { get; set; }
-        string ClimateFileFormat { get; set; }
+        //string ClimateFileFormat { get; set; }
         string SpinUpClimateTimeSeries { get; set; }
         string SpinUpClimateFile { get; set; }
-        string SpinUpClimateFileFormat { get; set; }
+        //string SpinUpClimateFileFormat { get; set; }
         bool UsingFireClimate { get; set; }
         //double RHSlopeAdjust { get; set; }
         int FineFuelMoistureCode_Yesterday { get; set; }

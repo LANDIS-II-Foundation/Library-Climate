@@ -1,0 +1,12 @@
+PlantName,LeafOnDay,LeafOffDay,DryBiomass,LAI,Height,RootingDepth,CharacteristicDimension,ClumpingParameter,PlantType,MaxPrecipInterceptPerLAI,LeafAngleVertical,Albedo,MinTranspirationTemp,MinStomatalResistance,StomatalResistanceExponent,CriticalLeafWaterPotential,LeafResistance,RootResistance,SolarRadiationInfluence,TranspirationLowerLimit,TranspirationUpperLimit,TranspirationOptimum,VPDMaximumReduction,StomatalConductanceCoefficient
+,,,PLTWGT(J),PLTLAI(J),PLTHGT(J),ROOTDP(J),DCHAR(J),CLUMPNG(J),ITYPE(J),PINTRCP(J),XANGLE(J),CANALB(J),TCCRIT(J),RSTOM0(J),RSTEXP(J),PLEAF0(J),RLEAF0(J),RROOT0(J),"STOMATE(J,1)","RSTOMATE(J,2)","STOMATE(J,3)","STOMATE(J,4)","STOMATE(J,5)","STOMATE(J,6)"
+,,,,,,,,,,,,,,,,,,,If Istomate = 2,If Istomate = 2,If Istomate = 2,If Istomate = 2,If Istomate = 2,If Istomate = 2
+,,,kg/m2,-,m,m,cm,-,1 = transpiring 0 = dead,mm,0=vertical  1=random 5=horizontal,-,C,s/m,,m,m3-sec/kg,m3-sec/kg,W/m2,C,C,C,,
+BurnedHardwood,130,270,0.7,0.1,4.6,0.6,3.6,0.7,1,0.5,1.5,0.1,0,96,5,-173,333000,666000,50,0,46,30,0.2,0.5
+YoungHardwood,130,270,4.4,0.65,6.7,0.6,3.6,0.7,1,0.5,1.5,0.1,0,96,5,-173,333000,666000,50,0,46,30,0.2,0.5
+OldHardwood,130,270,9.1,2.4,12.2,0.6,3.6,0.7,1,0.5,1.5,0.1,0,96,5,-173,333000,666000,50,0,46,30,0.2,0.5
+BurnedConifer,1,366,0.2,1.5,1.8,0.2,0.5,0.4,1,0.5,1,0.3,-4,603,5,-174,33000,66000,20.5,-4,40,15,0.44,0.5
+YoungConifer,1,366,0.6,1.6,4.3,0.2,0.5,0.4,1,0.5,1,0.3,-4,603,5,-174,33000,66000,20.5,-4,40,15,0.44,0.5
+OldConifer,1,366,1.8,4.2,8.9,0.2,0.5,0.4,1,0.5,1,0.3,-4,603,5,-174,33000,66000,20.5,-4,40,15,0.44,0.5
+,,,,,,,,,,,,,,,,,,,,,,,,
+,"[1,366]","[1,366]","[0.0, inf)","[0.0, inf)","[0.0, inf)","[0.0, inf)","[0.0, inf)","(0.0, 1.0]","[0, 1]","[0.0, inf)","[0.0, 5.0]","[0.0, 1.0]","[Abs.Zero, inf)","[0.0, inf)","(-inf, inf)","(-inf, inf)","[0.0, inf)","[0.0, inf)","[0.0, inf)","(-inf, inf)","[Abs.Zero, inf)","[Abs.Zero, inf)","(0.0, 1.0]","(0.0, 1.0]"

@@ -1,0 +1,12 @@
+LandisData  "GIPL Config"
+
+GeothermalHeatFlux	0.06					
+WCritial	0.9999	
+SnowC1   	9E-8
+
+LayerType;  ThermalConductivity; VolumetricHeatCapacity; VolumetricUnfrozenLiqWaterFraction
+liveMoss    0.15                 1.0    unfrozen_C2.txt
+deadMoss    0.4                  1.5    unfrozen_C2.txt
+litterSoil  0.7                  1.5    unfrozen_C2.txt
+mineralSoil 1.95                 1.5    unfrozen_C2.txt
+peat        0.4                  1.2    unfrozen_C2.txt		

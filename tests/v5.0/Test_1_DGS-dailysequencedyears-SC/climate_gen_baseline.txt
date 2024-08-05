@@ -1,0 +1,17 @@
+LandisData "Climate Config"				
+		
+ClimateTimeSeries			Daily_SequencedYears
+ClimateFile				SmithLake_MetData_v2.csv
+ClimateFileFormat			Daily_Temp-C_Precip-mmDay
+
+SpinUpClimateTimeSeries			Daily_SequencedYears
+SpinUpClimateFile			SmithLake_MetData_v2.csv
+SpinUpClimateFileFormat			Daily_Temp-C_Precip-mmDay
+
+UsingFireClimate			yes
+FineFuelMoistureCode			85
+DuffMoistureCode			6
+DroughtCode				15
+FirstDayFire				90  <<code to April 1
+LastDayFire 				320 << code to Nov 1
+AtmosphericPressure				100

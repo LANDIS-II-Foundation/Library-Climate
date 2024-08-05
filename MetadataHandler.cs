@@ -1,86 +1,61 @@
-﻿//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
-
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-using Landis.Library.Metadata;
-using Landis.Core;
-//using Landis.Utilities;
+﻿using Landis.Library.Metadata;
 
 namespace Landis.Library.Climate
 {
-    public class MetadataHandler
+    public static partial class Climate
     {
-        
-        public static ExtensionMetadata Extension {get; set;}
+        #region fields
 
-        public static void InitializeMetadata(int timestep, ICore mCore)
+        private static ExtensionMetadata Extension { get; set; }
+
+        #endregion
+
+        #region private methods
+
+        private static void InitializeMetadata()
         {
-            ScenarioReplicationMetadata scenRep = new ScenarioReplicationMetadata() {
-                RasterOutCellArea = Climate.ModelCore.CellArea,
-                TimeMin = Climate.ModelCore.StartTime,
-                TimeMax = Climate.ModelCore.EndTime,
+            var scenRep = new ScenarioReplicationMetadata()
+            {
+                RasterOutCellArea = _modelCore.CellArea,
+                TimeMin = _modelCore.StartTime,
+                TimeMax = _modelCore.EndTime,
             };
 
-            Extension = new ExtensionMetadata(mCore){
+            Extension = new ExtensionMetadata(_modelCore)
+            {
                 Name = "Climate-Library",
-                TimeInterval = timestep, 
+                TimeInterval = 1,
                 ScenarioReplicationMetadata = scenRep
             };
 
-            //---------------------------------------
-            //          table outputs:   
-            //---------------------------------------
+            _futureInputLog = new MetadataTable<InputLog>("Climate-future-input-log.csv");
+            _futureAnnualLog = new MetadataTable<AnnualLog>("Climate-future-annual-log.csv");
 
-            //Climate.PdsiLog = new MetadataTable<PDSI_Log>("Climate-PDSI-log.csv");
-            Climate.SpinupInputLog = new MetadataTable<InputLog>("Climate-spinup-input-log.csv");
-            Climate.FutureInputLog = new MetadataTable<InputLog>("Climate-future-input-log.csv");
-            Climate.AnnualLog = new MetadataTable<AnnualLog>("Climate-annual-log.csv");
-
-            OutputMetadata tblOut_spinupInput = new OutputMetadata()
-            {
-                Type = OutputType.Table,
-                Name = "Spinup-Input-Log",
-                FilePath = Climate.SpinupInputLog.FilePath,
-                Visualize = false,
-            };
-            tblOut_spinupInput.RetriveFields(typeof(InputLog));
-            Extension.OutputMetadatas.Add(tblOut_spinupInput);
-
-            OutputMetadata tblOut_futureInput = new OutputMetadata()
+            var futureInputTable = new OutputMetadata()
             {
                 Type = OutputType.Table,
                 Name = "Future-Input-Log",
-                FilePath = Climate.FutureInputLog.FilePath,
+                FilePath = _futureInputLog.FilePath,
                 Visualize = false,
             };
-            tblOut_futureInput.RetriveFields(typeof(InputLog));
-            Extension.OutputMetadatas.Add(tblOut_futureInput);
+            futureInputTable.RetriveFields(typeof(InputLog));
+            Extension.OutputMetadatas.Add(futureInputTable);
 
-            OutputMetadata tblOut_annual = new OutputMetadata()
+            var annualTable = new OutputMetadata()
             {
                 Type = OutputType.Table,
-                Name = "Annual-Log",
-                FilePath = Climate.AnnualLog.FilePath,
+                Name = "Future-Annual-Log",
+                FilePath = _futureAnnualLog.FilePath,
                 Visualize = false,
             };
-            tblOut_annual.RetriveFields(typeof(AnnualLog));
-            Extension.OutputMetadatas.Add(tblOut_annual);
+            annualTable.RetriveFields(typeof(AnnualLog));
+            Extension.OutputMetadatas.Add(annualTable);
 
-            //---------------------------------------            
-            //          map outputs:         
-            //---------------------------------------
-
-            // NONE
-
-            //---------------------------------------
-            MetadataProvider mp = new MetadataProvider(Extension);
+            // todo: is this needed?
+            var mp = new MetadataProvider(Extension);
             mp.WriteMetadataToXMLFile("Metadata", Extension.Name, Extension.Name);
-
-
-
-
         }
+
+        #endregion
     }
 }
