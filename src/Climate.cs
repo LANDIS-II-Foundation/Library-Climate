@@ -13,6 +13,9 @@ namespace Landis.Library.Climate
 
         private static ICore _modelCore;
 
+        private static MetadataTable<InputLog> _spinupInputLog;
+        private static MetadataTable<AnnualLog> _spinupAnnualLog;
+
         private static MetadataTable<InputLog> _futureInputLog;
         private static MetadataTable<AnnualLog> _futureAnnualLog;
 
@@ -32,7 +35,14 @@ namespace Landis.Library.Climate
 
         #region properties
 
+        /// <summary>
+        /// Spinup climate by ecoregion index and ONE-BASED simulation year. All daily data have 365 days.
+        /// </summary>
         public static List<AnnualClimate>[] SpinupEcoregionYearClimate { get; private set; }    // indexing: [ecoregionIndex][year].  'year' is 1-BASED simulation year, e.g. 1, 2, ...
+
+        /// <summary>
+        /// Future climate by ecoregion index and ONE-BASED simulation year. All daily data have 365 days.
+        /// </summary>
         public static List<AnnualClimate>[] FutureEcoregionYearClimate { get; private set; }    // indexing: [ecoregionIndex][year].  'year' is 1-BASED simulation year, e.g. 1, 2, ...
 
         public static TimeSeriesTimeStep SpinupTimeStep { get; private set; }
@@ -44,21 +54,43 @@ namespace Landis.Library.Climate
         internal static IInputParameters ConfigParameters { get; private set; }
         internal static StreamWriter TextLog { get; private set; }
 
+        /// <summary>
+        /// First day (0-based) of each month for 365-day year.
+        /// </summary>
         public readonly static List<int> FirstDayOfMonth = new List<int> { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 };
+
+        /// <summary>
+        /// Middle day (0-based) of each month for 365-day year.
+        /// </summary>
         public static List<int> MiddleDayOfMonth = new List<int> { 15, 44, 74, 104, 135, 166, 196, 227, 258, 288, 318, 349 };
+
+        /// <summary>
+        /// Days of each month for 365-day year.
+        /// </summary>
         public static List<int> DaysInMonth = new List<int> { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-        // source: https://power.larc.nasa.gov/docs/methodology/energy-fluxes/geometry/
-        public static readonly double[] MonthlyAvgDeclination = { -0.3651, -0.2261, -0.04220, 0.1643, 0.3280, 0.4029, 0.3697, 0.2348, 0.03869, -0.1675, -0.3301, -0.4023 };       // [radians]
+        /// <summary>
+        /// Average declination in radians by month. source: https://power.larc.nasa.gov/docs/methodology/energy-fluxes/geometry/.
+        /// </summary>
+        public static readonly double[] MonthlyAvgDeclination = { -0.3651, -0.2261, -0.04220, 0.1643, 0.3280, 0.4029, 0.3697, 0.2348, 0.03869, -0.1675, -0.3301, -0.4023 };
 
         #endregion
 
         #region methods
 
+        /// <summary>
+        /// Spinup calendar year for ONE-BASED simulation year. Returns -1 for AverageAllYears options.
+        /// </summary>
         public static int SpinupCalendarYear(int year) => SpinupEcoregionYearClimate.First(x => x != null)[year].CalendarYear;      // 'year' is 1-BASED simulation year, e.g. 1, 2, ...
+
+        /// <summary>
+        /// Future calendar year for ONE-BASED simulation year. Returns -1 for AverageAllYears options.
+        /// </summary>
         public static int FutureCalendarYear(int year) => FutureEcoregionYearClimate.First(x => x != null)[year].CalendarYear;      // 'year' is 1-BASED simulation year, e.g. 1, 2, ...
 
-        // Tuples of (first day, number of days) for each month:
+        /// <summary>
+        /// Tuples of (first day, number of days) for each month for 365-day year.
+        /// </summary>
         public static List<(int, int)> MonthCalendar = new List<(int, int)> { (0, 31), (31, 28), (59, 31), (90, 30), (120, 31), (151, 30), (181, 31), (212, 31), (243, 30), (273, 31), (304, 30), (334, 31) };
 
         public static int MonthOfYear(int day) => FirstDayOfMonth.FindLastIndex(x => x <= day);
@@ -94,11 +126,9 @@ namespace Landis.Library.Climate
 
             TextLog.WriteLine($"   Loading spinup climate data from file {ConfigParameters.SpinUpClimateFile} ...");
             ReadClimateData(spinupTimeStep, ConfigParameters.SpinUpClimateFile, out _spinupCalendarYears, out _spinupClimateRecords);
-            //ConvertUsgsToClimateData(spinupTimeStep, ConfigParameters.SpinUpClimateFile, ConfigParameters.SpinUpClimateFileFormat, out _spinupCalendarYears, out _spinupClimateRecords);
 
             TextLog.WriteLine($"   Loading future climate data from file {ConfigParameters.ClimateFile} ...");
             ReadClimateData(futureTimeStep, ConfigParameters.ClimateFile, out _futureCalendarYears, out _futureClimateRecords);
-            //ConvertUsgsToClimateData(futureTimeStep, ConfigParameters.ClimateFile, ConfigParameters.ClimateFileFormat, out _futureCalendarYears, out _futureClimateRecords);
 
             // **
             // setup year ordering
@@ -128,12 +158,16 @@ namespace Landis.Library.Climate
             }
         }
 
-        public static void GenerateEcoregionClimateData(double latitudeForAllEcoregions) => GenerateEcoregionClimateData(Enumerable.Repeat(latitudeForAllEcoregions, _modelCore.Ecoregions.Count));
+        /// <summary>
+        /// Populates SpinupEcoregionYearClimate and FutureEcoregionYearClimate for all ecoregions with the same latitude for all ecoregions.
+        /// </summary>
+        public static void GenerateEcoregionClimateData(double latitudeForAllEcoregions) => GenerateEcoregionClimateData(_modelCore.Ecoregions.ToDictionary(k => k.Name, v => latitudeForAllEcoregions));
 
-        public static void GenerateEcoregionClimateData(IEnumerable<double> ecoregionLatitudes)
+        /// <summary>
+        /// Populates SpinupEcoregionYearClimate and FutureEcoregionYearClimate for all ecoregions with per-ecoregion latitudes.
+        /// </summary>
+        public static void GenerateEcoregionClimateData(Dictionary<string, double> ecoregionLatitudes)
         {
-            var latitudes = ecoregionLatitudes as List<double> ?? ecoregionLatitudes.ToList();
-
             SpinupEcoregionYearClimate = new List<AnnualClimate>[_modelCore.Ecoregions.Count];
             FutureEcoregionYearClimate = new List<AnnualClimate>[_modelCore.Ecoregions.Count];
 
@@ -143,20 +177,20 @@ namespace Landis.Library.Climate
                 if (!ecoregion.Active) continue;
 
                 // calculate daylight and nighttime hours that depend on latitude, but not climate
-                CalculateMonthlyDayLengths(latitudes[e], out var monthlyDayLightHours, out var monthlyNightTimeHours);
+                CalculateMonthlyDayLengths(ecoregionLatitudes[ecoregion.Name], out var monthlyDayLightHours, out var monthlyNightTimeHours);
 
                 // generate annual climate instances for each year of input data
                 var spinupInputAnnualClimate = new List<AnnualClimate>();
                 for (var i = 0; i < _spinupCalendarYears.Count; ++i)
                 {
-                    var climate = new AnnualClimate(_spinupCalendarYears[i], SpinupTimeStep, _spinupClimateRecords[ecoregion.Index][i], latitudes[e], monthlyDayLightHours, monthlyNightTimeHours);
+                    var climate = new AnnualClimate(_spinupCalendarYears[i], SpinupTimeStep, _spinupClimateRecords[ecoregion.Index][i], ecoregionLatitudes[ecoregion.Name], monthlyDayLightHours, monthlyNightTimeHours);
                     spinupInputAnnualClimate.Add(climate);
                 }
 
                 var futureInputAnnualClimate = new List<AnnualClimate>();
                 for (var i = 0; i < _futureCalendarYears.Count; ++i)
                 {
-                    var climate = new AnnualClimate(_futureCalendarYears[i], FutureTimeStep, _futureClimateRecords[ecoregion.Index][i], latitudes[e], monthlyDayLightHours, monthlyNightTimeHours);
+                    var climate = new AnnualClimate(_futureCalendarYears[i], FutureTimeStep, _futureClimateRecords[ecoregion.Index][i], ecoregionLatitudes[ecoregion.Name], monthlyDayLightHours, monthlyNightTimeHours);
                     futureInputAnnualClimate.Add(climate);
                 }
 
@@ -197,10 +231,10 @@ namespace Landis.Library.Climate
 
             // todo: make this optional
             // write future input log
-            WriteFutureInputLog();
+            WriteInputLogs();
 
             // write future annual log
-            WriteFutureAnnualLog();
+            WriteAnnualLogs();
         }
 
         #endregion
@@ -240,10 +274,24 @@ namespace Landis.Library.Climate
             }
         }
 
-        private static void WriteFutureInputLog()
+        private static void WriteInputLogs()
         {
-            _futureInputLog.Clear();
+            _spinupInputLog.Clear();
+            for (var year = 1; year <= _spinupRequiredYearCount; ++year) // 1-based year
+            {
+                for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
+                {
+                    if (SpinupEcoregionYearClimate[e] == null) continue;
 
+                    foreach (var log in SpinupEcoregionYearClimate[e][year].ToInputLogs(year, _modelCore.Ecoregions[e]))
+                    {
+                        _spinupInputLog.AddObject(log);
+                    }
+                }
+            }
+            _spinupInputLog.WriteToFile();
+
+            _futureInputLog.Clear();
             for (var year = 1; year <= _futureRequiredYearCount; ++year) // 1-based year
             {
                 for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
@@ -256,14 +304,34 @@ namespace Landis.Library.Climate
                     }
                 }
             }
-
             _futureInputLog.WriteToFile();
         }
 
-        private static void WriteFutureAnnualLog()
+        private static void WriteAnnualLogs()
         {
-            _futureAnnualLog.Clear();
+            _spinupAnnualLog.Clear();
+            for (var year = 1; year <= _spinupRequiredYearCount; ++year) // 1-based year
+            {
+                for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
+                {
+                    if (SpinupEcoregionYearClimate[e] == null) continue;
 
+                    _spinupAnnualLog.AddObject(new AnnualLog
+                    {
+                        Year = year,
+                        CalendarYear = SpinupEcoregionYearClimate[e][year].CalendarYear,
+                        EcoregionName = _modelCore.Ecoregions[e].Name,
+
+                        TAP = SpinupEcoregionYearClimate[e][year].TotalAnnualPrecip,
+                        MAT = SpinupEcoregionYearClimate[e][year].MeanAnnualTemperature,
+                        BeginGrow = SpinupEcoregionYearClimate[e][year].BeginGrowingDay,
+                        EndGrow = SpinupEcoregionYearClimate[e][year].EndGrowingDay,
+                    });
+                }
+            }
+            _spinupAnnualLog.WriteToFile();
+
+            _futureAnnualLog.Clear();
             for (var year = 1; year <= _futureRequiredYearCount; ++year) // 1-based year
             {
                 for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
@@ -275,7 +343,6 @@ namespace Landis.Library.Climate
                                                    Year = year,
                                                    CalendarYear = FutureEcoregionYearClimate[e][year].CalendarYear,
                                                    EcoregionName = _modelCore.Ecoregions[e].Name,
-                                                   EcoregionIndex = _modelCore.Ecoregions[e].Index,
 
                                                    TAP = FutureEcoregionYearClimate[e][year].TotalAnnualPrecip,
                                                    MAT = FutureEcoregionYearClimate[e][year].MeanAnnualTemperature,
@@ -284,7 +351,6 @@ namespace Landis.Library.Climate
                     });
                 }
             }
-
             _futureAnnualLog.WriteToFile();
         }
 

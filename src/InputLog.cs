@@ -16,9 +16,6 @@ namespace Landis.Library.Climate
         [DataFieldAttribute(Desc = "Ecoregion Name")]
         public string EcoregionName { set; get; }
 
-        [DataFieldAttribute(Desc = "Ecoregion Index")]
-        public int EcoregionIndex { set; get; }
-
         [DataFieldAttribute(Desc = "Minimum Air Temperature [C])", Format = "0.00")]
         public double MinTemp { get; set; }
 

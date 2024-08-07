@@ -28,6 +28,31 @@ namespace Landis.Library.Climate
                 ScenarioReplicationMetadata = scenRep
             };
 
+
+            _spinupInputLog = new MetadataTable<InputLog>("Climate-spinup-input-log.csv");
+            _spinupAnnualLog = new MetadataTable<AnnualLog>("Climate-spinup-annual-log.csv");
+
+            var spinupInputTable = new OutputMetadata()
+            {
+                Type = OutputType.Table,
+                Name = "Spinup-Input-Log",
+                FilePath = _spinupInputLog.FilePath,
+                Visualize = false,
+            };
+            spinupInputTable.RetriveFields(typeof(InputLog));
+            Extension.OutputMetadatas.Add(spinupInputTable);
+
+            var spinupAnnualTable = new OutputMetadata()
+            {
+                Type = OutputType.Table,
+                Name = "Spinup-Annual-Log",
+                FilePath = _spinupAnnualLog.FilePath,
+                Visualize = false,
+            };
+            spinupAnnualTable.RetriveFields(typeof(AnnualLog));
+            Extension.OutputMetadatas.Add(spinupAnnualTable);
+
+
             _futureInputLog = new MetadataTable<InputLog>("Climate-future-input-log.csv");
             _futureAnnualLog = new MetadataTable<AnnualLog>("Climate-future-annual-log.csv");
 
@@ -41,15 +66,15 @@ namespace Landis.Library.Climate
             futureInputTable.RetriveFields(typeof(InputLog));
             Extension.OutputMetadatas.Add(futureInputTable);
 
-            var annualTable = new OutputMetadata()
+            var futureAnnualTable = new OutputMetadata()
             {
                 Type = OutputType.Table,
                 Name = "Future-Annual-Log",
                 FilePath = _futureAnnualLog.FilePath,
                 Visualize = false,
             };
-            annualTable.RetriveFields(typeof(AnnualLog));
-            Extension.OutputMetadatas.Add(annualTable);
+            futureAnnualTable.RetriveFields(typeof(AnnualLog));
+            Extension.OutputMetadatas.Add(futureAnnualTable);
 
             // todo: is this needed?
             var mp = new MetadataProvider(Extension);

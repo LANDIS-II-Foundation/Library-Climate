@@ -357,7 +357,6 @@ namespace Landis.Library.Climate
                              CalendarYear = CalendarYear,
                              Month = month,
                              EcoregionName = ecoregion.Name,
-                             EcoregionIndex = ecoregion.Index,
 
                              MinTemp = MonthlyMinTemp[month],
                              MaxTemp = MonthlyMaxTemp[month],

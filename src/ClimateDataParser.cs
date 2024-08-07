@@ -337,6 +337,24 @@ namespace Landis.Library.Climate
             }
         }
 
+        private static double CalculateRelativeHumidity(double specificHumidity, double temp)
+        {
+            //Calculate relative humidity based on average temp and specific humidity:   
+            //(https://archive.eol.ucar.edu/projects/ceop/dm/documents/refdata_report/eqns.html) From Bolton, 1980
+
+            // specificHumidity: [unitless], e.g. [kg/kg]
+            // temp: [C]
+
+            // calculate saturated vapor pressure based on temperature
+            var es = 6.112 * Math.Exp(17.67 * temp / (temp + 243.5));   // [mb]
+
+            var atmPressure = ConfigParameters.AtmPressure * 10.0;  // [kPa] -> [mb]
+            var e = specificHumidity * atmPressure / (0.378 * specificHumidity + 0.622);   // [mb]
+
+            var relativeHumidity = 100.0 * Math.Min(1.0, e / es);    // [%]
+            return relativeHumidity;
+        }
+
         private class ClimateInputRow
         {
             public ClimateInputRow(int year, int month, int day, string variable, List<double> data, int row)

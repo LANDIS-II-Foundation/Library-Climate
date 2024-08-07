@@ -13,9 +13,6 @@ namespace Landis.Library.Climate
         [DataFieldAttribute(Desc = "Ecoregion Name")]
         public string EcoregionName { set; get; }
 
-        [DataFieldAttribute(Desc = "Ecoregion Index")]
-        public int EcoregionIndex { set; get; }
-
         [DataFieldAttribute(Desc = "Total Annual Precipitation [cm]", Format = "0.00")]
         public double TAP { get; set; }
 
