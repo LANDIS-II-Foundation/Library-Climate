@@ -229,12 +229,14 @@ namespace Landis.Library.Climate
                 FutureEcoregionYearClimate[e].Insert(0, null);
             }
 
-            // todo: make this optional
-            // write future input log
-            WriteInputLogs();
+            if (ConfigParameters.GenerateClimateOutputFiles)
+            {
+                // write input logs
+                WriteInputLogs();
 
-            // write future annual log
-            WriteAnnualLogs();
+                // write annual logs
+                WriteAnnualLogs();
+            }
         }
 
         #endregion

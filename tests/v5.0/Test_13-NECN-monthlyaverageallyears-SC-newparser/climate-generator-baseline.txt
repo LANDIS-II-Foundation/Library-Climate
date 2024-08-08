@@ -6,6 +6,7 @@ ClimateFile				LTB_monthly_historic_fixed_singlecell_3-newparser.csv
 SpinUpClimateTimeSeries			Monthly_SequencedYears
 SpinUpClimateFile			LTB_monthly_historic_fixed_singlecell_3-newparser.csv
 
+GenerateClimateOutputFiles		no
 UsingFireClimate			yes
 FineFuelMoistureCode			100
 DuffMoistureCode			100

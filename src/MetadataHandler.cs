@@ -29,52 +29,55 @@ namespace Landis.Library.Climate
             };
 
 
-            _spinupInputLog = new MetadataTable<InputLog>("Climate-spinup-input-log.csv");
-            _spinupAnnualLog = new MetadataTable<AnnualLog>("Climate-spinup-annual-log.csv");
-
-            var spinupInputTable = new OutputMetadata()
+            if (ConfigParameters.GenerateClimateOutputFiles)
             {
-                Type = OutputType.Table,
-                Name = "Spinup-Input-Log",
-                FilePath = _spinupInputLog.FilePath,
-                Visualize = false,
-            };
-            spinupInputTable.RetriveFields(typeof(InputLog));
-            Extension.OutputMetadatas.Add(spinupInputTable);
+                _spinupInputLog = new MetadataTable<InputLog>("Climate-spinup-input-log.csv");
+                _spinupAnnualLog = new MetadataTable<AnnualLog>("Climate-spinup-annual-log.csv");
 
-            var spinupAnnualTable = new OutputMetadata()
-            {
-                Type = OutputType.Table,
-                Name = "Spinup-Annual-Log",
-                FilePath = _spinupAnnualLog.FilePath,
-                Visualize = false,
-            };
-            spinupAnnualTable.RetriveFields(typeof(AnnualLog));
-            Extension.OutputMetadatas.Add(spinupAnnualTable);
+                var spinupInputTable = new OutputMetadata()
+                {
+                    Type = OutputType.Table,
+                    Name = "Spinup-Input-Log",
+                    FilePath = _spinupInputLog.FilePath,
+                    Visualize = false,
+                };
+                spinupInputTable.RetriveFields(typeof(InputLog));
+                Extension.OutputMetadatas.Add(spinupInputTable);
+
+                var spinupAnnualTable = new OutputMetadata()
+                {
+                    Type = OutputType.Table,
+                    Name = "Spinup-Annual-Log",
+                    FilePath = _spinupAnnualLog.FilePath,
+                    Visualize = false,
+                };
+                spinupAnnualTable.RetriveFields(typeof(AnnualLog));
+                Extension.OutputMetadatas.Add(spinupAnnualTable);
 
 
-            _futureInputLog = new MetadataTable<InputLog>("Climate-future-input-log.csv");
-            _futureAnnualLog = new MetadataTable<AnnualLog>("Climate-future-annual-log.csv");
+                _futureInputLog = new MetadataTable<InputLog>("Climate-future-input-log.csv");
+                _futureAnnualLog = new MetadataTable<AnnualLog>("Climate-future-annual-log.csv");
 
-            var futureInputTable = new OutputMetadata()
-            {
-                Type = OutputType.Table,
-                Name = "Future-Input-Log",
-                FilePath = _futureInputLog.FilePath,
-                Visualize = false,
-            };
-            futureInputTable.RetriveFields(typeof(InputLog));
-            Extension.OutputMetadatas.Add(futureInputTable);
+                var futureInputTable = new OutputMetadata()
+                {
+                    Type = OutputType.Table,
+                    Name = "Future-Input-Log",
+                    FilePath = _futureInputLog.FilePath,
+                    Visualize = false,
+                };
+                futureInputTable.RetriveFields(typeof(InputLog));
+                Extension.OutputMetadatas.Add(futureInputTable);
 
-            var futureAnnualTable = new OutputMetadata()
-            {
-                Type = OutputType.Table,
-                Name = "Future-Annual-Log",
-                FilePath = _futureAnnualLog.FilePath,
-                Visualize = false,
-            };
-            futureAnnualTable.RetriveFields(typeof(AnnualLog));
-            Extension.OutputMetadatas.Add(futureAnnualTable);
+                var futureAnnualTable = new OutputMetadata()
+                {
+                    Type = OutputType.Table,
+                    Name = "Future-Annual-Log",
+                    FilePath = _futureAnnualLog.FilePath,
+                    Visualize = false,
+                };
+                futureAnnualTable.RetriveFields(typeof(AnnualLog));
+                Extension.OutputMetadatas.Add(futureAnnualTable);
+            }
 
             // todo: is this needed?
             var mp = new MetadataProvider(Extension);

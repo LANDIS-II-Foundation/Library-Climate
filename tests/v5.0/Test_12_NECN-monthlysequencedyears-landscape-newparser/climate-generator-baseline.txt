@@ -6,6 +6,7 @@ ClimateFile				LTB_monthly_historic_fixed_5ecoregions-newparser.csv
 SpinUpClimateTimeSeries			Monthly_AverageAllYears
 SpinUpClimateFile			LTB_monthly_historic_fixed_5ecoregions-newparser.csv
 
+GenerateClimateOutputFiles		no
 UsingFireClimate			yes
 FineFuelMoistureCode			100
 DuffMoistureCode			100

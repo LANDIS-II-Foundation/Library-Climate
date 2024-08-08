@@ -8,6 +8,7 @@ SpinUpClimateTimeSeries			Daily_SequencedYears
 SpinUpClimateFile			SmithLake_MetData_v2_newparser.csv
 SpinUpClimateFileFormat			Daily_Temp-C_Precip-mmDay
 
+GenerateClimateOutputFiles		no
 UsingFireClimate			yes
 FineFuelMoistureCode			85
 DuffMoistureCode			6
