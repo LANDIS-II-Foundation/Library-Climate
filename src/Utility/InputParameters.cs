@@ -14,9 +14,9 @@ namespace Landis.Library.Climate
 
         private string climateConfigFile;
         private string climateTimeSeries;
-        private string climateFileFormat;
+        //private string climateFileFormat;
         private string climateFile;
-        private string spinUpClimateFileFormat;
+        //private string spinUpClimateFileFormat;
         private string spinUpClimateFile;
         private string spinUpClimateTimeSeries;
         private bool climateFire = false;
@@ -75,19 +75,6 @@ namespace Landis.Library.Climate
             }
         }
 
-        public string ClimateFileFormat
-        {
-            get
-            {
-                return climateFileFormat;
-            }
-            set
-            {
-
-                climateFileFormat = value;
-            }
-        }
-
         public string SpinUpClimateTimeSeries  
         {
             get
@@ -101,19 +88,6 @@ namespace Landis.Library.Climate
             }
         }
 
-        public string SpinUpClimateFileFormat
-        {
-            get
-            {
-                return spinUpClimateFileFormat;
-            }
-            set
-            {
-
-                spinUpClimateFileFormat = value;
-            }
-        }
-
         public string SpinUpClimateFile			
         {
             get
@@ -123,11 +97,14 @@ namespace Landis.Library.Climate
             set
             {
                 string path = value;
-                if (spinUpClimateFileFormat != "no" && path.Trim(null).Length == 0)
+                if (path.Trim(null).Length == 0)
                     throw new InputValueException(path, "\"{0}\" is not a valid path.", path);
                 spinUpClimateFile = value;
             }
         }
+
+        public bool GenerateClimateOutputFiles { get; set; } = true;
+
         //---------------------------------------------------------------------
         public bool UsingFireClimate
         {
@@ -141,19 +118,6 @@ namespace Landis.Library.Climate
                 climateFire = value;
             }
         }
-        //---------------------------------------------------------------------
-        //public double RHSlopeAdjust
-        //{
-        //    get
-        //    {
-        //        return rHSlopeAdjust;
-        //    }
-        //    set
-        //    {
-
-        //        rHSlopeAdjust = value;
-        //    }
-        //}
 
         //---------------------------------------------------------------------
         
