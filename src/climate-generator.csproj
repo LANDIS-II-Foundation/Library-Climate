@@ -24,6 +24,11 @@
     <FileVersion>7.0</FileVersion>
     <PackageId>Landis.Library.Climate-v5</PackageId>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="ClimateDataConverter.cs" />
+    <Compile Remove="ClimateFileFormatProvider.cs" />
+    <Compile Remove="Period.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Landis.Core" Version="2.0.0" />
