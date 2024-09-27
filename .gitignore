@@ -159,3 +159,5 @@ $RECYCLE.BIN/
 /src/lib/*.dll
 /src/.vs
 src/climate-generator.sln
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
