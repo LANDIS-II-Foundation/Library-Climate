@@ -1,0 +1,16 @@
+Name,Sand,Silt,Clay,Rock,Organic,BulkDensity,Ksat,KsatLateral,AirEntry,ThetaSat,Campbells,BrooksCoreyPoreSize,ThetaResidual,BrooksCoreyPoreConnectivity,nVanGenuchten,vanGenuchtenPoreConnectivity,alphaVanGenuchten
+,SAND,SILT,CLAY,ROCK,OM,RHOB,SATCON,SATKL,SOILWRC(1),SOILWRC(2),SOILWRC(3),SOILWRC(3),SOILWRC(4),SOILWRC(5),SOILWRC(3),SOILWRC(5),SOILWRC(6)
+,all,all,all,all,all,all,all,all,all,all,if IWRC = 1,If IWRC = 2,"If IWRC = 2, 3",If IWRC = 2,If IWRC = 3,If IWRC = 3,If IWRC = 3
+,percent,percent,percent,percent,percent,kg/m3,cm/hr,cm/hr,m,-,-,-,-,-,-,-,m^-1
+liveMoss,30,30,30,0,100,20,300,0,0,0.99,,,0.1,,1.41,0.47,33.85
+deadMoss,30,30,30,0,100,300,30,0,0,0.62,,,0.05,,1.5,0.5,0.05
+SiltLoam1,13.4,78.1,8.5,30,8.5,530,82,0,0,0.48,,,0.03,,1.35,0.46,1.5
+SiltLoam2,16.1,70,13.9,30,2.6,1117,26,0,0,0.46,,,0.03,,1.37,0.46,3.1
+SiltLoam3,22.6,67.8,9.6,30,1.7,1280,10,0,0,0.27,,,0.1,,1.35,0.46,4.1
+Smith2Organic,33,33,34,0,100,97,176,0,0,0.65,,,0.14,,1.48,-0.25,2.1
+Smith2Mineral1,25.8,65.8,8.5,0,5.4,1281,183,0,0,0.41,,,0.06,,1.52,0.5,2
+Smith2Mineral2,23.8,67.2,9,0,2,1281,76,0,0,0.19,,,0.06,,1.52,0.5,3.2
+BurnedOrganic,33,33,34,0,100,97,766,0,0,0.62,,,0.1,,1.42,0.5,42.3
+BurnedMineral1,60,30,10,30,6,1078,2.7,0,0,0.4,,,0.14,,1.34,0.5,2.2
+BurnedMineral2,60,30,10,30,2,1281,2.7,0,0,0.36,,,0.057,,1.35,0.5,4.1
+,"[0.0, 100.0]","[0.0, 100.0]","[0.0, 100.0]","[0.0, 100.0]","[0.0, 100.0]","[0.0, inf)","[0.0, inf)","[0.0, inf)",,,,,,,,,

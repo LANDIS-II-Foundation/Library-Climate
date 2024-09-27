@@ -1,500 +1,365 @@
-//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
-
-using Landis.Core;
+﻿using Landis.Core;
+using Landis.Library.Metadata;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System;
-using System.Collections;
-using Landis.Library.Metadata;
 using System.Linq;
-
 
 namespace Landis.Library.Climate
 {
-
-    public static class Climate
+    public static partial class Climate
     {
+        #region fields
 
+        private static ICore _modelCore;
 
-        private static TemporalGranularity future_allData_granularity;
-        private static TemporalGranularity spinup_allData_granularity;
-        private static Dictionary<int, ClimateRecord[][]> future_allData;
-        private static Dictionary<int, ClimateRecord[][]> spinup_allData;
-        private static List<int> randSelectedTimeKeys_future;
-        private static List<int> randSelectedTimeKeys_spinup;
-        private static ICore modelCore;
-        private static IInputParameters configParameters;
+        private static MetadataTable<InputLog> _spinupInputLog;
+        private static MetadataTable<AnnualLog> _spinupAnnualLog;
 
-        //private static System.Data.DataTable annualPDSI;
-        private static double[,] annualPDSI;
-        private static double[] landscapeAnnualPDSI;
+        private static MetadataTable<InputLog> _futureInputLog;
+        private static MetadataTable<AnnualLog> _futureAnnualLog;
 
-        //public static MetadataTable<PDSI_Log> PdsiLog;
-        public static MetadataTable<InputLog> SpinupInputLog;
-        public static MetadataTable<InputLog> FutureInputLog;
-        public static MetadataTable<AnnualLog> AnnualLog;
-        public static StreamWriter TextLog;
+        private static List<int> _spinupCalendarYears;
+        private static List<int> _futureCalendarYears;
 
-        public enum Phase {SpinUp_Climate = 0, Future_Climate = 1 }
+        private static List<ClimateRecord>[][] _spinupClimateRecords;      // [ecoregionIndex][yearIndex] -> List<ClimateRecord>      yearIndex is 0-based
+        private static List<ClimateRecord>[][] _futureClimateRecords;      // [ecoregionIndex][yearIndex] -> List<ClimateRecord>      yearIndex is 0-based
 
-        // Rob testing storing all monthly and daily data during spinup, to avoid new data creation.
-        public static Dictionary<int, AnnualClimate_Daily[] > Future_DailyData;  //dict key = year; climate record = ecoreregion, day
-        public static Dictionary<int, AnnualClimate_Monthly[]> Future_MonthlyData;  //dict key = year; climate record = ecoreregion, month
-        public static Dictionary<int, AnnualClimate_Daily[]> Spinup_DailyData;  //dict key = year; climate record = ecoreregion, day
-        public static Dictionary<int, AnnualClimate_Monthly[]> Spinup_MonthlyData;  //dict key = year; climate record = ecoreregion, month
+        private static int _spinupRequiredYearCount;
+        private static int _futureRequiredYearCount;
 
-        /*
-        public Climate()
+        private static List<int> _spinupClimateRecordYearIndexOrder;
+        private static List<int> _futureClimateRecordYearIndexOrder;
+
+        #endregion
+
+        #region properties
+
+        /// <summary>
+        /// Spinup climate by ecoregion index and ONE-BASED simulation year. All daily data have 365 days.
+        /// </summary>
+        public static List<AnnualClimate>[] SpinupEcoregionYearClimate { get; private set; }    // indexing: [ecoregionIndex][year].  'year' is 1-BASED simulation year, e.g. 1, 2, ...
+
+        /// <summary>
+        /// Future climate by ecoregion index and ONE-BASED simulation year. All daily data have 365 days.
+        /// </summary>
+        public static List<AnnualClimate>[] FutureEcoregionYearClimate { get; private set; }    // indexing: [ecoregionIndex][year].  'year' is 1-BASED simulation year, e.g. 1, 2, ...
+
+        public static TimeSeriesTimeStep SpinupTimeStep { get; private set; }
+        public static TimeSeriesYearOrder SpinupYearOrder { get; private set; }
+
+        public static TimeSeriesTimeStep FutureTimeStep { get; private set; }
+        public static TimeSeriesYearOrder FutureYearOrder { get; private set; }
+
+        internal static IInputParameters ConfigParameters { get; private set; }
+        internal static StreamWriter TextLog { get; private set; }
+
+        /// <summary>
+        /// First day (0-based) of each month for 365-day year.
+        /// </summary>
+        public readonly static List<int> FirstDayOfMonth = new List<int> { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 };
+
+        /// <summary>
+        /// Middle day (0-based) of each month for 365-day year.
+        /// </summary>
+        public static List<int> MiddleDayOfMonth = new List<int> { 15, 44, 74, 104, 135, 166, 196, 227, 258, 288, 318, 349 };
+
+        /// <summary>
+        /// Days of each month for 365-day year.
+        /// </summary>
+        public static List<int> DaysInMonth = new List<int> { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+        /// <summary>
+        /// Average declination in radians by month. source: https://power.larc.nasa.gov/docs/methodology/energy-fluxes/geometry/.
+        /// </summary>
+        public static readonly double[] MonthlyAvgDeclination = { -0.3651, -0.2261, -0.04220, 0.1643, 0.3280, 0.4029, 0.3697, 0.2348, 0.03869, -0.1675, -0.3301, -0.4023 };
+
+        #endregion
+
+        #region methods
+
+        /// <summary>
+        /// Spinup calendar year for ONE-BASED simulation year. Returns -1 for AverageAllYears options.
+        /// </summary>
+        public static int SpinupCalendarYear(int year) => SpinupEcoregionYearClimate.First(x => x != null)[year].CalendarYear;      // 'year' is 1-BASED simulation year, e.g. 1, 2, ...
+
+        /// <summary>
+        /// Future calendar year for ONE-BASED simulation year. Returns -1 for AverageAllYears options.
+        /// </summary>
+        public static int FutureCalendarYear(int year) => FutureEcoregionYearClimate.First(x => x != null)[year].CalendarYear;      // 'year' is 1-BASED simulation year, e.g. 1, 2, ...
+
+        /// <summary>
+        /// Tuples of (first day, number of days) for each month for 365-day year.
+        /// </summary>
+        public static List<(int, int)> MonthCalendar = new List<(int, int)> { (0, 31), (31, 28), (59, 31), (90, 30), (120, 31), (151, 30), (181, 31), (212, 31), (243, 30), (273, 31), (304, 30), (334, 31) };
+
+        public static int MonthOfYear(int day) => FirstDayOfMonth.FindLastIndex(x => x <= day);
+
+        public static void Initialize(string climateConfigFilename, bool writeOutput, ICore modelCore)
         {
-        }
-        */
-        //---------------------------------------------------------------------
+            _modelCore = modelCore;
 
-        public static ICore ModelCore
-        {
-            get
-            {
-                return modelCore;
-            }
-        }
+            ConfigParameters = Data.Load(climateConfigFilename, new InputParametersParser());
 
-        public static double[,] AnnualPDSI  //ecoregion.Index, Year
-        {
-            get
-            {
-                return annualPDSI;
-            }
-            set
-            {
-                annualPDSI = value;
-            }
-        }
-
-        public static double[] LandscapeAnnualPDSI //year
-        {
-            get
-            {
-                return landscapeAnnualPDSI;
-            }
-            set
-            {
-                landscapeAnnualPDSI = value;
-            }
-
-        }
-
-        public static TemporalGranularity AllData_granularity
-        {
-            get
-            {
-                return future_allData_granularity;
-            }
-        }
-        public static TemporalGranularity Spinup_allData_granularity
-        {
-            get
-            {
-                return spinup_allData_granularity;
-            }
-        }
-        public static Dictionary<int, ClimateRecord[][]> Future_AllData 
-        {
-            get
-            {
-                return future_allData;
-            }
-        }
-        public static Dictionary<int, ClimateRecord[][]> Spinup_AllData
-        {
-            get
-            {
-                return spinup_allData;
-            }
-        }
-
-        public static List<int> RandSelectedTimeKeys_future { get { return randSelectedTimeKeys_future; } }
-        public static List<int> RandSelectedTimeKeys_spinup { get { return randSelectedTimeKeys_spinup; } }
-
-       
-        public static IInputParameters ConfigParameters
-        {
-            get
-            {
-                return configParameters;
-            }
-            //set
-            //{
-            //    configParameters = value;
-            //}
-        }
-
-        
-
-        //---------------------------------------------------------------------
-        public static void Initialize(string climateConfigFilename, bool writeOutput, ICore mCore)
-        {
-            InputParametersParser inParamsParser = new InputParametersParser();
-            configParameters = Landis.Data.Load<IInputParameters>(climateConfigFilename, inParamsParser);
-
-            TextLog = Landis.Data.CreateTextFile("Landis-climate-log.txt");
+            TextLog = Data.CreateTextFile("Landis-climate-log.txt");
             TextLog.AutoFlush = true;
 
-            modelCore = mCore;
-            MetadataHandler.InitializeMetadata(1, modelCore);
+            InitializeMetadata();
 
-            ModelCore.UI.WriteLine("   Loading weather data ...");
-            Climate.future_allData = new Dictionary<int, ClimateRecord[][]>();
-            Climate.spinup_allData = new Dictionary<int, ClimateRecord[][]>();
+            // validate climate time series options
+            var s = ConfigParameters.SpinUpClimateTimeSeries.Split('_');
+            if (s.Length != 2 || !Enum.TryParse<TimeSeriesTimeStep>(s[0], out var spinupTimeStep) || !Enum.TryParse<TimeSeriesYearOrder>(s[1], out var spinupYearOrder))
+                throw new ApplicationException($"Unknown SpinUp Climate Time Series: {ConfigParameters.SpinUpClimateTimeSeries}");
 
-            Future_MonthlyData = new Dictionary<int, AnnualClimate_Monthly[]>();
-            Spinup_MonthlyData = new Dictionary<int, AnnualClimate_Monthly[]>();
-            Future_DailyData = new Dictionary<int, AnnualClimate_Daily[]>();
-            Spinup_DailyData = new Dictionary<int, AnnualClimate_Daily[]>();
-            LandscapeAnnualPDSI = new double[Climate.ModelCore.EndTime - Climate.ModelCore.StartTime + 1];
-            
-            TextLog.WriteLine("   Loading spin-up weather data from file {0} ...", configParameters.SpinUpClimateFile);
-            Climate.ConvertFileFormat_FillOutAllData(configParameters.SpinUpClimateTimeSeries, configParameters.SpinUpClimateFile, configParameters.SpinUpClimateFileFormat, Climate.Phase.SpinUp_Climate);
+            s = ConfigParameters.ClimateTimeSeries.Split('_');
+            if (s.Length != 2 || !Enum.TryParse<TimeSeriesTimeStep>(s[0], out var futureTimeStep) || !Enum.TryParse<TimeSeriesYearOrder>(s[1], out var futureYearOrder))
+                throw new ApplicationException($"Unknown (Future) Climate Time Series: {ConfigParameters.ClimateTimeSeries}");
 
-            TextLog.WriteLine("   Loading future weather data from file {0} ...", configParameters.ClimateFile);
-            Climate.ConvertFileFormat_FillOutAllData(configParameters.ClimateTimeSeries, configParameters.ClimateFile, configParameters.ClimateFileFormat, Climate.Phase.Future_Climate);
-
+            SpinupTimeStep = spinupTimeStep;
+            SpinupYearOrder = spinupYearOrder;
+            FutureTimeStep = futureTimeStep;
+            FutureYearOrder = futureYearOrder;
 
             // **
-            // spinup
+            // read climate data
+            // returned data format: [ecoregionIndex][yearIndex] -> List<ClimateRecord>. yearIndex is 0-based. ClimateRecord.Count is 12 (Monthly) or 365 (Daily, regardless of leap year).
 
-            // write input data to the log
-            foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in spinup_allData)
-            {
-                Climate.WriteSpinupInputLog(timeStep.Value, timeStep.Key); //, Climate.Phase.SpinUp_Climate.ToString());
-            }
+            TextLog.WriteLine($"   Loading spinup climate data from file {ConfigParameters.SpinUpClimateFile} ...");
+            ReadClimateData(spinupTimeStep, ConfigParameters.SpinUpClimateFile, out _spinupCalendarYears, out _spinupClimateRecords);
 
-            // find maxSpeciesAge as the maximum possible time step count for spin up
-            int maxSpeciesAge = 0;
-            foreach (ISpecies sp in ModelCore.Species)
-            {
-                if (sp.Longevity > maxSpeciesAge)
-                    maxSpeciesAge = sp.Longevity;
-            }
-
-            var spinupTimeStepKeys = new List<int>();
-            var spinupKeyList = new List<int>(Climate.spinup_allData.Keys);
-            var spinupStartYear = spinupKeyList.Min();
-            var spinupTimeStepCount = maxSpeciesAge;
-
-            for (var i = 0; i < spinupTimeStepCount; ++i)
-                spinupTimeStepKeys.Add(spinupStartYear + i);
-
-            if (Climate.ConfigParameters.SpinUpClimateTimeSeries.ToLower().Contains("random"))
-            {
-                // generate random keys for the length of maxSpeciesAge
-                Climate.randSelectedTimeKeys_spinup = new List<int>();
-
-                // pick a random year key from allData
-                for (var i = 0; i < spinupTimeStepCount; ++i)
-                    Climate.randSelectedTimeKeys_spinup.Add(spinupKeyList[(int)(spinupKeyList.Count * Climate.ModelCore.GenerateUniform())]);
-            }
-
-            // initialize Spinup data arrays
-            foreach (var timeStepKey in spinupTimeStepKeys)
-            {
-                Spinup_MonthlyData.Add(timeStepKey, new AnnualClimate_Monthly[modelCore.Ecoregions.Count]);
-                Spinup_DailyData.Add(timeStepKey, new AnnualClimate_Daily[modelCore.Ecoregions.Count]);
-            }
-
+            TextLog.WriteLine($"   Loading future climate data from file {ConfigParameters.ClimateFile} ...");
+            ReadClimateData(futureTimeStep, ConfigParameters.ClimateFile, out _futureCalendarYears, out _futureClimateRecords);
 
             // **
-            // future
+            // setup year ordering
 
-            if (Climate.ConfigParameters.UsingFireClimate) //.RHSlopeAdjust > 0)
+            _spinupRequiredYearCount = modelCore.Species.Max(x => x.Longevity);  // use maximum species longevity as the maximum possible year count for spin up
+            if (spinupYearOrder == TimeSeriesYearOrder.SequencedYears)
             {
-                foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
-                {
-                    FireClimate.CalculateFireWeather(timeStep.Key, timeStep.Value); 
-                }
+                // use the last year of data for years beyond the input data
+                _spinupClimateRecordYearIndexOrder = Enumerable.Range(0, _spinupRequiredYearCount).Select(x => x < _spinupCalendarYears.Count ? x : _spinupCalendarYears.Count - 1).ToList();
+            }
+            else if (spinupYearOrder == TimeSeriesYearOrder.RandomYears)
+            {
+                // randomly sample input year indices
+                _spinupClimateRecordYearIndexOrder = Enumerable.Range(0, _spinupRequiredYearCount).Select(x => (int)(_spinupCalendarYears.Count * modelCore.GenerateUniform())).ToList();
             }
 
-            //write input data to the log
-            foreach (KeyValuePair<int, ClimateRecord[][]> timeStep in future_allData)
+            _futureRequiredYearCount = modelCore.EndTime - modelCore.StartTime;
+            if (futureYearOrder == TimeSeriesYearOrder.SequencedYears)
             {
-                Climate.WriteFutureInputLog(timeStep.Value, timeStep.Key);
+                // use the last year of data for years beyond the input data
+                _futureClimateRecordYearIndexOrder = Enumerable.Range(0, _futureRequiredYearCount).Select(x => x < _futureCalendarYears.Count ? x : _futureCalendarYears.Count - 1).ToList();
             }
-
-            var futureTimeStepKeys = new List<int>();
-            var futureKeyList = new List<int>(Climate.future_allData.Keys);
-            var futureStartYear = futureKeyList.Min();
-            var futureTimeStepCount = ModelCore.EndTime - ModelCore.StartTime;
-
-            for (var i = 0; i < futureTimeStepCount; ++i)
-                futureTimeStepKeys.Add(futureStartYear + i);
-
-            if (Climate.ConfigParameters.ClimateTimeSeries.ToLower().Contains("random")) 
+            else if (futureYearOrder == TimeSeriesYearOrder.RandomYears)
             {
-                // generate random keys for the length of the simulation
-                Climate.randSelectedTimeKeys_future = new List<int>();
-
-                // pick a random year key from allData
-                for (var i = 0; i < futureTimeStepCount; ++i)
-                    Climate.randSelectedTimeKeys_future.Add(futureKeyList[(int)(futureKeyList.Count * Climate.ModelCore.GenerateUniform())]);                                
+                // randomly sample input year indices
+                _futureClimateRecordYearIndexOrder = Enumerable.Range(0, _futureRequiredYearCount).Select(x => (int)(_futureCalendarYears.Count * modelCore.GenerateUniform())).ToList();
             }
-
-            // initialize Future data arrays
-            foreach (var timeStepKey in futureTimeStepKeys)
-            {
-                Future_MonthlyData.Add(timeStepKey, new AnnualClimate_Monthly[modelCore.Ecoregions.Count]);
-                Future_DailyData.Add(timeStepKey, new AnnualClimate_Daily[modelCore.Ecoregions.Count]);
-            }
-
         }
 
-
-        // Overload method without field capacity and wilting point.  RMS added 9/7/2016
-        // If using this method, CANNOT calculate AET or PDSI.  Note: PDSI not working regardless.
-        public static void GenerateEcoregionClimateData(IEcoregion ecoregion, int startYear, double latitude)
-        {
-            GenerateEcoregionClimateData(ecoregion, startYear, latitude, 20.0, 10.0);
-        }
-
-        public static void GenerateEcoregionClimateData(IEcoregion ecoregion, int startYear, double latitude, double fieldCapacity, double wiltingPoint)
-        {
-                                    
-            // JM:  these next three lines are not currently used, but may need to be modified if used:
-            //int numberOftimeSteps = Climate.ModelCore.EndTime - Climate.ModelCore.StartTime;
-            //annualPDSI = new double[Climate.ModelCore.Ecoregions.Count, future_allData.Count]; 
-            //landscapeAnnualPDSI = new double[future_allData.Count]; 
-            double[] temperature_normals = new double[12];
-            double[] precip_normals = new double[12];
-            
-            double availableWaterCapacity = fieldCapacity - wiltingPoint;
-
-            Climate.TextLog.WriteLine("Core.StartTime = {0}, Core.EndTime = {1}.", ModelCore.StartTime, ModelCore.EndTime);
-            //Climate.TextLog.WriteLine("   Climate.LandscapeAnnualPDSI.Length = {0}.", Climate.LandscapeAnnualPDSI.Length);
-
-            //First Calculate Climate Normals from Spin-up data
-            int timeStepIndex = 0;
-            foreach (KeyValuePair<int, AnnualClimate_Monthly[]> timeStep in Spinup_MonthlyData)
-            {
-
-                //Climate.TextLog.WriteLine("  Calculating Weather for SPINUP: timeStep = {0}, actualYear = {1}", timeStep.Key, startYear + timeStep.Key);
-                AnnualClimate_Monthly annualClimateMonthly = new AnnualClimate_Monthly(ecoregion, latitude, Climate.Phase.SpinUp_Climate, timeStep.Key, timeStepIndex); 
-                Spinup_MonthlyData[startYear + timeStep.Key][ecoregion.Index] = annualClimateMonthly;
-
-                for (int mo = 0; mo < 12; mo++)
-                {
-                    temperature_normals[mo] += annualClimateMonthly.MonthlyTemp[mo];
-                    precip_normals[mo] += annualClimateMonthly.MonthlyPrecip[mo];
-                }
-
-                timeStepIndex++;
-            }
-
-            // Calculate AVERAGE T normal.
-            for (int mo = 0; mo < 12; mo++)
-            {
-                temperature_normals[mo] /= (double)Spinup_MonthlyData.Count;
-                precip_normals[mo] /= (double)Spinup_MonthlyData.Count;
-                //Climate.TextLog.WriteLine("Month = {0}, Original Monthly T normal = {1}", mo, month_Temp_normal[mo]);
-
-            }
-            
-            timeStepIndex = 0;
-
-            //PDSI_Calculator.InitializeEcoregion_PDSI(temperature_normals, precip_normals, availableWaterCapacity, latitude, UnitSystem.metrics, ecoregion);
-
-            foreach (KeyValuePair<int, AnnualClimate_Monthly[]> timeStep in Future_MonthlyData)
-            {
-                //Climate.TextLog.WriteLine("  Completed calculations for Future_Climate: TimeStepYear = {0}, actualYear = {1}", timeStep.Key, startYear + timeStep.Key);
-                AnnualClimate_Monthly annualClimateMonthly = new AnnualClimate_Monthly(ecoregion, latitude, Climate.Phase.Future_Climate, timeStep.Key, timeStepIndex);
-                Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index] = annualClimateMonthly;
-
-                // Next calculate PSDI for the future data
-                //Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI = PDSI_Calculator.CalculateEcoregion_PDSI(annualClimateMonthly, temperature_normals, precip_normals, availableWaterCapacity, latitude, UnitSystem.metrics, ecoregion);
-                //Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI = PDSI_Calculator.CalculateEcoregion_PDSI(annualClimateMonthly, temperature_normals, precip_normals, latitude, UnitSystem.metrics, ecoregion);
-                // Climate.LandscapeAnnualPDSI[timeStepIndex] += (Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI / Climate.ModelCore.Ecoregions.Count);
-
-                //Climate.TextLog.WriteLine("Calculated PDSI for Ecoregion {0}, timestep {1}, PDSI Year {2}; PDSI={3:0.00}.", ecoregion.Name, timeStepIndex, timeStep.Key, Future_MonthlyData[startYear + timeStep.Key][ecoregion.Index].PDSI);
-                timeStepIndex++;
-
-                //WriteAnnualLog(ecoregion, startYear + timeStep.Key, annualClimateMonthly, annualClimateDaily);
-                WriteAnnualLog(ecoregion, startYear + timeStep.Key, annualClimateMonthly);
-            }
-
-
-        }
         /// <summary>
-        /// Converts USGS Data to Standard Input climate Data and fill out the Future_AllData and/or Spinup_AllData
+        /// Populates SpinupEcoregionYearClimate and FutureEcoregionYearClimate for all ecoregions with the same latitude for all ecoregions.
         /// </summary>
-        /// 
-        public static void ConvertFileFormat_FillOutAllData(String timeSeries, string filePath, string fileFormat, Climate.Phase climatePhase)
+        public static void GenerateEcoregionClimateData(double latitudeForAllEcoregions) => GenerateEcoregionClimateData(_modelCore.Ecoregions.ToDictionary(k => k.Name, v => latitudeForAllEcoregions));
+
+        /// <summary>
+        /// Populates SpinupEcoregionYearClimate and FutureEcoregionYearClimate for all ecoregions with per-ecoregion latitudes.
+        /// </summary>
+        public static void GenerateEcoregionClimateData(Dictionary<string, double> ecoregionLatitudes)
         {
-            if (climatePhase == Climate.Phase.Future_Climate && timeSeries.Contains("Daily"))
-                future_allData_granularity = TemporalGranularity.Daily;
-                
-            else if (climatePhase == Climate.Phase.Future_Climate && timeSeries.Contains("Monthly"))
-                future_allData_granularity = TemporalGranularity.Monthly;
+            SpinupEcoregionYearClimate = new List<AnnualClimate>[_modelCore.Ecoregions.Count];
+            FutureEcoregionYearClimate = new List<AnnualClimate>[_modelCore.Ecoregions.Count];
 
-            else if (climatePhase == Climate.Phase.SpinUp_Climate && timeSeries.Contains("Daily"))
-                spinup_allData_granularity = TemporalGranularity.Daily;
-
-            else if (climatePhase == Climate.Phase.SpinUp_Climate && timeSeries.Contains("Monthly"))
-                spinup_allData_granularity = TemporalGranularity.Monthly;
-
-            if (timeSeries.Contains("Daily"))
-                ClimateDataConvertor.Convert_USGS_to_ClimateData_FillAlldata(TemporalGranularity.Daily, filePath, fileFormat, climatePhase);
-            
-            else if (timeSeries.Contains("Monthly"))
-                ClimateDataConvertor.Convert_USGS_to_ClimateData_FillAlldata(TemporalGranularity.Monthly, filePath, fileFormat, climatePhase);
-
-            return;
-
-        }
-
-        //---------------------------------------------------------------------
-        private static void WriteSpinupInputLog(ClimateRecord[][] TimestepData, int year)
-        {
-            int maxtimestep = 12;
-            if (spinup_allData_granularity == TemporalGranularity.Daily)
-                maxtimestep = 365;
-            
-            foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
+            for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
             {
-                if (ecoregion.Active)
+                var ecoregion = _modelCore.Ecoregions[e];
+                if (!ecoregion.Active) continue;
+
+                // calculate daylight and nighttime hours that depend on latitude, but not climate
+                CalculateMonthlyDayLengths(ecoregionLatitudes[ecoregion.Name], out var monthlyDayLightHours, out var monthlyNightTimeHours);
+
+                // generate annual climate instances for each year of input data
+                var spinupInputAnnualClimate = new List<AnnualClimate>();
+                for (var i = 0; i < _spinupCalendarYears.Count; ++i)
                 {
-                    for (int timestep = 0; timestep < maxtimestep; timestep++)
-                    {
-                        SpinupInputLog.Clear();
-                        var il = new InputLog();
-
-                        il.Year = year;
-                        il.Timestep = timestep + 1;
-                        il.EcoregionName = ecoregion.Name;
-                        il.EcoregionIndex = ecoregion.Index;
-                        il.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
-                        il.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
-                        il.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
-                        //il.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
-                        //il.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
-                        il.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
-                        il.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
-                        il.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
-                        il.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        il.relativehumidity = TimestepData[ecoregion.Index][timestep].AvgRH;
-                        il.min_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMinRH;
-                        il.max_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMaxRH;
-                        il.specifichumidty = TimestepData[ecoregion.Index][timestep].AvgSpecificHumidity;
-                        il.pet = TimestepData[ecoregion.Index][timestep].AvgPET;
-                        il.par = TimestepData[ecoregion.Index][timestep].AvgPAR;
-                        il.ozone = TimestepData[ecoregion.Index][timestep].AvgOzone;
-                        il.shortwave = TimestepData[ecoregion.Index][timestep].AvgShortWaveRadiation;
-                        il.temperature = TimestepData[ecoregion.Index][timestep].Temp;
-                        if (Climate.ConfigParameters.UsingFireClimate)
-                        {
-                            il.DuffMoistureCode = TimestepData[ecoregion.Index][timestep].DuffMoistureCode;
-                            il.DroughtCode = TimestepData[ecoregion.Index][timestep].DroughtCode;
-                            il.BuildUpIndex = TimestepData[ecoregion.Index][timestep].BuildUpIndex;
-                            il.FineFuelMoistureCode = TimestepData[ecoregion.Index][timestep].FineFuelMoistureCode;
-                            il.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
-                        }
-
-
-                        SpinupInputLog.AddObject(il);
-                        SpinupInputLog.WriteToFile();
-
-                    }
+                    var climate = new AnnualClimate(_spinupCalendarYears[i], SpinupTimeStep, _spinupClimateRecords[ecoregion.Index][i], ecoregionLatitudes[ecoregion.Name], monthlyDayLightHours, monthlyNightTimeHours);
+                    spinupInputAnnualClimate.Add(climate);
                 }
+
+                var futureInputAnnualClimate = new List<AnnualClimate>();
+                for (var i = 0; i < _futureCalendarYears.Count; ++i)
+                {
+                    var climate = new AnnualClimate(_futureCalendarYears[i], FutureTimeStep, _futureClimateRecords[ecoregion.Index][i], ecoregionLatitudes[ecoregion.Name], monthlyDayLightHours, monthlyNightTimeHours);
+                    futureInputAnnualClimate.Add(climate);
+                }
+
+                // calculate SPEI
+                CalculateMonthlySpei(spinupInputAnnualClimate, 1);
+                CalculateMonthlySpei(futureInputAnnualClimate, 1);
+
+                // final spinup data
+                if (SpinupYearOrder == TimeSeriesYearOrder.SequencedYears || SpinupYearOrder == TimeSeriesYearOrder.RandomYears)
+                {
+                    SpinupEcoregionYearClimate[e] = _spinupClimateRecordYearIndexOrder.Select(x => spinupInputAnnualClimate[x]).ToList();
+                }
+                else
+                {
+                    // for TimeSeriesYearOrder.AverageAllYears, set all years to the average climate
+                    var avgClimate = new AnnualClimate(spinupInputAnnualClimate, SpinupTimeStep);
+                    SpinupEcoregionYearClimate[e] = Enumerable.Repeat(avgClimate, _spinupRequiredYearCount).ToList();
+                }
+
+                // insert null at index zero because simulation year is 1-based
+                SpinupEcoregionYearClimate[e].Insert(0, null);
+
+                // final future data
+                if (FutureYearOrder == TimeSeriesYearOrder.SequencedYears || FutureYearOrder == TimeSeriesYearOrder.RandomYears)
+                {
+                    FutureEcoregionYearClimate[e] = _futureClimateRecordYearIndexOrder.Select(x => futureInputAnnualClimate[x]).ToList();
+                }
+                else
+                {
+                    // for TimeSeriesYearOrder.AverageAllYears, set all years to the average climate
+                    var avgClimate = new AnnualClimate(futureInputAnnualClimate, FutureTimeStep);
+                    FutureEcoregionYearClimate[e] = Enumerable.Repeat(avgClimate, _spinupRequiredYearCount).ToList();
+                }
+
+                // insert null at index zero because simulation year is 1-based
+                FutureEcoregionYearClimate[e].Insert(0, null);
+            }
+
+            if (ConfigParameters.GenerateClimateOutputFiles)
+            {
+                // write input logs
+                WriteInputLogs();
+
+                // write annual logs
+                WriteAnnualLogs();
             }
         }
 
-        //---------------------------------------------------------------------
-        private static void WriteFutureInputLog(ClimateRecord[][] TimestepData, int year)
+        #endregion
+
+        #region private methods
+
+        private static void CalculateMonthlyDayLengths(double latitude, out List<double> monthlyDayLightHours, out List<double> monthlyNightTimeHours)
         {
-            //CalculateFWI(ref TimestepData, year);
-            int maxtimestep = 12;
-            if (future_allData_granularity == TemporalGranularity.Daily)
-                maxtimestep = 365;
+            // source: https://power.larc.nasa.gov/docs/methodology/energy-fluxes/geometry/
 
-            foreach (IEcoregion ecoregion in Climate.ModelCore.Ecoregions)
+            monthlyDayLightHours = new List<double>();
+            monthlyNightTimeHours = new List<double>();
+
+            var tanlat = Math.Tan(Math.Min(Math.Max(latitude, -90.0), 90.0) * Math.PI / 180.0);
+
+            foreach (var decl in MonthlyAvgDeclination)
             {
-                if (ecoregion.Active)
+                var z = tanlat * Math.Tan(decl);
+
+                double ws;
+                if (z < -1.0) // sun stays below horizon
                 {
-
-                    for (int timestep = 0; timestep < maxtimestep; timestep++)
-                    {
-                        FutureInputLog.Clear();
-                        var il = new InputLog();
-
-                        il.Year = year;
-                        il.Timestep = timestep + 1;
-                        il.EcoregionName = ecoregion.Name;
-                        il.EcoregionIndex = ecoregion.Index;
-                        il.ppt = TimestepData[ecoregion.Index][timestep].AvgPpt;
-                        il.min_airtemp = TimestepData[ecoregion.Index][timestep].AvgMinTemp;
-                        il.max_airtemp = TimestepData[ecoregion.Index][timestep].AvgMaxTemp;
-                        //il.std_ppt = TimestepData[ecoregion.Index][timestep].StdDevPpt;
-                        //il.std_temp = TimestepData[ecoregion.Index][timestep].StdDevTemp;
-                        il.winddirection = TimestepData[ecoregion.Index][timestep].AvgWindDirection;
-                        il.windspeed = TimestepData[ecoregion.Index][timestep].AvgWindSpeed;
-                        il.ndeposition = TimestepData[ecoregion.Index][timestep].AvgNDeposition;
-                        il.relativehumidity = TimestepData[ecoregion.Index][timestep].AvgRH;
-                        il.min_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMinRH;
-                        il.max_relativehumidity = TimestepData[ecoregion.Index][timestep].AvgMaxRH;
-                        il.specifichumidty = TimestepData[ecoregion.Index][timestep].AvgSpecificHumidity;
-                        il.pet = TimestepData[ecoregion.Index][timestep].AvgPET;
-                        il.co2 = TimestepData[ecoregion.Index][timestep].AvgCO2;
-                        il.par = TimestepData[ecoregion.Index][timestep].AvgPAR;
-                        il.ozone = TimestepData[ecoregion.Index][timestep].AvgOzone;
-                        il.shortwave = TimestepData[ecoregion.Index][timestep].AvgShortWaveRadiation;                        
-                        il.temperature = TimestepData[ecoregion.Index][timestep].Temp;
-                        if (Climate.ConfigParameters.UsingFireClimate)
-                        {
-                            il.DuffMoistureCode = TimestepData[ecoregion.Index][timestep].DuffMoistureCode;
-                            il.DroughtCode = TimestepData[ecoregion.Index][timestep].DroughtCode;
-                            il.BuildUpIndex = TimestepData[ecoregion.Index][timestep].BuildUpIndex;
-                            il.FineFuelMoistureCode = TimestepData[ecoregion.Index][timestep].FineFuelMoistureCode;
-                            il.FWI = TimestepData[ecoregion.Index][timestep].AvgFWI;
-                        }
-
-
-                        FutureInputLog.AddObject(il);
-                        FutureInputLog.WriteToFile();
-
-                    }
+                    ws = 0.0;
                 }
+                else if (z > 1.0) // sun stays above the horizon
+                {
+                    ws = Math.PI;
+                }
+                else
+                {
+                    ws = Math.Acos(-z);
+                }
+
+                var hr = 24.0 * ws / Math.PI; // length of day in hours
+                monthlyDayLightHours.Add(hr);
+                monthlyNightTimeHours.Add(24.0 - hr);
             }
         }
 
-
-        //---------------------------------------------------------------------
-        //private static void WriteAnnualLog(IEcoregion ecoregion, int year, AnnualClimate_Monthly annualClimateMonthly, AnnualClimate_Daily annualClimate_Daily)
-        private static void WriteAnnualLog(IEcoregion ecoregion, int year, AnnualClimate_Monthly annualClimateMonthly)
+        private static void WriteInputLogs()
         {
-            AnnualLog.Clear();
-            AnnualLog al = new AnnualLog();
+            _spinupInputLog.Clear();
+            for (var year = 1; year <= _spinupRequiredYearCount; ++year) // 1-based year
+            {
+                for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
+                {
+                    if (SpinupEcoregionYearClimate[e] == null) continue;
 
-            //al.SimulationPeriod = TBD
-            al.Time = year;
-            al.EcoregionName = ecoregion.Name;
-            al.EcoregionIndex = ecoregion.Index;
-            //if (future_allData_granularity == TemporalGranularity.Daily)
-            //    al.BeginGrow = annualClimate_Daily.BeginGrowing;
-            //else
-                al.BeginGrow = annualClimateMonthly.BeginGrowing;
-            //if (future_allData_granularity == TemporalGranularity.Daily)
-            //    al.EndGrow = annualClimate_Daily.EndGrowing;
-            //else
-                al.EndGrow = annualClimateMonthly.EndGrowing;
-            al.TAP = annualClimateMonthly.TotalAnnualPrecip;
-            al.MAT = annualClimateMonthly.MeanAnnualTemperature;
-            al.PDSI = Future_MonthlyData[year][ecoregion.Index].PDSI;
-            // VS: might need FWI in annual climate
-            //al.FWI = Future_MonthlyData[year][ecoregion.Index].FWI;
+                    foreach (var log in SpinupEcoregionYearClimate[e][year].ToInputLogs(year, _modelCore.Ecoregions[e]))
+                    {
+                        _spinupInputLog.AddObject(log);
+                    }
+                }
+            }
+            _spinupInputLog.WriteToFile();
 
-            AnnualLog.AddObject(al);
-            AnnualLog.WriteToFile();
+            _futureInputLog.Clear();
+            for (var year = 1; year <= _futureRequiredYearCount; ++year) // 1-based year
+            {
+                for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
+                {
+                    if (FutureEcoregionYearClimate[e] == null) continue;
 
-
+                    foreach (var log in FutureEcoregionYearClimate[e][year].ToInputLogs(year, _modelCore.Ecoregions[e]))
+                    {
+                        _futureInputLog.AddObject(log);
+                    }
+                }
+            }
+            _futureInputLog.WriteToFile();
         }
 
-        
+        private static void WriteAnnualLogs()
+        {
+            _spinupAnnualLog.Clear();
+            for (var year = 1; year <= _spinupRequiredYearCount; ++year) // 1-based year
+            {
+                for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
+                {
+                    if (SpinupEcoregionYearClimate[e] == null) continue;
+
+                    _spinupAnnualLog.AddObject(new AnnualLog
+                    {
+                        Year = year,
+                        CalendarYear = SpinupEcoregionYearClimate[e][year].CalendarYear,
+                        EcoregionName = _modelCore.Ecoregions[e].Name,
+
+                        TAP = SpinupEcoregionYearClimate[e][year].TotalAnnualPrecip,
+                        MAT = SpinupEcoregionYearClimate[e][year].MeanAnnualTemperature,
+                        BeginGrow = SpinupEcoregionYearClimate[e][year].BeginGrowingDay,
+                        EndGrow = SpinupEcoregionYearClimate[e][year].EndGrowingDay,
+                    });
+                }
+            }
+            _spinupAnnualLog.WriteToFile();
+
+            _futureAnnualLog.Clear();
+            for (var year = 1; year <= _futureRequiredYearCount; ++year) // 1-based year
+            {
+                for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
+                {
+                    if (FutureEcoregionYearClimate[e] == null) continue;
+
+                    _futureAnnualLog.AddObject(new AnnualLog
+                                               {
+                                                   Year = year,
+                                                   CalendarYear = FutureEcoregionYearClimate[e][year].CalendarYear,
+                                                   EcoregionName = _modelCore.Ecoregions[e].Name,
+
+                                                   TAP = FutureEcoregionYearClimate[e][year].TotalAnnualPrecip,
+                                                   MAT = FutureEcoregionYearClimate[e][year].MeanAnnualTemperature,
+                                                   BeginGrow = FutureEcoregionYearClimate[e][year].BeginGrowingDay,
+                                                   EndGrow = FutureEcoregionYearClimate[e][year].EndGrowingDay,
+                    });
+                }
+            }
+            _futureAnnualLog.WriteToFile();
+        }
+
+        #endregion
+
+        #region private classes
+
+        #endregion
     }
-
 }

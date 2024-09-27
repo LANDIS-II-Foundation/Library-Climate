@@ -1,91 +1,91 @@
-﻿//  Authors:  Amin Almassian, Robert M. Scheller, John McNabb, Melissa Lucash
-
-using Landis.Library.Metadata;
+﻿using Landis.Library.Metadata;
 
 namespace Landis.Library.Climate
 {
     public class InputLog
     {
-        
-        [DataFieldAttribute(Unit = FieldUnits.Year, Desc = "Input Year")]
-        public int Year {set; get;}
+        [DataFieldAttribute(Desc = "Simulation Year")]
+        public int Year { set; get; }
 
-        [DataFieldAttribute(Desc = "Input Timestep")]
-        public int Timestep { set; get; }
+        [DataFieldAttribute(Unit = FieldUnits.Year, Desc = "Calendar Year")]
+        public int CalendarYear { set; get; }
+
+        [DataFieldAttribute(Desc = "Month")]
+        public int Month { set; get; }
 
         [DataFieldAttribute(Desc = "Ecoregion Name")]
         public string EcoregionName { set; get; }
 
-        [DataFieldAttribute(Desc = "Ecoregion Index")]
-        public int EcoregionIndex { set; get; }
+        [DataFieldAttribute(Desc = "Minimum Air Temperature [C])", Format = "0.00")]
+        public double MinTemp { get; set; }
 
-        [DataFieldAttribute(Desc = "Precipitation (units variable)", Format = "0.00")]
-        public double ppt {get; set;}
+        [DataFieldAttribute(Desc = "Maximum Air Temperature [C])", Format = "0.00")]
+        public double MaxTemp { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Minimum Air Temperature (units variable)", Format = "0.00")]
-        public double min_airtemp { get; set; }
+        [DataFieldAttribute(Desc = "Air Temperature [C])", Format = "0.00")]
+        public double Temp { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Maximum Air Temperature (units variable)", Format = "0.00")]
-        public double max_airtemp { get; set; }
+        [DataFieldAttribute(Desc = "Precipitation [cm]", Format = "0.00")]
+        public double Precip { get; set; }
 
-        [DataFieldAttribute(Desc = "Standard Deviation Precipitation (units variable)", Format = "0.00")]
-        public double std_ppt { get; set; }
+        [DataFieldAttribute(Desc = "Wind Direction (Compass heading that the wind is blowing to)", Format = "0.00")]
+        public double WindDirection { get; set; }
 
-        [DataFieldAttribute(Desc = "Standard Deviation Temperature (units variable)", Format = "0.00")]
-        public double std_temp { get; set; }
-        
-        [DataFieldAttribute(Desc = "Average Wind Direction (units variable)", Format = "0.00")]
-        public double winddirection { get; set; }
-       
-        [DataFieldAttribute(Desc = "Average Wind Speed (units variable)", Format = "0.00")]
-        public double windspeed { get; set; }
-       
-        [DataFieldAttribute(Desc = "Average Nitrogen Deposition (units variable)", Format = "0.00")]
-        public double ndeposition { get; set; }
+        [DataFieldAttribute(Desc = "Wind Speed [km/hr]", Format = "0.00")]
+        public double WindSpeed { get; set; }
 
-        [DataFieldAttribute(Desc = "Average CO2 concentration (units variable)", Format = "0.00")]
-        public double co2 { get; set; }
+        [DataFieldAttribute(Desc = "Nitrogen Deposition [g/m2]", Format = "0.00")]
+        public double NDeposition { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Relative Humidity (units variable)", Format = "0.00")]
-        public double relativehumidity { get; set; }
+        [DataFieldAttribute(Desc = "CO2 concentration [ppm]", Format = "0.00")]
+        public double CO2 { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Minimum Relative Humidity (units variable)", Format = "0.00")]
-        public double min_relativehumidity { get; set; }
+        [DataFieldAttribute(Desc = "Minimum Relative Humidity [%]", Format = "0.00")]
+        public double MinRH { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Maximum Air Humidity (units variable)", Format = "0.00")]
-        public double max_relativehumidity { get; set; }
+        [DataFieldAttribute(Desc = "Maximum Relative Humidity [%]", Format = "0.00")]
+        public double MaxRH { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Specific Humidity (units variable)", Format = "0.000000")]
-        public double specifichumidty { get; set; }
+        [DataFieldAttribute(Desc = "Relative Humidity [%]", Format = "0.00")]
+        public double RH { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Potential Evapotranspiration (units variable)", Format = "0.000000")]
-        public double pet { get; set; }
+        [DataFieldAttribute(Desc = "Specific Humidity [unitless]", Format = "0.000000")]
+        public double SpecificHumidity { get; set; }
 
-        [DataFieldAttribute(Desc = "Average PAR (units variable)", Format = "0.00")]
-        public double par { get; set; }
+        [DataFieldAttribute(Desc = "Potential Evapotranspiration [cm]", Format = "0.000000")]
+        public double PET { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Ozone (units variable)", Format = "0.00")]
-        public double ozone { get; set; }
+        [DataFieldAttribute(Desc = "PAR [umol]", Format = "0.00")]
+        public double PAR { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Shortwave Radiation (units variable)", Format = "0.00")]
-        public double shortwave { get; set; }
+        [DataFieldAttribute(Desc = "Ozone [ppm]", Format = "0.00")]
+        public double Ozone { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Temperature (units variable)", Format = "0.00")]
-        public double temperature { get; set; }
+        [DataFieldAttribute(Desc = "Shortwave Radiation [W/m2]", Format = "0.00")]
+        public double ShortWaveRadiation { get; set; }
 
-        [DataFieldAttribute(Desc = "DuffMoistureCode (units variable)", Format = "0.00")]
+        [DataFieldAttribute(Desc = "DuffMoistureCode [unitless]", Format = "0.00")]
         public double DuffMoistureCode { get; set; }
 
-        [DataFieldAttribute(Desc = "DroughtCode (units variable)", Format = "0.00")]
+        [DataFieldAttribute(Desc = "DroughtCode [unitless]", Format = "0.00")]
         public double DroughtCode { get; set; }
 
-        [DataFieldAttribute(Desc = "BuildUpIndex (units variable)", Format = "0.00")]
+        [DataFieldAttribute(Desc = "BuildUpIndex [unitless]", Format = "0.00")]
         public double BuildUpIndex { get; set; }
 
-        [DataFieldAttribute(Desc = "FineFuelMoistureCode (units variable)", Format = "0.00")]
+        [DataFieldAttribute(Desc = "FineFuelMoistureCode [unitless]", Format = "0.00")]
         public double FineFuelMoistureCode { get; set; }
 
-        [DataFieldAttribute(Desc = "Average Fire Weather Index (units variable)", Format = "0.00")]
-        public double FWI { get; set; }
+        [DataFieldAttribute(Desc = "Fire Weather Index [unitless]", Format = "0.00")]
+        public double FireWeatherindex { get; set; }
+
+        [DataFieldAttribute(Desc = "Vapor Pressure Deficit [kPa]", Format = "0.00")]
+        public double VPD { get; set; }
+
+        [DataFieldAttribute(Desc = "Growing Degree Days [C]")]
+        public int GDD { get; set; }
+
+        [DataFieldAttribute(Desc = "Standardized Precipitation Evapotranspiration Index [unitless]", Format = "0.00")]
+        public double SPEI { get; set; }
     }
 }

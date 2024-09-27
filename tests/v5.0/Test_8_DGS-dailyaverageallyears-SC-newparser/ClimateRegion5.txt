@@ -1,0 +1,8 @@
+LandisData	"Ecoregions"		
+
+>> 	Map Code		
+>>Active	Name	Description
+>>--------------------------------------------------------			
+no	0	0	inactive
+yes	5	5	ClimateRegion5
+

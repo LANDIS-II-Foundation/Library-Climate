@@ -14,9 +14,9 @@ namespace Landis.Library.Climate
 
         private string climateConfigFile;
         private string climateTimeSeries;
-        private string climateFileFormat;
+        //private string climateFileFormat;
         private string climateFile;
-        private string spinUpClimateFileFormat;
+        //private string spinUpClimateFileFormat;
         private string spinUpClimateFile;
         private string spinUpClimateTimeSeries;
         private bool climateFire = false;
@@ -75,18 +75,18 @@ namespace Landis.Library.Climate
             }
         }
 
-        public string ClimateFileFormat
-        {
-            get
-            {
-                return climateFileFormat;
-            }
-            set
-            {
+        //public string ClimateFileFormat
+        //{
+        //    get
+        //    {
+        //        return climateFileFormat;
+        //    }
+        //    set
+        //    {
 
-                climateFileFormat = value;
-            }
-        }
+        //        climateFileFormat = value;
+        //    }
+        //}
 
         public string SpinUpClimateTimeSeries  
         {
@@ -101,18 +101,18 @@ namespace Landis.Library.Climate
             }
         }
 
-        public string SpinUpClimateFileFormat
-        {
-            get
-            {
-                return spinUpClimateFileFormat;
-            }
-            set
-            {
+        //public string SpinUpClimateFileFormat
+        //{
+        //    get
+        //    {
+        //        return spinUpClimateFileFormat;
+        //    }
+        //    set
+        //    {
 
-                spinUpClimateFileFormat = value;
-            }
-        }
+        //        spinUpClimateFileFormat = value;
+        //    }
+        //}
 
         public string SpinUpClimateFile			
         {
@@ -123,7 +123,7 @@ namespace Landis.Library.Climate
             set
             {
                 string path = value;
-                if (spinUpClimateFileFormat != "no" && path.Trim(null).Length == 0)
+                if (path.Trim(null).Length == 0)
                     throw new InputValueException(path, "\"{0}\" is not a valid path.", path);
                 spinUpClimateFile = value;
             }

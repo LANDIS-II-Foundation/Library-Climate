@@ -1,0 +1,136 @@
+LandisData	"DGS Succession"
+
+Timestep  1
+
+CalibrateMode no
+
+ClimateConfigFile		climate_baseline.txt
+AtmosphericNSlope		0.0008  << Shelby  calibrated value 9/30/19
+AtmosphericNIntercept		0.003	<<ML was 0.005, value used is from Shelby
+
+InitialCommunities      	AK_IC_File-SmithLake2.csv
+InitialCommunitiesMap   initial-communities.tif
+Latitude			65.6    <<Approx latitude of Fairbanks = 65.575967
+
+ShawGiplConfigFile		ShawGiplConfig.txt
+
+SoilDepthMapName				random110.tif 
+SoilDrainMapName				constantpoint75.tif 
+SoilBaseFlowMapName				constantpoint4.tif 
+SoilStormFlowMapName			constantpoint4.tif
+SoilFieldCapacityMapName		random_point1_point2.tif
+SoilWiltingPointMapName			random_point05_point099.tif
+SoilPercentSandMapName			random_point01_point5.tif
+SoilPercentClayMapName			random_point01_point5.tif
+SoilBulkDensityMapName			constantpoint4.tif 
+SoilParticleDensityMapName			constantpoint75.tif 
+InitialSOC_PrimaryMapName			random110.tif
+InitialSON_PrimaryMapName		random9.tif
+InitialDeadWoodSurfaceMapName	random110.tif 
+InitialDeadCoarseRootsMapName	random50.tif
+
+>>General Soil parameters
+InitialFineFuels		0.1
+InitialMineralN			1.697   << This came from Smith et al. 2000 Table 4 (old burn values)
+DenitrificationRate		0.0001  << 0.001 resulted in values of 0.177, which is too high.
+WaterDecayFunction Linear <<Linear or Ratio  Still needed for DecayFactor
+
+>>DAMM Soil parameters
+InitialMicrobialC		1.9703	<< Rose's input
+InitialMicrobialN		0.197	<< Rose's input
+InitialEnzymeConc	0.0339
+ActEnergySOMDepoly	66.2675487981142
+ActEnergyDOCUptake	67.8225452963818
+ExpConstSOMDepoly	116986794418
+ExpConstDOCUptake	115130563903
+FractionSOMUnprotect	0.0004048
+CNEnzymes		2.86940
+KmSOMDepoly		0.00249
+KmDOCUptake		0.33217
+EnzTurnRate		0.00095780
+MicrobialTurnRate	0.0001437
+CarbonUseEfficiency	0.357329
+PropEnzymeSOM		0.522748
+PropCEnzymeProduction	0.551334
+PropNEnzymeProduction	0.50446
+FractDeadMicrobialBiomassSOM	0.551334
+MMConstantO2		0.128
+DiffConstantO2		1.676
+DiffConstantSOMLiquid	3.3386
+FractionVolumeO2	0.205165
+DOCFraction			0.0016669     << DOC is about 0.2% of SOC pool, Kane et al. 2006. This controls the initial amount of DOC.
+DONFraction			0.0016669    << Fraction of TON that is DON, wasn't sure so used same as DOC
+FractionLitterToDOC		0.066          << Soil DOC is 8 gC/m2/y, Litterfall 122 gC/m2y, so fraction is 0.066
+SoilMoistureA			1.95          << Soil DOC is 8 gC/m2/y, Litterfall 122 gC/m2y, so fraction is 0.066
+SoilMoistureB			10.0          << Soil DOC is 8 gC/m2/y, Litterfall 122 gC/m2y, so fraction is 0.066
+
+>>Dispersal parameters
+SeedingAlgorithm  WardSeedDispersal
+ProbabilityEstablishAdjust 	0.3	<< AFRI 
+
+>>Plant parameters
+MaximumLAI
+>>Revisit this later
+>> Shade	Max LAI
+>> Class	
+>> ----------	--------------------	
+	1	0.4 
+	2	0.41 
+	3	2
+	4	4
+	5	6
+		
+LightEstablishmentTable	
+<< Shelby redesigned this table January 2021
+					
+>>	Spp Shade	Probability					
+>>	Class		by Actual Shade					
+>>	 ----------	--------------------					
+>>		0	1	2	3	4	5
+	1	0.52	0.01	0.35	0.07	0.02	0.03	
+	2	0.17	0.01	0.45	0.18	0.07	0.11
+	3	0	0	0	0	0	0
+	4	0	0	0	0	0	0
+	5	0.24	0.01	0.48	0.15	0.05	0.07
+		
+SpeciesParameters << most GDD, Min Jan, Max Drought values come from Pastor and Post 1988 (LINKAGES spreadsheet); Max biomass is not used in the code so values don't matter.
+			
+>>Species	Leaf	Woody	Mortality Curve	Leaf				
+>>		Long	DecayR	Shape Parameter	Lignin%				
+>>----------------------------------------------								
+>> Species  		Funct	N	Adv 	GDD	GDD	Min	Max	Leaf	Epi-	Leaf	FRoot	Wood	CRoot	Leaf  FRoot 	Wood  CRoot 	Littr 	Root 	Max	Max	Fire	Shade
+>>	    		ional	Fixer	Roots 	Min	Max	Jan	Drought	Long	cormic	Lign%	Lign%	Lign%	Lign%	CN    CN    	CN    CN    	CN	Depth 	ANPP	Biomass	Tolerance	Tolerance
+>> 	    		Type				Temp			re-
+BlackSpruce   		1	N	Y	247	1911	-30	0.27	3	N	0.221	0.258	0.4	0.234	62.9	43	482	84	55  	55	300 	12000	1	1  << Changed rooting depth from 60 to 55 based on Viereck 1983; MaxANPP was changed from 115 based on growth calibration 
+WhiteSpruce		1	N	N	280	1911	-30	0.309	3	N	0.263	0.258	0.4	0.234	40.7	43	500	84	55  	100	250	17000	1	1  << MaxANPP was changed from 350 based on: 
+PaperBirch		2	N	N	484	2036	-28	0.28	1	N	0.201	0.27	0.2	0.251	23.3	26	384	50	65  	100	400	15000  	1	1<< Changed Rooting depth from 60 to 100 based on Viereck et al 1983; MaxANPP was changed from 480 based on:
+QuakingAspen		2	N	N	743	2900	-30	0.267	1	N	0.256	0.346	0.2	0.318	21.5	25	336	49	65  	90	300	12500  	1	1<< MaxANPP was changed from 410 based on:
+Tamarack		1	N	N	280	2660	-29	0.267	1	N	0.297	0.225	0.3	0.204	20.7	43	600	84	74  	120	60	17000  	1	1<< Changed Rooting depth from 60 to 120 based on Canadell et al. 1996
+Willow			3	N	N	555	2491	-30	0.267	1	N	0.201	0.27	0.2	0.251	23.3	26	271	50	65  	60	500	20000  	1	1<< Litter CN ratio is based on AFRI
+Alder			3	Y	N	400	2950	-30	0.5	1	N	0.201	0.27	0.2	0.251	23.3	26	208	50	65  	60	75	15000  	1	1<< Litter CN ratio is based on AFRI; LINKAGES reported MinJan as -7, but we changed to -30 to match other species 
+BalsamPoplar		2	N	N	555	2491	-30	0.267	1	N	0.256	0.346	0.2	0.318	23.3	25	336	49	65  	100	200	7000   	1	1<< Changed rooting depth from 80 to 100 based on Viereck et al 1983; Litter CN ratio is based on AFRI
+ShrubBirch		3	N	N	555	2491	-30	0.267	1	N	0.201	0.27	0.2	0.251	23.3	26	271	50	65  	60	500	20000  	1	1<< Matched many values with willow
+Sphagnum		4	Y	N	247	1911	-30	0.27	3	N	0	0	0	0	53.0	26	5	5	53	20	400	10000  	1	1<< Originally 80 by setting MaxANPP to lower than 200 based of several lit values that report much less than 100 for whole year
+Feathermoss		4	Y	N	247	1911	-30	0.27	3	N	0	0	0	0	53.0	26	5	5	53	20	400 	10000  	1	1<< Originally 80 by setting MaxANPP to lower than 200 based of several lit values that report much less than 100 for whole year
+Turfmoss		4	Y	N	484	2036	-28	0.28	3	N	0	0	0	0	53.0	26	5	5	53	20	400 	10000  	1	1<< Originally 80 by setting MaxANPP to lower than 200 based of several lit values that report much less than 100 for whole year
+
+FunctionalGroupParameters 
+>> Name		Index	PPDF1	PPDF2	PPDF3	PPDF4	FCFRAC	BTOLAI	KLAI	MAXLAI	Moist1 Moist2  Moist3	Moist4  Wood	Monthly	  Mort	    Drop    CRoot  FRoot
+>> 			T-Mean	T-Max	T-shape	T-shape	leaf								DecayR	Wood    MortShape   Month   Frac   Frac
+Spruce	        1        9	450     50        65   0.35    -0.25  	150.0    0.15  4.0   0.58    1.45    650   0.016	0.04    0.004     25        9       0.25      0.9  << 100 reaches 3 in year10, 300 only reaches 2.
+Hardwood        2        22	85	  3.9     5.3	0.5    -0.25  	500.0    0.15  4.0   0.14    0.61    1.90     10      0.06    0.004     25	    9       0.21     1.0 <<  
+Shrub      	3        21.9 	278.3	  23      11.7  0.455    -0.25  300.0    0.15  4.0   0.13    1.0     3.0      15 	0.06    0.004     20	    9       0.2     0.5 <<
+Moss		4        8	30.7      3.7     2.9   0.99    -0.25  700.0     0.15  4.0   0.85    3.5     2200     0.01	0.0001  0         25        9       0.001    1.0 << temp/water curve params are set to same as spruce
+
+FireReductionParameters
+
+>>	Severity 	CoarsLit  FineLit Wood	Leaf 	Soil <<  from fhmem_century_succession.txt; Placeholders							
+>>	Number		Reduc	  Reduc	  Red    Red										
+>>	-------	------	-----												
+	1		0.05	  0.05	  0.05	 0.1  0.1 
+  	2		0.1	  0.1	  0.1	  0.1 0.1 
+	3		0.9	  0.9	  0.9	 0.1  0.1 
+
+HarvestReductionParameters
+>>	Name			WoodLitter	Litter	SOM			CohortWood	CohortLeaf
+>>	Reduct		Reduct	Reduction	Removal		Removal

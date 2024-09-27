@@ -1,0 +1,59 @@
+#GENERAL INPUT FILE WITH PARAMETERS APPLYING TO ALL CRUs
+
+ModelSelectionFlags
+StomatalResistance  2 	#ISTOMATE								[1, 2]
+BoundaryWaterCondition  1 	#IVLCBC								[0, 1]
+BoundaryTemperatureCondition 	0  	#ITMPBC. Determines whether GIPL is used for boundary temperature condition. 		[0, 1]
+EquationForWaterReleaseCurve 	3  #IWRC						[1, 4]
+#FlagSourceSink 		0 		#MWATRXT - x			Not used			[0, 1]
+
+ErrorTolerance 0.001 #TOLER, for convergence criteria			[1e-6, inf)
+
+PlantParameters
+CoefficientWaterPotentialDeadPlants -53.72 # CANMA 				(-inf, inf)  ???
+ExponentWaterPotentialDeadPlants 1.32 	# CANMB					(-inf, inf)  ???
+
+SnowParameters
+SnowBasedOn AirTemp 		# ISNOTMP=1, Alternative is WetBulbTemp (2),      
+MaxTempSnowfall  1.00   	# SNOTMP     						[Abs.Zero, inf)
+WindProfileParameterSnow 0.15  	# ZMSPCM						[0.0, inf)
+
+LitterParameters
+LitterAlbedo 0.30 			 # ALBRES							[0.0, 1.0]					
+VaporTransferResistanceFromLitter 50000 # RESCOF				(-inf, inf)  ???
+WindCoefficientThermalConvection 4.00 	# RESTKB 				(-inf, inf)  ???
+
+SoilParameters
+AlbedoDrySoil 	0.25  		# ALBDRY							[0.0, 1.0]
+ExponentMoistSoil   0.00 	# ALBEXP							(-inf, inf)  ???
+
+WindProfileAndSurface
+WindSurfaceRoughness  1.00 #ZMCM Wind-profile surface-roughness for soil or residue (cm)		[0.0, inf)  ???
+HeightInstrumentation 	10.0 	#HEIGHT (meters?)				[0.0, inf)  ???
+MaximumPondingDepth   6.0 # PONDMX  (cm)						[0.0, inf)  ???
+
+OutputFiles
+OutputFrequency Monthly # In SHAW, 1 is monthly, 2 is daily # ML: Let's leave the filenames as defaults for now, we can add the names later if we want.
+
+#EntireProfile 		 # (LVLOUT (1)) : 1    profile.out
+SoilTemperature		 # (LVLOUT (3)) : 1  soiltemp.out
+SoilTotalWaterContent 	 # (LVLOUT (4)) : 1  soilwater.out
+SoilLiquidWaterContent 	 # (LVLOUT (5)) : 1 soilliquid.out
+SoilMatricPotential 	 # (LVLOUT (6)) : 1 soilmatric.out
+SurfaceEnergyBalance  	 # (LVLOUT (10)) : 1   energy.out  
+WaterBalance 		 # (LVLOUT (11)) : 1    water.out
+SnowFrostDepth  	 # (LVLOUT (15)) : 1    snow.out
+#PlantCanopyTemperature  #  (LVLOUT (7)) : 0  planttemp.out # ML: We are commenting them out if we don't need them.
+#PlantCanopyHumidity 	 # (LVLOUT (8)) : 0 planthumidity.out
+#SnowTemperature 	 # (LVLOUT (9)) : 0  snowtemp.out
+#WaterFlowNodes 		 # (LVLOUT (12)) : 0 flow.out
+#WaterExtractedPlants  	 # (LVLOUT (13)) : 0   extract.out
+#LateralFlow 		 #  (LVLOUT (14)) : 0    lateral.out
+#TotalSaltConc		 # (LVLOUT (16)) : 0 salt.out
+#SoilSolutionConc 	 # (LVLOUT (17)) : 0  solutes.out
+#ComparisonSimulatedMeasured  # (LVLOUT (2)) : 0  comparison.out
+
+
+
+
+
