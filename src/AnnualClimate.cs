@@ -130,7 +130,7 @@ namespace Landis.Library.Climate
 
             MonthlyVPD = CalculateVaporPressureDeficit(MonthlyTemp, MonthlyMinTemp);
             MonthlyGDD = Climate.DaysInMonth.Select((x, i) => (int)Math.Max(0.0, x * this.MonthlyTemp[i])).ToList();
-            MeanAnnualTemperature = Climate.DaysInMonth.Select((x, i) => x * this.MonthlyTemp[i]).Sum();        // this is correct whether the input data are monthly or daily
+            MeanAnnualTemperature = Climate.DaysInMonth.Select((x, i) => x * this.MonthlyTemp[i]).Sum() / 365.0;        // this is correct whether the input data are monthly or daily
             JJAtemperature = (MonthlyTemp[5] + MonthlyTemp[6] + MonthlyTemp[7]) / 3.0;
         }
 
@@ -508,22 +508,20 @@ namespace Landis.Library.Climate
 
         private static int CalculateBeginGrowingSeasonFromDailyData(List<double> dailyMinTemp)
         {
-            // get the first day for which the minimum daily temperature is positive.
-
-            var day = dailyMinTemp.FindIndex(x => x > 0.0);
-            if (day < 0) day = 364;     // all days below 0.0
-
-            return day;
+            // find the last day for which the minimum daily temperature is less than zero, up to August 1st (zero-based month 7).
+            // return the next day as the start of the growing season.
+            
+            var lastSpringFrostDay = dailyMinTemp.GetRange(0, Climate.FirstDayOfMonth[7]).FindLastIndex(x => x < 0.0);
+            return lastSpringFrostDay < 0 ? 364 : lastSpringFrostDay + 1;       // return 364 if all days up to August 1 have frost
         }
 
         private static int CalculateEndGrowingSeasonFromDailyData(List<double> dailyMinTemp)
         {
-            // get the last day for which the minimum daily temperature is positive.
+            // starting at August 1st (zero-based month 7), find the first day for which the minimum daily temperature is less than zero.
+            // return the previous day as the end of the growing season.
 
-            var day = dailyMinTemp.FindLastIndex(x => x > 0.0);
-            if (day < 0) day = 0;     // all days below 0.0
-
-            return day;
+            var firstFallFrostDay = dailyMinTemp.GetRange(Climate.FirstDayOfMonth[7], dailyMinTemp.Count - Climate.FirstDayOfMonth[7]).FindIndex(x => x < 0.0);
+            return firstFallFrostDay < 0 ? 0 : Climate.FirstDayOfMonth[7] + firstFallFrostDay - 1;      // return 0 if all days after August have frost
         }
 
         private static int CalculateGrowingDegreeDaysFromDailyData(List<double> dailyTemp)
