@@ -1,4 +1,4 @@
-﻿using Landis.Core;
+using Landis.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -512,7 +512,8 @@ namespace Landis.Library.Climate
             // return the next day as the start of the growing season.
             
             var lastSpringFrostDay = dailyMinTemp.GetRange(0, Climate.FirstDayOfMonth[7]).FindLastIndex(x => x < 0.0);
-            return lastSpringFrostDay < 0 ? 364 : lastSpringFrostDay + 1;       // return 364 if all days up to August 1 have frost
+            // return 0 if all days up to Aug. 1 are above freezing, and return 364 if Aug. 1 has frost.
+            return lastSpringFrostDay < 0 ? 0 : (lastSpringFrostDay == Climate.FirstDayOfMonth[7] - 1 ? 364 : lastSpringFrostDay + 1);
         }
 
         private static int CalculateEndGrowingSeasonFromDailyData(List<double> dailyMinTemp)
@@ -521,7 +522,8 @@ namespace Landis.Library.Climate
             // return the previous day as the end of the growing season.
 
             var firstFallFrostDay = dailyMinTemp.GetRange(Climate.FirstDayOfMonth[7], dailyMinTemp.Count - Climate.FirstDayOfMonth[7]).FindIndex(x => x < 0.0);
-            return firstFallFrostDay < 0 ? 0 : Climate.FirstDayOfMonth[7] + firstFallFrostDay - 1;      // return 0 if all days after August have frost
+            // return 364 if all days after Aug. 1 are above freezing, and return 0 if Aug. 1 has frost.
+            return firstFallFrostDay < 0 ? 364 : (firstFallFrostDay == 0 ? 0 : Climate.FirstDayOfMonth[7] + firstFallFrostDay - 1);
         }
 
         private static int CalculateGrowingDegreeDaysFromDailyData(List<double> dailyTemp)
@@ -544,7 +546,6 @@ namespace Landis.Library.Climate
 
         #region private classes
 
-        #endregion
-
+        #endregion      
     }
 }
