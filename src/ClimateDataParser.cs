@@ -102,7 +102,6 @@ namespace Landis.Library.Climate
             reader.Close();
 
             // sort data
-            //climateInputRows = climateInputRows.OrderBy(x => x.Variable).ThenBy(x => x.Day).ThenBy(x => x.Month).ThenBy(x => x.Year).ToList();
             climateInputRows = climateInputRows.OrderBy(x => x.Year).ThenBy(x => x.Month).ThenBy(x => x.Day).ThenBy(x => x.Variable).ToList();
 
             calendarYears = climateInputRows.Select(x => x.Year).Distinct().ToList();
@@ -133,6 +132,8 @@ namespace Landis.Library.Climate
                 for (var i = 0; i < ecoRegionHeaderIndices.Count; ++i)
                 {
                     var e = ecoRegionHeaderIndices[i];
+                    if (!_modelCore.Ecoregions[e].Active) continue;
+
                     if (inputRow.Month != previousMonth || inputRow.Day != previousDay)
                         climateRecords[e][y].Add(new ClimateRecord());
 
@@ -327,7 +328,83 @@ namespace Landis.Library.Climate
 
 
             // **
+            // check for missing data
+
+            var allFirstEcoRecords = firstEcoRecords.SelectMany(x => x).ToList();
+
+            int nanCount;
+
+            // MinTemp is required for all records
+            nanCount = allFirstEcoRecords.Select(x => x.MinTemp).Count(x => double.IsNaN(x));
+            if (nanCount != 0)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'MinTemp'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            // MaxTemp is required for all records
+            nanCount = allFirstEcoRecords.Select(x => x.MaxTemp).Count(x => double.IsNaN(x));
+            if (nanCount != 0)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'MaxTemp'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.Temp).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'Temp'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            // precip is required for all records
+            nanCount = allFirstEcoRecords.Select(x => x.Precip).Count(x => double.IsNaN(x));
+            if (nanCount != 0)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'Precip'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.WindDirection).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'WindDirection'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.WindSpeed).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'WindSpeed'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.NDeposition).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'NDeposition'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.CO2).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'CO2'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.MinRH).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'MinRH'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.MaxRH).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'MaxRH'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.RH).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'RH'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.SpecificHumidity).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'SpecificHumidity'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.PET).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'PET'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.PAR).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'PAR'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.Ozone).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'Ozone'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+            nanCount = allFirstEcoRecords.Select(x => x.ShortWaveRadiation).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'ShortWaveRadiation'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
+
+            // **
             // calculate fire weather data for daily input data
+
             if (climateTimeStep == TimeSeriesTimeStep.Daily && ConfigParameters.UsingFireClimate)
             {
                 foreach (var yearRecords in climateRecords.Where(x => x != null).SelectMany(x => x))

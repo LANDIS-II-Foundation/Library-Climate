@@ -222,7 +222,7 @@ namespace Landis.Library.Climate
                 {
                     // for TimeSeriesYearOrder.AverageAllYears, set all years to the average climate
                     var avgClimate = new AnnualClimate(futureInputAnnualClimate, FutureTimeStep);
-                    FutureEcoregionYearClimate[e] = Enumerable.Repeat(avgClimate, _spinupRequiredYearCount).ToList();
+                    FutureEcoregionYearClimate[e] = Enumerable.Repeat(avgClimate, _futureRequiredYearCount).ToList();
                 }
 
                 // insert null at index zero because simulation year is 1-based
