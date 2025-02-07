@@ -31,19 +31,18 @@ namespace Landis.Library.Climate
 
             if (ConfigParameters.GenerateClimateOutputFiles)
             {
-                _spinupInputLog = new MetadataTable<InputLog>("Climate-spinup-input-log.csv");
-                _spinupAnnualLog = new MetadataTable<AnnualLog>("Climate-spinup-annual-log.csv");
-
-                var spinupInputTable = new OutputMetadata()
+                _spinupMonthlyInputLog = new MetadataTable<MonthlyInputLog>("Climate-spinup-monthly-input-log.csv");
+                var spinupMonthlyInputTable = new OutputMetadata()
                 {
                     Type = OutputType.Table,
                     Name = "Spinup-Input-Log",
-                    FilePath = _spinupInputLog.FilePath,
+                    FilePath = _spinupMonthlyInputLog.FilePath,
                     Visualize = false,
                 };
-                spinupInputTable.RetriveFields(typeof(InputLog));
-                Extension.OutputMetadatas.Add(spinupInputTable);
+                spinupMonthlyInputTable.RetriveFields(typeof(MonthlyInputLog));
+                Extension.OutputMetadatas.Add(spinupMonthlyInputTable);
 
+                _spinupAnnualLog = new MetadataTable<AnnualLog>("Climate-spinup-annual-input-log.csv");
                 var spinupAnnualTable = new OutputMetadata()
                 {
                     Type = OutputType.Table,
@@ -55,19 +54,32 @@ namespace Landis.Library.Climate
                 Extension.OutputMetadatas.Add(spinupAnnualTable);
 
 
-                _futureInputLog = new MetadataTable<InputLog>("Climate-future-input-log.csv");
-                _futureAnnualLog = new MetadataTable<AnnualLog>("Climate-future-annual-log.csv");
-
-                var futureInputTable = new OutputMetadata()
+                _futureMonthlyInputLog = new MetadataTable<MonthlyInputLog>("Climate-future-monthly-input-log.csv");
+                var futureMonthlyInputTable = new OutputMetadata()
                 {
                     Type = OutputType.Table,
                     Name = "Future-Input-Log",
-                    FilePath = _futureInputLog.FilePath,
+                    FilePath = _futureMonthlyInputLog.FilePath,
                     Visualize = false,
                 };
-                futureInputTable.RetriveFields(typeof(InputLog));
-                Extension.OutputMetadatas.Add(futureInputTable);
+                futureMonthlyInputTable.RetriveFields(typeof(MonthlyInputLog));
+                Extension.OutputMetadatas.Add(futureMonthlyInputTable);
 
+                if (FutureTimeStep == TimeSeriesTimeStep.Daily)
+                {
+                    _futureDailyInputLog = new MetadataTable<DailyInputLog>("Climate-future-daily-input-log.csv");
+                    var futureDailyInputTable = new OutputMetadata()
+                    {
+                        Type = OutputType.Table,
+                        Name = "Future-Daily-Input-Log",
+                        FilePath = _futureDailyInputLog.FilePath,
+                        Visualize = false,
+                    };
+                    futureDailyInputTable.RetriveFields(typeof(DailyInputLog));
+                    Extension.OutputMetadatas.Add(futureDailyInputTable);
+                }
+
+                _futureAnnualLog = new MetadataTable<AnnualLog>("Climate-future-annual-input-log.csv");
                 var futureAnnualTable = new OutputMetadata()
                 {
                     Type = OutputType.Table,

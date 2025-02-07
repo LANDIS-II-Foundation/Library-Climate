@@ -2,7 +2,7 @@
 
 namespace Landis.Library.Climate
 {
-    public class InputLog
+    public class MonthlyInputLog
     {
         [DataFieldAttribute(Desc = "Simulation Year")]
         public int Year { set; get; }

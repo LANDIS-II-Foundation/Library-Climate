@@ -13,10 +13,11 @@ namespace Landis.Library.Climate
 
         private static ICore _modelCore;
 
-        private static MetadataTable<InputLog> _spinupInputLog;
+        private static MetadataTable<MonthlyInputLog> _spinupMonthlyInputLog;
         private static MetadataTable<AnnualLog> _spinupAnnualLog;
 
-        private static MetadataTable<InputLog> _futureInputLog;
+        private static MetadataTable<DailyInputLog> _futureDailyInputLog;
+        private static MetadataTable<MonthlyInputLog> _futureMonthlyInputLog;
         private static MetadataTable<AnnualLog> _futureAnnualLog;
 
         private static List<int> _spinupCalendarYears;
@@ -104,8 +105,6 @@ namespace Landis.Library.Climate
             TextLog = Data.CreateTextFile("Landis-climate-log.txt");
             TextLog.AutoFlush = true;
 
-            InitializeMetadata();
-
             // validate climate time series options
             var s = ConfigParameters.SpinUpClimateTimeSeries.Split('_');
             if (s.Length != 2 || !Enum.TryParse<TimeSeriesTimeStep>(s[0], out var spinupTimeStep) || !Enum.TryParse<TimeSeriesYearOrder>(s[1], out var spinupYearOrder))
@@ -119,6 +118,8 @@ namespace Landis.Library.Climate
             SpinupYearOrder = spinupYearOrder;
             FutureTimeStep = futureTimeStep;
             FutureYearOrder = futureYearOrder;
+
+            InitializeMetadata();
 
             // **
             // read climate data
@@ -278,35 +279,53 @@ namespace Landis.Library.Climate
 
         private static void WriteInputLogs()
         {
-            _spinupInputLog.Clear();
+            _spinupMonthlyInputLog.Clear();
             for (var year = 1; year <= _spinupRequiredYearCount; ++year) // 1-based year
             {
                 for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
                 {
                     if (SpinupEcoregionYearClimate[e] == null) continue;
 
-                    foreach (var log in SpinupEcoregionYearClimate[e][year].ToInputLogs(year, _modelCore.Ecoregions[e]))
+                    foreach (var log in SpinupEcoregionYearClimate[e][year].ToMonthlyInputLogs(year, _modelCore.Ecoregions[e]))
                     {
-                        _spinupInputLog.AddObject(log);
+                        _spinupMonthlyInputLog.AddObject(log);
                     }
                 }
             }
-            _spinupInputLog.WriteToFile();
+            _spinupMonthlyInputLog.WriteToFile();
 
-            _futureInputLog.Clear();
+            _futureMonthlyInputLog.Clear();
             for (var year = 1; year <= _futureRequiredYearCount; ++year) // 1-based year
             {
                 for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
                 {
                     if (FutureEcoregionYearClimate[e] == null) continue;
 
-                    foreach (var log in FutureEcoregionYearClimate[e][year].ToInputLogs(year, _modelCore.Ecoregions[e]))
+                    foreach (var log in FutureEcoregionYearClimate[e][year].ToMonthlyInputLogs(year, _modelCore.Ecoregions[e]))
                     {
-                        _futureInputLog.AddObject(log);
+                        _futureMonthlyInputLog.AddObject(log);
                     }
                 }
             }
-            _futureInputLog.WriteToFile();
+            _futureMonthlyInputLog.WriteToFile();
+
+            if (FutureTimeStep == TimeSeriesTimeStep.Daily)
+            {
+                _futureDailyInputLog.Clear();
+                for (var year = 1; year <= _futureRequiredYearCount; ++year) // 1-based year
+                {
+                    for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
+                    {
+                        if (FutureEcoregionYearClimate[e] == null) continue;
+
+                        foreach (var log in FutureEcoregionYearClimate[e][year].ToDailyInputLogs(year, _modelCore.Ecoregions[e]))
+                        {
+                            _futureDailyInputLog.AddObject(log);
+                        }
+                    }
+                }
+                _futureDailyInputLog.WriteToFile();
+            }
         }
 
         private static void WriteAnnualLogs()

@@ -344,14 +344,14 @@ namespace Landis.Library.Climate
         public List<double> DailyFineFuelMoistureCodeForMonth(int month) => DailyFineFuelMoistureCode.GetRange(Climate.MonthCalendar[month].Item1, Climate.MonthCalendar[month].Item2).ToList();
         public List<double> DailyFireWeatherIndexForMonth(int month) => DailyFireWeatherIndex.GetRange(Climate.MonthCalendar[month].Item1, Climate.MonthCalendar[month].Item2).ToList();
 
-        internal List<InputLog> ToInputLogs(int year, IEcoregion ecoregion)
+        internal List<MonthlyInputLog> ToMonthlyInputLogs(int year, IEcoregion ecoregion)
         {
             // return a list of input log records populated with monthly data
-            var monthLogs = new List<InputLog>();
+            var monthLogs = new List<MonthlyInputLog>();
 
             for (var month = 0; month < 12; ++month)
             {
-                monthLogs.Add(new InputLog
+                monthLogs.Add(new MonthlyInputLog
                          {
                              Year = year,
                              CalendarYear = CalendarYear,
@@ -386,6 +386,47 @@ namespace Landis.Library.Climate
             }
 
             return monthLogs;
+        }
+
+        internal List<DailyInputLog> ToDailyInputLogs(int year, IEcoregion ecoregion)
+        {
+            // return a list of input log records populated with daily data
+            var dailyLogs = new List<DailyInputLog>();
+
+            for (var day = 0; day < 365; ++day)
+            {
+                dailyLogs.Add(new DailyInputLog
+                {
+                    Year = year,
+                    CalendarYear = CalendarYear,
+                    Day = day,
+                    EcoregionName = ecoregion.Name,
+
+                    MinTemp = DailyMinTemp[day],
+                    MaxTemp = DailyMaxTemp[day],
+                    Temp = DailyTemp[day],
+                    Precip = DailyPrecip[day],
+                    WindDirection = DailyWindDirection[day],
+                    WindSpeed = DailyWindSpeed[day],
+                    NDeposition = DailyNDeposition[day],
+                    CO2 = DailyCO2[day],
+                    MinRH = DailyMinRH[day],
+                    MaxRH = DailyMaxRH[day],
+                    RH = DailyRH[day],
+                    SpecificHumidity = DailySpecificHumidity[day],
+                    PET = DailyPET[day],
+                    PAR = DailyPAR[day],
+                    Ozone = DailyOzone[day],
+                    ShortWaveRadiation = DailyShortWaveRadiation[day],
+                    DuffMoistureCode = DailyDuffMoistureCode[day],
+                    DroughtCode = DailyDroughtCode[day],
+                    BuildUpIndex = DailyBuildUpIndex[day],
+                    FineFuelMoistureCode = DailyFineFuelMoistureCode[day],
+                    FireWeatherindex = DailyFireWeatherIndex[day],
+                });
+            }
+
+            return dailyLogs;
         }
 
         #endregion
