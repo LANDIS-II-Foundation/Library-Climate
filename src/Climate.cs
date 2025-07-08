@@ -56,6 +56,26 @@ namespace Landis.Library.Climate
         internal static StreamWriter TextLog { get; private set; }
 
         /// <summary>
+        /// The number of years of Spinup data in the input climate data.
+        /// </summary>
+        public static int SpinupInputYearCount => _spinupCalendarYears.Count;
+
+        /// <summary>
+        /// The number of years of available Spinup data. Equal to the maximum species Longevity.
+        /// </summary>
+        public static int SpinupAvailableYearCount => _spinupRequiredYearCount;
+
+        /// <summary>
+        /// The number of years of Future data in the input climate data.
+        /// </summary>
+        public static int FutureInputYearCount => _futureCalendarYears.Count;
+
+        /// <summary>
+        /// The number of years of available Future data. Equal to modelCore.EndTime - modelCore.StartTime.
+        /// </summary>
+        public static int FutureAvailableYearCount => _futureRequiredYearCount;
+
+        /// <summary>
         /// First day (0-based) of each month for 365-day year.
         /// </summary>
         public readonly static List<int> FirstDayOfMonth = new List<int> { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 };

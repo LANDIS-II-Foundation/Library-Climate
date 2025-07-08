@@ -17,7 +17,7 @@
     <Authors>LANDIS-II Foundation</Authors>
     <Product>Landis.Properties</Product>
     <Copyright>LANDIS-II Foundation</Copyright>
-    <Version>5.01</Version>
+    <Version>5.02</Version>
     <PackageTags>LANDIS-II;Landis;Library;Climate</PackageTags>
     <Description>The climate library for integrating and coordinating climatic inputs.</Description>
     <PackageReleaseNotes>.NET Standard 2.0 update.</PackageReleaseNotes>
