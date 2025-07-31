@@ -203,6 +203,11 @@ namespace Landis.Library.Climate
                             rec.SpecificHumidity = value;
                             break;
 
+                        case "dewpt":
+                        case "dewpoint":
+                            rec.DewPoint = value;
+                            break;
+
                         case "pet":
                             rec.PET = value;
                             break;
@@ -277,6 +282,7 @@ namespace Landis.Library.Climate
                             feb28Record.MaxRH = 0.5 * (feb28Record.MaxRH + feb29Record.MaxRH);
                             feb28Record.RH = 0.5 * (feb28Record.RH + feb29Record.RH);
                             feb28Record.SpecificHumidity = 0.5 * (feb28Record.SpecificHumidity + feb29Record.SpecificHumidity);
+                            feb28Record.DewPoint = 0.5 * (feb28Record.DewPoint + feb29Record.DewPoint);
                             feb28Record.PET = 0.5 * (feb28Record.PET + feb29Record.PET);
                             feb28Record.PAR = 0.5 * (feb28Record.PAR + feb29Record.PAR);
                             feb28Record.Ozone = 0.5 * (feb28Record.Ozone + feb29Record.Ozone);
@@ -316,13 +322,21 @@ namespace Landis.Library.Climate
                     rec.WindDirection = t;
                 }
 
-                // if RH is missing then calculate from MinRH and MaxRH or from SpecificHumidity
+                // if RH is missing then calculate from MinRH and MaxRH or from SpecificHumidity or from DewPoint
                 if (double.IsNaN(rec.RH))
                 {
                     if (!double.IsNaN(rec.MinRH) && !double.IsNaN(rec.MaxRH))
                         rec.RH = 0.5 * (rec.MinRH + rec.MaxRH);
                     else if (!double.IsNaN(rec.SpecificHumidity))
-                        rec.RH = CalculateRelativeHumidity(rec.SpecificHumidity, rec.Temp);
+                        rec.RH = CalculateRelativeHumidityFromSH(rec.SpecificHumidity, rec.Temp);
+                    else if (!double.IsNaN(rec.DewPoint))
+                        rec.RH = CalculateRelativeHumidityFromTD(rec.DewPoint, rec.Temp);
+                }
+
+                // if DewPoint is missing then calculate from SpecificHumidity
+                if (double.IsNaN(rec.DewPoint) && !double.IsNaN(rec.SpecificHumidity))
+                {
+                    rec.DewPoint = CalculateTdewFromSH(rec.SpecificHumidity);
                 }
             }
 
@@ -385,6 +399,10 @@ namespace Landis.Library.Climate
             if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
                 throw new ApplicationException($"Error in ReadClimateData: Missing data for 'SpecificHumidity'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
 
+            nanCount = allFirstEcoRecords.Select(x => x.DewPoint).Count(x => double.IsNaN(x));
+            if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
+                throw new ApplicationException($"Error in ReadClimateData: Missing data for 'DewPoint'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
+
             nanCount = allFirstEcoRecords.Select(x => x.PET).Count(x => double.IsNaN(x));
             if (nanCount != 0 && nanCount != allFirstEcoRecords.Count)
                 throw new ApplicationException($"Error in ReadClimateData: Missing data for 'PET'. Data are not defined for all years and {(climateTimeStep == TimeSeriesTimeStep.Monthly ? "months" : "days")}");
@@ -414,7 +432,7 @@ namespace Landis.Library.Climate
             }
         }
 
-        private static double CalculateRelativeHumidity(double specificHumidity, double temp)
+        private static double CalculateRelativeHumidityFromSH(double specificHumidity, double temp)
         {
             //Calculate relative humidity based on average temp and specific humidity:   
             //(https://archive.eol.ucar.edu/projects/ceop/dm/documents/refdata_report/eqns.html) From Bolton, 1980
@@ -430,6 +448,28 @@ namespace Landis.Library.Climate
 
             var relativeHumidity = 100.0 * Math.Min(1.0, e / es);    // [%]
             return relativeHumidity;
+        }
+
+        private static double CalculateRelativeHumidityFromTD(double dewPoint, double temp)
+        {
+            //Calculate relative humidity based on average temp and dewPoint:   
+            //(https://bmcnoldy.earth.miami.edu/Humidity.html)
+
+            // dewPoint: [C]
+            // temp: [C]
+
+            return 100.0 * Math.Min(1.0, Math.Exp(17.625 * (dewPoint / (243.04 + dewPoint) - (temp / (243.04 + temp)))));   // [%]
+        }
+
+        private static double CalculateTdewFromSH(double specificHumidity)
+        {
+            // (https://archive.eol.ucar.edu/projects/ceop/dm/documents/refdata_report/eqns.html)
+            //# From Bolton, 1980
+
+            var atmPressure = ConfigParameters.AtmPressure * 10.0;  // [kPa] -> [mb]
+            var e = specificHumidity * atmPressure / (0.378 * specificHumidity + 0.622);   // [mb]
+            var dewPoint = Math.Log(e / 6.112) * 243.5 / (17.67 - Math.Log(e / 6.112));  // [C]
+            return dewPoint;
         }
 
         private class ClimateInputRow

@@ -40,6 +40,7 @@ namespace Landis.Library.Climate
                 MonthlyMaxRH = records.Select(x => x.MaxRH).ToList();
                 MonthlyRH = records.Select(x => x.RH).ToList();
                 MonthlySpecificHumidity = records.Select(x => x.SpecificHumidity).ToList();
+                MonthlyDewPoint = records.Select(x => x.DewPoint).ToList();
 
                 MonthlyPET = records.Select(x => x.PET).ToList();
                 MonthlyPAR = records.Select(x => x.PAR).ToList();
@@ -72,7 +73,8 @@ namespace Landis.Library.Climate
                 DailyMaxRH = records.Select(x => x.MaxRH).ToList();
                 DailyRH = records.Select(x => x.RH).ToList();
                 DailySpecificHumidity = records.Select(x => x.SpecificHumidity).ToList();
-                
+                DailyTdew = records.Select(x => x.DewPoint).ToList();
+
                 DailyPET = records.Select(x => x.PET).ToList();
                 DailyPAR = records.Select(x => x.PAR).ToList();
                 DailyOzone = records.Select(x => x.Ozone).ToList();
@@ -85,7 +87,6 @@ namespace Landis.Library.Climate
                 DailyFireWeatherIndex = records.Select(x => x.FireWeatherIndex).ToList();
 
                 // results from daily data
-                DailyTdew = records.Select(x => CalculateTdew(x.SpecificHumidity)).ToList();
                 BeginGrowingDay = CalculateBeginGrowingSeasonFromDailyData(DailyMinTemp);
                 EndGrowingDay = CalculateEndGrowingSeasonFromDailyData(DailyMinTemp);
                 GrowingDegreeDays = CalculateGrowingDegreeDaysFromDailyData(DailyTemp);
@@ -109,6 +110,7 @@ namespace Landis.Library.Climate
                 MonthlyMaxRH = Climate.MonthCalendar.Select(x => records.GetRange(x.Item1, x.Item2).Average(y => y.MaxRH)).ToList();
                 MonthlyRH = Climate.MonthCalendar.Select(x => records.GetRange(x.Item1, x.Item2).Average(y => y.RH)).ToList();
                 MonthlySpecificHumidity = Climate.MonthCalendar.Select(x => records.GetRange(x.Item1, x.Item2).Average(y => y.SpecificHumidity)).ToList();
+                MonthlyDewPoint = Climate.MonthCalendar.Select(x => records.GetRange(x.Item1, x.Item2).Average(y => y.DewPoint)).ToList();
 
                 MonthlyPET = Climate.MonthCalendar.Select(x => records.GetRange(x.Item1, x.Item2).Average(y => y.PET)).ToList();
                 MonthlyPAR = Climate.MonthCalendar.Select(x => records.GetRange(x.Item1, x.Item2).Average(y => y.PAR)).ToList();
@@ -171,13 +173,12 @@ namespace Landis.Library.Climate
                 DailyMaxRH = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailyMaxRH[x])).ToList();
                 DailyRH = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailyRH[x])).ToList();
                 DailySpecificHumidity = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailySpecificHumidity[x])).ToList();
+                DailyTdew = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailyTdew[x])).ToList();
 
                 DailyPET = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailyPET[x])).ToList();
                 DailyPAR = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailyPAR[x])).ToList();
                 DailyOzone = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailyOzone[x])).ToList();
                 DailyShortWaveRadiation = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailyShortWaveRadiation[x])).ToList();
-
-                DailyTdew = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailyTdew[x])).ToList();
 
                 DailyDuffMoistureCode = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailyDuffMoistureCode[x])).ToList();
                 DailyDroughtCode = Enumerable.Range(0, 365).Select(x => yearlyAnnualClimate.Average(y => y.DailyDroughtCode[x])).ToList();
@@ -202,6 +203,7 @@ namespace Landis.Library.Climate
             MonthlyMaxRH = Enumerable.Range(0, 12).Select(x => yearlyAnnualClimate.Average(y => y.MonthlyMaxRH[x])).ToList();
             MonthlyRH = Enumerable.Range(0, 12).Select(x => yearlyAnnualClimate.Average(y => y.MonthlyRH[x])).ToList();
             MonthlySpecificHumidity = Enumerable.Range(0, 12).Select(x => yearlyAnnualClimate.Average(y => y.MonthlySpecificHumidity[x])).ToList();
+            MonthlyDewPoint = Enumerable.Range(0, 12).Select(x => yearlyAnnualClimate.Average(y => y.MonthlyDewPoint[x])).ToList();
 
             MonthlyPET = Enumerable.Range(0, 12).Select(x => yearlyAnnualClimate.Average(y => y.MonthlyPET[x])).ToList();
             MonthlyPAR = Enumerable.Range(0, 12).Select(x => yearlyAnnualClimate.Average(y => y.MonthlyPAR[x])).ToList();
@@ -292,6 +294,7 @@ namespace Landis.Library.Climate
         public List<double> MonthlyMaxRH { get; }
         public List<double> MonthlyRH { get; }
         public List<double> MonthlySpecificHumidity { get; }
+        public List<double> MonthlyDewPoint { get; }
 
         public List<double> MonthlyPET { get; }
         public List<double> MonthlyPAR { get; }
@@ -370,6 +373,7 @@ namespace Landis.Library.Climate
                              MaxRH = MonthlyMaxRH[month],
                              RH = MonthlyRH[month],
                              SpecificHumidity = MonthlySpecificHumidity[month],
+                             DewPoint = MonthlyDewPoint[month],
                              PET = MonthlyPET[month],
                              PAR = MonthlyPAR[month],
                              Ozone = MonthlyOzone[month],
@@ -414,6 +418,7 @@ namespace Landis.Library.Climate
                     MaxRH = DailyMaxRH[day],
                     RH = DailyRH[day],
                     SpecificHumidity = DailySpecificHumidity[day],
+                    DewPoint = DailyTdew[day],
                     PET = DailyPET[day],
                     PAR = DailyPAR[day],
                     Ozone = DailyOzone[day],
@@ -432,19 +437,6 @@ namespace Landis.Library.Climate
         #endregion
 
         #region private methods
-
-        private double CalculateTdew(double specificHumidity)
-        {
-            if (double.IsNaN(specificHumidity)) return double.NaN;
-
-            // (https://archive.eol.ucar.edu/projects/ceop/dm/documents/refdata_report/eqns.html)
-            //# From Bolton, 1980
-
-            var atmPressure = Climate.ConfigParameters.AtmPressure * 10.0;  // [kPa] -> [mb]
-            var e = specificHumidity * atmPressure / (0.378 * specificHumidity + 0.622);   // [mb]
-            var dewPoint = Math.Log(e / 6.112) * 243.5 / (17.67 - Math.Log(e / 6.112));  // [C]
-            return dewPoint;
-        }
 
         private static List<double> CalculatePotentialEvapotranspirationThornwaite(List<double> monthlyTemp, List<double> monthlyDayLightHours)
         {

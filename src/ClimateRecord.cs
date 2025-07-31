@@ -17,7 +17,8 @@
         public double MaxRH { get; set; } = double.NaN;                 // [%]
         public double RH { get; set; } = double.NaN;                    // [%]
         public double SpecificHumidity { get; set; } = double.NaN;      // [unitless], e.g. [kg/kg]
-        
+        public double DewPoint { get; set; } = double.NaN;              // [C]
+
         public double PET { get; set; } = double.NaN;                   // [cm]
         public double PAR { get; set; } = double.NaN;                   // [umol]
         public double Ozone { get; set; } = double.NaN;                 // [ppm]

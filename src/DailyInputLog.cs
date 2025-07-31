@@ -52,6 +52,9 @@ namespace Landis.Library.Climate
         [DataFieldAttribute(Desc = "Specific Humidity [unitless]", Format = "0.000000")]
         public double SpecificHumidity { get; set; }
 
+        [DataFieldAttribute(Desc = "Dew Point [C])", Format = "0.00")]
+        public double DewPoint { get; set; }
+
         [DataFieldAttribute(Desc = "Potential Evapotranspiration [cm]", Format = "0.000000")]
         public double PET { get; set; }
 
