@@ -85,7 +85,7 @@ namespace Landis.Library.Climate
             if (mo > Ed)
                 return Ed + (mo - Ed) * Math.Pow(10.0, -kd);
 
-            return (mo < Ed && mo < Ew) ? (Ew - mo) * Math.Pow(10.0, -kw) : mo;
+            return (mo < Ed && mo < Ew) ? Ew - (Ew - mo) * Math.Pow(10.0, -kw) : mo;
         }
 
         private static double Calculate_FineFuelMoistureCode(double m) => Math.Min(100.0, 59.5 * (250.0 - m) / (147.2 + m));
