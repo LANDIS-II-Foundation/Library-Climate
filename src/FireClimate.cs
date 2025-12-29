@@ -25,7 +25,7 @@ namespace Landis.Library.Climate
                 ConfigParameters.SpringStart > ConfigParameters.WinterStart) return;
 
             // loop over days from SpringStart to WinterStart
-            for (var d = ConfigParameters.SpringStart; d < ConfigParameters.WinterStart; ++d)
+            for (var d = ConfigParameters.SpringStart; d <= ConfigParameters.WinterStart; ++d)
             {
                 var record = yearRecords[d];
 
