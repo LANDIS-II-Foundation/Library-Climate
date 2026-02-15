@@ -120,6 +120,13 @@ namespace Landis.Library.Climate
         {
             _modelCore = modelCore;
 
+            var illegalParameters = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "ClimateFileFormat", "SpinUpClimateFileFormat" };
+            var illegals = File.ReadAllLines(climateConfigFilename).Select(x => x.Trim().Split()[0]).Where(x => illegalParameters.Contains(x)).ToList();
+            if (illegals.Any())
+            {
+                throw new ApplicationException($"ERROR: Illegal parameter(s): '{string.Join(", ", illegals)}' found in ClimateConfigFile '{climateConfigFilename}'");
+            }
+
             ConfigParameters = Data.Load(climateConfigFilename, new InputParametersParser());
 
             TextLog = Data.CreateTextFile("Landis-climate-log.txt");
