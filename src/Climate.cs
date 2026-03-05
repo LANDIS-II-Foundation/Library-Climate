@@ -11,6 +11,8 @@ namespace Landis.Library.Climate
     {
         #region fields
 
+        private const int _logChunkSize = 5000;
+
         private static ICore _modelCore;
 
         private static MetadataTable<MonthlyInputLog> _spinupMonthlyInputLog;
@@ -306,7 +308,10 @@ namespace Landis.Library.Climate
 
         private static void WriteInputLogs()
         {
+            int j;
+
             _spinupMonthlyInputLog.Clear();
+            j = 0;
             for (var year = 1; year <= _spinupRequiredYearCount; ++year) // 1-based year
             {
                 for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
@@ -316,12 +321,23 @@ namespace Landis.Library.Climate
                     foreach (var log in SpinupEcoregionYearClimate[e][year].ToMonthlyInputLogs(year, _modelCore.Ecoregions[e]))
                     {
                         _spinupMonthlyInputLog.AddObject(log);
+                        if (++j == _logChunkSize)
+                        {
+                            _spinupMonthlyInputLog.WriteToFile();
+                            _spinupMonthlyInputLog.Clear();
+                            j = 0;
+                        }
                     }
                 }
             }
-            _spinupMonthlyInputLog.WriteToFile();
+            if (j > 0)
+            {
+                _spinupMonthlyInputLog.WriteToFile();
+                _spinupMonthlyInputLog.Clear();
+            }
 
             _futureMonthlyInputLog.Clear();
+            j = 0;
             for (var year = 1; year <= _futureRequiredYearCount; ++year) // 1-based year
             {
                 for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
@@ -331,14 +347,25 @@ namespace Landis.Library.Climate
                     foreach (var log in FutureEcoregionYearClimate[e][year].ToMonthlyInputLogs(year, _modelCore.Ecoregions[e]))
                     {
                         _futureMonthlyInputLog.AddObject(log);
+                        if (++j == _logChunkSize)
+                        {
+                            _futureMonthlyInputLog.WriteToFile();
+                            _futureMonthlyInputLog.Clear();
+                            j = 0;
+                        }
                     }
                 }
             }
-            _futureMonthlyInputLog.WriteToFile();
+            if (j > 0)
+            {
+                _futureMonthlyInputLog.WriteToFile();
+                _futureMonthlyInputLog.Clear();
+            }
 
             if (FutureTimeStep == TimeSeriesTimeStep.Daily)
             {
                 _futureDailyInputLog.Clear();
+                j = 0;
                 for (var year = 1; year <= _futureRequiredYearCount; ++year) // 1-based year
                 {
                     for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
@@ -348,16 +375,29 @@ namespace Landis.Library.Climate
                         foreach (var log in FutureEcoregionYearClimate[e][year].ToDailyInputLogs(year, _modelCore.Ecoregions[e]))
                         {
                             _futureDailyInputLog.AddObject(log);
+                            if (++j == _logChunkSize)
+                            {
+                                _futureDailyInputLog.WriteToFile();
+                                _futureDailyInputLog.Clear();
+                                j = 0;
+                            }
                         }
                     }
                 }
-                _futureDailyInputLog.WriteToFile();
+                if (j > 0)
+                {
+                    _futureDailyInputLog.WriteToFile();
+                    _futureDailyInputLog.Clear();
+                }
             }
         }
 
         private static void WriteAnnualLogs()
         {
+            int j;
+
             _spinupAnnualLog.Clear();
+            j = 0;
             for (var year = 1; year <= _spinupRequiredYearCount; ++year) // 1-based year
             {
                 for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
@@ -375,11 +415,23 @@ namespace Landis.Library.Climate
                         BeginGrow = SpinupEcoregionYearClimate[e][year].BeginGrowingDay,
                         EndGrow = SpinupEcoregionYearClimate[e][year].EndGrowingDay,
                     });
+
+                    if (++j == _logChunkSize)
+                    {
+                        _spinupAnnualLog.WriteToFile();
+                        _spinupAnnualLog.Clear();
+                        j = 0;
+                    }
                 }
             }
-            _spinupAnnualLog.WriteToFile();
+            if (j > 0)
+            {
+                _spinupAnnualLog.WriteToFile();
+                _spinupAnnualLog.Clear();
+            }
 
             _futureAnnualLog.Clear();
+            j = 0;
             for (var year = 1; year <= _futureRequiredYearCount; ++year) // 1-based year
             {
                 for (var e = 0; e < _modelCore.Ecoregions.Count; ++e)
@@ -397,9 +449,20 @@ namespace Landis.Library.Climate
                                                    BeginGrow = FutureEcoregionYearClimate[e][year].BeginGrowingDay,
                                                    EndGrow = FutureEcoregionYearClimate[e][year].EndGrowingDay,
                     });
+
+                    if (++j == _logChunkSize)
+                    {
+                        _futureAnnualLog.WriteToFile();
+                        _futureAnnualLog.Clear();
+                        j = 0;
+                    }
                 }
             }
-            _futureAnnualLog.WriteToFile();
+            if (j > 0)
+            {
+                _futureAnnualLog.WriteToFile();
+                _futureAnnualLog.Clear();
+            }
         }
 
         #endregion
