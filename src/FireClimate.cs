@@ -20,13 +20,14 @@ namespace Landis.Library.Climate
             double duffMoistureCodeYesterday = ConfigParameters.DuffMoistureCode_Yesterday;
             double droughtCodeYesterday = ConfigParameters.DroughtCode_Yesterday;
 
-            if (ConfigParameters.SpringStart < 0 || ConfigParameters.SpringStart >= yearRecords.Count ||
-                //ConfigParameters.WinterStart < 0 || ConfigParameters.WinterStart >= yearRecords.Count || #bypasses FWI calcs if winterstart=365
-                ConfigParameters.WinterStart < 0 || 
-                ConfigParameters.SpringStart > ConfigParameters.WinterStart) return;
+            // assume ConfigParameters.SpringStart and ConfigParameters.WinterStart are one-based values
+            // convert to zero-based values, i.e. shift the range [1, 365] to [0, 364]
+            // Therefore, a ConfigParameters.SpringStart of 30 will start on day 29 in the input log
+            var start = Math.Max(0, ConfigParameters.SpringStart - 1);
+            var end = Math.Min(364, ConfigParameters.WinterStart - 1);
 
             // loop over days from SpringStart to WinterStart
-            for (var d = ConfigParameters.SpringStart; d <= ConfigParameters.WinterStart; ++d)
+            for (var d = start; d <= end; ++d)
             {
                 var record = yearRecords[d];
 
