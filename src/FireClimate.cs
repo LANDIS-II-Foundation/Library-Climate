@@ -21,7 +21,8 @@ namespace Landis.Library.Climate
             double droughtCodeYesterday = ConfigParameters.DroughtCode_Yesterday;
 
             if (ConfigParameters.SpringStart < 0 || ConfigParameters.SpringStart >= yearRecords.Count ||
-                ConfigParameters.WinterStart < 0 || ConfigParameters.WinterStart >= yearRecords.Count ||
+                //ConfigParameters.WinterStart < 0 || ConfigParameters.WinterStart >= yearRecords.Count || #bypasses FWI calcs if winterstart=365
+                ConfigParameters.WinterStart < 0 || 
                 ConfigParameters.SpringStart > ConfigParameters.WinterStart) return;
 
             // loop over days from SpringStart to WinterStart
